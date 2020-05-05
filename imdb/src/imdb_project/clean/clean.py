@@ -25,7 +25,7 @@ def title_basics(product, upstream):
     # episodes = pd.read_parquet(str(upstream['clean_title_episode']))
     # df = df.merge(episodes, on='tconst', how='inner')
 
-    df.drop(['endYear', 'runtimeMinutes'], axis='columns', inplace=True)
+    # df.drop(['endYear', 'runtimeMinutes'], axis='columns', inplace=True)
 
     df = df[~(df.genres.isna() | df.startYear.isna() |
               df.primaryTitle.isna() | df.originalTitle.isna())]
@@ -35,13 +35,13 @@ def title_basics(product, upstream):
     genres = set([item for sublist in tokens for item in sublist])
 
     for genre in genres:
-        df[genre] = df.genres.str.contains(genre)
+        df['genre_'+genre] = df.genres.str.contains(genre)
 
     df.drop('genres', axis='columns', inplace=True)
 
     df = pd.concat([df, pd.get_dummies(df.titleType)], axis=1)
-    df.drop(['titleType', 'primaryTitle', 'originalTitle'],
-            axis='columns', inplace=True)
+    # df.drop(['titleType', 'primaryTitle', 'originalTitle'],
+            # axis='columns', inplace=True)
 
     df.to_parquet(str(product))
 

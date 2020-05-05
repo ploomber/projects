@@ -1,8 +1,0 @@
-shap
-jupyter
-pandas
-scikit-learn
-
-pytest
-
-ploomber

@@ -15,6 +15,7 @@ from ploomber import DAG
 from ploomber.tasks import TaskFactory, PythonCallable, NotebookRunner
 from ploomber.products import File
 
+
 @load_env
 def make_get_raw_task(env, name, dag, url):
     """Create a task to download a raw dataset
@@ -25,6 +26,7 @@ def make_get_raw_task(env, name, dag, url):
                           dag=dag,
                           params=dict(url=url),
                           name=f'raw_{name}')
+
 
 @with_env
 def make(env):
