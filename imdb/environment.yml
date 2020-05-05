@@ -1,0 +1,4 @@
+name: imdb
+
+dependencies:
+  - python=3.7
