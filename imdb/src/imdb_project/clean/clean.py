@@ -41,7 +41,7 @@ def title_basics(product, upstream):
 
     df = pd.concat([df, pd.get_dummies(df.titleType)], axis=1)
     # df.drop(['titleType', 'primaryTitle', 'originalTitle'],
-            # axis='columns', inplace=True)
+    # axis='columns', inplace=True)
 
     df.to_parquet(str(product))
 
