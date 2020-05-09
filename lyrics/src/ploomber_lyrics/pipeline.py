@@ -54,5 +54,5 @@ def make(env, artist_name, language):
 
 
 if __name__ == '__main__':
-    dag = make(artist_name='Pink Floyd', language='english')
+    dag = make(artist_name='Pink Floyd', language=None)
     dag.build()
