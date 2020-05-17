@@ -26,6 +26,9 @@ pytest
 # complete
 pytest --force
 
-# to debug
+# to start a debugging session on exceptions
 pytest --pdb
+
+# to start a debugging session at the start of every test
+pytest --trace
 ```
