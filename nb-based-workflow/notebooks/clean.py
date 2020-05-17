@@ -6,10 +6,11 @@ product = None
 upstream = None
 
 # + tags=[]
-df = pd.read_csv(upstream['load.py']['data'])
-
+df = pd.read_csv(upstream['load'])
 df
-
-df['x'] = df['x'] + 2
-
+# + tags=[]
+df['x'] = df['x'] + 100
 df.to_csv(product['data'], index=False)
+
+# + tags=[]
+

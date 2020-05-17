@@ -5,8 +5,10 @@ To run:
 """
 from pathlib import Path
 
-from ploomber import DAG
-from ploomber.tasks import NotebookRunner
+import functions
+
+from ploomber import DAGConfigurator
+from ploomber.tasks import NotebookRunner, PythonCallable
 from ploomber.products import File
 
 
@@ -16,11 +18,11 @@ from ploomber.products import File
 # converted on demand to notebooks instead. We can also exploit the
 # dependency structure to run things in parallel
 
-# TODO: enable hot_reload
+cfg = DAGConfigurator()
+cfg.params.hot_reload = True
+dag = cfg.create()
 
-dag = DAG(executor='parallel')
-
-# Our notebook declaration is minimal, we just specify where the soruce code
+# Our notebook declaration is minimal, we just specify where the source code
 # is located and where to save the executed notebooks and any other files
 # the notebook will save
 out = Path('output')
@@ -36,12 +38,10 @@ nb = Path('notebooks')
 
 # notebooks do not have to be in Python, they can be in R, Julia or any
 # other language supported by Jupyter
-load = NotebookRunner(nb / 'load.py',
-                      product={'nb': File(out / 'load.ipynb'),
-                               'data': File(out / 'data.csv')},
+load = PythonCallable(functions.load,
+                      product=File(out / 'data.csv'),
                       dag=dag,
-                      kernelspec_name='python3',
-                      static_analysis=True)
+                      name='load')
 
 
 clean = NotebookRunner(nb / 'clean.py',
@@ -61,20 +61,13 @@ plot = NotebookRunner(nb / 'plot.py',
 # declare execution dependencies
 load >> clean >> plot
 
-# render workflow, inject cells with parameters (product, upstream)
-# and make sure all looks good before execution
-dag.render()
-
-# plot workflow
 dag.plot()
-
-# generate a summary report - useful to given a high-level overview for new
-# developers and stakeholders
-_ = dag.to_markup(path=out / 'report.html')
-
 
 # build workflow
 dag.build()
+
+# plot updated
+dag.plot()
 
 # we can edit the .py source code files directly but there is a nicer way.
 # since our tasks have dependencies, they need access to them to run, (e.g.
@@ -83,8 +76,9 @@ dag.build()
 # a new cell, such cell is removed before saving the notebook
 clean.debug()
 
+# plot updated
+dag.plot()
+
 # build again, only notebooks whose source code has changed will be executed
+# static analysis is run on each notbeook before execution
 dag.build()
-
-# Fully reproducible: delete files, move code around and try again
-
