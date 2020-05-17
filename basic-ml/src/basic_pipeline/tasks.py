@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 
 
-def get(product):
+def get(product, sample_frac):
     """Get data
     """
     d = datasets.load_iris()
@@ -17,6 +17,10 @@ def get(product):
     df = pd.DataFrame(d['data'])
     df.columns = d['feature_names']
     df['target'] = d['target']
+
+    # for running tests
+    if sample_frac:
+        df = df.sample(frac=sample_frac)
 
     df.to_parquet(str(product))
 

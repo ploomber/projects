@@ -12,7 +12,7 @@ pip install .
 ## Executing pipeline
 
 ```bash
-python -m basic_pipeline.execute output/
+python -m ploomber.entry basic_pipeline.pipeline.make --help
 ```
 
 ## Testing
@@ -20,5 +20,12 @@ python -m basic_pipeline.execute output/
 ```bash
 pip install -r requirements.txt
 
+# incremental
 pytest
+
+# complete
+pytest --force
+
+# to debug
+pytest --pdb
 ```
