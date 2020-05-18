@@ -1,0 +1,15 @@
+# this is tne base environment, specific projects might have special
+# dependencies. Since binder builds the image based on a single environment
+# we provide this one which includes dependencies most projects need anyway)
+name: ploomber_projects
+
+dependencies:
+  - python=3.7
+  - numpy
+  - pandas
+  - pip
+  - pygraphviz
+  - pip:
+    - seaborn
+    - ploomber[all]
+

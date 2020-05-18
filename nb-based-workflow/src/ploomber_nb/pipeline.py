@@ -5,9 +5,9 @@ To run:
 """
 from pathlib import Path
 
-import functions
+from ploomber_nb import functions
 
-from ploomber import DAGConfigurator
+from ploomber import DAGConfigurator, SourceLoader
 from ploomber.tasks import NotebookRunner, PythonCallable
 from ploomber.products import File
 
@@ -28,7 +28,8 @@ def make():
     # the notebook will save
     out = Path('output')
     out.mkdir(exist_ok=True)
-    nb = Path('notebooks')
+
+    loader = SourceLoader(path='notebooks', module='ploomber_nb')
 
     # avoid hardcoding paths to files, instead, add them during execution,
     # this makes easy to switch folders (e.g. for a different developer storing
@@ -44,14 +45,14 @@ def make():
                           dag=dag,
                           name='load')
 
-    clean = NotebookRunner(nb / 'clean.py',
+    clean = NotebookRunner(loader['clean.py'],
                            product={'nb': File(out / 'clean.ipynb'),
                                     'data': File(out / 'ficlean.csv')},
                            dag=dag,
                            kernelspec_name='python3',
                            static_analysis=True)
 
-    plot = NotebookRunner(nb / 'plot.py',
+    plot = NotebookRunner(loader['plot.py'],
                           File(out / 'plot.ipynb'),
                           dag=dag,
                           kernelspec_name='python3',
