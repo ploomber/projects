@@ -3,7 +3,7 @@ Pipeline declaration using ploomber:
 
 https://github.com/ploomber/ploomber
 """
-from ploomber import with_env, DAG
+from ploomber import with_env, DAGConfigurator
 from ploomber.tasks import PythonCallable
 from ploomber.products import File
 
@@ -32,7 +32,8 @@ def make(env):
 
 def _make(env):
     # this is the private function we use to pass the testing environment
-    dag = DAG()
+    cfg = DAGConfigurator(env.dag_config)
+    dag = cfg.create(name='ml-pipeline')
 
     get = PythonCallable(tasks.get,
                          File(env.path.data / 'data.parquet'),
