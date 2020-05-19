@@ -1,39 +1,42 @@
+import shutil
 from pathlib import Path
 
-from ploomber_nb import functions
+from ploomber_basic import functions
 
 from ploomber import DAGConfigurator, SourceLoader
 from ploomber.tasks import NotebookRunner, PythonCallable
 from ploomber.products import File
 
 
-def make():
+def make(clean_up=True):
     cfg = DAGConfigurator()
     cfg.params.hot_reload = True
     dag = cfg.create()
 
     # we will save all output here
     out = Path('output')
+
+    if clean_up:
+        shutil.rmtree(str(out))
+
     out.mkdir(exist_ok=True)
 
     # source loaders allows us to easily load files from modules
-    loader = SourceLoader(path='notebooks', module='ploomber_nb')
+    loader = SourceLoader(path='notebooks', module='ploomber_basic')
 
-    # out first task is a Python function, it generates and output csv file
+    # our first task is a Python function, it generates and output csv file
     load = PythonCallable(functions.load,
                           product=File(out / 'data.csv'),
                           dag=dag,
                           name='load')
 
-    # Our second task is a Python script, why is it using a task called
-    # NotebookRunner? This task runs code as a Jupyter notebook, you might
-    # pass a .ipynb but you can pass .py files as well, which will be converted
-    # to notebooks before execution. It is hard to run git diff .ipynb files
-    # (they are JSON strings), using scripts allows you to easily control
-    # versions
+    # Our second task is a Python script. Since we are using the NotebookRunner
+    # task, it will convert it to a Jupyter notebook before execution (you can
+    # still pass a .ipynb file). We recommend using .py files as they are
+    # easier to merge with git
     clean = NotebookRunner(loader['clean.py'],
                            # this task generates two files, the .ipynb
-                           # output notebook itself and another csv file
+                           # output notebook and another csv file
                            product={'nb': File(out / 'clean.ipynb'),
                                     'data': File(out / 'clean.csv')},
                            dag=dag,
@@ -42,9 +45,9 @@ def make():
                            kernelspec_name='python3',
                            # by enabling this option, a few checks are
                            # performed on your code before running the
-                           # notebook, given that jupyter notebooks are run
+                           # notebook. Given that jupyter notebooks are run
                            # cell by cell, something as simple as a syntax
-                           # error will be discovered until such cell is run
+                           # error will be discovered until such cell is run,
                            # this gives you immediate feedback
                            static_analysis=True,
                            papermill_params={'nest_asyncio': True})
