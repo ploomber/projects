@@ -1,3 +1,3 @@
-# examples
+# Ploomber sample projects
 
-Ploomber examples
+https://mybinder.org/v2/gh/ploomber/projects/master
