@@ -16,7 +16,7 @@ def make(clean_up=True):
     # we will save all output here
     out = Path('output')
 
-    if clean_up:
+    if clean_up and out.exists():
         shutil.rmtree(str(out))
 
     out.mkdir(exist_ok=True)
