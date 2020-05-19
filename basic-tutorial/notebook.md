@@ -61,15 +61,16 @@ list(dag)
 ```python
 # get task
 task = dag['load']
+```
 
-# print source code
-print(task.source)
-
+```python
 # where is this code declared?
 print(task.source.loc)
 ```
 
-Go ahead and modify the function, for example, instead of having:
+Let's modify the code to see how Ploomber handles the change.
+
+For example, replace the line:
 
 <!-- #md -->
 
@@ -77,15 +78,15 @@ Go ahead and modify the function, for example, instead of having:
 df['x'] = df['x'] = 1
 ```
 
-Replace it with (or anything you want):
+With:
 
 ```python
-df['x'] = df['x'] = 2
+df['x'] = df['x'] = 42
 ```
 
 <!-- #endmd -->
 
-[Click here to open the notebook](src/ploomber_basic/notebooks/functions.py)
+[Click here to open functions.py](src/ploomber_basic/functions.py)
 
 
 Then come back and run:
@@ -94,7 +95,7 @@ Then come back and run:
 dag.build()
 ```
 
-You should see that all three tasks ran again, that's because the load function is the root node. Let's try with another task:
+You should see that all three tasks ran, that's because the load function is the root node. Let's try with another task:
 
 ```python
 print(dag['clean.py'].source.loc)
@@ -102,7 +103,7 @@ print(dag['clean.py'].source.loc)
 
 Go ahead and modify the file.
 
-[Click here to open the notebook](src/ploomber_basic/notebooks/clean.py)
+[Click here to open clean.py](src/ploomber_basic/notebooks/clean.py)
 
 Then run:
 
