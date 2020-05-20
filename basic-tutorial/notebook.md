@@ -36,20 +36,25 @@ Plotting it makes easy to understand dependencies between tasks, each node corre
 Image(filename=dag.plot())
 ```
 
+<!-- #region -->
 From the diagram above we can see that running our pipeline will generate a few things:
 
 1. Load task (Python function): generates a CSV file
 2. Clean task (Jupyter notebook): the notebook itself and another CSV file
 3. Plot task (Jupyter notebook): the notebook itself
 
+
+The pipeline structure also implies that load is a dependency for clean, and clean is a dependency for plot. Given such specification, Ploomber knows that it has to run load, clean and plot, in that order. Furthermore, when clean is executed, Ploomber will automatically insert the output from load at runtime, this ensures that you are running your code with the right inputs (there are no hardcoded paths in any of the tasks).
+
 Let's run it now:
+<!-- #endregion -->
 
 ```python
 dag.build()
 ```
 
 <!-- #region -->
-You can take a look at the generate output by [clicking here](output/), take a look at the notebooks. They are just like our Python scripts but in Jupyter notebook format, which makes easy to embed tables and plots, while we keep our source code clean in our Python scripts.
+You can take a look at the generate output by [clicking here](output/), take a look at the notebooks, they are just like our Python scripts but in Jupyter notebook format, which makes easy to embed tables and plots, while we keep our source code clean in our Python scripts.
 
 
 Let's see what happens if we build again:
@@ -59,7 +64,7 @@ Let's see what happens if we build again:
 dag.build()
 ```
 
-It didn't run anything! That's because our pipeline has not changed, there is nothing to run. Ploomber keeps track of source code changes and skips up-to-date tasks. This can save you a lot of time, especially when tasks take a lot to run.
+It didn't run anything! That's because our pipeline has not changed, there is nothing to run, skipping unnecessary computations can save you a lot of time, especially when tasks take a lot to run. Our example is a simple, linear graph, but Ploomber works even when your pipeline has a lot of tasks with multiple dependencies.
 
 Apart from the `build()` method, our `dag` object is a fully interactive way of exploring our pipeline. Let's use it to know where our code is located:
 
@@ -122,7 +127,7 @@ dag.build()
 ```
 
 <!-- #region -->
-You should see that Ploomber skipped running the load task since modifying the clean task didn't change it. You can save a lot of time by letting Ploomber automatically figure out which tasks to run, especially when those computations take a lot of time to run.
+You should see that Ploomber skipped the load task since the clean task is not a dependency.
 
 Ploomber also provides a convenient way to debug tasks. Imagine we found and error in our load step and we want to see what's going on, we can easily do so by starting a debugging session.
 
@@ -134,15 +139,16 @@ dag['load'].debug()
 
 in the cell below.
 
-Type `n` and press enter to move to the next line, `q` and enter to quit.
-
-Tip: Try running `n` once to move to the second line, then `df` to print the data frame contents.
 <!-- #endregion -->
 
 ```python
 # Remove the comment from the line below, a new prompt will appear
 # dag['load'].debug()
 ```
+
+Type `n` and press enter to move to the next line, `q` and enter to quit.
+
+**Tip**: Try running `n` once to move to the second line, then `df` to print the data frame contents.
 
 Let's take a look at the actual pipeline declaration, where we'll find a bunch of interesting things.
 
