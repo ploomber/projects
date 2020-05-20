@@ -111,11 +111,32 @@ Then run:
 dag.build()
 ```
 
+<!-- #region -->
 You should see that Ploomber skipped running the load task since modifying the clean task didn't change it. You can save a lot of time by letting Ploomber automatically figure out which tasks to run, especially when those computations take a lot of time to run.
+
+Ploomber also provides a convenient way to debug tasks. Imagine we found and error in our load step and we want to see what's going on, we can easily do so by starting a debugging session.
+
+Try it out by typing:
+
+```python
+dag['load'].debug()
+```
+
+in the cell below.
+
+Type `n` and press enter to move to the next line, `q` and enter to quit.
+
+Tip: Try running `n` once to move to the second line, then `df` to print the data frame contents.
+<!-- #endregion -->
+
+```python
+# Remove the comment from the line below, a new prompt will appear
+# dag['load'].debug()
+```
 
 Let's take a look at the actual pipeline declaration, where we'll find a bunch of interesting things.
 
-```python 
+```python
 Markdown("""
 ```python
 {}
@@ -123,7 +144,9 @@ Markdown("""
 """.format(Path(pipeline.__file__).read_text()))
 ```
 
-You've made it to the end of this tutorial. Hopefully this will convince you to give Ploomber a try. Don't hesitate with any questions you might have. Feel free to [open an issue](https://github.com/ploomber/ploomber/issues/new) in the repository. Thanks for reading!
+You've made it to the end of this tutorial. Hopefully this will convince you to give it a try in your next project. Ploomber is much more than executing functions and scripts. It also handles SQL scripts pretty well, allows you to test the output of each task, handle configuration settings and much more!
+
+Don't hesitate with any questions you might have. Feel free to [open an issue](https://github.com/ploomber/ploomber/issues/new) in the repository. Thanks for reading!
 
 ## Where to go from here
 
