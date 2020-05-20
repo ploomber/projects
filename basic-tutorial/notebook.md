@@ -36,22 +36,32 @@ Plotting it makes easy to understand dependencies between tasks, each node corre
 Image(filename=dag.plot())
 ```
 
-Our pipeline has three tasks: load, clean and plot. Ploomber will keep track of your source code and mark as outdated any task that changed since last execution. Making your whole pipeline up-to-date is as simple as running:
+From the diagram above we can see that running our pipeline will generate a few things:
+
+1. Load task (Python function): generates a CSV file
+2. Clean task (Jupyter notebook): the notebook itself and another CSV file
+3. Plot task (Jupyter notebook): the notebook itself
+
+Let's run it now:
 
 ```python
 dag.build()
 ```
+
+<!-- #region -->
+You can take a look at the generate output by [clicking here](output/), take a look at the notebooks. They are just like our Python scripts but in Jupyter notebook format, which makes easy to embed tables and plots, while we keep our source code clean in our Python scripts.
+
 
 Let's see what happens if we build again:
+<!-- #endregion -->
 
 ```python
 dag.build()
 ```
 
-It didn't run anything! That's because our pipeline has not changed, there is nothing to run.
+It didn't run anything! That's because our pipeline has not changed, there is nothing to run. Ploomber keeps track of source code changes and skips up-to-date tasks. This can save you a lot of time, especially when tasks take a lot to run.
 
-
-Our `dag` object is a fully interactive way of exploring our pipeline. Let's use the DAG object to know where our code is located:
+Apart from the `build()` method, our `dag` object is a fully interactive way of exploring our pipeline. Let's use it to know where our code is located:
 
 ```python
 # get list of task names
