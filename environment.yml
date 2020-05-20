@@ -11,6 +11,6 @@ dependencies:
   - pygraphviz
   - pip:
     - seaborn
-    - ploomber[all]>=0.4.1
+    - git+https://github.com/ploomber/ploomber.git#egg=ploomber[all]
     - jupyter_client>=5.3.1
 
