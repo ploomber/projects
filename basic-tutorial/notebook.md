@@ -36,18 +36,17 @@ Plotting it makes easy to understand dependencies between tasks, each node corre
 Image(filename=dag.plot())
 ```
 
-<!-- #region -->
 From the diagram above we can see that running our pipeline will generate a few things:
 
-1. Load task (Python function): generates a CSV file
-2. Clean task (Jupyter notebook): the notebook itself and another CSV file
-3. Plot task (Jupyter notebook): the notebook itself
+1. Load task (Python function): CSV file
+2. Clean task (Python script):  Jupyter notebook and another CSV file
+3. Plot task (Python scripts): Jupyter notebook
 
+*Note: Ploomber allows you to run Python scripts as notebooks but you can execute Jupyter notebooks as well, the output will be a copy of the original notebook.*
 
 The pipeline structure implies that load is a dependency for clean, and clean is a dependency for plot. Given such specification, Ploomber knows that it has to run load, clean and plot, in that order. Furthermore, when clean is executed, Ploomber will automatically insert the output from load at runtime, this ensures that you are running your code with the right inputs (there are no hardcoded paths in any of the tasks).
 
 Let's run it now:
-<!-- #endregion -->
 
 ```python
 dag.build()
