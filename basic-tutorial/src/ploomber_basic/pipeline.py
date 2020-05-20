@@ -24,7 +24,7 @@ def make(clean_up=True):
     # source loaders allows us to easily load files from modules
     loader = SourceLoader(path='notebooks', module='ploomber_basic')
 
-    # our first task is a Python function, it generates and output csv file
+    # our first task is a Python function, it outputs a csv file
     load = PythonCallable(functions.load,
                           product=File(out / 'data.csv'),
                           dag=dag,
