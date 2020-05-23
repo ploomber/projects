@@ -5,7 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Run action on spec/
     steps:
+    # this step makes your repo available to the next one
     - uses: actions/checkout@v2
+    # our action will move to "path", configure the environment and then build
+    # the pipeline.yaml spec
     - uses: ploomber/ci@master
       with:
         path: spec/
