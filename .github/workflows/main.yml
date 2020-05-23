@@ -3,7 +3,7 @@ on: push
 jobs:
   spec_job:
     runs-on: ubuntu-latest
-    name: Run action on spec/
+    name: ci
     steps:
     # this step makes your repo available to the next one
     - uses: actions/checkout@v2
