@@ -1,9 +1,10 @@
+name: ci
 on: push
 
 jobs:
   spec_job:
     runs-on: ubuntu-latest
-    name: ci
+    name: spec ci
     steps:
     # this step makes your repo available to the next one
     - uses: actions/checkout@v2
