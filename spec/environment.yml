@@ -8,5 +8,5 @@ dependencies:
   - matplotlib
   - pip:
     - seaborn
-    - ploomber[all]
+    - git+https://github.com/ploomber/ploomber.git#egg=ploomber[all]
 
