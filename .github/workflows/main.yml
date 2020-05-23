@@ -1,0 +1,10 @@
+on: push
+
+jobs:
+  spec_job:
+    runs-on: ubuntu-latest
+    name: Run action on spec/
+    steps:
+    - uses: ploomber/ci
+      with:
+        path: spec/
