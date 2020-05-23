@@ -5,6 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Run action on spec/
     steps:
-    - uses: ploomber/ci
+    - uses: ploomber/ci@d54671709090e68b698eef55b29646dc1e982712
       with:
         path: spec/
