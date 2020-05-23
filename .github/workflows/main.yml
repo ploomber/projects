@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run action on spec/
     steps:
+    - uses: actions/checkout@v2
     - uses: ploomber/ci@master
       with:
         path: spec/
