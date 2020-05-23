@@ -6,6 +6,7 @@ dependencies:
   - pandas
   - pip
   - matplotlib
+  - pygraphviz
   - pip:
     - seaborn
     - git+https://github.com/ploomber/ploomber.git#egg=ploomber[all]
