@@ -1,12 +1,10 @@
-name: spec
+name: basic-tutorial
 
 dependencies:
   - python=3.7
   - numpy
   - pandas
   - pip
-  - matplotlib
-  - pygraphviz
   - pip:
     - seaborn
 

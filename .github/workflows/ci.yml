@@ -2,14 +2,23 @@ name: ci
 on: push
 
 jobs:
-  spec_job:
+  spec:
     runs-on: ubuntu-latest
     name: spec ci
     steps:
-    # this step makes your repo available to the next one
-    - uses: actions/checkout@v2
-    # our action will move to "path", configure the environment and then build
-    # the pipeline.yaml spec
-    - uses: ploomber/ci@master
-      with:
-        path: spec/
+      # this step makes your repo available to the next one
+      - uses: actions/checkout@v2
+      # our action will move to "path", configure the environment and then build
+      # the pipeline.yaml spec
+      - uses: ploomber/ci@master
+        with:
+          path: spec/
+
+  # basic-tutorial:
+  #   runs-on: ubuntu-latest
+  #   name: basic-tutorial ci
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ploomber/ci@master
+  #       with:
+  #         path: basic-tutorial/

@@ -65,3 +65,8 @@ def make(clean_up=True):
     load >> clean >> plot
 
     return dag
+
+
+if __name__ == '__main__':
+    dag = make()
+    dag.build()
