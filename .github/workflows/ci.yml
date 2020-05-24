@@ -14,11 +14,11 @@ jobs:
         with:
           path: spec/
 
-  # basic-tutorial:
-  #   runs-on: ubuntu-latest
-  #   name: basic-tutorial ci
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ploomber/ci@master
-  #       with:
-  #         path: basic-tutorial/
+  basic-tutorial:
+    runs-on: ubuntu-latest
+    name: basic-tutorial ci
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ploomber/ci@master
+        with:
+          path: basic-tutorial/
