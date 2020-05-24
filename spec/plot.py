@@ -9,5 +9,4 @@ upstream = None
 # +
 df = pd.read_csv(str(upstream['clean']['data']))
 
-
 plt.plot(np.random.rand(10))
