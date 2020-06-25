@@ -10,6 +10,7 @@ dependencies:
   - pip
   - pygraphviz
   - pip:
+    - faker
     - seaborn
     - git+https://github.com/ploomber/ploomber.git#egg=ploomber[all]
     - jupyter_client>=5.3.1
