@@ -1,12 +1,11 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+import seaborn as sns
 
 # + tags=["parameters"]
 product = None
-upstream = None
+upstream = {'join_dump.sql': None}
 
 # +
-df = pd.read_csv(str(upstream['clean']['data']))
+df = pd.read_csv(str(upstream['join_dump.sql']))
 
-plt.plot(np.random.rand(10))
+sns.distplot(df.revenue)

@@ -1,19 +1,38 @@
-- class: NotebookRunner
-  source: load.py
-  product:
-    nb: output/load.ipynb
-    data: output/data.csv
+meta:
+  extract_product: False
 
-- class: NotebookRunner
-  name: clean
-  source: clean.py
-  product:
-    nb: output/clean.ipynb
-    data: output/clean.csv
-  upstream: [load.py]
+config:
+  clients:
+    SQLScript: config.get_client
+    SQLiteRelation: config.get_client
+    SQLDump: config.get_client
 
-- class: NotebookRunner
-  name: plot
-  source: plot.py
-  product: output/plot.ipynb
-  upstream: clean
+tasks:
+  - class: SQLScript
+    source: filter_sales.sql
+    product: [filtered_sales, table]
+    product_class: SQLiteRelation
+
+  - class: SQLScript
+    source: group_sales.sql
+    product: [grouped_sales, table]
+    product_class: SQLiteRelation
+
+  - class: SQLScript
+    source: filter_prices.sql
+    product: [filtered_prices, table]
+    product_class: SQLiteRelation
+
+  - class: SQLScript
+    source: join.sql
+    product: [joined, table]
+    product_class: SQLiteRelation
+
+  - class: SQLDump
+    source: join_dump.sql
+    product: output/joined_data.csv
+    chunksize: null
+
+  - class: NotebookRunner
+    source: plot.py
+    product: output/plot.html
