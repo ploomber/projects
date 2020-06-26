@@ -9,6 +9,7 @@ dependencies:
   - pandas
   - pip
   - pygraphviz
+  - matplotlib
   - pip:
     - faker
     - seaborn
