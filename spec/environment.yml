@@ -7,9 +7,7 @@ dependencies:
   - pip
   - matplotlib
   - pygraphviz
-  - sqlalchemy
   - pip:
-    - faker
     - seaborn
     - git+https://github.com/ploomber/ploomber.git#egg=ploomber[all]
 
