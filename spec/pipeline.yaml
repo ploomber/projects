@@ -1,38 +1,36 @@
 meta:
   extract_product: False
 
+  product_default_class:
+    SQLScript: SQLiteRelation
+
 config:
-  clients:
-    SQLScript: config.get_client
-    SQLiteRelation: config.get_client
-    SQLDump: config.get_client
+  hot_reload: True
+
+clients:
+  # tasks
+  SQLScript: config.get_client
+  SQLDump: config.get_client
+  # products
+  SQLiteRelation: config.get_client
 
 tasks:
-  - class: SQLScript
-    source: filter_sales.sql
+  - source: filter_sales.sql
     product: [filtered_sales, table]
-    product_class: SQLiteRelation
 
-  - class: SQLScript
-    source: group_sales.sql
+  - source: group_sales.sql
     product: [grouped_sales, table]
-    product_class: SQLiteRelation
 
-  - class: SQLScript
-    source: filter_prices.sql
+  - source: filter_prices.sql
     product: [filtered_prices, table]
-    product_class: SQLiteRelation
 
-  - class: SQLScript
-    source: join.sql
+  - source: join.sql
     product: [joined, table]
-    product_class: SQLiteRelation
 
   - class: SQLDump
     source: join_dump.sql
     product: output/joined_data.csv
     chunksize: null
 
-  - class: NotebookRunner
-    source: plot.py
+  - source: plot.py
     product: output/plot.html
