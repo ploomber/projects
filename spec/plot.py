@@ -3,9 +3,9 @@ import seaborn as sns
 
 # + tags=["parameters"]
 product = None
-upstream = {'join_dump.sql': None}
+upstream = {'join_dump': None}
 
 # +
-df = pd.read_csv(str(upstream['join_dump.sql']))
+df = pd.read_csv(str(upstream['join_dump']))
 
 sns.distplot(df.revenue)

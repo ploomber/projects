@@ -1,3 +1,6 @@
+"""
+Module to create connections to the database
+"""
 from ploomber.clients import SQLAlchemyClient
 
 

@@ -17,19 +17,24 @@ clients:
 tasks:
   - source: filter_sales.sql
     product: [filtered_sales, table]
+    name: filter_sales
 
   - source: group_sales.sql
     product: [grouped_sales, table]
+    name: group_sales
 
   - source: filter_prices.sql
     product: [filtered_prices, table]
+    name: filter_prices
 
   - source: join.sql
     product: [joined, table]
+    name: join
 
   - class: SQLDump
     source: join_dump.sql
     product: output/joined_data.csv
+    name: join_dump
     chunksize: null
 
   - source: plot.py

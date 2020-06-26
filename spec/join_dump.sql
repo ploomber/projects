@@ -1,1 +1,1 @@
-SELECT * FROM {{upstream['join.sql']}}
+SELECT * FROM {{upstream['join']}}
