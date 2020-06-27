@@ -22,12 +22,12 @@ Markdown('```yaml\n{}```'.format(Path('join.sql').read_text()))
 Alright, let's get going, we can run our pipeline with the following command:
 
 ```sh
-! python -m ploomber.entry pipeline.yaml --action build
+! ploomber entry pipeline.yaml
 ```
 That's it. We just build our pipeline. Let's try again.
 
 ```sh
-! python -m ploomber.entry pipeline.yaml --action build
+! ploomber entry pipeline.yaml
 ```
 
 This time it finished real quick because there is nothing to do, nothing has changed.
@@ -43,7 +43,7 @@ Also try mofidying any of the SQL scripts:
 Let's build again:
 
 ```sh
-! python -m ploomber.entry pipeline.yaml --action build
+! ploomber entry pipeline.yaml
 ```
 
 Depending on your changes, Ploomber will determine which tasks to run again and which ones to skip.
@@ -55,5 +55,6 @@ That's it! Ploomber makes it very simple to manage your data workflows.
 
 ## Where to go from here
 
+* [Blog post](https://ploomber.io/posts/collaborative-ds/)
 * [Github](https://github.com/ploomber/ploomber)
 * [Documentation](https://ploomber.readthedocs.io/en/stable/)
