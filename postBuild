@@ -2,6 +2,3 @@
 pip install --editable basic-tutorial/
 
 cd spec/setup && bash setup.sh && cd ../..
-
-
-jupyter serverextension enable ploomber
