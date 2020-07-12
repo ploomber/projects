@@ -8,8 +8,7 @@ upstream = {'join_dump'}
 
 # +
 df = pd.read_csv(str(upstream['join_dump']))
-
 sns.distplot(df.revenue)
-# -
+
 
 
