@@ -4,6 +4,8 @@ meta:
   product_default_class:
     SQLScript: SQLiteRelation
 
+  jupyter_hot_reload: True
+
 config:
   hot_reload: True
 

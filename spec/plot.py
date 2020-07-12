@@ -3,7 +3,8 @@ import seaborn as sns
 
 # + tags=["parameters"]
 product = None
-upstream = {'join_dump': None}
+upstream = {'join_dump'}
+
 
 # +
 df = pd.read_csv(str(upstream['join_dump']))
