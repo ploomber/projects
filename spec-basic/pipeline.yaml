@@ -1,0 +1,13 @@
+meta:
+  extract_upstream: True
+  extract_product: True
+
+tasks:
+  - source: raw.py
+    name: raw
+
+  - source: clean.py
+    name: clean
+
+  - source: plot.py
+    name: plot
