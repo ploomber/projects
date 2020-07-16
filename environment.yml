@@ -12,6 +12,6 @@ dependencies:
   - matplotlib
   - pip:
     - seaborn
-    - git+https://github.com/ploomber/ploomber.git@master#egg=ploomber[all]
+    - git+https://github.com/ploomber/ploomber.git@dev#egg=ploomber[all]
     - jupyter_client>=5.3.1
 
