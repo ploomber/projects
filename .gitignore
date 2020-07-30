@@ -1,6 +1,7 @@
 *.db
 output-test/
 output/
+workspace/
 
 
 #### joe made this: http://goel.io/joe

@@ -22,12 +22,12 @@ Markdown('```yaml\n{}```'.format(Path('join.sql').read_text()))
 Alright, let's get going, we can run our pipeline with the following command:
 
 ```sh
-! ploomber entry pipeline.yaml
+! ploomber build
 ```
 That's it. We just build our pipeline. Let's try again.
 
 ```sh
-! ploomber entry pipeline.yaml
+! ploomber build
 ```
 
 This time it finished real quick because there is nothing to do, nothing has changed.
@@ -43,7 +43,7 @@ Also try mofidying any of the SQL scripts:
 Let's build again:
 
 ```sh
-! ploomber entry pipeline.yaml
+! ploomber build
 ```
 
 Depending on your changes, Ploomber will determine which tasks to run again and which ones to skip.

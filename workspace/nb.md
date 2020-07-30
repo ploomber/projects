@@ -2,10 +2,9 @@
 
 Hi, this free service will let you try out Ploomber without installing anything.
 
-If you are coming from the documentaion, you need to open two tabs
+If you are coming from the documentaion, you need to start a terminal session.
 
-1. [Click here to open terminal session](../../terminals/1)
-2. [Click here to see files](../../tree/workspace)
+[Click here to start terminal session](../../terminals/1)
 
 If you don't know why you are here. Here are some resources:
 
