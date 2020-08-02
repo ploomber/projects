@@ -23,3 +23,12 @@ jobs:
       - uses: ploomber/ci@master
         with:
           path: basic-tutorial/
+
+  spec-r:
+    runs-on: ubuntu-latest
+    name: basic-tutorial ci
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ploomber/ci@master
+        with:
+          path: spec-r/
