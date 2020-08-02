@@ -29,7 +29,8 @@ jobs:
     name: spec-r
     steps:
       - uses: actions/checkout@v2
-      - run: conda env create --file environment.yml
-      - uses: ploomber/ci@master
-        with:
-          path: spec-r/
+      - run:
+        - conda env create --file environment.yml
+        - conda activate ploomber_projects
+        - spec-r/
+        - ploomber build
