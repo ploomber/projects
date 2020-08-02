@@ -32,5 +32,5 @@ jobs:
       - run:
         - conda env create --file environment.yml
         - conda activate ploomber_projects
-        - spec-r/
+        - cd spec-r/
         - ploomber build
