@@ -1,6 +1,13 @@
 *.db
 output-test/
-output/
+
+# Ignore all in any output/ folder except README.txt - this is just to make
+# sure the folder exists in the repo and "ploomber build" runs without having
+# to create it manually
+**/output/*
+!**/output/
+!**/output/README.txt
+
 workspace/
 
 

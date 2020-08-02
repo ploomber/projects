@@ -1,1 +1,1 @@
-Example R pipeline.
+Sample R pipeline.
