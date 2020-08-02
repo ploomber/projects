@@ -26,9 +26,10 @@ jobs:
 
   spec-r:
     runs-on: ubuntu-latest
-    name: basic-tutorial ci
+    name: spec-r
     steps:
       - uses: actions/checkout@v2
+      - run: conda env create --file environment.yml
       - uses: ploomber/ci@master
         with:
           path: spec-r/
