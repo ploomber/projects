@@ -10,6 +10,8 @@ dependencies:
   - pip
   - pygraphviz
   - matplotlib
+  - r-base
+  - r-irkernel
   - pip:
     - seaborn
     - git+https://github.com/ploomber/ploomber.git@dev#egg=ploomber[all]
