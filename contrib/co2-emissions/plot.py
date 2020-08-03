@@ -84,4 +84,3 @@ fps = 2
 # Create gif file
 clip = mpy.ImageSequenceClip(file_ord, fps=fps)
 clip.write_gif(product['gif'], fps=fps)
-# -

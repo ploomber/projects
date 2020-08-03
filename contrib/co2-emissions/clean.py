@@ -3,8 +3,11 @@ import numpy as np
 
 # + tags=["parameters"]
 upstream = ['raw']
-product = {'nb': 'output/clean.ipynb', 'df_graph': 'output/clean_df_graph.csv',
-           'df_plot': 'output/clean_df_plot.csv'}
+product = {
+    'nb': 'output/clean.ipynb',
+    'df_graph': 'output/clean_df_graph.csv',
+    'df_plot': 'output/clean_df_plot.csv'
+}
 # -
 
 df = pd.read_csv(upstream['raw']['data'], skiprows=2, header=1)
@@ -15,6 +18,7 @@ topGDP = [
     'United States', 'China', 'Japan', 'Germany', 'India', 'United Kingdom',
     'France', 'Italy', 'Brazil', 'Canada'
 ]
+
 df_top = df[df['Country Name'].isin(topGDP)]
 
 # Remove last 4 columns of dataset
@@ -49,5 +53,3 @@ df_plot.head()
 
 df_graph.to_csv(product['df_graph'], index=False)
 df_plot.to_csv(product['df_plot'])
-
-

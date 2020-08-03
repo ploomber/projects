@@ -9,7 +9,6 @@ product = {
     'zipped': 'output/raw.zip',
     'data': 'output/raw.csv'
 }
-# -
 
 # +
 url = 'http://api.worldbank.org/v2/en/indicator/EN.ATM.CO2E.PC?downloadformat=csv'

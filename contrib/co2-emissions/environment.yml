@@ -1,0 +1,11 @@
+name: co2-emissions
+
+dependencies:
+  - python=3.8
+  - pip
+  - numpy
+  - matplotlib
+  - pandas
+  - pip:
+    - ploomber
+    - moviepy
