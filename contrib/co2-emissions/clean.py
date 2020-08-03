@@ -38,10 +38,6 @@ df_graph = pd.DataFrame({
     'CO Emission': CO_values
 })
 
-# Refine columns class
-df_graph['Date'] = df_graph['Date'].astype('category')
-df_graph['Country Name'] = df_graph['Country Name'].astype('category')
-df_graph['CO Emission'] = df_graph['CO Emission'].astype('float')
 df_graph.head()
 
 # Preparing df_graph for plot
