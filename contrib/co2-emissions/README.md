@@ -4,7 +4,7 @@ Animated plot using pandas, matplotlib and moviepy.
 
 Output (compressed, actual output comes in high-resolution):
 
-![final-compressed](final-compressed.png)
+![final-compressed](final-compressed.gif)
 
 Data source: [World Bank](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC?end=2014&start=2014&view=bar)
 
