@@ -1,5 +1,9 @@
 # CO2 emissions (metric tons per capita)
 
+Animated plot using pandas, matplotlib and moviepy.
+
+![example](example.png)
+
 Data source: [World Bank](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC?end=2014&start=2014&view=bar)
 
 Requirements: [miniconda](https://docs.conda.io/en/latest/miniconda.html)
@@ -10,14 +14,14 @@ To build:
 # clone repo
 git clone https://github.com/ploomber/projects
 
-# move to project folder
-cd contrib/co2-emissions
+# move to co2-emissions folder
+cd projects/contrib/co2-emissions
 
 # install dependencies
 conda env create --file environment.yml
 conda activate co2-emissions
 
-# build pipeline
+# build (takes around 1 minute to finish)
 ploomber build
 ```
 
