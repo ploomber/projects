@@ -2,7 +2,9 @@
 
 Animated plot using pandas, matplotlib and moviepy.
 
-![example](example.png)
+Output (compressed, actual output comes in high-resolution):
+
+![final-compressed](final-compressed.png)
 
 Data source: [World Bank](https://data.worldbank.org/indicator/EN.ATM.CO2E.PC?end=2014&start=2014&view=bar)
 
@@ -30,7 +32,7 @@ Final gif will be stored in `output/final.gif`
 (Optional) Compress gif using [gifsicle](https://www.lcdf.org/gifsicle/):
 
 ```sh
-gifsicle --colors=256 --optimize=10 -i output/final.gif -o output/final-small.gif --scale 0.5
+gifsicle --colors=256 --optimize=10 -i output/final.gif -o final-compressed.gif --scale 0.2
 ```
 
 (Optional) Convert to mp4:
