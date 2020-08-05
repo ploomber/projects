@@ -10,8 +10,9 @@ dependencies:
   - pip
   - pygraphviz
   - matplotlib
-  - r-base
-  - r-irkernel
+  # binder installs r-base and r-irkernel already, removing to shorten build
+  # - r-base
+  # - r-irkernel
   - pip:
     - seaborn
     - git+https://github.com/ploomber/ploomber.git@dev#egg=ploomber[all]
