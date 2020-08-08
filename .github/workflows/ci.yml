@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: 3.8
       - run: cd spec/setup/ && bash setup.sh && cd ../..
-      - run: pip install git+https://github.com/ploomber/ci-for-ds && cd spec/ && ploomberci --clean-products-path
+      - run: pip install git+https://github.com/ploomber/ci-for-ds && cd spec/ && ploomberci build --clean-products-path
 
   basic-tutorial:
     runs-on: ubuntu-latest
