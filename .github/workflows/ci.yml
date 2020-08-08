@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: 3.8
       - run: cd spec/setup/ && bash setup.sh && cd ../..
-      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd spec/ && ploomberci --clean-product-root
+      - run: pip install git+https://github.com/ploomber/ci-for-ds && cd spec/ && ploomberci --clean-products-path
 
   basic-tutorial:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd basic-tutorial/ && ploomberci --clean-product-root
+      - run: pip install git+https://github.com/ploomber/ci-for-ds && cd basic-tutorial/ && ploomberci --clean-products-path
 
   spec-r:
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd spec-r/ && ploomberci --clean-product-root
+      - run: pip install git+https://github.com/ploomber/ci-for-ds && cd spec-r/ && ploomberci --clean-products-path
   
   co2-emissions:
     runs-on: ubuntu-latest
@@ -42,4 +42,4 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd contrib/co2-emissions && ploomberci --clean-product-root
+      - run: pip install git+https://github.com/ploomber/ci-for-ds && cd contrib/co2-emissions && ploomberci --clean-products-path
