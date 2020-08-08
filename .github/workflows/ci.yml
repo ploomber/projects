@@ -8,12 +8,11 @@ jobs:
     steps:
       # this step makes your repo available to the next one
       - uses: actions/checkout@v2
-      - run: cd spec/setup/ && bash setup.sh && cd ../..
-      # our action will move to "path", configure the environment and then build
-      # the pipeline.yaml spec
-      - uses: ploomber/ci@master
+      - uses: actions/setup-python@v2
         with:
-          path: spec/
+          python-version: 3.8
+      - run: cd spec/setup/ && bash setup.sh && cd ../..
+      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd spec/ && ploomberci --clean-product-root
 
   basic-tutorial:
     runs-on: ubuntu-latest
