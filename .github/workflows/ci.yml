@@ -29,8 +29,10 @@ jobs:
     name: spec-r
     steps:
       - uses: actions/checkout@v2
-      - run: conda env create --file environment.yml
-      - run: eval "$(conda shell.bash hook)" && conda activate ploomber_projects && cd spec-r/ && ploomber build
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd spec-r/ && ploomberci --clean-product-root
   
   co2-emissions:
     runs-on: ubuntu-latest
