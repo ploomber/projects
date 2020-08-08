@@ -20,9 +20,10 @@ jobs:
     name: basic-tutorial ci
     steps:
       - uses: actions/checkout@v2
-      - uses: ploomber/ci@master
+      - uses: actions/setup-python@v2
         with:
-          path: basic-tutorial/
+          python-version: 3.8
+      - run: pip install git+https://github.com/ploomber/ci-for-ds@dev-edu && cd basic-tutorial/ && ploomberci --clean-product-root
 
   spec-r:
     runs-on: ubuntu-latest
