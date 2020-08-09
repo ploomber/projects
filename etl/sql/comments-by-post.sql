@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS {{product}};
 
 CREATE TABLE {{product}} AS
-SELECT PostId, count(*)
+SELECT PostId, count(*) AS count
 FROM {{upstream['upload_comments']}}
 GROUP BY PostId

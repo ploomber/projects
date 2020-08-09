@@ -4,11 +4,13 @@ meta:
 
   product_default_class:
     SQLUpload: SQLiteRelation
+    SQLScript: SQLiteRelation
 
 clients:
   SQLUpload: db.get_client
   SQLiteRelation: db.get_client
   SQLScript: db.get_client
+  SQLDump: db.get_client
 
 tasks:
   - source: download.py
@@ -48,8 +50,21 @@ tasks:
     upstream: convert2csv
     to_sql_kwargs:
       if_exists: replace
-  
+
   - source: sql/comments-by-post.sql
     name: comments-by-post
     product: [comments_by_post, table]
     upstream: upload_comments
+  
+  - source: sql/select-comments-by-post.sql
+    name: comments-dump
+    class: SQLDump
+    product: output/comments-dump.csv
+    upstream: comments-by-post
+    chunksize: null
+  
+  - source: comments-plot.py
+    name: comments-plot
+    product:
+      nb: output/comments-plot.html
+    upstream: comments-dump
