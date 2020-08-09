@@ -1,16 +1,20 @@
 meta:
+  # Turn off upstream and extraction, SQLUpload does not support this yet
   extract_upstream: False
   extract_product: False
 
+  # Set defaults here so we don't have to add them on each task
   product_default_class:
     SQLUpload: SQLiteRelation
     SQLScript: SQLiteRelation
 
 clients:
+  # All sql tasks connect to the same database
   SQLUpload: db.get_client
-  SQLiteRelation: db.get_client
   SQLScript: db.get_client
   SQLDump: db.get_client
+  # Products (tables) save metadata in the database itself
+  SQLiteRelation: db.get_client
 
 tasks:
 
@@ -31,10 +35,18 @@ tasks:
     product:
       nb: output/convert2csv.ipynb
       data: output/csv
+    # By default, scripts are executed in the folder that contains
+    # pipeline.yaml, preprocess/convert2csv.py imports preprocess/xml2csv.py
+    # but it won't find it if the script runs here (as opposed to running from
+    # preprocess/). local_execution changes the active directory to the folder
+    # that contains the script to execute
     local_execution: true
   
   # Upload three CSVs to a database
   
+  # SQLUpload takes a path to a file as source, once you declare an upstream
+  # dependencies, you can reference the upstream product in the source. This
+  # way you ensure consistency if the upstream product location changes
   - source: '{{upstream["convert2csv"]["data"]}}/Users.csv'
     name: upload_users
     class: SQLUpload
@@ -85,6 +97,8 @@ tasks:
     class: SQLDump
     product: output/comments-dump.csv
     upstream: comments-by-post
+    # SQLDump chunks dumps in several files, since this isn't a big
+    # dataset, we just retrieve it in a single file
     chunksize: null
   
   - source: sql/select-upvotes-by-location.sql
@@ -107,9 +121,13 @@ tasks:
   - source: plot/comments.py
     name: comments-plot
     product:
+      # The executed notebook will be automatically converted from ipynb to html
       nb: output/comments-plot.html
     upstream: comments-dump
   
+  # Note that this is an R script! Having R and Python in the same pipeline
+  # isn't ideal, as it makes projects more complex. This is just for
+  # illustrative purposes
   - source: plot/upvotes.R
     name: plot-upvotes
     product:

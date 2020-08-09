@@ -1,17 +1,24 @@
 name: etl
 
 channels:
+  # conda-forge is a channel with a lot of useful packages
   - conda-forge
 
 dependencies:
   - python=3.8
+  # to uncompress .7z files
   - p7zip
   - pip
   - seaborn
   - pandas
+  # one task is written in R, this creates local installation
   - r-base
+  # we also need to Jupyter R kernel to run scripts
   - r-irkernel
   - pip:
+    # this guy needs no introduction ;)
     - ploomber
+    # these package provides a Python interface for p7zip
     - pyunpack
+    # dependency for the package above
     - patool
