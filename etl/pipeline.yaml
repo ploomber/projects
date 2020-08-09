@@ -13,19 +13,27 @@ clients:
   SQLDump: db.get_client
 
 tasks:
-  - source: download.py
+
+  # Get raw data: several XML files in a .7z compressed file
+
+  - source: preprocess/download.py
     name: download
     product:
       nb: output/download.ipynb
       zipped: output/data.7z
       extracted: output/extracted
   
-  - source: convert2csv.py
+  # Convert XML to CSV
+  
+  - source: preprocess/convert2csv.py
     name: convert2csv
     upstream: download
     product:
       nb: output/convert2csv.ipynb
       data: output/csv
+    local_execution: true
+  
+  # Upload three CSVs to a database
   
   - source: '{{upstream["convert2csv"]["data"]}}/Users.csv'
     name: upload_users
@@ -50,11 +58,27 @@ tasks:
     upstream: convert2csv
     to_sql_kwargs:
       if_exists: replace
+  
+  # Aggregate data
 
   - source: sql/comments-by-post.sql
     name: comments-by-post
     product: [comments_by_post, table]
     upstream: upload_comments
+  
+
+  - source: sql/upvotes-by-location.sql
+    name: upvotes-by-location
+    product: [upvotes_by_location, table]
+    upstream: upload_users
+  
+  - source: sql/posts-by-length.sql
+    name: posts-by-length
+    product: [posts_by_length, table]
+    upstream: upload_posts
+  
+
+  # Dump data
   
   - source: sql/select-comments-by-post.sql
     name: comments-dump
@@ -63,8 +87,37 @@ tasks:
     upstream: comments-by-post
     chunksize: null
   
-  - source: comments-plot.py
+  - source: sql/select-upvotes-by-location.sql
+    name: upvotes-dump
+    class: SQLDump
+    product: output/upvotes-dump.csv
+    upstream: upvotes-by-location
+    chunksize: null
+  
+  - source: sql/select-posts-by-length.sql
+    name: posts-dump
+    class: SQLDump
+    product: output/posts-dump.csv
+    upstream: posts-by-length
+    chunksize: null
+  
+
+  # Plot
+  
+  - source: plot/comments.py
     name: comments-plot
     product:
       nb: output/comments-plot.html
     upstream: comments-dump
+  
+  - source: plot/upvotes.R
+    name: plot-upvotes
+    product:
+      nb: output/plot-upvotes.html
+    upstream: upvotes-dump
+
+  - source: plot/posts.py
+    name: posts-plot
+    product:
+      nb: output/posts-plot.html
+    upstream: posts-dump
