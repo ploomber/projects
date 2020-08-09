@@ -1,0 +1,55 @@
+meta:
+  extract_upstream: False
+  extract_product: False
+
+  product_default_class:
+    SQLUpload: SQLiteRelation
+
+clients:
+  SQLUpload: db.get_client
+  SQLiteRelation: db.get_client
+  SQLScript: db.get_client
+
+tasks:
+  - source: download.py
+    name: download
+    product:
+      nb: output/download.ipynb
+      zipped: output/data.7z
+      extracted: output/extracted
+  
+  - source: convert2csv.py
+    name: convert2csv
+    upstream: download
+    product:
+      nb: output/convert2csv.ipynb
+      data: output/csv
+  
+  - source: '{{upstream["convert2csv"]["data"]}}/Users.csv'
+    name: upload_users
+    class: SQLUpload
+    product: [users, table]
+    upstream: convert2csv
+    to_sql_kwargs:
+      if_exists: replace
+  
+  - source: '{{upstream["convert2csv"]["data"]}}/Comments.csv'
+    name: upload_comments
+    class: SQLUpload
+    product: [comments, table]
+    upstream: convert2csv
+    to_sql_kwargs:
+      if_exists: replace
+  
+  - source: '{{upstream["convert2csv"]["data"]}}/Posts.csv'
+    name: upload_posts
+    class: SQLUpload
+    product: [posts, table]
+    upstream: convert2csv
+    to_sql_kwargs:
+      if_exists: replace
+  
+  - source: sql/comments-by-post.sql
+    name: comments-by-post
+    product: [comments_by_post, table]
+    upstream: upload_comments

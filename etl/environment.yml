@@ -1,0 +1,17 @@
+name: etl
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.8
+  - p7zip
+  - pip
+  - numpy
+  - matplotlib
+  - pandas
+  - pip:
+    - ploomber
+    - moviepy
+    - pyunpack
+    - patool
