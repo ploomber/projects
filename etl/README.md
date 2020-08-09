@@ -2,7 +2,8 @@
 
 
 This example shows a non-trivial pipeline that resembles a typical
-scenario when analyzing data. It helps demonstrate how Ploomber helps you
+scenario when analyzing data. It helps demonstrate how
+[Ploomber](https://github.com/ploomber/ploomber) helps you
 develop data pipelines without worrying about plumbing code (managing
 database connections, orchestrating execution, etc.)
 
