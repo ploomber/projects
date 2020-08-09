@@ -9,6 +9,8 @@ dependencies:
   - pip
   - seaborn
   - pandas
+  - r-base
+  - r-irkernel
   - pip:
     - ploomber
     - pyunpack
