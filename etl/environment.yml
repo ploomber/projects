@@ -18,7 +18,7 @@ dependencies:
   - pip:
     # this guy needs no introduction ;)
     - ploomber
-    # these package provides a Python interface for p7zip
+    # this package provides a Python interface for p7zip
     - pyunpack
     # dependency for the package above
     - patool
