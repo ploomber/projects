@@ -12,7 +12,8 @@ jobs:
         with:
           python-version: 3.8
       - run: cd spec/setup/ && bash setup.sh && cd ../..
-      - run: pip install git+https://github.com/ploomber/soopervisor && cd spec/ && soopervisor build --clean-products-path
+      - run: pip install soopervisor
+      - run: cd spec/ && soopervisor build --clean-products-path
 
   basic-tutorial:
     runs-on: ubuntu-latest
@@ -22,7 +23,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/soopervisor && cd basic-tutorial/ && soopervisor build --clean-products-path
+      - run: pip install soopervisor
+      - run: cd basic-tutorial/ && soopervisor build --clean-products-path
 
   spec-r:
     runs-on: ubuntu-latest
@@ -32,7 +34,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/soopervisor && cd spec-r/ && soopervisor build --clean-products-path
+      - run: pip install soopervisor
+      - run: cd spec-r/ && soopervisor build --clean-products-path
   
   co2-emissions:
     runs-on: ubuntu-latest
@@ -42,7 +45,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/soopervisor && cd contrib/co2-emissions && soopervisor build --clean-products-path
+      - run: pip install soopervisor
+      - run: cd contrib/co2-emissions && soopervisor build --clean-products-path
 
   etl:
     runs-on: ubuntu-latest
@@ -52,4 +56,5 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install git+https://github.com/ploomber/soopervisor && cd etl/ && soopervisor build --clean-products-path
+      - run: pip install soopervisor
+      - run: cd etl/ && soopervisor build --clean-products-path
