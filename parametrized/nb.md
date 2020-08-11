@@ -23,7 +23,7 @@ def print_file(path):
 """.format(kind, content)))
     
 def print_papermill_output(captured):
-    return print('\n'.join([l for l in captured.stdout.split('\n') if l.startswith('INFO:papermill:some_param')]))
+    return print('\n'.join([l for l in captured.stderr.split('\n') if l.startswith('INFO:papermill:some_param')]))
 ```
 
 ```python
@@ -50,24 +50,26 @@ Our task is a Python script. This means parameters are passed as an injected cel
 
 ```python
 %%capture captured
-! ploomber build --force --log INFO
+%%sh
+ploomber build --force --log INFO
 ```
 
 ```python
 print_papermill_output(captured)
 ```
 
-We see that our param `some_param` is taking the default value (`default_value`) as defined in `env.yaml`. The command line inerface is aware of any parameters, you can see them using the `--help` option:
+We see that our param `some_param` is taking the default value (`default_value`) as defined in `env.yaml`. The command line interface is aware of any parameters, you can see them using the `--help` option:
 
-```python
-! ploomber build --help
+```sh
+ploomber build --help
 ```
 
 Apart from the default parameters from the `ploomber build` command, Ploomber automatically adds any parameters from `env.yaml`, we can easily override the default value, let's do that:
 
 ```python
 %%capture captured
-! ploomber build --force --env__some_param another_value --log INFO
+%%sh
+ploomber build --force --env__some_param another_value --log INFO
 ```
 
 ```python
@@ -78,8 +80,8 @@ We see that our task, effectively changed the value!
 
 Finally, let's see how the `output/` folder looks like:
 
-```python
-! tree output
+```sh
+tree output
 ```
 
 We have separate folders for each parameter, this helps keep things organized and takes the looping logic out of our pipeline. Parametrized pipelines are a great way to simplify our task's logic. Given that the two pipelines are completely independent we could even think of running them in parallel to speed things up.
