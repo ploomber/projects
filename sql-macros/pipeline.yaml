@@ -1,0 +1,12 @@
+meta:
+  source_loader:
+    path: sql/
+  
+  extract_upstream: False
+  extract_product: False
+
+tasks:
+  - source: create-table.sql
+    name: sql-task
+    product: [some_table, table]
+    client: db.get_client
