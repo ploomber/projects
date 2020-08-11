@@ -1,0 +1,12 @@
+meta:
+  extract_product: False
+
+tasks:
+  - source: print.py
+    name: print
+    product:
+      nb: 'output/{{some_param}}/notebook.ipynb'
+    papermill_params:
+        log_output: True
+    params:
+      some_param: '{{some_param}}'
