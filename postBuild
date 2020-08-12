@@ -1,4 +1,5 @@
 #!/bin/bash
 pip install --editable basic-tutorial/
+pip install pkg/
 
 cd spec/setup && bash setup.sh && cd ../..
