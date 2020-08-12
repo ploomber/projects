@@ -3,8 +3,12 @@
 # we provide this one which includes dependencies most projects need anyway)
 name: ploomber_projects
 
+channels:
+  - conda-forge
+
 dependencies:
   - python=3.7
+  - tree
   - numpy
   - pandas
   - pip
