@@ -70,4 +70,11 @@ Finally, let's see how the `output/` folder looks like:
 tree output
 ```
 
-We have separate folders for each parameter, this helps keep things organized and takes the looping logic out of our pipeline. Parametrized pipelines are a great way to simplify our task's logic. Given that the two pipelines are completely independent we could even think of running them in parallel to speed things up.
+We have separate folders for each parameter, this helps keep things organized and takes the looping logic out of our pipeline.
+
+## Final thoughts
+
+* This example uses a Python script as a task, in SQL pipeline, you can achieve the same effect (keeping output separate) by using the placeholder either in the product's schema or as a prefix in the table/view name
+* If the parameter takes a lot of different values and you want to run your pipeline using all of them, calling the by hand might get tedious, you have two options 1) write a  bash script that calls the CLI with different value parameters or 2) Use the Python API (everything that the CLI can do, you can do with Python directly), take a look at the `DAGSpec` documentation
+* Parametrized `pipeline.yaml` files are a great way to simplify our task's logic, but don't overdo it. If you find yourself adding too many parameters, it's a better idea to use the Python API directly using a factory function to for highly customized pipeline construction
+* Given that the two pipelines are completely independent we could even run them in parallel to speed things up
