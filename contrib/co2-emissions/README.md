@@ -1,5 +1,7 @@
 # CO2 emissions (metric tons per capita)
 
+Contributed by [Henrique Oliveira](https://www.linkedin.com/in/henrique-meira-de-oliveira-4b381232/)
+
 Animated plot using pandas, matplotlib and moviepy.
 
 Output (compressed, actual output is in high-resolution):
