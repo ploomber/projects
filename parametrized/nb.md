@@ -1,6 +1,6 @@
 # Parametrized pipelines
 
-**Note:** This page was generated form a Jupyter notebook. [Click here](https://github.com/ploomber/projects/tree/master/parametrized/nb.md) to see the source code. [Or here](https://mybinder.org/v2/gh/ploomber/projects/master?filepath=parametrizwd%2Fnb%2Cmd) to launch an interactive demo.
+**Note:** This page was generated form a Jupyter notebook. [Click here](https://github.com/ploomber/projects/tree/master/parametrized/nb.md) to see the source code. [Or here](https://mybinder.org/v2/gh/ploomber/projects/master?filepath=parametrizwd%2Fnb.md) to launch an interactive demo.
 
 Often, pipelines perform the same operation over different subsets of the data. For example, say you are developing visualizations of economic data. You might want to generate the same charts for different countries. 
 
