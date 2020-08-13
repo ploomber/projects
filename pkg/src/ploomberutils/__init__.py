@@ -4,7 +4,7 @@ from pathlib import Path
 from IPython.display import Markdown, display
 
 
-def display_file(path):
+def display_file(path, syntax=None):
     path = Path(path)
     kind = path.suffix.replace('.', '')
     content = path.read_text()
@@ -12,7 +12,7 @@ def display_file(path):
 ```{}
 {}
 ```
-""".format(kind, content)))
+""".format(syntax or kind, content)))
 
 
 def filter_output(captured, startswith):

@@ -17,7 +17,7 @@ SELECT * FROM {{upstream['clean']}}
 WHERE x > 10
 ```
 
-The `{% set .. %}` statement defines a variabe. This serves two purposes. It tells Ploomber that this script is going to create a `table` named `my_table` in a schema named `my_schema`, this is required so Ploomber can forward this value to downstream SQL scripts and they know which table to use as input. The second purpose is to be a placeholder so we only have to declare the table name once.
+The `{% set .. %}` statement defines a variable. This serves two purposes. It tells Ploomber that this script is going to create a `table` named `my_table` in a schema named `my_schema`, this is required so Ploomber can forward this value to downstream SQL scripts and they know which table to use as input. The second purpose is to be a placeholder so we only have to declare the table name once.
 
 When you re-run your pipeline after making some changes, you want to overwrite any existing table with the same name, this is why we need the `DROP TABLE IF EXISTS ...;` statement before we run `CREATE TABLE ..;`, since both statements need the table name, we can just pass the `{{product}}` placeholder.
 
@@ -69,13 +69,13 @@ from ploomberutils import display_file
 ```
 
 ```python
-display_file('sql/macros.sql')
+display_file('sql/macros.sql', syntax='postgresql')
 ```
 
 The `{% macro %}` tag defines the macro name and parameters (if any). To use our macro in a different file, we have to import it. Let's say we define the previous macro in a `macros.sql` file:
 
 ```python
-display_file('sql/create-table.sql')
+display_file('sql/create-table.sql', syntax='postgresql')
 ```
 
 ### Configuring support for macros
