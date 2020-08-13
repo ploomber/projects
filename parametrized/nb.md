@@ -1,5 +1,7 @@
 # Parametrized pipelines
 
+## Spec (``pipeline.yaml``)
+
 **Note:** This page was generated form a Jupyter notebook. [Click here](https://github.com/ploomber/projects/tree/master/parametrized/nb.md) to see the source code. [Or here](https://mybinder.org/v2/gh/ploomber/projects/master?filepath=parametrized%2Fnb.md) to launch an interactive demo.
 
 Often, pipelines perform the same operation over different subsets of the data. For example, say you are developing visualizations of economic data. You might want to generate the same charts for different countries. 
@@ -70,11 +72,31 @@ Finally, let's see how the `output/` folder looks like:
 tree output
 ```
 
+<!-- #region -->
 We have separate folders for each parameter, this helps keep things organized and takes the looping logic out of our pipeline.
 
-## Final thoughts
+
+### Tips
 
 * This example uses a Python script as a task, in SQL pipeline, you can achieve the same effect (keeping output separate) by using the placeholder either in the product's schema or as a prefix in the table/view name
 * If the parameter takes a lot of different values and you want to run your pipeline using all of them, calling them by hand might get tedious. You have two options 1) write a  bash script that calls the CLI with different value parameters or 2) Use the Python API (everything that the CLI can do, you can do with Python directly), take a look at the `DAGSpec` documentation
 * Parametrized `pipeline.yaml` files are a great way to simplify task's logic but don't overdo it. If you find yourself adding too many parameters, it's a better idea to use the Python API directly. Factory function are the right pattern for highly customized pipeline construction
 * Given that the two pipelines are completely independent we could even run them in parallel to speed things up
+
+
+## Factory functions
+
+If your factory takes parameters, they'll also be available in the command
+line interface. Types are infered from [type hints](https://docs.python.org/3/library/typing.html). Let's see an example:
+<!-- #endregion -->
+
+```python
+display_file('factory.py')
+```
+
+Our function takes two parameters: `param` and `another`. Parameters with no default values (`param`) are converted to positional arguments and function parameters with default values are converted
+to optional parameters (`another`). To see the exact auto-generated API, you can use the `--help` command:
+
+```sh
+ploomber build --entry-point factory.make --help
+```
