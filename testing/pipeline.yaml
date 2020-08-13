@@ -1,0 +1,24 @@
+meta:
+  extract_product: False
+
+clients:
+  SQLScript: db.get_client
+  SQLDump: db.get_client
+
+tasks:
+  - source: clean.sql
+    name: clean
+    product: ['my_clean_table', 'table']
+    on_finish: integration_tests.test_sql_clean
+  
+  - source: dump.sql
+    name: dump
+    class: SQLDump
+    product: output/my_clean_table.csv
+    chunksize: null
+
+  - source: transform.py
+    product:
+        nb: output/transformed.html
+        data: output/transformed.csv
+    on_finish: integration_tests.test_py_transform
