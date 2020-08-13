@@ -6,7 +6,7 @@ product = None
 
 # +
 df = pd.read_csv(upstream['dump'])
-df['derived_value'] = df.some_value * 42
+df['multiplied_score'] = df.score * 42
 
 # +
 df.to_csv(product['data'])

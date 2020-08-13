@@ -62,7 +62,7 @@ display_file('clean.sql')
 display_file('dump.sql')
 ```
 
-Finally, the `transform.py` script generates a new column using `some_value`
+Finally, the `transform.py` script generates a new column using `score`
 
 ```python
 display_file('transform.py')
@@ -111,7 +111,7 @@ Everything looks good. Let's now imagine a colleague found an error in the clean
 
 ```python
 path = Path('clean.sql')
-new_code = path.read_text().replace('WHERE some_value is not null AND age > 0', '')
+new_code = path.read_text().replace('WHERE score is not null AND age > 0', '')
 path.write_text(new_code)
 display_file('clean.sql')
 ```
@@ -143,7 +143,7 @@ ploomber.exceptions.TaskBuildError: Exception when running on_finish for task "c
 That's a bit more specific. It's telling me I have to look at the `on_finish` hook in the `clean` task. Go up a few more lines:
 
 ```
-assert not nulls_in_columns(client, ['some_value', 'age'], product)
+assert not nulls_in_columns(client, ['score', 'age'], product)
 AssertionError
 ```
 
@@ -153,7 +153,7 @@ Let's fix our pipeline and add the `WHERE` clause again:
 
 ```python
 path = Path('clean.sql')
-new_code = path.read_text() + 'WHERE some_value is not null AND age > 0'
+new_code = path.read_text() + 'WHERE score is not null AND age > 0'
 path.write_text(new_code)
 display_file('clean.sql')
 ```
