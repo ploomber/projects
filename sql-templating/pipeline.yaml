@@ -1,11 +1,15 @@
 meta:
+  # initialize source loader
   source_loader:
+    # use the sql/ folder as the "root" for loading files
     path: sql/
   
   extract_upstream: False
   extract_product: False
 
 tasks:
+  # sources are now loaded from the source loader, paths are relative
+  # to the source loader root directory
   - source: create-table.sql
     name: sql-task
     product: [some_table, table]

@@ -2,7 +2,7 @@
 
 SELECT
     {{col_group}},
-{% for fn in ['AVG', 'MAX', 'MIN'] %}
+{% for fn in ['AVG', 'STDEV', 'COUNT', 'SUM', 'MAX', 'MIN'] %}
     {{fn}}({{col_agg}}) as {{fn}}_{{col_agg}}{{ ',' if not loop.last else '' }}
 {% endfor %}
 FROM {{from_table}}
