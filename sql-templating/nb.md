@@ -7,7 +7,7 @@ SQL templating is a powerful way to make your SQL scripts more concise. It works
 
 If you've followed the SQL pipelines tutorial in the Get started section, you've already used SQL templating. Let's take a look at a simple script that follows the common structure for SQL pipelines:
 
-```sql
+```postgresql
 {% set product = SQLRelation(['my_schema', 'my_table', 'table']) %}
 
 DROP TABLE IF EXISTS {{product}};
@@ -29,7 +29,7 @@ These are the basic elements for templated SQL, but there are many other things 
 
 jinja offers control structures that help us write concise SQL code. Say we want to compute summary statistics for a given column:
 
-```sql
+```postgresql
 SELECT
     some_column,
     AVG(another_column) as avg_another_column,
@@ -44,7 +44,7 @@ GROUP BY some_column
 
 This code is already very repetitive, now imagine how repetitive it would be if we wanted to compute aggregations for more than one column. We can generate the same code succintly using control structures:
 
-```sql
+```postgresql
 SELECT
     some_column,
 -- loop over aggregation functions
