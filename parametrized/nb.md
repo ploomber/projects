@@ -1,14 +1,16 @@
 # Parametrized pipelines
 
-## Spec (``pipeline.yaml``)
-
 **Note:** This page was generated form a Jupyter notebook. [Click here](https://github.com/ploomber/projects/tree/master/parametrized/nb.md) to see the source code. [Or here](https://mybinder.org/v2/gh/ploomber/projects/master?filepath=parametrized%2Fnb.md) to launch an interactive demo.
+
 
 Often, pipelines perform the same operation over different subsets of the data. For example, say you are developing visualizations of economic data. You might want to generate the same charts for different countries. 
 
 One way to approach the problem is to have a for loop on each pipeline task to process all countries you need. But such approach adds unnecessary complexity to our code, it's better to keep our logic simple (each task processes a single country) and take the iterative logic out of our pipeline.
 
-Ploomber allows you to do so using parametrized pipelines. Let's see a sample `pipeline.yaml`:
+Ploomber allows you to do so using parametrized pipelines. Let's see a sample `pipeline.yaml`.
+
+
+## Spec (``pipeline.yaml``)
 
 ```python
 from ploomberutils import display_file, filter_output
@@ -86,8 +88,9 @@ We have separate folders for each parameter, this helps keep things organized an
 
 ## Factory functions
 
-If your factory takes parameters, they'll also be available in the command
-line interface. Types are infered from [type hints](https://docs.python.org/3/library/typing.html). Let's see an example:
+Parametrization is straightforward when using a factory function. If your
+factory takes parameters, they'll also be available in the command
+line interface. Types are inferred from [type hints](https://docs.python.org/3/library/typing.html). Let's see an example:
 <!-- #endregion -->
 
 ```python
