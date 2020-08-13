@@ -9,4 +9,4 @@ Required:
 
 Optional:
 
-* `setup/setup.sh` - Bash script to run any pre-execution steps
+* `setup/script.sh` - Bash script to run any pre-execution steps (`script.py` also works), it is executed with `setup/` as the current working directory
