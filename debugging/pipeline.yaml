@@ -1,2 +1,6 @@
 tasks:
-  - source: clean.py
+  - source: load.py
+    name: load
+
+  - source: preprocess.py
+    name: preprocess

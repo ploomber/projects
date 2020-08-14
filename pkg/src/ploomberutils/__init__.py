@@ -6,7 +6,14 @@ from IPython.display import Markdown, display
 
 def display_file(path, syntax=None):
     path = Path(path)
+
     kind = path.suffix.replace('.', '')
+
+    # pygments (used for syntax highlighting in the docs) does no work
+    # if we set sql and have jinja placeholders, but postgresql works!
+    if kind == 'sql':
+        kind = 'postgresql'
+
     content = path.read_text()
     display(Markdown("""
 ```{}
