@@ -292,13 +292,13 @@ ploomber interactive
 Then debug the task that produced the buggy output:
 
 ```pycon
-dag['buggy_task'].debug()
+>>> dag['buggy_task'].debug()
 ```
 
 If that's not enough, check upstream tasks. To find upstream tasks, use `task.upstream`:
 
 ```pycon
-dag['buggy_task'].upstream
+>>> dag['buggy_task'].upstream
 ```
 
 If you have a hypothesis of *where the error might be*. You can insert a breakpoint in your task's source code to start a debugging session at any given point:
