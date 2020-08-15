@@ -322,29 +322,68 @@ import pdb; pdb.set_trace()
 
 Then start a post-mortem session. The debugger will start at the line where you inserted the breakpoint.
 
-## Defensive programming
-
-add assertions
-
 ## Using the CLI to check if we fixed the bug
 
-ploomber task -f, ploomber build --partially task
+In a real scenario, we might try a few things before we find the solution to the bug. To quickly iterate over candidate solutions, we'd like to check if the applied change makes our pipeline *not* to throw an error. This is where Ploomber's incremental builds come in handy.
+
+If we narrowed down the error to a specific task, we can apply changes and check if the new code works ok:
+
+```sh
+ploomber task {task-name}
+```
+
+If the exception happens in task `B`, but the solution has to be implemented in task `A` (where `A` is an upstream dependency of `B`), then we have to make sure that we run `A` and `B` to verify the fix. A full end-to-end run is wasteful but so is an incremental run if `B` has many downsream tasks: For testing purposes we just care about things going well *until `B`*. This is a good use of a partial build: it will run all tasks until it reaches a selected task (by default, it will still skip unchanged tasks). In our case:
+
+```sh
+ploomber build --partially B
+```
+
+
+## Letting our pipeline fail under unforeseen circumstances
+
+The error in our program is of particular interest because it posits a scenario that is mostly overlooked when developing data pipelines: our program is correct, but still failed due to unforeseen circumstances (unexpected data properties).
+
+Picture this scenario: we decide to drop all osbervations that contain the unexpected value (`d`), now our pipeline runs correctly. A few months later, we receive new data so we run the pipeline again, but we run into the same issue because of a new unexpected value (say, `e`).
+
+We could argue that one solution would be to *drop all unexpected values*. Is this the best approach? Dropping observations silently is dangerous, as they might contain useful information for our analysis. As we mentioned in the previous guide: explicitly stating our data expectations is the way to move forward.
+
+If we decide dropping `d` is a reasonable choice, we can encode our new data expectations in the upstream task testing function (bcause that's the task that supplies input data). Let's recall how our pipeline looks like:
+<!-- #endregion -->
+
+
+```python
+display_file('pipeline.yaml')
+```
+
+`load` supplies input for `preprocess`. Our testing function for the `load` task would look like this:
+
+<!-- #region -->
+```python
+def test_load(product):
+    train = pd.read_csv(str(product['train']))
+    test = pd.read_csv(str(product['test']))
+    
+    # NOTE: these are the expected values in the cat column
+    # we expect value 'd' in the testing set and we'll
+    # drop it during preprocessing. Any other unexpected
+    # values will raise an exception here so we have the
+    # chance to decide what to do with it
+    assert set(train['cat'].unique()) == {'a', 'b', 'c'}
+    assert set(test['cat'].unique()) == {'a', 'b', 'c', 'd'}
+```
+
+The comment should actually be part of the testing function, without it. There is no context to understand why are we testing such a specific condition.
 
 
 ## Debugging (templated) SQL scripts
 
-Ploomber uses templated SQL to assemble the pipeline and to provide a way to write more concise SQL scripts, but this comes with a cost. Relying too much on templating makes our raw source code concise but hard to read. If you run into syntax error issues when executing your SQL queries, the first things to do is to see the rendered code, you can do so from the command line:
+So far, we've discussed how to debug Python scripts, but SQL scripts can also fail. In a previous guide, we showed how templated SQL scripts help us write more concise SQL code, but this comes with a cost. Relying too much on templating makes our templated source code short but hard to read. If your database complains about syntax errors when executing SQL tasks, chances are, the errors is coming from incorrect templating logic. One good first debugging step is to take a look at the rendered code. You can do so from the command line:
 
 ```
 ploomber task {task-name} --source
 ```
 <!-- #endregion -->
 
-
 ## Where to go next
 
 * [`pdb` documentation](https://docs.python.org/3/library/pdb.html)
-
-```python
-
-```
