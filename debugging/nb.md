@@ -12,33 +12,33 @@ Debugging data pipelines is hard because there are three factors involved:
 In simple cases, pipeline error messages might give us enough information to fix the
 bug, but in other (which happen more often), we have to inspect the
 program while running to understand what's going on: see variable values,
-run a few commands, etc).
+run a few diagnostic commands, etc.
 
 Inspecting our program requires us to re-execute it under the same conditions
 to replicate the crash. Replicating conditions means having the same code, parameters
 and input data.
 
-Getting the same code is easy if we know the version (or git hash) that was running
+Getting the same code is easy if we know the version (i.e. git hash) that was running
 during the crash. Replicating parameters involves more work, one way to approach
 this is to make sure we always log parameters at the start of every pipeline execution.
 
 
-Input data is harder than it sounds, when our project is not properly assembled as a
-data pipeline, we might run into issues if we are using the incorrect file as input
+Input data is harder than it sounds. When our project is not properly assembled as a
+data pipeline, we might run into issues if we use an incorrect file as input
 (e.g. reading `/data/some-file.csv` instead of `/data/file.csv`). That's why Ploomber
-puts a lot of emphasis on declaring products one and automatically propagating them
-to any downstream consumers, to ensure that we only declared a product once and we
-always read if the appropriate file or SQL table.
+puts a lot of emphasis on declaring products once and automatically propagating them
+to any downstream consumers, to ensure that there is a single source of truth and we
+always read if the appropriate file or SQL table from the upstream task.
 
-As you can see, replicating error conditions accurately involve some work from your
-end: recording the project version and input parameters on every run and making sure
-you know which input data led to the crash. Once you have these three pieces of information,
+As you can see, replicating error conditions accurately involves some work from your
+end: 1) recording the project version and 2) input parameters (on every run) and 3) know
+which input data led to the crash. Once you have these three pieces of information,
 Ploomber will provide you tools to catch those sneaky bugs.
 
 
 ## Debugger basics
 
-A debugger is a program that helps inspect program for debugging. Python
+A debugger is a program that helps inspect anoter program for debugging. Python
 comes with its own debugger called
 [`pdb`](https://docs.python.org/3/library/pdb.html)
 
@@ -49,7 +49,7 @@ variables, move to the next line, etc.
 One important concept to know when debugging is *stack frame*. Simply
 speaking, stack frames represent the state of our code at a given level.
 When you write a non-trivial function, it will depend on other
-functions (yours or from third party packages), each function has its
+functions to work (yours or from third party packages). Each function has its
 own stack frame which defines the variables that are available to it.
 
 When a program fails, it can do so at different levels (i.e. a
@@ -65,11 +65,11 @@ def reciprocal_and_multiply(x, y):
 
 There are two places where things can go wrong in the program
 above: if we pass `x=0`, the `reciprocal` operation will
-fail. If we pass `y=None`, the program fails as well, but this time, it
-will do so in the `reciprocal_and_multiply`. For this trivial example,
-it's easy to see where things can fail but in a real program you won't
-know, and moving between stack frames can help you find out where the
-error is coming from.
+fail. If we pass `y=None`, the program fails as well, but it
+will do so in the `reciprocal_and_multiply` function. For this trivial example,
+it's easy to see at which level the code breaks but in a real program the source
+code alone is usually not enough to know. Moving between stack frames can
+help you find out where the error is coming from.
 <!-- #endregion -->
 
 ## Tales of a buggy pipeline
@@ -111,7 +111,7 @@ That gives us more context. It's saying the specific task that failed. Next one:
 
 
 ```pytb
-ploomber.exceptions.TaskBuildError: An error ocurred when calling papermil.execute_notebook, partially executed notebook with traceback available at ...
+ploomber.exceptions.TaskBuildError: An error occurred when calling papermil.execute_notebook, partially executed notebook with traceback available at ...
 ```
 
 That's useful, it's telling us where we can find the partially executed notebook in case we want to take a look at it. Finally:
@@ -273,31 +273,31 @@ As you can see, we can use either of these two approaches.
 <!-- #endregion -->
 
 <!-- #region -->
-## More difficult scenario: Wrong output but no exceptions raised
+## More difficult scenario: no exceptions raised but wrong output
 
-The previous example showed how we can debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find issues with the output (e.g. charts are not displaying correctly, data file has NAs, etc).
+The previous example showed how we can debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find issues in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
 
 This is a much harder problem because we don't know where to look at! If a bug is originated in task `A` it might propagate to any downstream tasks that use the product from `A` as input, this is why testing is essential. By explicitly checking our data expectations, we increase the chance of catching errors at the source, rather than in a downstream task.
 
-When it happens (and trust me, it will), we recommend you to follow a recursive approach: Once you detect the error, the first question to answer is: Which task produced this output? Once you know that start a line-by-line debugging session (post-mortem won't work because there is no exception!), and carefully check variables to see if you can spot the error.
+When it happens (and trust me, it will), we recommend you to follow a recursive approach: Once you detect the error, the first question to answer is: Which task produced this output? Once you know that, start a line-by-line debugging session (post-mortem won't work because there is no exception!), and carefully check variables to see if you can spot the error.
 
 If everything looks correct, go to all upstream tasks and repeat this process. You can do this from the command line.
 
 First, start an interactive session from the terminal:
 
-```sh
+```console
 ploomber interactive
 ```
 
 Then debug the task that produced the buggy output:
 
-```python
+```pycon
 dag['buggy_task'].debug()
 ```
 
 If that's not enough, check upstream tasks. To find upstream tasks, use `task.upstream`:
 
-```python
+```pycon
 dag['buggy_task'].upstream
 ```
 
@@ -324,15 +324,15 @@ Then start a post-mortem session. The debugger will start at the line where you 
 
 ## Using the CLI to check if we fixed the bug
 
-In a real scenario, we might try a few things before we find the solution to the bug. To quickly iterate over candidate solutions, we'd like to check if the applied change makes our pipeline *not* to throw an error. This is where Ploomber's incremental builds come in handy.
+In a real scenario, we might try a few things before we find bug fix. To quickly iterate over candidate solutions, we'd like to check if the applied change makes our pipeline *not* to throw an error. This is where Ploomber's incremental builds come in handy.
 
-If we narrowed down the error to a specific task, we can apply changes and check if the new code works ok:
+If we narrowed down the error to a specific task, we can apply changes and quickly check if the new code runs correctly by just running that task:
 
 ```sh
 ploomber task {task-name}
 ```
 
-If the exception happens in task `B`, but the solution has to be implemented in task `A` (where `A` is an upstream dependency of `B`), then we have to make sure that we run `A` and `B` to verify the fix. A full end-to-end run is wasteful but so is an incremental run if `B` has many downsream tasks: For testing purposes we just care about things going well *until `B`*. This is a good use of a partial build: it will run all tasks until it reaches a selected task (by default, it will still skip unchanged tasks). In our case:
+If the exception happens in task `B`, but the solution has to be implemented in task `A` (where `A` is an upstream dependency of `B`), then we have to make sure that we run `A` and `B` to verify the fix. A full end-to-end run is wasteful but so is an incremental run if `B` has many downstream tasks. For testing purposes, we just care about things going well *until `B`*. This is a good use of a partial build: it will run all tasks until it reaches a selected task (by default, it will still skip up-to-date tasks). In our case:
 
 ```sh
 ploomber build --partially B
@@ -341,13 +341,13 @@ ploomber build --partially B
 
 ## Letting our pipeline fail under unforeseen circumstances
 
-The error in our program is of particular interest because it posits a scenario that is mostly overlooked when developing data pipelines: our program is correct, but still failed due to unforeseen circumstances (unexpected data properties).
+The error in our program is of particular interest because it posits a common scenario: our program is correct, but still failed due to unforeseen circumstances (unexpected data properties). This type of bugs challenge our assumptions about input data, fixing the error is just as important as explaining *why* we fixed the way we did it.
 
-Picture this scenario: we decide to drop all osbervations that contain the unexpected value (`d`), now our pipeline runs correctly. A few months later, we receive new data so we run the pipeline again, but we run into the same issue because of a new unexpected value (say, `e`).
+Picture this: we decide to drop all observations that contain the unexpected value (`d`), now our pipeline runs correctly. A few months later, we receive new data so we run the pipeline again, but we run into the same issue because of a new unexpected value (say, `e`).
 
-We could argue that one solution would be to *drop all unexpected values*. Is this the best approach? Dropping observations silently is dangerous, as they might contain useful information for our analysis. As we mentioned in the previous guide: explicitly stating our data expectations is the way to move forward.
+We could argue that one solution would be to *drop all unexpected values*. Is this the best approach? Dropping observations silently is dangerous, as they might contain useful information for our analysis. If we bury a `drop=True` piece of code in a pipeline with dozens of files, we are going to cause *a lot of* trouble to someone (which could be us) in the future. As we mentioned in the previous guide: explicitly stating our data expectations is the way to move forward.
 
-If we decide dropping `d` is a reasonable choice, we can encode our new data expectations in the upstream task testing function (bcause that's the task that supplies input data). Let's recall how our pipeline looks like:
+If we decide dropping `d` is a reasonable choice, we can encode our new data expectations in the upstream task testing function (because that's the task that supplies input data). Let's recall how our pipeline looks like:
 <!-- #endregion -->
 
 
@@ -372,7 +372,7 @@ def test_load(product):
     assert set(test['cat'].unique()) == {'a', 'b', 'c', 'd'}
 ```
 
-The comment should actually be part of the testing function, without it. There is no context to understand why are we testing such a specific condition.
+The comment should actually be part of the testing function, without it, there is no context to understand why are we testing such a specific condition.
 
 
 ## Debugging (templated) SQL scripts
@@ -382,6 +382,8 @@ So far, we've discussed how to debug Python scripts, but SQL scripts can also fa
 ```
 ploomber task {task-name} --source
 ```
+
+Apart from looking at rendered code, there isn't much to say about debugging SQL scripts because there are no interactive debuggers. The best we can do is to organize our scripts in a clear way to make it easy to spot errors.
 <!-- #endregion -->
 
 ## Where to go next

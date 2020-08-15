@@ -199,7 +199,7 @@ def my_sql_testing_function(client, product):
 
 Once you call `ploomber build`, wait for the Python prompt to show and verify you have the `client` and `product` variables:
 
-```
+```python
 print(client)
 print(product)
 ```
