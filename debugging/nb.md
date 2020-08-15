@@ -1,3 +1,4 @@
+<!-- #region -->
 # Debugging
 
 ## Why debugging pipelines is hard
@@ -5,38 +6,73 @@
 Debugging data pipelines is hard because there are three factors involved:
 
 1. Our code
-2. Input data
-3. Parameters
+2. Parameters
+3. Input data
 
-In simple cases, the error message might give us enough information to fix the
-bug, but in other cases (which happen more often), we'd want to inspect the
+In simple cases, pipeline error messages might give us enough information to fix the
+bug, but in other (which happen more often), we have to inspect the
 program while running to understand what's going on: see variable values,
 run a few commands, etc).
 
 Inspecting our program requires us to re-execute it under the same conditions
-so we can replicate the conditions that led to the error.
+to replicate the crash. Replicating conditions means having the same code, parameters
+and input data.
 
-depends on data - depends on the current inputs and derived inputs (from other tasks)
+Getting the same code is easy if we know the version (or git hash) that was running
+during the crash. Replicating parameters involves more work, one way to approach
+this is to make sure we always log parameters at the start of every pipeline execution.
 
-replicating a bug means running the same code with the same input data and parameters
+
+Input data is harder than it sounds, when our project is not properly assembled as a
+data pipeline, we might run into issues if we are using the incorrect file as input
+(e.g. reading `/data/some-file.csv` instead of `/data/file.csv`). That's why Ploomber
+puts a lot of emphasis on declaring products one and automatically propagating them
+to any downstream consumers, to ensure that we only declared a product once and we
+always read if the appropriate file or SQL table.
+
+As you can see, replicating error conditions accurately involve some work from your
+end: recording the project version and input parameters on every run and making sure
+you know which input data led to the crash. Once you have these three pieces of information,
+Ploomber will provide you tools to catch those sneaky bugs.
+
 
 ## Debugger basics
 
-A debugger is a program that help us inspect our program for debugging. Python
+A debugger is a program that helps inspect program for debugging. Python
 comes with its own debugger called
 [`pdb`](https://docs.python.org/3/library/pdb.html)
 
-There are a few approaches for debugging programs, one approach is line-by-line
+There are a few approaches for debugging programs. One approach is line-by-line
 debugging, which starts our program in *debug* mode so we can easily inspect
 variables, move to the next line, etc.
 
-One important concept to know when debugging are *stack frames*. Simply
+One important concept to know when debugging is *stack frame*. Simply
 speaking, stack frames represent the state of our code at a given level.
-When a program fails, we might want to move between stack frames to know
-how to fix a bug, as we will see in the next example.
+When you write a non-trivial function, it will depend on other
+functions (yours or from third party packages), each function has its
+own stack frame which defines the variables that are available to it.
 
+When a program fails, it can do so at different levels (i.e. a
+different stack frame). Let's see a simple example:
 
-## A tale of a buggy pipeline
+```python
+def reciprocal(x):
+    return 1/x
+
+def reciprocal_and_multiply(x, y):
+    return reciprocal(x) * y
+```
+
+There are two places where things can go wrong in the program
+above: if we pass `x=0`, the `reciprocal` operation will
+fail. If we pass `y=None`, the program fails as well, but this time, it
+will do so in the `reciprocal_and_multiply`. For this trivial example,
+it's easy to see where things can fail but in a real program you won't
+know, and moving between stack frames can help you find out where the
+error is coming from.
+<!-- #endregion -->
+
+## Tales of a buggy pipeline
 
 Let's take a look at our example pipeline declaration:
 
@@ -48,7 +84,9 @@ from ploomberutils import display_file
 display_file('pipeline.yaml')
 ```
 
-Very simple, two tasks. One loads the data and the next one preprocess it. Let's run it (don't be scared by the long error message, scroll to the end where we will explain it):
+Very simple, two tasks. One loads the data and the next one preprocess it.
+
+Let's run it (don't be scared by the long error message, scroll until the end to see the explanation):
 
 ```sh magic_args="--no-raise-error"
 ploomber build --force
@@ -59,42 +97,53 @@ If you followed the previous tutorial, you are already familiar with Ploomber's 
 
 The latest error message is the most general, the first one is the most specific. Let's take a look at the last one:
 
-```
+```pytb
 ploomber.exceptions.DAGBuildError: Failed to build DAG
 ```
 
-Ok, this is very general. It's just saying the build process failed.
+This is just saying the build process failed. Let's see the next one:
 
-```
+```pytb
 ploomber.exceptions.TaskBuildError: Error building task "preprocess"
 ```
 
-That gives us more context. It's saying the specific task that failed.
+That gives us more context. It's saying the specific task that failed. Next one:
 
 
-```
+```pytb
 ploomber.exceptions.TaskBuildError: An error ocurred when calling papermil.execute_notebook, partially executed notebook with traceback available at ...
 ```
 
-That's useful, it's telling us where we can find the partially executed file in case we want to take a look at it.
+That's useful, it's telling us where we can find the partially executed notebook in case we want to take a look at it. Finally:
 
-```
+```pytb
 ValueError: Found unknown categories ['d'] in column 1 during transform
 ```
 
-Finally! The exact line that failed, if you take a look at the original message, you'll see that the actual line that raise the exception comes from the scikit-learn library.
+That's the exact line that failed, if you take a look at the original error traceback, you'll see that the actual line that raised the exception comes from the scikit-learn library (`_encoders.py` file):
+
+```pytb
+~/miniconda3/envs/ploomber/lib/python3.6/site-packages/sklearn/preprocessing/_encoders.py in _transform(self, X, handle_unknown)
+    122                     msg = ("Found unknown categories {0} in column {1}"
+    123                            " during transform".format(diff, i))
+--> 124                     raise ValueError(msg)
+    125                 else:
+    126                     # Set the problematic rows to an acceptable value and
+
+ValueError: Found unknown categories ['d'] in column 0 during transform
+```
 
 
-This messages provide us with a lot of information: Our pipeline failed while trying to execute task `preprocess`. Somewhere in our task's code we ran something that made scikit-learn crash.
+The error message provides us a lot of information: Our pipeline failed while trying to execute task `preprocess`. Somewhere in our task's code we ran something that made scikit-learn crash.
 
-Let's take a look at the task's source code:
+Let's take a look at the failing task's source code:
 <!-- #endregion -->
 
 ```python
 display_file('preprocess.py')
 ```
 
-Our `preprocess.py` script is using scikit-learn's `OneHotEncoder` to transform variables. The error message offers some information but not enough to fix the issue, we don't have a column named "1"! So there must be something going on internally.
+Our `preprocess.py` script is using scikit-learn's `OneHotEncoder` to transform variables. The error message offers some information but not enough to fix the issue (*we don't have a column named "0"!*). There must be something going on internally.
 
 This is a good use case for Ploomber's debugging capabilities.
 
@@ -142,7 +191,7 @@ ipdb> down
 > /var/folders/3h/_lvh_w_x5g30rrjzb_xnn2j80000gq/T/tmpbatitar6.py(36)my_preprocessing_function()
      34     encoder = OneHotEncoder()
      35     X_train_t = encoder.fit_transform(X_train)
-# COMMENT: After running "down" I see the line that raised the exception
+# COMMENT: The line that raised the exception
 ---> 36     X_test_t = encoder.transform(X_test)
      37     return X_train_t, X_test_t
      38
@@ -164,13 +213,13 @@ ipdb> quit
 
 Ah-ha! The encoder is fitted with a column that has values `a`, `b` and `c` but then is applied to a testing set that has value `d`. That's why it's breaking.
 
-This is an example of how your code could be doing everything right but your data is not compatible with it. How you fix this is up to. The important thing is to know why things are failing.
+This is an example of how your code could be doing everything right but your data is not compatible with it. How you fix this is up to. The important thing is that we know why things are failing.
 <!-- #endregion -->
 
 <!-- #region -->
 ## Post-mortem debugging
 
-Line-by-line debugging puts us at the beginning of the script and then we move as we want, an alternative approach is to let the program run and start the debugging session as soon as it finds an exception, this is called *post-mortem* debugging. The process is similar, we just have to change the kind of debugging we want:
+Line-by-line debugging puts us at the beginning of the script and then we move as we want. An alternative approach is to let the program run and start the debugging session as soon as it finds an exception, this is called *post-mortem* debugging. Starting a post-mortem session is similar: start and interactive session but then pass `kind='pm'` as argument to the `.debug()` function:
 
 ```python
 # pm stands for post-mortem
@@ -185,7 +234,7 @@ ValueError: Found unknown categories ['d'] in column 0 during transform
 > /Users/Edu/miniconda3/envs/ploomber/lib/python3.6/site-packages/sklearn/preprocessing/_encoders.py(124)_transform()
     122                     msg = ("Found unknown categories {0} in column {1}"
     123                            " during transform".format(diff, i))
-# COMMENT: The session starts here. Not very useful because we inside the scikit-learn package
+# COMMENT: The session starts here. Not very useful because we are inside the scikit-learn package
 # (note the file path: site-packages/sklearn/preprocessing/_encoders.py)
 --> 124                     raise ValueError(msg)
     125                 else:
@@ -226,13 +275,13 @@ As you can see, we can use either of these two approaches.
 <!-- #region -->
 ## More difficult scenario: Wrong output but no exceptions raised
 
-The previous example showed how we can debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find errors in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
+The previous example showed how we can debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find issues with the output (e.g. charts are not displaying correctly, data file has NAs, etc).
 
-This is a much harder problem because we don't know where to look at! If a bug is originated in task `A` it might propagate to any downstream tasks that use the product from `A` as input. This is why testing is essential, by explicitly checking our data expectations, we increase the chance to track down the error at the source, rather than in any downstream task.
+This is a much harder problem because we don't know where to look at! If a bug is originated in task `A` it might propagate to any downstream tasks that use the product from `A` as input, this is why testing is essential. By explicitly checking our data expectations, we increase the chance of catching errors at the source, rather than in a downstream task.
 
-But when it happens (and trust me, it will). We recommend you to follow a recursive approach. Once you detect the error, the first question to answer is: Why task produced this output? Once you know that start a line-by-line debugging session (post-mortem won't work because there is no exception!), and carefully check variables to see if you can spot the error.
+When it happens (and trust me, it will), we recommend you to follow a recursive approach: Once you detect the error, the first question to answer is: Which task produced this output? Once you know that start a line-by-line debugging session (post-mortem won't work because there is no exception!), and carefully check variables to see if you can spot the error.
 
-If everything looks correctly, go to the upstream tasks and repeat this process. You can do all of this from the command line.
+If everything looks correct, go to all upstream tasks and repeat this process. You can do this from the command line.
 
 First, start an interactive session from the terminal:
 
@@ -273,7 +322,11 @@ import pdb; pdb.set_trace()
 
 Then start a post-mortem session. The debugger will start at the line where you inserted the breakpoint.
 
-## Using the CLI effectively
+## Defensive programming
+
+add assertions
+
+## Using the CLI to check if we fixed the bug
 
 ploomber task -f, ploomber build --partially task
 
