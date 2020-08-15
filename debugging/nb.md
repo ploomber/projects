@@ -115,7 +115,7 @@ We already know that the error is happening in the `preprocess` task, you can st
 dag['preprocess'].debug()
 ```
 
-Here's a replay of my debugging session (with commens):
+Here's a replay of my debugging session (with comments):
 
 ```python
 # COMMENT: I entered the command "next" a few times until I reached the failing line
@@ -226,11 +226,11 @@ As you can see, we can use either of these two approaches.
 <!-- #region -->
 ## More difficult scenario: Wrong output but no exceptions raised
 
-The previous example showed how we can debug a program that raises an exception. A more diffcult scenario is when our program runs without errors but we find errors in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
+The previous example showed how we can debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find errors in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
 
 This is a much harder problem because we don't know where to look at! If a bug is originated in task `A` it might propagate to any downstream tasks that use the product from `A` as input. This is why testing is essential, by explicitly checking our data expectations, we increase the chance to track down the error at the source, rather than in any downstream task.
 
-But when it happens (and trust me, it will). We recommend you to follow a recursive approach. Once you detect the error, the first question to answer is: Why task produced this output? Once you know that start a line-by-line debuggging session (post-mortem won't work because there is no exception!), and carefully check variables to see if you can spot the error.
+But when it happens (and trust me, it will). We recommend you to follow a recursive approach. Once you detect the error, the first question to answer is: Why task produced this output? Once you know that start a line-by-line debugging session (post-mortem won't work because there is no exception!), and carefully check variables to see if you can spot the error.
 
 If everything looks correctly, go to the upstream tasks and repeat this process. You can do all of this from the command line.
 
@@ -273,6 +273,10 @@ import pdb; pdb.set_trace()
 
 Then start a post-mortem session. The debugger will start at the line where you inserted the breakpoint.
 
+## Using the CLI effectively
+
+ploomber task -f, ploomber build --partially task
+
 
 ## Debugging (templated) SQL scripts
 
@@ -287,3 +291,7 @@ ploomber task {task-name} --source
 ## Where to go next
 
 * [`pdb` documentation](https://docs.python.org/3/library/pdb.html)
+
+```python
+
+```
