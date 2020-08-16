@@ -40,7 +40,7 @@ Ploomber will provide you tools to catch those sneaky bugs.
 
 A debugger is a program that helps inspect anoter program for debugging. Python
 comes with its own debugger called
-[`pdb`](https://docs.python.org/3/library/pdb.html)
+[pdb](https://docs.python.org/3/library/pdb.html).
 
 There are a few approaches for debugging programs. One approach is line-by-line
 debugging, which starts our program in *debug* mode so we can easily inspect
@@ -97,32 +97,33 @@ If you followed the previous tutorial, you are already familiar with Ploomber's 
 
 The latest error message is the most general, the first one is the most specific. Let's take a look at the last one:
 
-```pytb
+
+```
 ploomber.exceptions.DAGBuildError: Failed to build DAG
 ```
 
 This is just saying the build process failed. Let's see the next one:
 
-```pytb
+```
 ploomber.exceptions.TaskBuildError: Error building task "preprocess"
 ```
 
 That gives us more context. It's saying the specific task that failed. Next one:
 
 
-```pytb
+```
 ploomber.exceptions.TaskBuildError: An error occurred when calling papermil.execute_notebook, partially executed notebook with traceback available at ...
 ```
 
 That's useful, it's telling us where we can find the partially executed notebook in case we want to take a look at it. Finally:
 
-```pytb
+```
 ValueError: Found unknown categories ['d'] in column 1 during transform
 ```
 
 That's the exact line that failed, if you take a look at the original error traceback, you'll see that the actual line that raised the exception comes from the scikit-learn library (`_encoders.py` file):
 
-```pytb
+```
 ~/miniconda3/envs/ploomber/lib/python3.6/site-packages/sklearn/preprocessing/_encoders.py in _transform(self, X, handle_unknown)
     122                     msg = ("Found unknown categories {0} in column {1}"
     123                            " during transform".format(diff, i))
@@ -147,12 +148,12 @@ Our `preprocess.py` script is using scikit-learn's `OneHotEncoder` to transform 
 
 This is a good use case for Ploomber's debugging capabilities.
 
-<!-- #region -->
+
 ## Starting line-by-line debugging sessions
 
 To start a debugging session you first have to start an interactive session. To do so, run the following command in the terminal:
 
-```sh
+```console
 ploomber interact
 ```
 
@@ -160,13 +161,13 @@ When it finishes setting things up, your pipeline will be available in the `dag`
 
 We already know that the error is happening in the `preprocess` task, you can start a line-by-line debugging session with the following command:
 
-```python
-dag['preprocess'].debug()
+```pycon
+>>> dag['preprocess'].debug()
 ```
 
 Here's a replay of my debugging session (with comments):
 
-```python
+```
 # COMMENT: I entered the command "next" a few times until I reached the failing line
 ipdb>
 > /var/folders/3h/_lvh_w_x5g30rrjzb_xnn2j80000gq/T/tmpbatitar6.py(45)<module>()
@@ -214,21 +215,19 @@ ipdb> quit
 Ah-ha! The encoder is fitted with a column that has values `a`, `b` and `c` but then is applied to a testing set that has value `d`. That's why it's breaking.
 
 This is an example of how your code could be doing everything right but your data is not compatible with it. How you fix this is up to. The important thing is that we know why things are failing.
-<!-- #endregion -->
 
-<!-- #region -->
+
 ## Post-mortem debugging
 
-Line-by-line debugging puts us at the beginning of the script and then we move as we want. An alternative approach is to let the program run and start the debugging session as soon as it finds an exception, this is called *post-mortem* debugging. Starting a post-mortem session is similar: start and interactive session but then pass `kind='pm'` as argument to the `.debug()` function:
+Line-by-line debugging puts us at the beginning of the script and then we move as we want. An alternative approach is to let the program run and start the debugging session as soon as it finds an exception, this is called *post-mortem* debugging. Starting a post-mortem session is similar: start and interactive session but then pass `kind='pm'` (`pm` stands for post-mortem) as argument to the `.debug()` function:
 
-```python
-# pm stands for post-mortem
-dag['preprocess'].debug(kind='pm')
+```pycon
+>>> dag['preprocess'].debug(kind='pm')
 ```
 
 Here's the (commented) replay of my post-mortem debugging session:
 
-```python
+```
 # COMMENT: I deleted a few lines for brevity
 ValueError: Found unknown categories ['d'] in column 0 during transform
 > /Users/Edu/miniconda3/envs/ploomber/lib/python3.6/site-packages/sklearn/preprocessing/_encoders.py(124)_transform()
@@ -270,7 +269,6 @@ ipdb> quit
 ```
 
 As you can see, we can use either of these two approaches.
-<!-- #endregion -->
 
 <!-- #region -->
 ## More difficult scenario: no exceptions raised but wrong output
@@ -328,13 +326,13 @@ In a real scenario, we might try a few things before we find bug fix. To quickly
 
 If we narrowed down the error to a specific task, we can apply changes and quickly check if the new code runs correctly by just running that task:
 
-```sh
+```console
 ploomber task {task-name}
 ```
 
 If the exception happens in task `B`, but the solution has to be implemented in task `A` (where `A` is an upstream dependency of `B`), then we have to make sure that we run `A` and `B` to verify the fix. A full end-to-end run is wasteful but so is an incremental run if `B` has many downstream tasks. For testing purposes, we just care about things going well *until `B`*. This is a good use of a partial build: it will run all tasks until it reaches a selected task (by default, it will still skip up-to-date tasks). In our case:
 
-```sh
+```console
 ploomber build --partially B
 ```
 
@@ -379,7 +377,7 @@ The comment should actually be part of the testing function, without it, there i
 
 So far, we've discussed how to debug Python scripts, but SQL scripts can also fail. In a previous guide, we showed how templated SQL scripts help us write more concise SQL code, but this comes with a cost. Relying too much on templating makes our templated source code short but hard to read. If your database complains about syntax errors when executing SQL tasks, chances are, the errors is coming from incorrect templating logic. One good first debugging step is to take a look at the rendered code. You can do so from the command line:
 
-```
+```console
 ploomber task {task-name} --source
 ```
 
@@ -388,4 +386,4 @@ Apart from looking at rendered code, there isn't much to say about debugging SQL
 
 ## Where to go next
 
-* [`pdb` documentation](https://docs.python.org/3/library/pdb.html)
+* [pdb documentation](https://docs.python.org/3/library/pdb.html)

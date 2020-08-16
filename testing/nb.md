@@ -71,20 +71,14 @@ Let's now take a look at our tests:
 display_file('integration_tests.py')
 ```
 
-<!-- #region -->
 ## Testing Python scripts
 
 To test your Python scripts, you have to know which file to look at. You can do so by simply adding `product` as argument to your function. If your Python script generates more than one product (like in our case), `product` will be a dictionary-like object, that's why we are using `product['data']`. This returns a `Product` object, to get the path to the file, simply use the `str` function.
 
-```python
-# dictionary-like object: maps names to Product objects
-product
-
-# Product object
-product['data']
-
-# path to the data file
-str(product['data'])
+```pycon
+>>> product # dictionary-like object: maps names to Product objects
+>>> product['data'] # Product object
+>>> str(product['data']) # path to the data file
 ```
 
 ## Testing SQL scripts
@@ -98,7 +92,6 @@ The `ploomber.testing.sql` module implements convenient functions to test your t
 ## Running the pipeline
 
 Let's now run our pipeline:
-<!-- #endregion -->
 
 ```sh
 ploomber build
@@ -199,9 +192,9 @@ def my_sql_testing_function(client, product):
 
 Once you call `ploomber build`, wait for the Python prompt to show and verify you have the `client` and `product` variables:
 
-```python
-print(client)
-print(product)
+```pycon
+>>> print(client)
+>>> print(product)
 ```
 
 

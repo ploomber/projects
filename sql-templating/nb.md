@@ -72,7 +72,7 @@ display_file('sql/macros.sql')
 The `{% macro %}` tag defines the macro name and parameters (if any). To use our macro in a different file, we have to import it. Let's say we define the previous macro in a `macros.sql` file:
 
 ```python
-display_file('sql/create-table.sql', syntax='postgresql')
+display_file('sql/create-table.sql')
 ```
 
 ### Configuring support for macros
