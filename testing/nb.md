@@ -200,5 +200,6 @@ Once you call `ploomber build`, wait for the Python prompt to show and verify yo
 
 ## Where to go next
 
+* [Documentation for ploomber.testing - Handy functions for testing pipelines](../api/testing.rst)
 * [Our blog post on CI for Data Science (which includes a section on testing pipelines)](https://towardsdatascience.com/rethinking-continuous-integration-for-data-science-ebf0dfc61788)
 <!-- #endregion -->
