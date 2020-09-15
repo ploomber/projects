@@ -8,6 +8,13 @@ from sklearn.metrics import plot_confusion_matrix
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+
+# +
+plt.rcParams['figure.figsize'] = [8, 8]
+plt.rcParams['xtick.labelsize'] = 18
+plt.rcParams['ytick.labelsize'] = 18
+plt.rcParams['font.size'] = 20
 
 # + tags=["parameters"]
 upstream = ['clean-users', 'clean-actions']
