@@ -67,7 +67,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: cd basic-ml
-      - run: pip install .
-      - run: pip install -r requirements
-      - run: pytest
+      - run: |
+        cd basic-ml
+        pip install .
+        pip install -r requirements
+        pytest
