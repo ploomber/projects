@@ -58,3 +58,16 @@ jobs:
           python-version: 3.8
       - run: pip install soopervisor
       - run: cd etl/ && soopervisor build --clean-products-path
+
+  basic-ml:
+    runs-on: ubuntu-latest
+    name: basic-ml
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: cd basic-ml
+      - run: pip install .
+      - run: pip install -r requirements
+      - run: pytest

@@ -1,18 +1,17 @@
 # Basic ML project
 
-
-## Installation
+## Setup
 
 ```bash
-git clone https://github.com/ploomber/basic-pipeline
-cd basic-pipeline
+git clone https://github.com/ploomber/projects
+cd basic-ml
 pip install .
 ```
 
 ## Executing pipeline
 
 ```bash
-python -m ploomber.entry basic_pipeline.pipeline.make --help
+ploomber build --entry-point basic_ml.pipeline.make
 ```
 
 ## Testing
@@ -20,10 +19,10 @@ python -m ploomber.entry basic_pipeline.pipeline.make --help
 ```bash
 pip install -r requirements.txt
 
-# incremental
+# incremental (will only run the tasks that have changed)
 pytest
 
-# complete
+# complete (force execution of all tasks)
 pytest --force
 
 # to start a debugging session on exceptions
@@ -31,4 +30,15 @@ pytest --pdb
 
 # to start a debugging session at the start of every test
 pytest --trace
+```
+
+## Interacting with the pipeline
+
+In a Python session (make sure `basic-ml/env.yaml` is in the current active
+directory):
+
+```python
+from basic_ml.pipeline import make
+
+dag = make()
 ```

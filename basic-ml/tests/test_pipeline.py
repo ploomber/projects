@@ -2,7 +2,7 @@ import pytest
 from ploomber import Env
 from ploomber.executors import Serial
 
-from basic_pipeline import pipeline
+from basic_ml import pipeline
 
 
 @pytest.fixture()

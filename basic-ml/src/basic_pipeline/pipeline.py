@@ -7,7 +7,7 @@ from ploomber import with_env, DAGConfigurator
 from ploomber.tasks import PythonCallable
 from ploomber.products import File
 
-from basic_pipeline import tasks
+from basic_ml import tasks
 
 
 @with_env
