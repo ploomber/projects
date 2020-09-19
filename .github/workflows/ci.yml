@@ -70,5 +70,5 @@ jobs:
       - run: |
         cd basic-ml
         pip install .
-        pip install -r requirements
+        pip install -r requirements.txt
         pytest
