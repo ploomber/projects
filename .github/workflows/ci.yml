@@ -68,7 +68,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-        cd basic-ml
-        pip install .
-        pip install -r requirements.txt
-        pytest
+          cd basic-ml
+          pip install setup.py
+          pip install -r requirements.txt
+          pytest
