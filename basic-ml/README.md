@@ -1,5 +1,12 @@
 # Basic ML project
 
+This example shows a simple ML pipeline using the Python API, how to package
+your projects so you can install them using `pip install .` and how to test
+using `pytest`.
+
+The same pipeline was implemented using the Spec API (using the source code)
+than the other one, see `spec/` for details.
+
 ## Setup
 
 ```bash

@@ -1,0 +1,20 @@
+meta:
+  extract_upstream: True
+  extract_product: False
+
+tasks:
+  - source: basic_ml.tasks.get
+    product: output/get.parquet
+    params:
+      sample_frac: null
+
+  - source: basic_ml.tasks.features
+    product: output/features.parquet
+
+  - source: basic_ml.tasks.join
+    product: output/join.parquet
+
+  - source: basic_ml.tasks.fit
+    product:
+        report: output/report.txt
+        model: output/model.joblib

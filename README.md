@@ -17,7 +17,7 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 2. debugging. Pipeline to demonstrate debugging capabilities
 3. sql-templating. SQL pipeline showing how to use macros to write concise SQL scripts
 4. testing. Pipeline with SQL and Python tasks showing how to add test pipelines
-5. basic-ml. Simple Machine Learning pipeline using the Python API, also shows how to test pipelines using `pytest` and how to package your pipeline so you can install it with `pip install`
+5. basic-ml. Simple Machine Learning pipeline using the both APIs (Python and Spec). It also shows how to test pipelines using `pytest` and how to package your pipeline so you can install it with `pip install`
 
 ## Advanced examples
 

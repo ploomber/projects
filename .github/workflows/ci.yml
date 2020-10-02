@@ -72,3 +72,6 @@ jobs:
           pip install "."
           pip install -r requirements.txt
           pytest
+          cd spec
+          mkdir output
+          ploomber build
