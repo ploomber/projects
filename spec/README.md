@@ -36,7 +36,7 @@ Let's now modify one of the tasks to see what happens (make sure you save change
 
 [Click here to open plot.py](plot.py)
 
-Also try mofidying any of the SQL scripts:
+Also try modifying any of the SQL scripts:
 
 [Click here to go to the spec folder](.)
 

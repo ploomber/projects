@@ -36,17 +36,6 @@ jobs:
           python-version: 3.8
       - run: pip install soopervisor
       - run: cd spec-r/ && soopervisor build --clean-products-path
-  
-  co2-emissions:
-    runs-on: ubuntu-latest
-    name: co2-emissions
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: pip install soopervisor
-      - run: cd contrib/co2-emissions && soopervisor build --clean-products-path
 
   etl:
     runs-on: ubuntu-latest
