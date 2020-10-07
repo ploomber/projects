@@ -1,6 +1,6 @@
 # Basic ML project (Spec API)
 
-This example shows howto build the same ML pipeline but this time using the
+This example shows how to build the same ML pipeline but this time using the
 Spec API (`pipeline.yaml`) instead of the Python API. It uses the same source
 code as the other version.
 
