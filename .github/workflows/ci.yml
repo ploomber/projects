@@ -26,8 +26,9 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: conda init bash
       - run: |
+          eval "$(conda shell.bash hook)"
+          exec bash
           cd spec-api-python/
           conda env create --file environment.yml --name env
           conda activate env
@@ -83,7 +84,7 @@ jobs:
           pip install pandas soopervisor
           cd testing
           mkdir output
-          python setup/script.py
+          cd setup && python script.py && cd ..
           soopervisor build --clean-products-path
   
   parametrized:
@@ -95,8 +96,14 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
-      - run: cd parametrized/ && mkdir -p output/default_value  && soopervisor build
+      - run: |
+          eval "$(conda shell.bash hook)"
+          exec bash
+          cd parametrized/
+          conda env create --file environment.yml --name env
+          conda activate env
+          ploomber build
+    
 
   ml-basic:
     runs-on: ubuntu-latest
