@@ -15,16 +15,16 @@ jobs:
       - run: pip install soopervisor
       - run: cd spec/ && soopervisor build --clean-products-path
 
-  basic-tutorial:
+  python-api:
     runs-on: ubuntu-latest
-    name: basic-tutorial ci
+    name: python-api ci
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - run: pip install soopervisor
-      - run: cd basic-tutorial/ && soopervisor build --clean-products-path
+      - run: cd python-api/ && soopervisor build --clean-products-path
 
   spec-r:
     runs-on: ubuntu-latest

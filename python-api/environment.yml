@@ -1,4 +1,4 @@
-name: basic-tutorial
+name: python-api
 
 dependencies:
   - python=3.8

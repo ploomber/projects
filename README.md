@@ -10,7 +10,7 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 1. entry-directory. A simple pipeline with 5 tasks, it is executed without declaring a `pipeline.yaml` file. This is the example used in the JupyterCon 2020 demo
 2. spec-basic. Pipeline defined using a `pipeline.yaml` file
 3. spec-r. Basic pipeline with R scripts
-4. basic-tutorial. Basic tutorial using the Python API
+4. `python-api/`. Basic tutorial using the Python API
 
 ## Intermediate examples
 
