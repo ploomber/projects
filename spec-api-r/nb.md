@@ -10,7 +10,7 @@ folder:
 <!-- #md -->
 
 ```sh
-cd spec-r
+cd spec-api-r
 ```
 
 <!-- #endmd -->
