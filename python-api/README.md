@@ -1,3 +1,3 @@
-# Basic tutorial
+# Python API
 
-This tutorial showcases the basic Ploomber workflow.
+See `notebook.md`.
