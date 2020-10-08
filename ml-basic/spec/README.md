@@ -9,7 +9,7 @@ code as the other version.
 ```bash
 # same instructions as the other version
 git clone https://github.com/ploomber/projects
-cd basic-ml
+cd ml-basic
 pip install .
 ```
 

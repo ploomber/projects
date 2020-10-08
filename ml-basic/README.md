@@ -11,7 +11,7 @@ from this example to show a comparison between the Spec and Python API, see `spe
 
 ```bash
 git clone https://github.com/ploomber/projects
-cd basic-ml
+cd ml-basic
 pip install .
 ```
 
@@ -41,7 +41,7 @@ pytest --trace
 
 ## Interacting with the pipeline
 
-In a Python session (make sure `basic-ml/env.yaml` is in the current active
+In a Python session (make sure `ml-basic/env.yaml` is in the current active
 directory):
 
 ```python

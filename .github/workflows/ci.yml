@@ -2,7 +2,46 @@ name: ci
 on: push
 
 jobs:
-  spec:
+  spec-api-directory:
+    runs-on: ubuntu-latest
+    name: spec-api-directory
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          cd spec-api-directory/
+          conda env create --file environment.yml --name env
+          conda activate env
+          ploomber build --entry-point .
+    
+  spec-api-python:
+    runs-on: ubuntu-latest
+    name: spec-api-python
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          cd spec-api-python/
+          conda env create --file environment.yml --name env
+          conda activate env
+          ploomber build
+    
+  spec-api-r:
+    runs-on: ubuntu-latest
+    name: spec-api-r
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: pip install soopervisor
+      - run: cd spec-api-r/ && soopervisor build --clean-products-path
+
+  spec-api-sql:
     runs-on: ubuntu-latest
     name: spec-api-sql
     steps:
@@ -26,17 +65,24 @@ jobs:
       - run: pip install soopervisor
       - run: cd python-api/ && soopervisor build --clean-products-path
 
-  spec-api-r:
+
+  ml-basic:
     runs-on: ubuntu-latest
-    name: spec-api-r
+    name: ml-basic
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
-      - run: cd spec-api-r/ && soopervisor build --clean-products-path
-
+      - run: |
+          cd ml-basic
+          pip install "."
+          pip install -r requirements.txt
+          pytest
+          cd spec
+          mkdir output
+          ploomber build
+  
   etl:
     runs-on: ubuntu-latest
     name: etl
@@ -47,20 +93,3 @@ jobs:
           python-version: 3.8
       - run: pip install soopervisor
       - run: cd etl/ && soopervisor build --clean-products-path
-
-  basic-ml:
-    runs-on: ubuntu-latest
-    name: basic-ml
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          cd basic-ml
-          pip install "."
-          pip install -r requirements.txt
-          pytest
-          cd spec
-          mkdir output
-          ploomber build
