@@ -7,9 +7,9 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 
 ## Basic examples
 
-1. `spec-api-directory/`. A simple pipeline with 5 tasks, it is executed without declaring a `pipeline.yaml` file. This is the example used in the JupyterCon 2020 demo
-2. `spec-api-python/`. Pipeline defined using a `pipeline.yaml` file
-3. `spec-api-r/` Basic pipeline with R scripts
+1. `spec-api-directory/`. A simple example showing how to build a pipeline out of a directory with scripts. This is the example used in the JupyterCon 2020 demo
+2. `spec-api-python/`. A Python pipeline defined using a `pipeline.yaml` spec file
+3. `spec-api-r/`. An R pipeline defined using a `pipeline.yaml` spec file
 
 ## Intermediate examples
 
