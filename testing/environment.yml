@@ -3,6 +3,7 @@ name: testing
 dependencies:
   - python=3.8
   - pandas
+  - pip
   - pip:
     - ploomber
 

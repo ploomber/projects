@@ -2,4 +2,4 @@ from ploomber.clients import SQLAlchemyClient
 
 
 def get_client():
-    return SQLAlchemyClient('sqlite:///output/data.db')
+    return SQLAlchemyClient('sqlite:///data.db')

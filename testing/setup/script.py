@@ -18,5 +18,5 @@ df = pd.DataFrame({
 df.loc[:10, 'score'] = np.nan
 df.loc[11:20, 'age'] = -42
 
-conn = sqlite3.connect('../output/data.db')
+conn = sqlite3.connect('data.db')
 df.to_sql('my_table', con=conn)
