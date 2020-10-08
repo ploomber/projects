@@ -10,11 +10,9 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: eval $(conda shell.bash hook)
       - run: |
           cd spec-api-directory/
-          conda env create --file environment.yml --name env
-          conda activate env
+          conda env update  --file environment.yml --prune
           ploomber build --entry-point .
     
   spec-api-python:
@@ -28,8 +26,7 @@ jobs:
       - run: eval $(conda shell.bash hook)
       - run: |
           cd spec-api-python/
-          conda env create --file environment.yml --name env
-          conda activate env
+          conda env update  --file environment.yml --prune
           ploomber build
     
   spec-api-r:
@@ -67,6 +64,9 @@ jobs:
       - run: pip install soopervisor
       - run: cd python-api/ && soopervisor build --clean-products-path
 
+  # debugging
+  # testing
+  # parametrized
 
   ml-basic:
     runs-on: ubuntu-latest
@@ -84,6 +84,8 @@ jobs:
           cd spec
           mkdir output
           ploomber build
+
+  # sql-templating
   
   etl:
     runs-on: ubuntu-latest

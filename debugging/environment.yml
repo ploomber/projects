@@ -1,0 +1,9 @@
+name: debugging
+
+dependencies:
+  - python=3.8
+  - pandas
+  - scikit-learn
+  - pip:
+    - ploomber
+
