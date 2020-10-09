@@ -14,13 +14,13 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 ## Intermediate
 
 4. `spec-api-sql/` Pipeline with SQL and Python tasks, using the Spec API
-5. `python-api/` Pipleine using the Python API
+5. `python-api/` Pipeline using the Python API
 6. `parametrized/` Pipeline with input parameters
 7. `debugging/` Pipeline to demonstrate debugging capabilities
-8. `testing/` Pipeline with SQL and Python tasks showing how test pipelines
+8. `testing/` Pipeline with SQL and Python tasks showing how to test pipelines
 9. `ml-basic/` Simple Machine Learning pipeline using the both APIs (Python and Spec). It also shows how to test pipelines using `pytest` and how to package your pipeline so you can install it with `pip install`
 
 ## Advanced
 
-10. `sql-templating`. SQL pipeline showing how to use macros to write concise SQL scripts
-11. `etl`. Pipeline with a dozen tasks demonstrating how to extract data form a SQL database and then process it with Python
+10. `sql-templating` SQL pipeline showing how to use macros to write concise SQL scripts
+11. `etl` Pipeline with a dozen tasks demonstrating how to extract data form a SQL database and then process it with Python
