@@ -57,7 +57,7 @@ Apart from the default parameters from the `ploomber build` command, Ploomber au
 ```python
 %%capture captured
 %%sh
-ploomber build --force --env--some-param another_value --log INFO
+ploomber build --force --env--some_param another_value --log INFO
 ```
 
 ```python
