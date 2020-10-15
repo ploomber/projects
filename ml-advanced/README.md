@@ -1,29 +1,27 @@
-# Basic ML project
+# ML advanced
 
-This example shows a simple ML pipeline using the Python API, how to package
+This example shows a Machine Learning pipeline using the Python API, how to package
 your projects so you can install them using `pip install .` and how to test
 using `pytest`.
 
-The same pipeline was implemented using the Spec API using the source code
-from this example to show a comparison between the Spec and Python API, see `spec/` for details.
-
 ## Setup
 
-```bash
-git clone https://github.com/ploomber/projects
-cd ml-basic
+Make sure you are in the `ml-advanced` folder:
+
+```bash tags=["bash"]
+# install the pipeline as a package
 pip install .
 ```
 
 ## Executing pipeline
 
-```bash
+```bash tags=["bash"]
 ploomber build --entry-point basic_ml.pipeline.make
 ```
 
 ## Testing
 
-```bash
+```bash .noeval
 pip install -r requirements.txt
 
 # incremental (will only run the tasks that have changed)
@@ -41,11 +39,13 @@ pytest --trace
 
 ## Interacting with the pipeline
 
-In a Python session (make sure `ml-basic/env.yaml` is in the current active
+In a Python session (make sure `ml-advanced/env.yaml` is in the current active
 directory):
+
 
 ```python
 from basic_ml.pipeline import make
 
 dag = make()
+dag.status()
 ```

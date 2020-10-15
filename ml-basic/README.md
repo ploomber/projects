@@ -6,18 +6,17 @@ Take a look at the `pipeline.yaml` for more details.
 
 ## Setup
 
-```bash
-# same instructions as the other version
-git clone https://github.com/ploomber/projects
-cd ml-basic
+Make sure you are in the `ml-basic` folder.
 
+```bash .noeval
+# setup environment
 conda env create --file environment.yml
 conda activate ml-basic
 ```
 
 ## Execute the pipeline
 
-```bash
+```bash tags=["bash"]
 # make sure output folder exists
 mkdir output
 

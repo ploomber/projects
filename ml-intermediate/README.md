@@ -8,7 +8,7 @@ it is a good idea to test with a sample, take a look at the `pipeline.yaml`,
 
 ## Setup
 
-```bash tags=["bash"]
+```bash .noeval
 # same instructions as the other version
 git clone https://github.com/ploomber/projects
 cd ml-basic
@@ -19,7 +19,7 @@ conda activate ml-basic
 
 ## Execute the pipeline
 
-```bash
+```bash tags=["bash"]
 ploomber build
 ```
 
@@ -27,13 +27,12 @@ ploomber build
 
 To see available parameters:
 
-```bash
+```bash tags=["bash"]
 ploomber build --help
 ```
 
 Run with a sample:
 
-```bash
-ploomber build --env__sample true 
+```bash tags=["bash"]
+ploomber build --env--sample true 
 ```
-

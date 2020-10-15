@@ -2,6 +2,7 @@ __version__ = '0.1'
 
 from pathlib import Path
 from IPython.display import Markdown, display
+from ploomberutils.nb import process_readme
 
 
 def display_file(path, syntax=None):
@@ -27,3 +28,6 @@ def filter_output(captured, startswith):
         line for line in captured.stderr.split('\n')
         if line.startswith(startswith)
     ]))
+
+
+__all__ = ['display_file', 'process_readme']

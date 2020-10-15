@@ -10,9 +10,14 @@ def get(product, sample):
     Path(str(product)).parent.mkdir(parents=True, exist_ok=True)
 
     d = datasets.load_iris()
+
     df = pd.DataFrame(d['data'])
     df.columns = d['feature_names']
     df['target'] = d['target']
+
+    # for the purpose of this example, let's replicate this data frame to show
+    # the benefit of sampling
+    df = pd.concat([df] * 5000, ignore_index=True)
 
     if sample:
         print('Sampling 10%')
