@@ -8,7 +8,7 @@ it is a good idea to test with a sample, take a look at the `pipeline.yaml`,
 
 ## Setup
 
-```bash .noeval
+```bash active="md"
 # same instructions as the other version
 git clone https://github.com/ploomber/projects
 cd ml-basic
