@@ -1,3 +1,5 @@
+from pathlib import Path
+import shutil
 from glob import iglob
 from ploomberutils import process_readme
 from invoke import task
@@ -8,7 +10,9 @@ def clear(c):
     """Clears output folders
     """
     for f in iglob('*/output'):
-        print(f'Processing: {f}')
+        print(f'Deleting contents of: {f}')
+        shutil.rmtree(f)
+        Path(f).mkdir()
 
 
 @task

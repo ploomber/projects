@@ -105,16 +105,16 @@ jobs:
           ploomber build
     
 
-  ml-basic:
+  ml-advanced:
     runs-on: ubuntu-latest
-    name: ml-basic
+    name: ml-advanced
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - run: |
-          cd ml-basic
+          cd ml-advanced
           pip install "."
           pip install -r requirements.txt
           pytest

@@ -40,6 +40,9 @@ cd projects/etl
 conda env create --file environment.yml
 conda activate etl
 
+# make sure the output folder exists
+mkdir output
+
 # build (takes a couple minutes to finish)
 ploomber build
 ```
