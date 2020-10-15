@@ -8,17 +8,14 @@ it is a good idea to test with a sample, take a look at the `pipeline.yaml`,
 
 ## Setup
 
-
-<!-- #raw -->
-```bash
+~~~bash
 # same instructions as the other version
 git clone https://github.com/ploomber/projects
 cd ml-basic
 
 conda env create --file environment.yml
 conda activate ml-basic
-```
-<!-- #endraw -->
+~~~
 
 ## Execute the pipeline
 
