@@ -21,7 +21,7 @@ ploomber build --entry-point basic_ml.pipeline.make
 
 ## Testing
 
-```bash .noeval
+~~~bash
 pip install -r requirements.txt
 
 # incremental (will only run the tasks that have changed)
@@ -35,7 +35,7 @@ pytest --pdb
 
 # to start a debugging session at the start of every test
 pytest --trace
-```
+~~~
 
 ## Interacting with the pipeline
 

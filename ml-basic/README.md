@@ -8,11 +8,11 @@ Take a look at the `pipeline.yaml` for more details.
 
 Make sure you are in the `ml-basic` folder.
 
-```bash .noeval
+~~~bash
 # setup environment
 conda env create --file environment.yml
 conda activate ml-basic
-```
+~~~
 
 ## Execute the pipeline
 

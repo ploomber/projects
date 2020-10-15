@@ -27,11 +27,14 @@ language using a tag:
 echo 'hello'
 ```
 
-To prevent a cell from executing add `.noeval`
+To prevent a cell from executing use `~~~`:
 
-```bash .noeval
+~~~bash
 # this won't be executed
-```
+~~~
+
+Note: from the many [alternatives](https://jupytext.readthedocs.io/en/latest/formats.html#jupytext-markdown),
+we selected the `~~~` option because it's the only one that produces notebooks that correctly render on Github.
 
 The output is stored as `README.ipynb`. Which is the file that you should
 point to share binder links.
