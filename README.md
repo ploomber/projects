@@ -10,15 +10,16 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 1. `spec-api-directory/` Simple example showing how to build a pipeline out of a directory with scripts. This is the example used in the JupyterCon 2020 demo
 2. `spec-api-python/` Python pipeline defined using a `pipeline.yaml` spec file
 3. `spec-api-r/` R pipeline defined using a `pipeline.yaml` spec file
+4. `ml-basic/` Basic Machine Learning pipeline with a few function tasks and a notebook task for training a model
 
 ## Intermediate
 
-4. `spec-api-sql/` Pipeline with SQL and Python tasks, using the Spec API
-5. `python-api/` Pipeline using the Python API
-6. `parametrized/` Pipeline with input parameters
-7. `debugging/` Pipeline to demonstrate debugging capabilities
-8. `testing/` Pipeline with SQL and Python tasks showing how to test pipelines
-9. `ml-basic/` Simple Machine Learning pipeline using the both APIs (Python and Spec). It also shows how to test pipelines using `pytest` and how to package your pipeline so you can install it with `pip install`
+5. `spec-api-sql/` Pipeline with SQL and Python tasks, using the Spec API
+6. `python-api/` Pipeline using the Python API
+7. `parametrized/` Pipeline with input parameters
+8. `debugging/` Pipeline to demonstrate debugging capabilities
+9. `testing/` Pipeline with SQL and Python tasks showing how to test pipelines
+10. `ml-intermediate/` Machine Learning pipeline using both APIs (Python and Spec). It also shows how to test pipelines using `pytest` and how to package your pipeline so you can install it with `pip install`
 
 ## Advanced
 

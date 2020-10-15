@@ -1,51 +1,39 @@
-# Basic ML project
+# Intermediate ML project
 
-This example shows a simple ML pipeline using the Python API, how to package
-your projects so you can install them using `pip install .` and how to test
-using `pytest`.
-
-The same pipeline was implemented using the Spec API using the source code
-from this example to show a comparison between the Spec and Python API, see `spec/` for details.
+This example shows how to build an ML pipeline with integration testing (using
+the `on_finish` key). When the pipeline takes a lot of time to run end-to-end
+it is a good idea to test with a sample, take a look at the `pipeline.yaml`,
+`env.yaml` to see how this parametrization happens and how this affects the
+`get` function defined in `tasks.py`.
 
 ## Setup
 
-```bash
+```bash tags=["bash"]
+# same instructions as the other version
 git clone https://github.com/ploomber/projects
 cd ml-basic
-pip install .
+
+conda env create --file environment.yml
+conda activate ml-basic
 ```
 
-## Executing pipeline
+## Execute the pipeline
 
 ```bash
-ploomber build --entry-point basic_ml.pipeline.make
+ploomber build
 ```
 
-## Testing
+## Integration testing with a sample
+
+To see available parameters:
 
 ```bash
-pip install -r requirements.txt
-
-# incremental (will only run the tasks that have changed)
-pytest
-
-# complete (force execution of all tasks)
-pytest --force
-
-# to start a debugging session on exceptions
-pytest --pdb
-
-# to start a debugging session at the start of every test
-pytest --trace
+ploomber build --help
 ```
 
-## Interacting with the pipeline
+Run with a sample:
 
-In a Python session (make sure `ml-basic/env.yaml` is in the current active
-directory):
-
-```python
-from basic_ml.pipeline import make
-
-dag = make()
+```bash
+ploomber build --env__sample true 
 ```
+

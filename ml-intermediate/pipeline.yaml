@@ -1,0 +1,27 @@
+meta:
+  extract_upstream: True
+  extract_product: False
+
+tasks:
+  - source: tasks.get
+    # all products are parametrized (default values are loaded from env.yaml),
+    # and can be overriden using the command line interface
+    product: output/sample={{sample}}/get.parquet
+    params:
+      # we can also pass parameters to tasks
+      sample: '{{sample}}'
+
+  - source: tasks.features
+    product: output/sample={{sample}}/features.parquet
+
+  - source: tasks.join
+    product: output/sample={{sample}}/join.parquet
+    # use the on_finish key to run a function upon successful task execution.
+    # this is handy for pipeline integration testing:
+    # https://ploomber.readthedocs.io/en/stable/user-guide/testing.html
+    on_finish: tests.no_missing_values
+
+  - source: fit.py
+    product:
+        nb: output/sample={{sample}}/nb.ipynb
+        model: output/sample={{sample}}/model.pickle
