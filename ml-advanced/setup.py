@@ -49,7 +49,7 @@ setup(
     install_requires=[
         'ploomber',
         'pandas==1.0.1',
-        'scikit-learn-0.23.2',
+        'scikit-learn==0.23.2',
         'joblib==0.14.1',
         'pyarrow==0.16.0',
         'sklearn-evaluation==0.5.2',
