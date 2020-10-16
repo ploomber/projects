@@ -75,7 +75,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install pandas soopervisor
+          pip install pandas soopervisor[opt]
           cd testing
           mkdir output
           cd setup && python script.py && cd ..
