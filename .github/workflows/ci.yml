@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install soopervisor
+          pip install soopervisor[opt]
           cd spec-api-directory/
           soopervisor build
 
@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install soopervisor
+          pip install soopervisor[opt]
           cd spec-api-python/
           soopervisor build
     
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd spec-api-r/ && soopervisor build --clean-products-path
 
   spec-api-sql:
@@ -48,7 +48,7 @@ jobs:
         with:
           python-version: 3.8
       - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd spec-api-sql/ && soopervisor build --clean-products-path
 
   python-api:
@@ -59,7 +59,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd python-api/ && soopervisor build --clean-products-path
 
   # debugging
@@ -91,7 +91,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install soopervisor
+          pip install soopervisor[opt]
           cd parametrized/
           soopervisor build
     
@@ -120,5 +120,5 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd etl/ && soopervisor build --clean-products-path
