@@ -10,4 +10,4 @@ dependencies:
   - pip:
     - ploomber
     - seaborn
-
+    - pyarrow

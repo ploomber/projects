@@ -11,13 +11,10 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          eval "$(conda shell.bash hook)"
-          exec bash
+          pip install soopervisor[opt]
           cd spec-api-directory/
-          conda env create --file environment.yml --name env
-          conda activate env
-          ploomber build --entry-point .
-    
+          soopervisor build
+
   spec-api-python:
     runs-on: ubuntu-latest
     name: spec-api-python
@@ -27,12 +24,9 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          eval "$(conda shell.bash hook)"
-          exec bash
+          pip install soopervisor[opt]
           cd spec-api-python/
-          conda env create --file environment.yml --name env
-          conda activate env
-          ploomber build
+          soopervisor build
     
   spec-api-r:
     runs-on: ubuntu-latest
@@ -42,7 +36,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd spec-api-r/ && soopervisor build --clean-products-path
 
   spec-api-sql:
@@ -54,7 +48,7 @@ jobs:
         with:
           python-version: 3.8
       - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd spec-api-sql/ && soopervisor build --clean-products-path
 
   python-api:
@@ -65,7 +59,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd python-api/ && soopervisor build --clean-products-path
 
   # debugging
@@ -81,7 +75,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install pandas soopervisor
+          pip install pandas soopervisor[opt]
           cd testing
           mkdir output
           cd setup && python script.py && cd ..
@@ -97,12 +91,9 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          eval "$(conda shell.bash hook)"
-          exec bash
+          pip install soopervisor[opt]
           cd parametrized/
-          conda env create --file environment.yml --name env
-          conda activate env
-          ploomber build
+          soopervisor build
     
 
   ml-advanced:
@@ -129,5 +120,5 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor
+      - run: pip install soopervisor[opt]
       - run: cd etl/ && soopervisor build --clean-products-path
