@@ -3,11 +3,12 @@ Pipeline declaration using ploomber:
 
 https://github.com/ploomber/ploomber
 """
-from ploomber import with_env, DAGConfigurator
-from ploomber.tasks import PythonCallable
+from ploomber import with_env, DAGConfigurator, SourceLoader
+from ploomber.tasks import PythonCallable, NotebookRunner
 from ploomber.products import File
+from ploomber.executors import Parallel
 
-from basic_ml import tasks
+from ml_advanced import tasks
 
 
 @with_env
@@ -35,6 +36,11 @@ def _make(env):
     cfg = DAGConfigurator(env.dag_config)
     dag = cfg.create(name='ml-pipeline')
 
+    # run this in parallel
+    dag.executor = Parallel(processes=3)
+
+    loader = SourceLoader(module='ml_advanced.templates')
+
     get = PythonCallable(tasks.get,
                          File(env.path.data / 'data.parquet'),
                          dag,
@@ -50,17 +56,37 @@ def _make(env):
                           dag,
                           name='join')
 
-    fit = PythonCallable(tasks.fit, {'report':
-                                     File(env.path.data / 'report.txt'),
-                                     'model':
-                                     File(env.path.data / 'model.joblib')},
-                         dag,
-                         name='fit')
-
     get >> fts
 
     (get + fts) >> join
 
-    join >> fit
+    model_classes = [
+        'sklearn.ensemble.RandomForestClassifier',
+        # these come from our package, they return a sklearn Pipeline object
+        'ml_advanced.models.logistic_reg',
+        'ml_advanced.models.svc',
+    ]
+
+    model_param_grids = [
+        dict(n_estimators=[5, 10, 50, 100], min_samples_leaf=[2, 4, 8]),
+        dict(clf__penalty=['l1', 'l2'], clf__C=[0.5, 1.0]),
+        dict(clf__kernel=['linear', 'poly', 'rbf'], clf__C=[0.5, 1.0]),
+    ]
+
+    for model_class, model_params in zip(model_classes, model_param_grids):
+        fit = NotebookRunner(
+            loader['fit.py'],
+            product={
+                'nb': File(env.path.data / f'fit_{model_class}.ipynb'),
+                'model': File(env.path.data / f'model_{model_class}.joblib')
+            },
+            dag=dag,
+            params={
+                'model_class': model_class,
+                'model_params': model_params
+            },
+            name='fit_' + model_class)
+
+        join >> fit
 
     return dag

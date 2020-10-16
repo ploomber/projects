@@ -1,22 +1,25 @@
 # ML advanced
 
 This example shows a Machine Learning pipeline using the Python API, how to package
-your projects so you can install them using `pip install .` and how to test
-using `pytest`.
+your projects so you can install them using `pip install .`, how to test
+using `pytest`,how to create an array of experiments to try several models and
+run them in parallel.
 
 ## Setup
 
 Make sure you are in the `ml-advanced` folder:
 
 ```bash tags=["bash"]
-# install the pipeline as a package
-pip install .
+# install the pipeline as a package in editable mode, this way changes will
+# reflect when you update the source code
+pip install --editable .
+
 ```
 
 ## Executing pipeline
 
 ```bash tags=["bash"]
-ploomber build --entry-point basic_ml.pipeline.make
+ploomber build --entry-point ml_advanced.pipeline.make
 ```
 
 ## Testing
@@ -44,7 +47,7 @@ directory):
 
 
 ```python
-from basic_ml.pipeline import make
+from ml_advanced.pipeline import make
 
 dag = make()
 dag.status()

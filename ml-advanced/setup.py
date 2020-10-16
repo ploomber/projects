@@ -21,7 +21,7 @@ from setuptools import setup
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
-with open('src/basic_ml/__init__.py', 'rb') as f:
+with open('src/ml_advanced/__init__.py', 'rb') as f:
     VERSION = str(
         ast.literal_eval(
             _version_re.search(f.read().decode('utf-8')).group(1)))
@@ -33,7 +33,7 @@ def read(*names, **kwargs):
 
 
 setup(
-    name='basic_ml',
+    name='ml_advanced',
     version=VERSION,
     description=None,
     license=None,
@@ -49,9 +49,10 @@ setup(
     install_requires=[
         'ploomber',
         'pandas==1.0.1',
-        'scikit-learn==0.22.1',
+        'scikit-learn-0.23.2',
         'joblib==0.14.1',
         'pyarrow==0.16.0',
+        'sklearn-evaluation==0.5.2',
     ],
     extras_require={},
     entry_points={},

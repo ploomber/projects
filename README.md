@@ -31,4 +31,7 @@ contains the commands output.
 
 10. `sql-templating` SQL pipeline showing how to use macros to write concise SQL scripts
 11. `etl` Pipeline with a dozen tasks demonstrating how to extract data form a SQL database and then process it with Python
-12. `ml-advanced/` Machine Learning pipeline using the Python API. Shows how to test pipelines using `pytest` and how to package your pipeline so you can install it with `pip install`
+12. `ml-advanced/` Machine Learning pipeline using the Python API, how to package
+your projects so you can install them using `pip install .`, how to test
+using `pytest`, how to create an array of experiments to try several models and
+run them in parallel.
