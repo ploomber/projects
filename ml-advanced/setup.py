@@ -1,12 +1,3 @@
-"""
-Minimal setup.py
-
-Blog post on Python packaging: https://ploomber.io/posts/packaging/
-
-Built using: https://github.com/ploomber/template
-setup.py reference: https://setuptools.readthedocs.io/en/latest/setuptools.html
-More on pkg structure: https://blog.ionelmc.ro/2014/05/25/python-packaging/
-"""
 import io
 import re
 import ast
@@ -48,11 +39,12 @@ setup(
     keywords=[],
     install_requires=[
         'ploomber',
-        'pandas==1.0.1',
-        'scikit-learn==0.23.2',
-        'joblib==0.14.1',
-        'pyarrow==0.16.0',
-        'sklearn-evaluation==0.5.2',
+        'pandas',
+        'scikit-learn',
+        'joblib',
+        'pyarrow',
+        'sklearn-evaluation',
+        'pytest',
     ],
     extras_require={},
     entry_points={},

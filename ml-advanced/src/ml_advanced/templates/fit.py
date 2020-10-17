@@ -1,4 +1,4 @@
-# Script trains a model
+# Script to train a model
 
 # +
 import importlib

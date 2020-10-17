@@ -1,4 +1,4 @@
-name: ml-basic
+name: ml-intermediate
 
 channels:
   - conda-forge

@@ -9,12 +9,15 @@ run them in parallel.
 
 Make sure you are in the `ml-advanced` folder:
 
-```bash tags=["bash"]
+~~~bash
+conda env create --file environment.yml
+
+conda activate ml-advanced
+
 # install the pipeline as a package in editable mode, this way changes will
 # reflect when you update the source code
 pip install --editable .
-
-```
+~~~
 
 ## Executing pipeline
 
