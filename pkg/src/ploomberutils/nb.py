@@ -4,6 +4,7 @@ from pathlib import Path
 from ploomber import DAG
 from ploomber.tasks import NotebookRunner
 from ploomber.products import File
+from ploomber.constants import TaskStatus
 import nbformat
 import jupytext
 
@@ -28,7 +29,6 @@ def make_task(dag, readme):
     parent = Path(readme).parent
     out = str(parent / 'README.ipynb')
 
-    print('Saving: ', out)
     nbformat.write(nb, out)
 
     NotebookRunner(Path(out),
@@ -37,17 +37,30 @@ def make_task(dag, readme):
                    kernelspec_name='python3',
                    name=out,
                    nbconvert_exporter_name='notebook',
-                   local_execution=True,
-                   papermill_params={'nest_asyncio': True})
+                   local_execution=True)
 
 
-def process_readmes():
+def post_process_nb(path):
+    nb = jupytext.read(path)
+
+    assert nb.cells[-1].tags == ['injected-parameters']
+    assert nb.cells[-2].tags == ['parameters']
+
+    nb.cells = nb.cells[:-2]
+
+    jupytext.write(nb, path)
+
+
+def process_nb_pattern(pattern):
     dag = DAG()
 
-    files = glob('ml-*/README.md')
-
-    for f in files:
-        print(f'Processing: {f}')
+    for f in glob(pattern):
         make_task(dag, f)
 
     dag.build()
+
+    for task_name in dag:
+        task = dag[task_name]
+
+        if task.exec_stats == TaskStatus.Executed:
+            post_process_nb(str(task.product))
