@@ -14,6 +14,10 @@ def clear(c):
         shutil.rmtree(f)
         Path(f).mkdir()
 
+    for f in iglob('*/*.source'):
+        print(f'Deleting contents of: {f}')
+        Path(f).unlink()
+
 
 @task
 def run_readmes(c):
