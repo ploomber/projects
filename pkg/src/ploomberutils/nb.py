@@ -4,7 +4,6 @@ from pathlib import Path
 from ploomber import DAG
 from ploomber.tasks import NotebookRunner
 from ploomber.products import File
-from ploomber.executors import Parallel
 import nbformat
 import jupytext
 
@@ -33,14 +32,17 @@ def make_task(dag, readme):
     nbformat.write(nb, out)
 
     NotebookRunner(Path(out),
-                   File(out + '.tmp'),
+                   File(out),
                    dag,
                    kernelspec_name='python3',
-                   name=out)
+                   name=out,
+                   nbconvert_exporter_name='notebook',
+                   local_execution=True,
+                   papermill_params={'nest_asyncio': True})
 
 
-def process_readmes(pattern):
-    dag = DAG(executor=Parallel())
+def process_readmes():
+    dag = DAG()
 
     files = glob('ml-*/README.md')
 
