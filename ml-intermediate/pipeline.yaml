@@ -3,19 +3,22 @@ meta:
   extract_product: False
 
 tasks:
-  - source: tasks.get
+  - source: tasks.get.fn
+    name: get
     # all products are parametrized (default values are loaded from env.yaml),
     # and can be overriden using the command line interface
-    product: output/sample={{sample}}/get.parquet
+    product: output/{{ 'sample' if sample else 'full' }}/get.parquet
     params:
       # we can also pass parameters to tasks
       sample: '{{sample}}'
 
-  - source: tasks.features
-    product: output/sample={{sample}}/features.parquet
+  - source: tasks.features.fn
+    name: features
+    product: output/{{ 'sample' if sample else 'full' }}/features.parquet
 
-  - source: tasks.join
-    product: output/sample={{sample}}/join.parquet
+  - source: tasks.join.fn
+    name: join
+    product: output/{{ 'sample' if sample else 'full' }}/join.parquet
     # use the on_finish key to run a function upon successful task execution.
     # this is handy for pipeline integration testing:
     # https://ploomber.readthedocs.io/en/stable/user-guide/testing.html
@@ -23,5 +26,5 @@ tasks:
 
   - source: fit.py
     product:
-        nb: output/sample={{sample}}/nb.ipynb
-        model: output/sample={{sample}}/model.pickle
+        nb: output/{{ 'sample' if sample else 'full' }}/nb.ipynb
+        model: output/{{ 'sample' if sample else 'full' }}/model.pickle
