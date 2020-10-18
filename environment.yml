@@ -18,6 +18,6 @@ dependencies:
   - r-irkernel
   - pip:
     - seaborn
-    - git+https://github.com/ploomber/ploomber.git@dev#egg=ploomber[all]
+    - ploomber
     - jupyter_client>=5.3.1
 
