@@ -1,7 +1,7 @@
 from pathlib import Path
 import shutil
 from glob import iglob
-from ploomberutils import process_readme
+from ploomberutils import process_nb_pattern
 from invoke import task
 
 
@@ -14,11 +14,13 @@ def clear(c):
         shutil.rmtree(f)
         Path(f).mkdir()
 
+    for f in iglob('*/*.source'):
+        print(f'Deleting contents of: {f}')
+        Path(f).unlink()
+
 
 @task
 def run_readmes(c):
     """Execute all */README.md files
     """
-    for f in iglob('ml-*/README.md'):
-        print(f'Processing: {f}')
-        process_readme(f)
+    process_nb_pattern('*/README.md')

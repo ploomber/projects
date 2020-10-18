@@ -29,7 +29,7 @@ On each push, the pipeline is tested, ensuring it works at all times. See `.gith
 
 ## Build the pipeline
 
-```sh
+~~~sh 
 # clone repo
 git clone https://github.com/ploomber/projects
 
@@ -45,6 +45,6 @@ mkdir output
 
 # build (takes a couple minutes to finish)
 ploomber build
-```
+~~~
 
 All output is saved in the `output/` directory.

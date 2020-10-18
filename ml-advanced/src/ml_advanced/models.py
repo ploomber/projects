@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 
 def logistic_reg():
     return Pipeline([('scaler', StandardScaler()),
-                     ('clf', LogisticRegression())])
+                     ('clf', LogisticRegression(solver='liblinear'))])
 
 
 def svc():

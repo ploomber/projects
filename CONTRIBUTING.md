@@ -16,8 +16,7 @@ Optional:
 
 # README.md guidelines
 
-`README.md` are converted to Jupyter notebooks and executed to show users
-the output of each one.
+`README.md` are converted to Jupyter notebooks and executed to test them and show the output of each command. Some of these files are also displayed in Ploomber's documentation.
 
 Jupyter can execute bash scripts but given that jupytext loses the language
 markdown tag when it converts from .md to .ipynb, we have to indicate the
