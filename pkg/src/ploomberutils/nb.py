@@ -1,5 +1,10 @@
-import papermill as pm
+from glob import glob
 from pathlib import Path
+
+from ploomber import DAG
+from ploomber.tasks import NotebookRunner
+from ploomber.products import File
+from ploomber.executors import Parallel
 import nbformat
 import jupytext
 
@@ -12,11 +17,14 @@ def process_cell(cell):
         cell['source'] = cell['source'].replace('%%python', '')
 
 
-def process_readme(readme, execute=True):
+def make_task(dag, readme):
     nb = jupytext.read(readme)
 
     for cell in nb.cells:
         process_cell(cell)
+
+    fmt = nbformat.versions[nbformat.current_nbformat]
+    nb.cells.append(fmt.new_code_cell(metadata=dict(tags=['parameters'])))
 
     parent = Path(readme).parent
     out = str(parent / 'README.ipynb')
@@ -24,5 +32,20 @@ def process_readme(readme, execute=True):
     print('Saving: ', out)
     nbformat.write(nb, out)
 
-    if execute:
-        pm.execute_notebook(out, out, kernel_name='python3', cwd=str(parent))
+    NotebookRunner(Path(out),
+                   File(out + '.tmp'),
+                   dag,
+                   kernelspec_name='python3',
+                   name=out)
+
+
+def process_readmes(pattern):
+    dag = DAG(executor=Parallel())
+
+    files = glob('ml-*/README.md')
+
+    for f in files:
+        print(f'Processing: {f}')
+        make_task(dag, f)
+
+    dag.build()
