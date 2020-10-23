@@ -1,5 +1,13 @@
+from ploomber import with_env
 from ploomber.clients import SQLAlchemyClient
 
 
-def get_client():
-    return SQLAlchemyClient('sqlite:///output/data.db')
+@with_env
+def get_client(env):
+    path = env.path.products_root / 'data.db'
+
+    # create parent folders if they don't exist, otherwise sqlalchemy fails
+    if not path.parent.exists():
+        path.mkdir(exist_ok=True, parents=True)
+
+    return SQLAlchemyClient(f'sqlite:///{path}')

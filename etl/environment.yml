@@ -17,7 +17,7 @@ dependencies:
   - r-irkernel
   - pip:
     # this guy needs no introduction ;)
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev
     # this package provides a Python interface for p7zip
     - pyunpack
     # dependency for the package above
