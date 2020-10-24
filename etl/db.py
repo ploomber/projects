@@ -8,6 +8,6 @@ def get_client(env):
 
     # create parent folders if they don't exist, otherwise sqlalchemy fails
     if not path.parent.exists():
-        path.mkdir(exist_ok=True, parents=True)
+        path.parent.mkdir(exist_ok=True, parents=True)
 
     return SQLAlchemyClient(f'sqlite:///{path}')
