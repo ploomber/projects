@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 from sklearn import datasets
 
@@ -14,6 +15,8 @@ def get(product, sample_frac):
     # for running tests
     if sample_frac:
         df = df.sample(frac=sample_frac)
+
+    Path(str(product)).parent.mkdir(exist_ok=True, parents=True)
 
     df.to_parquet(str(product))
 
