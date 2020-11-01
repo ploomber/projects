@@ -28,7 +28,7 @@ X = df.drop('target', axis='columns')
 y = df.target
 
 # Perform grid search over the passed parameters
-grid = GridSearchCV(clf, model_params, n_jobs=-1)
+grid = GridSearchCV(clf, model_params, n_jobs=-1, cv=2)
 
 # We want to estimate generalization performance *and* tune hyperparameters
 # so we are using nested cross-validation
