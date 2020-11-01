@@ -23,9 +23,9 @@ tasks:
   - source: preprocess/download.py
     name: download
     product:
-      nb: output/download.ipynb
-      zipped: output/data.7z
-      extracted: output/extracted
+      nb: "{{path.products_root}}/download.ipynb"
+      zipped: "{{path.products_root}}/data.7z"
+      extracted: "{{path.products_root}}/extracted"
   
   # Convert XML to CSV
   
@@ -33,8 +33,9 @@ tasks:
     name: convert2csv
     upstream: download
     product:
-      nb: output/convert2csv.ipynb
-      data: output/csv
+      nb: "{{path.products_root}}/convert2csv.ipynb"
+      # generates a folder with data/{Users.csv, Comments.csv, Posts.csv}
+      data: "{{path.products_root}}/data"
     # By default, scripts are executed in the folder that contains
     # pipeline.yaml, preprocess/convert2csv.py imports preprocess/xml2csv.py
     # but it won't find it if the script runs here (as opposed to running from
@@ -43,11 +44,7 @@ tasks:
     local_execution: true
   
   # Upload three CSVs to a database
-  
-  # SQLUpload takes a path to a file as source, once you declare an upstream
-  # dependencies, you can reference the upstream product in the source. This
-  # way you ensure consistency if the upstream product location changes
-  - source: '{{upstream["convert2csv"]["data"]}}/Users.csv'
+  - source: "{{path.products_root}}/data/Users.csv"
     name: upload_users
     class: SQLUpload
     product: [users, table]
@@ -55,7 +52,7 @@ tasks:
     to_sql_kwargs:
       if_exists: replace
   
-  - source: '{{upstream["convert2csv"]["data"]}}/Comments.csv'
+  - source: "{{path.products_root}}/data/Comments.csv"
     name: upload_comments
     class: SQLUpload
     product: [comments, table]
@@ -63,7 +60,7 @@ tasks:
     to_sql_kwargs:
       if_exists: replace
   
-  - source: '{{upstream["convert2csv"]["data"]}}/Posts.csv'
+  - source: "{{path.products_root}}/data/Posts.csv"
     name: upload_posts
     class: SQLUpload
     product: [posts, table]
@@ -95,7 +92,7 @@ tasks:
   - source: sql/select-comments-by-post.sql
     name: comments-dump
     class: SQLDump
-    product: output/comments-dump.csv
+    product: "{{path.products_root}}/comments-dump.csv"
     upstream: comments-by-post
     # SQLDump chunks dumps in several files, since this isn't a big
     # dataset, we just retrieve it in a single file
@@ -104,14 +101,14 @@ tasks:
   - source: sql/select-upvotes-by-location.sql
     name: upvotes-dump
     class: SQLDump
-    product: output/upvotes-dump.csv
+    product: "{{path.products_root}}/upvotes-dump.csv"
     upstream: upvotes-by-location
     chunksize: null
   
   - source: sql/select-posts-by-length.sql
     name: posts-dump
     class: SQLDump
-    product: output/posts-dump.csv
+    product: "{{path.products_root}}/posts-dump.csv"
     upstream: posts-by-length
     chunksize: null
   
@@ -122,7 +119,7 @@ tasks:
     name: comments-plot
     product:
       # The executed notebook will be automatically converted from ipynb to html
-      nb: output/comments-plot.html
+      nb: "{{path.products_root}}/comments-plot.html"
     upstream: comments-dump
   
   # Note that this is an R script! Having R and Python in the same pipeline
@@ -131,11 +128,11 @@ tasks:
   - source: plot/upvotes.R
     name: plot-upvotes
     product:
-      nb: output/plot-upvotes.html
+      nb: "{{path.products_root}}/plot-upvotes.html"
     upstream: upvotes-dump
 
   - source: plot/posts.py
     name: posts-plot
     product:
-      nb: output/posts-plot.html
+      nb: "{{path.products_root}}/posts-plot.html"
     upstream: posts-dump

@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 from sklearn import datasets
 
@@ -10,6 +11,8 @@ def get(product):
     df = pd.DataFrame(d['data'])
     df.columns = d['feature_names']
     df['target'] = d['target']
+
+    Path(str(product)).parent.mkdir(exist_ok=True, parents=True)
 
     df.to_parquet(str(product))
 

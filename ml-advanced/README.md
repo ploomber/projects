@@ -25,11 +25,17 @@ pip install --editable .
 ploomber build --entry-point ml_advanced.pipeline.make
 ```
 
+## Deploy to airflow
+
+WIP
+
+```bash
+```
+
+
 ## Testing
 
 ~~~bash
-pip install -r requirements.txt
-
 # incremental (will only run the tasks that have changed)
 pytest
 

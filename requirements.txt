@@ -1,0 +1,6 @@
+# this file is used by deepnote to setup the environment
+ploomber
+pandas
+scikit-learn
+pyarrow
+sklearn-evaluation

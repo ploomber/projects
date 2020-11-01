@@ -3,3 +3,5 @@ name: ml-advanced
 dependencies:
   - python=3.8
   - pip
+  - pip:
+    - git+https://github.com/ploomber/ploomber@dev

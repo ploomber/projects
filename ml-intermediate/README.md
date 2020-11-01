@@ -11,10 +11,10 @@ it is a good idea to test with a sample, take a look at the `pipeline.yaml`,
 ~~~bash
 # same instructions as the other version
 git clone https://github.com/ploomber/projects
-cd ml-basic
+cd ml-intermediate
 
 conda env create --file environment.yml
-conda activate ml-basic
+conda activate ml-intermediate
 ~~~
 
 ## Execute the pipeline
