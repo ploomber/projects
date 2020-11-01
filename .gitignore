@@ -1,3 +1,4 @@
+**/argo.yaml
 *.source
 **/runs/
 pipeline.png
