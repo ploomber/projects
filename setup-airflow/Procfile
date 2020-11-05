@@ -1,0 +1,2 @@
+web: airflow webserver -p 8080
+scheduler: airflow scheduler

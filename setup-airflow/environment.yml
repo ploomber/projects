@@ -1,0 +1,9 @@
+name: setup-airflow
+
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - soopervisor
+    - honcho
+    - apache-airflow
