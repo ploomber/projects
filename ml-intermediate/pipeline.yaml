@@ -26,5 +26,17 @@ tasks:
 
   - source: fit.py
     product:
-        nb: "{{path.products}}/{{ 'sample' if sample else 'full' }}/nb.ipynb"
+        # note that we changed to an HTML extension, conversion is performed
+        # automatically
+        nb: "{{path.products}}/{{ 'sample' if sample else 'full' }}/nb.html"
         model: "{{path.products}}/{{ 'sample' if sample else 'full' }}/model.pickle"
+    # use this parameter to customize the output notebook (optional)
+    nbconvert_export_kwargs:
+      # do not show input code
+      exclude_input: True
+      # selectively remove cells based on tags
+      config:
+        TagRemovePreprocessor: {'remove_cell_tags': ['model-training']}
+        HTMLExporter: {'preprocessors': ['nbconvert.preprocessors.TagRemovePreprocessor']}
+    # for more information, check out nbconvert's documetation:
+    # https://nbconvert.readthedocs.io/en/latest/config_options.html#preprocessor-options
