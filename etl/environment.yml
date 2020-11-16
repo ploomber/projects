@@ -16,8 +16,7 @@ dependencies:
   # we also need to Jupyter R kernel to run scripts
   - r-irkernel
   - pip:
-    # this guy needs no introduction ;)
-    - git+https://github.com/ploomber/ploomber@dev
+    - ploomber
     # this package provides a Python interface for p7zip
     - pyunpack
     # dependency for the package above

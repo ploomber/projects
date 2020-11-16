@@ -7,4 +7,5 @@ dependencies:
   - pip
   - pip:
     - seaborn
+    - ploomber
 
