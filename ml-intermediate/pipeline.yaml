@@ -25,6 +25,7 @@ tasks:
     on_finish: integration_tests.no_missing_values
 
   - source: fit.py
+    name: fit
     product:
         # note that we changed to an HTML extension, conversion is performed
         # automatically

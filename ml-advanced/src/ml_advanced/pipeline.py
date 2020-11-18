@@ -77,15 +77,17 @@ def _make(env):
         fit = NotebookRunner(
             loader['fit.py'],
             product={
-                'nb': File(env.path.data / f'fit_{model_class}.ipynb'),
-                'model': File(env.path.data / f'model_{model_class}.joblib')
+                'nb': File(env.path.data / f'fit-{model_class}.ipynb'),
+                'model': File(env.path.data / f'model-{model_class}.joblib')
             },
             dag=dag,
             params={
                 'model_class': model_class,
                 'model_params': model_params
             },
-            name='fit_' + model_class)
+            # NOTE: Argo does not support "." nor  "_" in task names. Not
+            # needed if only running locally
+            name='fit-' + model_class.replace('.', '--').replace('_', '-'))
 
         join >> fit
 

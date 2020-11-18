@@ -30,7 +30,7 @@ contains the commands output.
 ### Advanced
 
 10. `sql-templating` SQL pipeline showing how to use macros to write concise SQL scripts
-11. `etl` Pipeline with a dozen tasks demonstrating how to extract data form a SQL database and then process it with Python
+11. `etl` Pipeline with a SQL tasks demonstrating how to extract data from a database and then process it with Python and R
 12. `ml-advanced/` Machine Learning pipeline using the Python API, how to package
 your projects so you can install them using `pip install .`, how to test
 using `pytest`, how to create an array of experiments to try several models and
