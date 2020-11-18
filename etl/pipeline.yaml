@@ -45,7 +45,7 @@ tasks:
   
   # Upload three CSVs to a database
   - source: "{{path.products_root}}/data/Users.csv"
-    name: upload_users
+    name: upload-users
     class: SQLUpload
     product: [users, table]
     upstream: convert2csv
@@ -53,7 +53,7 @@ tasks:
       if_exists: replace
   
   - source: "{{path.products_root}}/data/Comments.csv"
-    name: upload_comments
+    name: upload-comments
     class: SQLUpload
     product: [comments, table]
     upstream: convert2csv
@@ -61,7 +61,7 @@ tasks:
       if_exists: replace
   
   - source: "{{path.products_root}}/data/Posts.csv"
-    name: upload_posts
+    name: upload-posts
     class: SQLUpload
     product: [posts, table]
     upstream: convert2csv
@@ -73,18 +73,18 @@ tasks:
   - source: sql/comments-by-post.sql
     name: comments-by-post
     product: [comments_by_post, table]
-    upstream: upload_comments
+    upstream: upload-comments
   
 
   - source: sql/upvotes-by-location.sql
     name: upvotes-by-location
     product: [upvotes_by_location, table]
-    upstream: upload_users
+    upstream: upload-users
   
   - source: sql/posts-by-length.sql
     name: posts-by-length
     product: [posts_by_length, table]
-    upstream: upload_posts
+    upstream: upload-posts
   
 
   # Dump data
