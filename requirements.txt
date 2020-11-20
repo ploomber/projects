@@ -1,6 +1,9 @@
 # this file is used by deepnote to setup the environment
 ploomber
+pyarrow
 pandas
 scikit-learn
 pyarrow
 sklearn-evaluation
+matplotlib
+seaborn
