@@ -1,0 +1,5 @@
+# This configuration file is needed for the scheduling in cron example in the docs
+storage:
+  provider: local
+
+cache_env: True
