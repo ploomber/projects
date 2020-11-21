@@ -46,16 +46,16 @@ Output is stored in the ``output/`` directory.
 ## Where to go from here
 
 Adding a `pipeline.yaml` file gives you more flexibility to build a pipeline,
-if you want to see a more complete example, take a look at `ml-basic`. Which
+if you want to see a more complete example, take a look at [`ml-basic/`](../ml-basic/README.ipynb). Which
 builds a simple Machine Learning pipeline where some of the tasks are Python
 functions (instead of scripts).
 
-`spec-api-sql` contains an example where data manipulation starts in a SQL
+[`spec-api-sql/`](../spec-api-sql/README.ipynb) contains an example where data manipulation starts in a SQL
 database, the data is downloaded and visualized using Python.
 
 Using a `pipeline.yaml` file is a convenient way to write your workflows and is
 often enough for a lot of projects. However, if you need more flexibility, you
-can use the Python API directly, see the `python-api` example.
+can use the Python API directly, see the [`python-api/`](../python-api/README.ipynb) example.
 
-If you use R, take a look a the `spec-api-r` example, which contains a similar
+If you use R, take a look a the [`spec-api-r/`](../spec-api-r/README.ipynb) example, which contains a similar
 pipeline to this but using R.

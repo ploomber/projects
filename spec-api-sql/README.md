@@ -55,4 +55,4 @@ That's it! Ploomber makes it very simple to manage your data workflows.
 
 ## Where to go from here
 
-`etl/` contains a more complete SQL example.
+[`etl/`](../etl/README.ipynb) contains a more complete SQL example.

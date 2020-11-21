@@ -45,4 +45,5 @@ Output is stored in the `output/` directory.
 
 Building pipelines from a collection of scripts/notebooks without a
 `pipeline.yaml` is quick an easy, but has limited features. See the
-`spec-api-python` to see how you can declare your tasks in a YAML file.
+[`spec-api-python/`](../spec-api-python/README.ipynb) to see how you can declare
+your tasks in a YAML file.
