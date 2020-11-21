@@ -11,9 +11,12 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install soopervisor[opt]
+          eval "$(conda shell.bash hook)"
+          exec bash
           cd spec-api-directory/
-          soopervisor build
+          conda env create --file environment.yml --name env
+          conda activate env
+          ploomber build --entry-point .
 
   spec-api-python:
     runs-on: ubuntu-latest
