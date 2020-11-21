@@ -1,4 +1,4 @@
-name: spec-api-directory
+name: spec-api-python
 
 dependencies:
   - python=3.8

@@ -165,5 +165,9 @@ Don't hesitate with any questions you might have. Feel free to [open an issue](h
 
 ## Where to go from here
 
+`ml-advanced/` contains another example using the Python API, it shows how to
+develop a Machine Learning pipeline where tasks are created dynamycally to
+train several models.
+
 * Take a look at our [documentation](https://ploomber.readthedocs.io/en/stable/)
 * Dive into our [codebase](https://github.com/ploomber/ploomber)

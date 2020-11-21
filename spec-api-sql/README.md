@@ -1,4 +1,4 @@
-# Ploomer spec demo
+# SQL/Python pipeline example
 
 This demo showcases the spec API that allows you to write pipelines using YAML files so you can focus on the Data Science and not dealing which complex task dependencies nor managing database connections.
 
@@ -55,6 +55,4 @@ That's it! Ploomber makes it very simple to manage your data workflows.
 
 ## Where to go from here
 
-* [Blog post](https://ploomber.io/posts/collaborative-ds/)
-* [Github](https://github.com/ploomber/ploomber)
-* [Documentation](https://ploomber.readthedocs.io/en/stable/)
+`etl/` contains a more complete SQL example.

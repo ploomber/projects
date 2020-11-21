@@ -43,8 +43,8 @@ def make_task(dag, readme):
 def post_process_nb(path):
     nb = jupytext.read(path)
 
-    assert nb.cells[-1].tags == ['injected-parameters']
-    assert nb.cells[-2].tags == ['parameters']
+    assert nb.cells[-1].metadata.tags == ['injected-parameters']
+    assert nb.cells[-2].metadata.tags == ['parameters']
 
     nb.cells = nb.cells[:-2]
 
@@ -54,7 +54,10 @@ def post_process_nb(path):
 def process_nb_pattern(pattern):
     dag = DAG()
 
-    for f in glob(pattern):
+    files = glob(pattern)
+    files = ['README.md']
+
+    for f in files:
         make_task(dag, f)
 
     dag.build()
@@ -62,5 +65,5 @@ def process_nb_pattern(pattern):
     for task_name in dag:
         task = dag[task_name]
 
-        if task.exec_stats == TaskStatus.Executed:
+        if task.exec_status == TaskStatus.Executed:
             post_process_nb(str(task.product))

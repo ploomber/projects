@@ -1,13 +1,32 @@
 # Ploomber sample projects
 
 ![](https://github.com/ploomber/projects/workflows/ci/badge.svg)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master)
 
 This repository contains sample pipelines developed using [Ploomber](github.com/ploomber/ploomber)
 
+## Starting an interactive environment
+
+If you want to play around with the examples without installing anything, you
+have two options Binder or Deepnote. The main difference is that Deepnote
+requires you to have a free account (you can quickly do so if you have a Github
+account), but it loads much faster (although not all examples work there yet).
+
+[<img src="https://deepnote.com/buttons/launch-in-deepnote.svg">](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/deepnote_home.ipynb)
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master)
+
+
+## How to read the examples
+
 Each example contains a `README.md` file with more information, and a
-`README.ipynb` file which has the same contents as the `.md` file but it also
-contains the commands output.
+`README.ipynb` file which has the same contents as the `.md` file but in a
+Jupyter notebook format and with the output from each cell.
+
+## Where to start?
+
+* Simples example: `spec-api-directory`
+* Machine Learning example: `ml-basic`
+* SQL ETL example: `spec-api-sql`
 
 ## Index
 

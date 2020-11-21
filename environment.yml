@@ -17,7 +17,11 @@ dependencies:
   - r-base
   - r-irkernel
   - pip:
+    - sklearn-evaluation
+    - scikit-learn
+    - pyarrow
     - seaborn
     - ploomber
+    - jupyter
     - jupyter_client>=5.3.1
 
