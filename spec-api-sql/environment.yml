@@ -1,14 +1,12 @@
 # conda dependencies
-name: spec
+name: spec-api-sql
 
 dependencies:
-  - python=3.8
+  - python=3.7
   - numpy
   - pandas
   - pip
-  - matplotlib
   - pygraphviz
   - pip:
     - seaborn
     - ploomber
-

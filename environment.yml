@@ -11,7 +11,7 @@ dependencies:
 - r-base
 - pygraphviz
 - p7zip
-- python=3.8
+- python=3.7
 - pip:
   - sklearn-evaluation
   - seaborn

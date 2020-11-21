@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install soopervisor[opt]
+          pip install soopervisor
           cd spec-api-python/
           soopervisor build
     
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor[opt]
+      - run: pip install soopervisor
       - run: cd spec-api-r/ && soopervisor build --clean-products-path
 
   spec-api-sql:
@@ -51,21 +51,21 @@ jobs:
         with:
           python-version: 3.8
       - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
-      - run: pip install soopervisor[opt]
+      - run: pip install soopervisor
       - run: cd spec-api-sql/ && soopervisor build --clean-products-path
 
   python-api:
     runs-on: ubuntu-latest
-    name: python-api ci
+    name: python-api
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor[opt]
+      - run: pip install soopervisor
       - run: cd python-api/ && soopervisor build --clean-products-path
 
-  # debugging
+  # missing: debugging
 
 
   testing:
@@ -78,7 +78,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install pandas soopervisor[opt]
+          pip install pandas soopervisor
           cd testing
           mkdir output
           cd setup && python script.py && cd ..
@@ -94,7 +94,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install soopervisor[opt]
+          pip install soopervisor
           cd parametrized/
           soopervisor build
     
@@ -112,7 +112,7 @@ jobs:
           pip install "."
           pytest
 
-  # sql-templating
+  # missing: sql-templating
   
   etl:
     runs-on: ubuntu-latest
@@ -122,5 +122,5 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: pip install soopervisor[opt]
+      - run: pip install soopervisor
       - run: cd etl/ && soopervisor build --clean-products-path
