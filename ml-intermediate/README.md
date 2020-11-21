@@ -39,6 +39,9 @@ ploomber build --env--sample true
 
 ## Where to go from here
 
-Using a `pipeline.yaml` is a convenient way to describe your workflows but it has some limitations. `ml-advanced` shows a pipeline written using the Python API, this gives you full flexibility and allows you to do things such as creating tasks dynamically.
+Using a `pipeline.yaml` is a convenient way to describe your workflows but it
+has some limitations. [`ml-advanced/`](../ml-advanced/README.ipynb) shows a
+pipeline written using the Python API, this gives you full flexibility and
+allows you to do things such as creating tasks dynamically.
 
 It also shows how to create a Python package to easily share your pipeline and how to test it using `pytest`.
