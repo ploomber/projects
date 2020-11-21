@@ -2,125 +2,141 @@ name: ci
 on: push
 
 jobs:
-  spec-api-directory:
-    runs-on: ubuntu-latest
-    name: spec-api-directory
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          eval "$(conda shell.bash hook)"
-          exec bash
-          cd spec-api-directory/
-          conda env create --file environment.yml --name env
-          conda activate env
-          ploomber build --entry-point .
+#   spec-api-directory:
+#     runs-on: ubuntu-latest
+#     name: spec-api-directory
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: |
+#           eval "$(conda shell.bash hook)"
+#           exec bash
+#           cd spec-api-directory/
+#           conda env create --file environment.yml --name env
+#           conda activate env
+#           ploomber build --entry-point .
 
-  spec-api-python:
-    runs-on: ubuntu-latest
-    name: spec-api-python
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          pip install soopervisor
-          cd spec-api-python/
-          soopervisor build
+#   spec-api-python:
+#     runs-on: ubuntu-latest
+#     name: spec-api-python
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: |
+#           pip install soopervisor
+#           cd spec-api-python/
+#           soopervisor build
     
-  spec-api-r:
-    runs-on: ubuntu-latest
-    name: spec-api-r
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: pip install soopervisor
-      - run: cd spec-api-r/ && soopervisor build --clean-products-path
+#   spec-api-r:
+#     runs-on: ubuntu-latest
+#     name: spec-api-r
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: pip install soopervisor
+#       - run: cd spec-api-r/ && soopervisor build --clean-products-path
 
-  spec-api-sql:
-    runs-on: ubuntu-latest
-    name: spec-api-sql
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
-      - run: pip install soopervisor
-      - run: cd spec-api-sql/ && soopervisor build --clean-products-path
+#   spec-api-sql:
+#     runs-on: ubuntu-latest
+#     name: spec-api-sql
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
+#       - run: pip install soopervisor
+#       - run: cd spec-api-sql/ && soopervisor build --clean-products-path
 
-  python-api:
-    runs-on: ubuntu-latest
-    name: python-api
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: pip install soopervisor
-      - run: cd python-api/ && soopervisor build --clean-products-path
+#   python-api:
+#     runs-on: ubuntu-latest
+#     name: python-api
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: pip install soopervisor
+#       - run: cd python-api/ && soopervisor build --clean-products-path
 
-  # missing: debugging
+#   # missing: debugging
 
 
-  testing:
-    runs-on: ubuntu-latest
-    name: testing
-    steps:
-      # this step makes your repo available to the next one
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          pip install pandas soopervisor
-          cd testing
-          mkdir output
-          cd setup && python script.py && cd ..
-          soopervisor build --clean-products-path
+#   testing:
+#     runs-on: ubuntu-latest
+#     name: testing
+#     steps:
+#       # this step makes your repo available to the next one
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: |
+#           pip install pandas soopervisor
+#           cd testing
+#           mkdir output
+#           cd setup && python script.py && cd ..
+#           soopervisor build --clean-products-path
   
-  parametrized:
+#   parametrized:
+#     runs-on: ubuntu-latest
+#     name: parametrized
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: |
+#           pip install soopervisor
+#           cd parametrized/
+#           soopervisor build
+
+#   ml-advanced:
+#     runs-on: ubuntu-latest
+#     name: ml-advanced
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
+#       - run: |
+#           cd ml-advanced
+#           pip install "."
+#           pytest
+  
+  ml:
     runs-on: ubuntu-latest
-    name: parametrized
+    strategy:
+      matrix:
+        folder: [ml-basic, ml-intermediate]
+    env:
+      FOLDER: ${{ matrix.folder }}
     steps:
-      # this step makes your repo available to the next one
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - run: |
           pip install soopervisor
-          cd parametrized/
+          cd $FOLDER
           soopervisor build
-    
 
-  ml-advanced:
-    runs-on: ubuntu-latest
-    name: ml-advanced
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          cd ml-advanced
-          pip install "."
-          pytest
 
   # missing: sql-templating
   
-  etl:
-    runs-on: ubuntu-latest
-    name: etl
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: pip install soopervisor
-      - run: cd etl/ && soopervisor build --clean-products-path
+  # etl:
+  #   runs-on: ubuntu-latest
+  #   name: etl
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: pip install soopervisor
+  #     - run: cd etl/ && soopervisor build --clean-products-path
