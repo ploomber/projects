@@ -5,6 +5,9 @@ This example shows how you can build script or notebook-based (just replace the
 
 ## Setup environment
 
+(**Note**: Only required if you are running this example in your computer, not
+required if using Binder/Deepnote)
+
 ~~~sh
 conda env create --file environment.yaml
 conda activate spec-api-python
@@ -15,6 +18,7 @@ conda activate spec-api-python
 This pipeline contains 3 tasks. The last task generates a plot from the data.
 
 ```bash tags=["bash"]
+# Note: this won't run in Deepnote
 ploomber plot
 ```
 
@@ -42,7 +46,7 @@ Output is stored in the ``output/`` directory.
 ## Where to go from here
 
 Adding a `pipeline.yaml` file gives you more flexibility to build a pipeline,
-if you want to see a more complete example, take a lookt at `ml-basic`. Which
+if you want to see a more complete example, take a look at `ml-basic`. Which
 builds a simple Machine Learning pipeline where some of the tasks are Python
 functions (instead of scripts).
 

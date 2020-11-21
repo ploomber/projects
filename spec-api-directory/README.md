@@ -8,6 +8,9 @@ script or notebook-based (just replace the *.py files with *.ipynb) projects.
 
 ## Setup environment
 
+(**Note**: Only required if you are running this example in your computer, not
+required if using Binder/Deepnote)
+
 ~~~sh
 conda env create --file environment.yaml
 conda activate spec-api-directory

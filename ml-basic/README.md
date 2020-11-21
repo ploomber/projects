@@ -6,7 +6,7 @@ Take a look at the `pipeline.yaml` for more details.
 
 ## Setup
 
-(Note: Only required if you are running this example in your computer, not
+(**Note**: Only required if you are running this example in your computer, not
 required if using Binder/Deepnote)
 
 ~~~bash

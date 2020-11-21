@@ -24,9 +24,9 @@ Jupyter notebook format and with the output from each cell.
 
 ## Where to start?
 
-* Simples example: `spec-api-directory`
-* Machine Learning example: `ml-basic`
-* SQL ETL example: `spec-api-sql`
+* Simplest example: [`spec-api-directory/`](spec-api-directory/README.ipynb)
+* Machine Learning example: [`ml-basic/`](ml-basic/README.ipynb)
+* SQL ETL example: [`spec-api-sql/`](spec-api-sql/README.ipynb)
 
 ## Index
 
