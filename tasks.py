@@ -12,14 +12,14 @@ def setup(c):
     """
     Setup conda env
     """
-    c.run('eval "$(conda shell.bash hook)" '
-          '&& conda env create --file environment.yml '
-          '&& pip install --editable pkg/ '
-          '&& pip install --editable python-api/ '
-          '&& pip install --editable ml-advanced/ '
-          '&& pip install invoke')  # to be able to run invoke from the env
-    print('Done! Activate your environment with:\n'
-          'conda activate ploomber_projects')
+    c.run('eval "$(conda shell.bash hook)"'
+          ' && conda env create --file environment.yml'
+          ' && conda activate projects'
+          ' && pip install --editable pkg/'
+          ' && pip install --editable python-api/'
+          ' && pip install --editable ml-advanced/'
+          ' && pip install invoke')  # to be able to run invoke from the env
+    print('Done! Activate your environment with:\n' 'conda activate projects')
 
 
 @task
@@ -37,7 +37,7 @@ def clear(c):
 
 
 @task
-def pre_deploy(c, pattern='*/README.md'):
+def pre_deploy(c):
     """
     Pre-deployment (Binder/Deepnote) stuff
     * Execute all */README.md files (to generate */README.ipynb)
@@ -54,7 +54,10 @@ def pre_deploy(c, pattern='*/README.md'):
         set(chain(*(extract_pip_deps(folder) for folder in folders))))
     reqs = '# This file was automatically generated\n' + '\n'.join(pip_deps)
     print('Generating requirements.txt')
+    # this file is used by deepnote
     Path('requirements.txt').write_text(reqs)
+
+    # TODO: generate per-example requirements.txt for people not using conda
 
     conda_deps = list(
         set(chain(*(extract_conda_deps(folder) for folder in folders))))
@@ -62,13 +65,14 @@ def pre_deploy(c, pattern='*/README.md'):
     conda_deps.append({'pip': pip_deps})
 
     conda = {
-        'name': 'ploomber-projects',
+        'name': 'projects',
         'channels': ['conda-forge'],
         'dependencies': conda_deps
     }
 
     conda = '# This file was automatically generated\n' + yaml.dump(conda)
     print('Generating environment.yml')
+    # env for binder
     Path('environment.yml').write_text(conda)
 
     process_nb_pattern(folders + ['.'])
@@ -86,6 +90,3 @@ def extract_pip_deps(folder):
         d = yaml.safe_load(f)
 
     return d['dependencies'][-1]['pip']
-
-
-# TODO: generate requirements.txt for people not using conda
