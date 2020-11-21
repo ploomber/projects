@@ -68,7 +68,8 @@ ploomber interact
 
 ## Where to go from here
 
-`ml-intermediate` contains another ML pipeline with more features. It shows how
+[`ml-intermediate/`](../ml-intermediate/README.ipynb) contains another ML
+pipeline with more features. It shows how
 to parametrize a pipeline using an `env.yaml` file (so you can run your pipeline
 with a small sample to test things quickly), run integration tests using
 `on_finish` and customizing output notebooks/reports.
