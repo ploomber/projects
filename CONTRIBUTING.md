@@ -37,3 +37,8 @@ we selected the `~~~` option because it's the only one that produces notebooks t
 
 The output is stored as `README.ipynb`. Which is the file that you should
 point to share binder links.
+
+# Tutorials
+
+Some folder are not actual examples but tutorials that are part of the
+documentation: debugging, parametrized, testing and sql-templating.

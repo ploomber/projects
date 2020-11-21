@@ -1,27 +1,24 @@
-# this is tne base environment, specific projects might have special
-# dependencies. Since binder builds the image based on a single environment
-# we provide this one which includes dependencies most projects need anyway)
-name: ploomber_projects
-
+# This file was automatically generated
 channels:
-  - conda-forge
-
+- conda-forge
 dependencies:
-  - python=3.7
-  - tree
-  - numpy
+- matplotlib
+- numpy
+- seaborn
+- scikit-learn
+- pandas
+- r-irkernel
+- r-base
+- pygraphviz
+- p7zip
+- python=3.8
+- pip:
+  - sklearn-evaluation
+  - seaborn
+  - scikit-learn
+  - pyunpack
   - pandas
-  - pip
-  - pygraphviz
-  - matplotlib
-  - r-base
-  - r-irkernel
-  - pip:
-    - sklearn-evaluation
-    - scikit-learn
-    - pyarrow
-    - seaborn
-    - ploomber
-    - jupyter
-    - jupyter_client>=5.3.1
-
+  - ploomber
+  - patool
+  - pyarrow
+name: ploomber-projects

@@ -10,10 +10,21 @@ conda env create --file environment.yaml
 conda activate spec-api-python
 ~~~
 
-## Pipeline description
+## Description
 
-This pipeline contains 3 tasks. The last task generates a plot. To get the
-pipeline description:
+This pipeline contains 3 tasks. The last task generates a plot from the data.
+
+```bash tags=["bash"]
+ploomber plot
+```
+
+```python
+from IPython.display import Image
+Image(filename='pipeline.png')
+```
+
+
+To get the pipeline description:
 
 ```bash tags=["bash"]
 ploomber status

@@ -1,8 +1,9 @@
-import jupytext
 from pathlib import Path
 import shutil
 from glob import iglob
+from itertools import chain
 
+import yaml
 from invoke import task
 
 
@@ -11,11 +12,12 @@ def setup(c):
     """
     Setup conda env
     """
-    with c.cd('pkg'):
-        c.run('eval "$(conda shell.bash hook)" '
-              '&& conda env create --file environment.yml '
-              '&& pip install --editable .'
-              '&& pip install invoke')  # to be able to run invoke from the env
+    c.run('eval "$(conda shell.bash hook)" '
+          '&& conda env create --file environment.yml '
+          '&& pip install --editable pkg/ '
+          '&& pip install --editable python-api/ '
+          '&& pip install --editable ml-advanced/ '
+          '&& pip install invoke')  # to be able to run invoke from the env
     print('Done! Activate your environment with:\n'
           'conda activate ploomber_projects')
 
@@ -42,17 +44,48 @@ def pre_deploy(c, pattern='*/README.md'):
     * Generate requirements.txt from environment.yml (for people who don't use conda)
     """
     from ploomberutils import process_nb_pattern
-    process_nb_pattern(pattern)
+
+    folders = [
+        'ml-basic', 'ml-intermediate', 'python-api', 'spec-api-directory',
+        'spec-api-python', 'spec-api-r', 'spec-api-sql', 'ml-advanced', 'etl'
+    ]
+
+    pip_deps = list(
+        set(chain(*(extract_pip_deps(folder) for folder in folders))))
+    reqs = '# This file was automatically generated\n' + '\n'.join(pip_deps)
+    print('Generating requirements.txt')
+    Path('requirements.txt').write_text(reqs)
+
+    conda_deps = list(
+        set(chain(*(extract_conda_deps(folder) for folder in folders))))
+    conda_deps.remove('pip')
+    conda_deps.append({'pip': pip_deps})
+
+    conda = {
+        'name': 'ploomber-projects',
+        'channels': ['conda-forge'],
+        'dependencies': conda_deps
+    }
+
+    conda = '# This file was automatically generated\n' + yaml.dump(conda)
+    print('Generating environment.yml')
+    Path('environment.yml').write_text(conda)
+
+    process_nb_pattern(folders + ['.'])
+
+
+def extract_conda_deps(folder):
+    with open(Path(folder, 'environment.yml')) as f:
+        d = yaml.safe_load(f)
+
+    return d['dependencies'][:-1]
+
+
+def extract_pip_deps(folder):
+    with open(Path(folder, 'environment.yml')) as f:
+        d = yaml.safe_load(f)
+
+    return d['dependencies'][-1]['pip']
 
 
 # TODO: generate requirements.txt for people not using conda
-
-
-@task
-def deepnote(c):
-    """
-    Export README.md to deepnote_home.ipynb, which is the displayed file when
-    launchign the project to Deepnote
-    """
-    nb = jupytext.read('README.md')
-    jupytext.write(nb, 'deepnote_home.ipynb')

@@ -51,11 +51,10 @@ def post_process_nb(path):
     jupytext.write(nb, path)
 
 
-def process_nb_pattern(pattern):
+def process_nb_pattern(folders):
     dag = DAG()
 
-    files = glob(pattern)
-    files = ['README.md']
+    files = [Path(folder, 'README.md') for folder in folders]
 
     for f in files:
         make_task(dag, f)

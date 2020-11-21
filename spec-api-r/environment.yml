@@ -1,0 +1,11 @@
+name: spec-api-r
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.8
+  - r-base
+  - r-irkernel
+  - pip:
+    - ploomber

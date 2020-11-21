@@ -15,7 +15,16 @@ conda env create --file environment.yml
 conda activate ml-basic
 ~~~
 
-## Pipeline summary
+## Description
+
+```bash tags=["bash"]
+ploomber plot
+```
+
+```python
+from IPython.display import Image
+Image(filename='pipeline.png')
+```
 
 ```bash tags=["bash"]
 ploomber status

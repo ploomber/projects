@@ -11,7 +11,7 @@ have two options Binder or Deepnote. The main difference is that Deepnote
 requires you to have a free account (you can quickly do so if you have a Github
 account), but it loads much faster (although not all examples work there yet).
 
-[<img src="https://deepnote.com/buttons/launch-in-deepnote.svg">](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/deepnote_home.ipynb)
+[<img src="https://deepnote.com/buttons/launch-in-deepnote.svg">](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/README.ipynb)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master)
 

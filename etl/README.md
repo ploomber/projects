@@ -23,24 +23,28 @@ This project also has non-trivial dependencies: a package to uncompress `.7z` fi
 
 On each push, the pipeline is tested, ensuring it works at all times. See `.github/workflows/ci.yml` for details (`etl` job).
 
-## Build the pipeline
+## Setup
 
-~~~sh 
-# clone repo
-git clone https://github.com/ploomber/projects
+(Note: Only required if you are running this example in your computer, not
+required if using Binder/Deepnote)
 
-# move to this folder
-cd projects/etl
-
-# install dependencies
+~~~bash
+# make sure you are in the etl folder.
 conda env create --file environment.yml
 conda activate etl
-
-# make sure the output folder exists
-mkdir output
-
-# build (takes a couple minutes to finish)
-ploomber build
 ~~~
 
-All output is saved in the `output/` directory.
+
+## Pipeline summary
+
+```bash tags=["bash"]
+ploomber status
+```
+
+## Executing the pipeline from the command line (shell)
+
+```bash tags=["bash"]
+ploomber build
+```
+
+Output is generated in the ``output/`` directory.
