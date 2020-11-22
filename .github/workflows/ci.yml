@@ -21,16 +21,13 @@ jobs:
       FOLDER: ${{ matrix.folder }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+      - uses: conda-incubator/setup-miniconda@v2
       - run: |
           pip install soopervisor invoke
           cd $FOLDER
           soopervisor build --clean-products-path
           conda activate $FOLDER
           # test readme works
-          eval "$(conda shell.bash hook)"
           invoke pre-deploy --name $FOLDER
 
 
