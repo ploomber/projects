@@ -37,7 +37,7 @@ def clear(c):
 
 
 @task
-def pre_deploy(c):
+def pre_deploy(c, name=None):
     """
     Pre-deployment (Binder/Deepnote) stuff
     * Execute all */README.md files (to generate */README.ipynb)
@@ -45,37 +45,43 @@ def pre_deploy(c):
     """
     from ploomberutils import process_nb_pattern
 
-    folders = [
-        'ml-basic', 'ml-intermediate', 'python-api', 'spec-api-directory',
-        'spec-api-python', 'spec-api-r', 'spec-api-sql', 'ml-advanced', 'etl'
-    ]
-
-    pip_deps = list(
-        set(chain(*(extract_pip_deps(folder) for folder in folders))))
-    reqs = '# This file was automatically generated\n' + '\n'.join(pip_deps)
-    print('Generating requirements.txt')
-    # this file is used by deepnote
-    Path('requirements.txt').write_text(reqs)
-
-    # TODO: generate per-example requirements.txt for people not using conda
-
-    conda_deps = list(
-        set(chain(*(extract_conda_deps(folder) for folder in folders))))
-    conda_deps.remove('pip')
-    conda_deps.append({'pip': pip_deps})
-
-    conda = {
-        'name': 'projects',
-        'channels': ['conda-forge'],
-        'dependencies': conda_deps
-    }
-
-    conda = '# This file was automatically generated\n' + yaml.dump(conda)
-    print('Generating environment.yml')
-    # env for binder
-    Path('environment.yml').write_text(conda)
+    if name is None:
+        folders = [
+            'ml-basic', 'ml-intermediate', 'python-api', 'spec-api-directory',
+            'spec-api-python', 'spec-api-r', 'spec-api-sql', 'ml-advanced',
+            'etl'
+        ]
+    else:
+        folders = [name]
 
     process_nb_pattern(folders + ['.'])
+
+    if name is None:
+        pip_deps = list(
+            set(chain(*(extract_pip_deps(folder) for folder in folders))))
+        reqs = '# This file was automatically generated\n' + '\n'.join(
+            pip_deps)
+        print('Generating requirements.txt')
+        # this file is used by deepnote
+        Path('requirements.txt').write_text(reqs)
+
+        # TODO: generate per-example requirements.txt for people not using
+        # conda
+        conda_deps = list(
+            set(chain(*(extract_conda_deps(folder) for folder in folders))))
+        conda_deps.remove('pip')
+        conda_deps.append({'pip': pip_deps})
+
+        conda = {
+            'name': 'projects',
+            'channels': ['conda-forge'],
+            'dependencies': conda_deps
+        }
+
+        conda = '# This file was automatically generated\n' + yaml.dump(conda)
+        print('Generating environment.yml')
+        # env for binder
+        Path('environment.yml').write_text(conda)
 
 
 def extract_conda_deps(folder):
