@@ -6,9 +6,6 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 
 ## Running examples (no installation needed)
 
-If you want to play around with the examples without installing anything, you
-have two options Binder or Deepnote:
-
 | [<img src="https://deepnote.com/buttons/launch-in-deepnote-small.svg">](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/README.ipynb)      | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master) |
 | ----------- | ----------- |
 | Free account required |  No account required |
