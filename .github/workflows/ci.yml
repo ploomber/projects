@@ -30,6 +30,7 @@ jobs:
           soopervisor build --clean-products-path
           conda activate $FOLDER
           # test readme works
+          eval "$(conda shell.bash hook)"
           invoke pre-deploy --name $FOLDER
 
 
