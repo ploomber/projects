@@ -43,7 +43,7 @@ def pre_deploy(c, name=None):
     * Execute all */README.md files (to generate */README.ipynb)
     * Generate requirements.txt from environment.yml (for people who don't use conda)
     """
-    from ploomberutils import process_nb_pattern
+    from ploomberutils import process_readme_md
 
     if name is None:
         folders = [
@@ -54,7 +54,7 @@ def pre_deploy(c, name=None):
     else:
         folders = [name]
 
-    process_nb_pattern(folders + ['.'])
+    process_readme_md(folders + ['.'])
 
     if name is None:
         pip_deps = list(

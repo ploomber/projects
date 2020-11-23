@@ -2,7 +2,7 @@ __version__ = '0.1'
 
 from pathlib import Path
 from IPython.display import Markdown, display
-from ploomberutils.nb import process_nb_pattern
+from ploomberutils.nb import process_readme_md
 
 
 def display_file(path, syntax=None):
@@ -30,4 +30,4 @@ def filter_output(captured, startswith):
     ]))
 
 
-__all__ = ['display_file', 'process_nb_pattern']
+__all__ = ['display_file', 'process_readme_md']

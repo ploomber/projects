@@ -1,4 +1,3 @@
-from glob import glob
 from pathlib import Path
 
 from ploomber import DAG
@@ -51,7 +50,10 @@ def post_process_nb(path):
     jupytext.write(nb, path)
 
 
-def process_nb_pattern(folders):
+def process_readme_md(folders):
+    """
+    Process README.md files from given folders, executes them inline
+    """
     dag = DAG()
 
     files = [Path(folder, 'README.md') for folder in folders]
