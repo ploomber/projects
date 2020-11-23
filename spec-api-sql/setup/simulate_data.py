@@ -1,3 +1,4 @@
+from pathlib import Path
 from sqlalchemy import create_engine
 import numpy as np
 import pandas as pd
@@ -21,8 +22,8 @@ prices_data = {
 sales = pd.DataFrame(sales_data)
 prices = pd.DataFrame(prices_data)
 
+Path('../data.db').unlink()
 engine = create_engine('sqlite:///data.db')
-
 
 sales.to_sql('sales', engine)
 prices.to_sql('prices', engine)

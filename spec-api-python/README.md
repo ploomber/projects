@@ -3,7 +3,7 @@
 This tutorial will guide you to run your first pipeline with Ploomber. You can either use a terminal from your computer, deepnote (requires free account
 but loads faster) or binder.
 
-| ![https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/README.ipynb](https://deepnote.com/buttons/launch-in-deepnote-small.svg) | ![https://mybinder.org/v2/gh/ploomber/projects/master?filepath=workspace%2FREADME.md](https://mybinder.org/badge_logo.svg) |
+| [![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb) | [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master?filepath=spec-api-python%2FREADME.ipynb) |
 |---|---|
 
 *Note:* you can follow this tutorial either from a terminal or an
