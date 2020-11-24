@@ -22,7 +22,8 @@ prices_data = {
 sales = pd.DataFrame(sales_data)
 prices = pd.DataFrame(prices_data)
 
-Path('../data.db').unlink()
+if Path('../data.db').exists():
+    Path('../data.db').unlink()
 engine = create_engine('sqlite:///data.db')
 
 sales.to_sql('sales', engine)
