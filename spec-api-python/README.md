@@ -3,7 +3,7 @@
 This tutorial will guide you to run your first pipeline with Ploomber. You can either use a terminal from your computer, deepnote (requires free account
 but loads faster) or binder.
 
-| [![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb) | [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master?filepath=lab%2Fspec-api-python%2FREADME.ipynb) |
+| [![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb) | [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master?urlpath=%2Flab%2Ftree%2Fspec-api-python%2FREADME.ipynb) |
 |---|---|
 
 *Note:* you can follow this tutorial either from a terminal or an
@@ -98,11 +98,11 @@ You'll see that `raw.py` didn't run because it was not affected by the change!
 
 * This tutorial showed you how to build a pipeline with Ploomber, [the next
 tutorial](https://ploomber.readthedocs.io/en/stable/get-started/basic-concepts.html) goes deeper in terms of concepts and the design rationale.
-* For a more complete example, take a look at the [`ml-basic/`](https://github.com/ploomber/projects/tree/master/ml-basic) example, which builds a Machine Learning pipeline where some of the tasks are Python functions (instead of scripts).
-* The [`spec-api-sql/`](https://github.com/ploomber/projects/tree/master/spec-api-sql) example shows a pipeline where data manipulation starts in a SQL
+* For a more complete example, take a look at the [ml-basic/](https://github.com/ploomber/projects/tree/master/ml-basic) example, which builds a Machine Learning pipeline where some of the tasks are Python functions (instead of scripts).
+* The [spec-api-sql/](https://github.com/ploomber/projects/tree/master/spec-api-sql) example shows a pipeline where data manipulation starts in a SQL
 database, then data is downloaded and visualized using Python.
-* Using a `pipeline.yaml` file is a convenient way to write your workflows and is
+* Using a pipeline.yaml file is a convenient way to write your workflows and is
 often enough for a lot of projects. However, if you need more flexibility, you
-can use the Python API directly, see the [`python-api/`](https://github.com/ploomber/projects/tree/master/python-api) example.
-*  If you use R, take a look a the [`spec-api-r/`](https://github.com/ploomber/projects/tree/master/spec-api-r) example, which contains a similar
+can use the Python API directly, see the [python-api/](https://github.com/ploomber/projects/tree/master/python-api) example.
+*  If you use R, take a look a the [spec-api-r/](https://github.com/ploomber/projects/tree/master/spec-api-r) example, which contains a similar
 pipeline to this but using R.
