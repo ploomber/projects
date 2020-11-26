@@ -19,7 +19,19 @@ Let's take a look at one of the SQL files:
 Markdown('```sql\n{}\n```'.format(Path('join.sql').read_text()))
 ```
 
-Alright, let's get going, we can run our pipeline with the following command:
+Pipeline plot:
+
+```bash tags=["bash"]
+# Note: plotting doesn't work in deepnote
+ploomber plot
+```
+
+```python
+from IPython.display import Image
+Image(filename='pipeline.png')
+```
+
+We can run our pipeline with the following command:
 
 ```bash tags=["bash"]
 ploomber build
