@@ -8,7 +8,7 @@ Let's take a look at the pipeline definition:
 from pathlib import Path
 from IPython.display import Markdown
 
-Markdown('```yaml\n{}```'.format(Path('pipeline.yaml').read_text()))
+Markdown('```yaml\n{}\n```'.format(Path('pipeline.yaml').read_text()))
 ```
 
 The first two sections configure our pipeline, the `tasks` section is the actual pipeline definition. Each element defines a task, we see that we have a few SQL transformations, then we dump a table to a CSV file and we produce an HTML report at the end. The order here doesn't matter, the source code itself declares its own upstream dependencies and Ploomber extracts them to execute your pipeline.
@@ -16,7 +16,7 @@ The first two sections configure our pipeline, the `tasks` section is the actual
 Let's take a look at one of the SQL files:
 
 ```python
-Markdown('```yaml\n{}```'.format(Path('join.sql').read_text()))
+Markdown('```sql\n{}\n```'.format(Path('join.sql').read_text()))
 ```
 
 Alright, let's get going, we can run our pipeline with the following command:

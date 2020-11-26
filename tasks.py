@@ -8,17 +8,23 @@ from invoke import task
 
 
 @task
-def setup(c):
+def setup(c, create_conda=True):
     """
     Setup conda env
     """
-    c.run('eval "$(conda shell.bash hook)"'
-          ' && conda env create --file environment.yml'
-          ' && conda activate projects'
-          ' && pip install --editable pkg/'
-          ' && pip install --editable python-api/'
-          ' && pip install --editable ml-advanced/'
-          ' && pip install invoke')  # to be able to run invoke from the env
+    cmd = ('eval "$(conda shell.bash hook)"'
+           ' && conda env create --file environment.yml'
+           ' && conda activate projects') if create_conda else ''
+
+    cmd += (' && pip install --editable pkg/'
+            ' && pip install --editable python-api/'
+            ' && pip install --editable ml-advanced/'
+            ' && pip install invoke')
+
+    c.run(cmd)
+
+    c.run('cd spec-api-sql/setup && bash setup.sh')
+
     print('Done! Activate your environment with:\n' 'conda activate projects')
 
 
