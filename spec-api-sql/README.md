@@ -4,7 +4,7 @@ This demo showcases the spec API that allows you to write pipelines using YAML f
 
 Let's take a look at the pipeline definition:
 
-```sh
+```python
 from pathlib import Path
 from IPython.display import Markdown
 
@@ -15,19 +15,19 @@ The first two sections configure our pipeline, the `tasks` section is the actual
 
 Let's take a look at one of the SQL files:
 
-```sh
+```python
 Markdown('```yaml\n{}```'.format(Path('join.sql').read_text()))
 ```
 
 Alright, let's get going, we can run our pipeline with the following command:
 
-```sh
-! ploomber build
+```bash tags=["bash"]
+ploomber build
 ```
 That's it. We just build our pipeline. Let's try again.
 
-```sh
-! ploomber build
+```bash tags=["bash"]
+ploomber build
 ```
 
 This time it finished real quick because there is nothing to do, nothing has changed.
@@ -42,8 +42,8 @@ Also try modifying any of the SQL scripts:
 
 Let's build again:
 
-```sh
-! ploomber build
+```bash tags=["bash"]
+ploomber build
 ```
 
 Depending on your changes, Ploomber will determine which tasks to run again and which ones to skip.

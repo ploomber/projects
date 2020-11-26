@@ -2,25 +2,25 @@
 channels:
 - conda-forge
 dependencies:
-- scikit-learn
-- numpy
-- r-base
 - matplotlib
-- pygraphviz
-- r-irkernel
-- pandas
 - seaborn
-- p7zip
+- r-irkernel
+- numpy
 - python=3.7
+- p7zip
+- r-base
+- pandas
+- scikit-learn
+- pygraphviz
 - pip:
-  - scikit-learn
-  - sklearn-evaluation
-  - pyarrow
   - jupyter
-  - pyunpack
-  - patool
-  - pandas
-  - seaborn
   - ploomber
+  - seaborn
+  - pyunpack
+  - pyarrow
+  - patool
+  - sklearn-evaluation
+  - pandas
+  - scikit-learn
   - nbgitpuller
 name: projects
