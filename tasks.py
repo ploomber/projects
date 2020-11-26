@@ -13,10 +13,11 @@ def setup(c, create_conda=True):
     Setup conda env
     """
     cmd = ('eval "$(conda shell.bash hook)"'
-           ' && conda env create --file environment.yml'
-           ' && conda activate projects') if create_conda else ''
+           ' && conda env create --file environment.yml --force'
+           ' && conda activate projects '
+           ' &&') if create_conda else ''
 
-    cmd += (' && pip install --editable pkg/'
+    cmd += (' pip install --editable pkg/'
             ' && pip install --editable python-api/'
             ' && pip install --editable ml-advanced/'
             ' && pip install invoke')
