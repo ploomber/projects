@@ -91,6 +91,13 @@ The `ploomber.testing.sql` module implements convenient functions to test your t
 
 ## Running the pipeline
 
+Before we run the pipeline, we generate a sample database:
+
+```bash tags=["bash"]
+cd setup
+python script.py
+```
+
 Let's now run our pipeline:
 
 ```sh
