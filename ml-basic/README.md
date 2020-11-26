@@ -2,12 +2,6 @@
 
 This example shows how to build a Machine Learning pipeline using the Spec API.
 
-You can run this from your computer (Jupyter or terminal), or use one of the
-hosted options: deepnote (requires free account but loads faster) or binder.
-
-| [![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/ml-basic/README.ipynb) | [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master?urlpath=%2Flab%2Ftree%2Fml-basic%2FREADME.ipynb) |
-|---|---|
-
 
 ## Setup (skip if using deepnote or binder)
 

@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 from ploomber import DAG
@@ -6,6 +7,13 @@ from ploomber.products import File
 from ploomber.constants import TaskStatus
 import nbformat
 import jupytext
+
+md_cell = """
+*Note:* You can run this from your computer (Jupyter or terminal), or use one of the
+hosted options:
+[![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252F{name}%252FREADME.ipynb%26branch%3Dmaster)
+[![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/{name}/README.ipynb)
+"""
 
 
 def process_cell(cell):
@@ -25,16 +33,27 @@ def make_task(dag, readme):
     fmt = nbformat.versions[nbformat.current_nbformat]
     nb.cells.append(fmt.new_code_cell(metadata=dict(tags=['parameters'])))
 
+    source = '\n'.join(c.source for c in nb.cells)
+
+    # if there is no link to binder, add it. Some readmes (like the root one)
+    # customize the description for the buttons so we don't add one there
+    if 'https://mybinder.org/badge_logo.svg' not in source:
+        nb.cells.insert(
+            0,
+            fmt.new_markdown_cell(source=md_cell.format(
+                name=str(readme.parent))))
+
     parent = Path(readme).parent
+    preprocessed = str(parent / 'README-preprocessed.ipynb')
     out = str(parent / 'README.ipynb')
 
-    nbformat.write(nb, out)
+    nbformat.write(nb, preprocessed)
 
-    NotebookRunner(Path(out),
+    NotebookRunner(Path(preprocessed),
                    File(out),
                    dag,
                    kernelspec_name='python3',
-                   name=out,
+                   name=parent.name,
                    nbconvert_exporter_name='notebook',
                    local_execution=True)
 
@@ -50,16 +69,26 @@ def post_process_nb(path):
     jupytext.write(nb, path)
 
 
-def process_readme_md(folders):
+def process_readme_md(folders, parent_dir='.'):
     """
     Process README.md files from given folders, executes them inline
     """
     dag = DAG()
 
-    files = [Path(folder, 'README.md') for folder in folders]
+    files = [Path(parent_dir, folder, 'README.md') for folder in folders]
 
     for f in files:
         make_task(dag, f)
+
+    dag.render()
+
+    # clear the output of tasks that will be executed, otherwise the output
+    # from commands such as "ploomber build" will not run anything
+    for t in dag.values():
+        out = Path(str(t.product)).parent / 'output'
+        if t.exec_status == TaskStatus.WaitingExecution and Path(out).exists():
+            print(f'Deleting {out}')
+            shutil.rmtree(out)
 
     dag.build()
 
