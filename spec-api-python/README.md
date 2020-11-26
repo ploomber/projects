@@ -3,9 +3,9 @@
 This tutorial will guide you to run your first pipeline with Ploomber.
 
 You can run this from your computer (Jupyter or terminal), or use one of the
-hosted options: deepnote (requires free account but loads faster) or binder.
+hosted options: binder or deepnote (requires free account, and some features are not available but loads faster).
 
-| [![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb) | [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master?urlpath=%2Flab%2Ftree%2Fspec-api-python%2FREADME.ipynb) |
+| [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/projects/master?urlpath=%2Flab%2Ftree%2Fspec-api-python%2FREADME.ipynb) | [![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb) |
 |---|---|
 
 
@@ -27,13 +27,27 @@ conda activate spec-api-python
 
 ## Description
 
-This pipeline contains 3 tasks, each one is a script:
+This pipeline contains 3 tasks, the first task `get.py` gets some data,
+`clean.py` cleans it and `plot.py` generates a visualization:
 
 ```bash tags=["bash"]
 ls *.py
 ```
 
-Let's plot the pipeline:
+*Note:* Each task in the pipeline is a Python script, but you can also use notebooks as tasks.
+
+Along with the `*.py` files, there is a `pipleine.yaml` file where we declare
+which files we want to use as pipeline tasks:
+
+```bash tags=["bash"]
+cat pipeline.yaml
+```
+
+The `pipeline.yaml` file is optional, but it gives you more flexibility.
+[Click here](https://github.com/ploomber/projects/tree/master/spec-api-directory) to see an example without a `pipeline.yaml` file.
+
+
+That's all we need. Let's plot the pipeline:
 
 ```bash tags=["bash"]
 # Note: plotting doesn't work in deepnote
@@ -45,28 +59,39 @@ from IPython.display import Image
 Image(filename='pipeline.png')
 ```
 
-To get the pipeline description:
+With can also get a pipeline summary with the `status` command:
 
 ```bash tags=["bash"]
 ploomber status
 ```
 
-Dependencies are declared inside each script. Take a look at the three Python scripts to check out dependencies declared in in the `upstream` variable.
-You should see that those dependencies match the diagram above.
+## How is execution order determined?
 
-*Note:* Each task in the pipeline is a Python script, but you can also use notebooks as tasks.
+Rather than requiring you to explicitly declare tasks, dependencies, Ploomber
+exracts them from your code. For example, to clean the data, we must get it
+first, hence, we declare the following in `clean.py`:
 
-To tell Ploomber which files to use as tasks, we use a `pipeline.yaml` file:
+~~~python
+# get data first
+upstream = ['raw']
+~~~
 
-```bash tags=["bash"]
-cat pipeline.yaml
-```
+Second, we must declare where to save the output of each task, we do so through
+a `product` variable:
 
-The `pipeline.yaml` file is optional, but it gives you more flexibility.
-[Click here](https://github.com/ploomber/projects/tree/master/spec-api-directory) to see an example without a `pipeline.yaml` file.
+~~~python
+product = {'nb': 'output/clean.ipynb', 'data': 'output/clean.csv'}
+~~~
+
+We have two products here, the clean data and a notebook. Scripts and notebook
+automatically generate an output notebook so you can easily embed charts and
+tables. This is useful when your analysis requires some visual feedback,
+instead of writing code to save tables/charts you can leverage the Jupyter
+notebook format which supports this.
 
 ## Building the pipeline
 
+Let's build the pipeline:
 
 ```bash tags=["bash"]
 mkdir output
@@ -80,15 +105,11 @@ data files:
 ls output/*.csv
 ```
 
-But also some notebooks:
+And a notebook for each script:
 
 ```bash tags=["bash"]
 ls output/*.ipynb
 ```
-
-Any script or notebooks task in your pipeline will generate a corresponding
-file as parts of the task's output, this is useful to review visual results
-after running your pipeline.
 
 ## Updating the pipeline
 
