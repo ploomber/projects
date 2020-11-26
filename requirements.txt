@@ -1,10 +1,10 @@
 # This file was automatically generated
 jupyter
-ploomber
-seaborn
-pyunpack
-pyarrow
-patool
-sklearn-evaluation
 pandas
+patool
+ploomber
+pyarrow
+pyunpack
 scikit-learn
+seaborn
+sklearn-evaluation

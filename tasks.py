@@ -64,8 +64,9 @@ def build(c, name=None):
     process_readme_md(folders + ['.'])
 
     if name is None:
-        pip_deps = list(
-            set(chain(*(extract_pip_deps(folder) for folder in folders))))
+        pip_deps = sorted(
+            list(set(chain(*(extract_pip_deps(folder)
+                             for folder in folders)))))
         reqs = '# This file was automatically generated\n' + '\n'.join(
             pip_deps)
         print('Generating requirements.txt')
@@ -77,9 +78,10 @@ def build(c, name=None):
         conda_deps = list(
             set(chain(*(extract_conda_deps(folder) for folder in folders))))
         conda_deps.remove('pip')
+        conda_deps = sorted(conda_deps)
 
         # add nbgitpuller for binder links to work
-        conda_deps.append({'pip': pip_deps + ['nbgitpuller']})
+        conda_deps.append({'pip': sorted(pip_deps + ['nbgitpuller'])})
 
         conda = {
             'name': 'projects',
