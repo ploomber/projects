@@ -37,9 +37,9 @@ def clear(c):
 
 
 @task
-def pre_deploy(c, name=None):
-    """
-    Pre-deployment (Binder/Deepnote) stuff
+def build(c, name=None):
+    """Run README.md and generate environment files
+
     * Execute all */README.md files (to generate */README.ipynb)
     * Generate requirements.txt from environment.yml (for people who don't use conda)
     """
@@ -70,7 +70,9 @@ def pre_deploy(c, name=None):
         conda_deps = list(
             set(chain(*(extract_conda_deps(folder) for folder in folders))))
         conda_deps.remove('pip')
-        conda_deps.append({'pip': pip_deps})
+
+        # add nbgitpuller for binder links to work
+        conda_deps.append({'pip': pip_deps + ['nbgitpuller']})
 
         conda = {
             'name': 'projects',
@@ -82,6 +84,9 @@ def pre_deploy(c, name=None):
         print('Generating environment.yml')
         # env for binder
         Path('environment.yml').write_text(conda)
+
+        # export to binder env repo
+        Path('../binder-env/environment.yml').write_text(conda)
 
 
 def extract_conda_deps(folder):

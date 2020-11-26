@@ -1,5 +1,0 @@
-#!/bin/bash
-pip install --editable python-api/
-pip install pkg/
-
-cd spec-api-sql/setup && bash setup.sh && cd ../..
