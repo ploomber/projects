@@ -53,7 +53,7 @@ from IPython.display import Image
 Image(filename='pipeline.png')
 ```
 
-With can also get a pipeline summary with the `status` command:
+The `status` command gives us an overview of the pipeline:
 
 ```bash tags=["bash"]
 ploomber status
