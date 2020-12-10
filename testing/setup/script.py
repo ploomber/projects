@@ -2,6 +2,7 @@
 This script just prepares data we need for the example, it's not part of the
 pipeline
 """
+from pathlib import Path
 import sqlite3
 import numpy as np
 import pandas as pd
@@ -17,6 +18,9 @@ df = pd.DataFrame({
 })
 df.loc[:10, 'score'] = np.nan
 df.loc[11:20, 'age'] = -42
+
+if Path('../data.db').exists():
+    Path('../data.db').unlink()
 
 conn = sqlite3.connect('../data.db')
 df.to_sql('my_table', con=conn)

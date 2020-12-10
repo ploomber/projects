@@ -55,8 +55,7 @@ def make_task(dag, readme):
                    kernelspec_name='python3',
                    name=parent.name,
                    nbconvert_exporter_name='notebook',
-                   local_execution=True,
-                   papermill_params={'log_output': True})
+                   local_execution=True)
 
 
 def post_process_nb(path):
