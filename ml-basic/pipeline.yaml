@@ -1,6 +1,7 @@
 meta:
   extract_upstream: True
   extract_product: False
+  jupyter_hot_reload: True
 
 tasks:
     # tasks.get, features and join are python functions
