@@ -1,0 +1,22 @@
+meta:
+  extract_upstream: True
+  extract_product: False
+
+tasks:
+  - source: tasks.serve.get
+    name: get
+    product: "{{path.products}}/pred/get.parquet"
+
+  - source: tasks.features.fn
+    name: features
+    product: "{{path.products}}/pred/features.parquet"
+
+  - source: tasks.join.fn
+    name: join
+    product: "{{path.products}}/pred/join.parquet"
+
+  - source: tasks.serve.predict
+    name: predict
+    product: "{{path.products}}/pred/predictions.csv"
+    params:
+      path_to_model: "{{path.products}}/full/model.pickle"
