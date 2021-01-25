@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: 3.8
       - run: |
+          # run pipeline
           pip install soopervisor
           cd $FOLDER
           soopervisor build --clean-products-path
