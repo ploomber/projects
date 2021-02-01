@@ -1,22 +1,15 @@
 meta:
   extract_upstream: True
   extract_product: False
+  import_tasks_from: pipeline-features.yaml
 
 tasks:
   - source: tasks.serve.get
     name: get
-    product: "{{path.products}}/pred/get.parquet"
-
-  - source: tasks.features.fn
-    name: features
-    product: "{{path.products}}/pred/features.parquet"
-
-  - source: tasks.join.fn
-    name: join
-    product: "{{path.products}}/pred/join.parquet"
+    product: "output/pred/get.parquet"
 
   - source: tasks.serve.predict
     name: predict
-    product: "{{path.products}}/pred/predictions.csv"
+    product: "output/pred/predictions.csv"
     params:
-      path_to_model: "{{path.products}}/full/model.pickle"
+      path_to_model: "output/full/model.pickle"

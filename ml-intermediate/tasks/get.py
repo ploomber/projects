@@ -14,7 +14,6 @@ def fn(product, sample):
     df = pd.DataFrame(d['data'])
     df.columns = d['feature_names']
     df['target'] = d['target']
-
     # for the purpose of this example, let's replicate this data frame to show
     # the benefit of sampling
     df = pd.concat([df] * 5000, ignore_index=True)

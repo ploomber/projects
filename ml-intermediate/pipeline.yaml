@@ -1,36 +1,25 @@
 meta:
   extract_upstream: True
   extract_product: False
+  jupyter_functions_as_notebooks: True
+  import_tasks_from: pipeline-features.yaml
 
 tasks:
   - source: tasks.get.fn
     name: get
     # all products are parametrized (default values are loaded from env.yaml),
     # and can be overriden using the command line interface
-    product: "{{path.products}}/{{ 'sample' if sample else 'full' }}/get.parquet"
+    product: "output/{{ 'sample' if sample else 'full' }}/get.parquet"
     params:
       # we can also pass parameters to tasks
       sample: '{{sample}}'
 
-  - source: tasks.features.fn
-    name: features
-    product: "{{path.products}}/{{ 'sample' if sample else 'full' }}/features.parquet"
-
-  - source: tasks.join.fn
-    name: join
-    product: "{{path.products}}/{{ 'sample' if sample else 'full' }}/join.parquet"
-    # use the on_finish key to run a function upon successful task execution.
-    # this is handy for pipeline integration testing:
-    # https://ploomber.readthedocs.io/en/stable/user-guide/testing.html
-    on_finish: integration_tests.no_missing_values
-
   - source: fit.py
     name: fit
     product:
-        # note that we changed to an HTML extension, conversion is performed
-        # automatically
-        nb: "{{path.products}}/{{ 'sample' if sample else 'full' }}/nb.html"
-        model: "{{path.products}}/{{ 'sample' if sample else 'full' }}/model.pickle"
+        # changing the extension triggers a format conversion automatically
+        nb: "output/{{ 'sample' if sample else 'full' }}/nb.html"
+        model: "output/{{ 'sample' if sample else 'full' }}/model.pickle"
     # use this parameter to customize the output notebook (optional)
     nbconvert_export_kwargs:
       # do not show input code
@@ -39,5 +28,5 @@ tasks:
       config:
         TagRemovePreprocessor: {'remove_cell_tags': ['model-training']}
         HTMLExporter: {'preprocessors': ['nbconvert.preprocessors.TagRemovePreprocessor']}
-    # for more information, check out nbconvert's documetation:
+    # for details, check out nbconvert's docs:
     # https://nbconvert.readthedocs.io/en/latest/config_options.html#preprocessor-options

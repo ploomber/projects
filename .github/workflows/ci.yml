@@ -4,14 +4,13 @@ on: push
 jobs:
   # missing: debugging
   # missing: sql-templating
-    
+
   projects:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         folder:
           - ml-basic
-          - ml-intermediate
           - etl
           - parametrized
           - python-api
@@ -36,6 +35,25 @@ jobs:
           conda activate $FOLDER
           pip install invoke
           invoke pre-deploy --name $FOLDER
+
+  ml-intermediate:
+    runs-on: ubuntu-latest
+    name: ml-intermediate
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          eval "$(conda shell.bash hook)"
+          exec bash
+          cd ml-intermediate/
+          conda env create --file environment.yml --name env
+          conda activate env
+          # train
+          ploomber build --entry-point pipeline.yaml
+          # serve
+          ploomber build --entry-point pipeline-serve.yaml
 
 
   spec-api-directory:
