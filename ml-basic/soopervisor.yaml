@@ -1,10 +1,10 @@
 # config for minikube
-mounted_volumes:
-  - name: shared-folder
-    sub_path: '{{project_name}}'
-    spec:
-      hostPath:
-        path: /host
+# mounted_volumes:
+#   - name: shared-folder
+#     sub_path: '{{project_name}}'
+#     spec:
+#       hostPath:
+#         path: /host
 
 
 # config for google cloud
