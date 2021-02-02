@@ -1,3 +1,5 @@
+cache_env: False
+
 # config for minikube
 # mounted_volumes:
 #   - name: shared-folder
