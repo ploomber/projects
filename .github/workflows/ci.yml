@@ -2,9 +2,10 @@ name: ci
 on: push
 
 jobs:
-  # missing: debugging
-  # missing: sql-templating
+  # TODO: test "debugging"
+  # TODO: test "sql-templating"
 
+  # These are examples with the same structure, we use the same script
   projects:
     runs-on: ubuntu-latest
     strategy:
@@ -31,10 +32,19 @@ jobs:
 
           # test readme works
           eval "$(conda shell.bash hook)"
-          exec bash
           conda activate $FOLDER
           pip install invoke
-          invoke pre-deploy --name $FOLDER
+          # install ploomberutils pkg
+          cd ..
+          pip install pkg/
+          # needed to run the readmes
+          pip install ipywidgets
+          # some readmes require pygraphviz
+          conda install pygraphviz -c conda-forge --yes
+          # test readme.md
+          invoke build --name $FOLDER
+
+  # The rest have some particular details, so we test them separately
 
   ml-intermediate:
     runs-on: ubuntu-latest
@@ -46,7 +56,6 @@ jobs:
           python-version: 3.8
       - run: |
           eval "$(conda shell.bash hook)"
-          exec bash
           cd ml-intermediate/
           conda env create --file environment.yml --name env
           conda activate env
@@ -54,7 +63,6 @@ jobs:
           ploomber build --entry-point pipeline.yaml
           # serve
           ploomber build --entry-point pipeline-serve.yaml
-
 
   spec-api-directory:
     runs-on: ubuntu-latest
@@ -66,11 +74,10 @@ jobs:
           python-version: 3.8
       - run: |
           eval "$(conda shell.bash hook)"
-          exec bash
           cd spec-api-directory/
           conda env create --file environment.yml --name env
           conda activate env
-          ploomber build --entry-point .
+          ploomber build --entry-point '*.py'
 
   spec-api-sql:
     runs-on: ubuntu-latest

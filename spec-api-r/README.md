@@ -1,10 +1,4 @@
-# Python script-based project
-
-This example shows how you can build script or notebook-based (just replace the
-*.R files with *.ipynb) project using a ``pipeline.yaml`` file.
-
-To execute the pipeline, first, open a terminal session, then move to this
-folder:
+# R pipeline
 
 ## Setup environment
 
@@ -13,7 +7,7 @@ required if using Binder/Deepnote)
 
 ~~~sh
 conda env create --file environment.yaml
-conda activate spec-api-python
+conda activate spec-api-r
 ~~~
 
 ## Pipeline description
