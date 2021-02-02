@@ -1,6 +1,13 @@
-# adding this so yaml.load does not return None
-cache_env: False
+# config for minikube
+mounted_volumes:
+  - name: shared-folder
+    sub_path: '{{project_name}}'
+    spec:
+      hostPath:
+        path: /host
 
+
+# config for google cloud
 # code_pod:
 #   args: -l role=nfs-server
 #   path: /exports/{{project_name}}
