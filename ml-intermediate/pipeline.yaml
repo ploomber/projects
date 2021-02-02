@@ -7,19 +7,14 @@ meta:
 tasks:
   - source: tasks.get.fn
     name: get
-    # all products are parametrized (default values are loaded from env.yaml),
-    # and can be overriden using the command line interface
-    product: "output/{{ 'sample' if sample else 'full' }}/get.parquet"
-    params:
-      # we can also pass parameters to tasks
-      sample: '{{sample}}'
+    product: output/training/get.parquet
 
   - source: fit.py
     name: fit
     product:
         # changing the extension triggers a format conversion automatically
-        nb: "output/{{ 'sample' if sample else 'full' }}/nb.html"
-        model: "output/{{ 'sample' if sample else 'full' }}/model.pickle"
+        nb: output/training/nb.html
+        model: output/training/model.pickle
     # use this parameter to customize the output notebook (optional)
     nbconvert_export_kwargs:
       # do not show input code

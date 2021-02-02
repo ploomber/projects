@@ -1,12 +1,12 @@
 - source: tasks.features.sepal_area
-  product: "output/{{ 'sample' if sample else 'full' }}/sepal_area.parquet"
+  product: "output/features/sepal_area.parquet"
 
 - source: tasks.features.petal_area
-  product: "output/{{ 'sample' if sample else 'full' }}/petal_area.parquet"
+  product: "output/features/petal_area.parquet"
 
 - source: tasks.join.fn
   name: join
-  product: "output/{{ 'sample' if sample else 'full' }}/join.parquet"
+  product: "output/features/join.parquet"
   # use the on_finish key to run a function upon successful task execution.
   # this is handy for pipeline integration testing:
   # https://ploomber.readthedocs.io/en/stable/user-guide/testing.html

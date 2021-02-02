@@ -1,13 +1,9 @@
 # Intermediate ML project
 
-This example shows how to build an ML pipeline with integration testing (using
-the `on_finish` key). When the pipeline takes a lot of time to run end-to-end
-it is a good idea to test with a sample, take a look at the `pipeline.yaml`,
-`env.yaml` to see how this parametrization happens and how this affects the
-`get` function defined in `tasks.py`.
-
-A second spec is provided (`pipeline-serve.yaml`) to show how to use the same
-feature engineering code from the training pipeline to serve predictions.
+This example shows how to build a training (`pipeline.yaml`) and a serving ML
+pipeline (`pipeline-serve.yaml`) that re-uses feature engineering code
+`pipeline-features.yaml`, and how to add integration testing (using the `on_finish`
+key).
 
 ## Setup
 
@@ -20,30 +16,15 @@ conda env create --file environment.yml
 conda activate ml-intermediate
 ~~~
 
-## Execute the pipeline
+## Execute the training pipeline
 
 ```bash tags=["bash"]
-ploomber build
-```
-
-## Integration testing with a sample
-
-To see available parameters (params parsed from `env.yaml` start with `--env`):
-
-```bash tags=["bash"]
-ploomber build --help
-```
-
-Run with a sample:
-
-```bash tags=["bash"]
-ploomber build --env--sample true 
+ploomber build --entry-point pipeline.yaml
 ```
 
 ## Serving predictions
 
-Once a model has been trained (by running `ploomber build`), you can run the
-serving pipeline with:
+Once a model has been trained, you can run the serving pipeline with:
 
 ```bash tags=["bash"]
 ploomber build --entry-point pipeline-serve.yaml

@@ -36,7 +36,7 @@ Jupyter notebook format and with the output from each cell.
 
 ### Intermediate
 
-5. [`ml-intermediate/`](ml-intermediate/README.ipynb) ML pipeline (Spec API). Similar to `ml-basic/` but shows how to do integration testing using `on_finish`, speed up testing by adding a `sample` parameter, and re-using feature engineering code from the training pipeline for serving predictions
+5. [`ml-intermediate/`](ml-intermediate/README.ipynb) ML pipeline (Spec API). Similar to `ml-basic/` but shows how to re-use feature engineering code for training and serving and how to add integration tests
 6. [`spec-api-sql/`](spec-api-sql/README.ipynb) Pipeline with SQL and Python tasks, using the Spec API
 7. [`python-api/`](python-api/README.ipynb) Pipeline using the Python API
 
