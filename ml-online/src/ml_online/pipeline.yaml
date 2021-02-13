@@ -1,0 +1,22 @@
+meta:
+  extract_product: False
+
+  source_loader:
+    module: ml_online
+  
+  jupyter_hot_reload: True
+
+  # FIXME: paths should be relative
+  import_tasks_from: src/ml_online/pipeline-features.yaml
+
+
+tasks:
+  - source: ml_online.tasks.raw.get
+    product: products/raw/get.parquet
+    serializer: ml_online.io.serialize
+    unserializer: ml_online.io.unserialize
+  
+  - source: notebooks/fit.py
+    product:
+      nb: products/report.html
+      model: products/model.pickle

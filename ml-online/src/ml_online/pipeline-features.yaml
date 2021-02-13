@@ -1,0 +1,14 @@
+- source: ml_online.tasks.features.sepal_area
+  product: products/features/sepal_area.parquet
+  serializer: ml_online.io.serialize
+  unserializer: ml_online.io.unserialize
+
+- source: ml_online.tasks.features.petal_area
+  product: products/features/petal_area.parquet
+  serializer: ml_online.io.serialize
+  unserializer: ml_online.io.unserialize
+
+- source: ml_online.tasks.features.join
+  product: products/features/join.parquet
+  serializer: ml_online.io.serialize
+  unserializer: ml_online.io.unserialize

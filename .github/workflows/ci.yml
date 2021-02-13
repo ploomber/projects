@@ -119,3 +119,14 @@ jobs:
           cd ml-advanced
           pip install "."
           pytest
+
+  ml-online:
+    runs-on: ubuntu-latest
+    name: ml-online
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          cd ml-online
