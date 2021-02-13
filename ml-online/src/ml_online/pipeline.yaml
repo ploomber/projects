@@ -6,6 +6,7 @@ meta:
 
   import_tasks_from: pipeline-features.yaml
 
+
 serializer: ml_online.io.serialize
 unserializer: ml_online.io.unserialize
 
