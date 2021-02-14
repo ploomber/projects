@@ -12,9 +12,9 @@ unserializer: ml_online.io.unserialize
 
 tasks:
   - source: ml_online.tasks.raw.get
-    product: products/raw/get.parquet
+    product: "{{products}}/raw/get.parquet"
   
   - source: notebooks/fit.py
     product:
-      nb: products/report.html
-      model: products/model.pickle
+      nb: "{{products}}/report.html"
+      model: "{{products}}/model.pickle"

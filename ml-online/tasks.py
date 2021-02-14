@@ -19,8 +19,8 @@ def setup(c):
     print('Creating conda environment...')
     c.run('conda env create environment.yml --force')
     print('Installing package...')
-    conda.run_in_env(c, 'pip install --editable .[dev]', env='ml_online')
-    print('Done! Activate your environment with: conda activate ml_online')
+    conda.run_in_env(c, 'pip install --editable .[dev]', env='ml-online')
+    print('Done! Activate your environment with: conda activate ml-online')
 
 
 @task(
@@ -43,4 +43,4 @@ def test(c, inplace=False):
 def release(c):
     """Create a new version of this project
     """
-    versioneer.release(project_root='.', tag=True)
+    versioneer.release(project_root='.', tag=False)

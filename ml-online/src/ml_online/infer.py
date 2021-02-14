@@ -1,7 +1,7 @@
 import pickle
 from importlib import resources
 
-from ploomber.dag.OnlineDAG import OnlineDAG
+from ploomber import OnlineDAG
 
 import ml_online
 
