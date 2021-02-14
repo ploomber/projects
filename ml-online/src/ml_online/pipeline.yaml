@@ -1,0 +1,20 @@
+meta:
+  extract_product: False
+
+  source_loader:
+    module: ml_online
+
+  import_tasks_from: pipeline-features.yaml
+
+
+serializer: ml_online.io.serialize
+unserializer: ml_online.io.unserialize
+
+tasks:
+  - source: ml_online.tasks.raw.get
+    product: "{{products}}/raw/get.parquet"
+  
+  - source: notebooks/fit.py
+    product:
+      nb: "{{products}}/report.html"
+      model: "{{products}}/model.pickle"

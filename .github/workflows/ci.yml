@@ -119,3 +119,24 @@ jobs:
           cd ml-advanced
           pip install "."
           pytest
+
+  ml-online:
+    runs-on: ubuntu-latest
+    name: ml-online
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          cd ml-online
+          eval "$(conda shell.bash hook)"
+          pip install invoke
+          invoke setup
+          conda activate ml-online
+          ploomber build
+          cp products/model.pickle src/ml_online/model.pickle
+          invoke test --inplace
+          pip install soopervisor
+          soopervisor export
+          soopervisor export-airflow

@@ -1,0 +1,9 @@
+name: ml-online
+
+channels:
+  - conda-forge
+
+dependencies:
+  # you can switch the python version if you want to
+  - python=3.8
+  - pip

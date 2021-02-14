@@ -1,0 +1,8 @@
+- source: ml_online.tasks.features.sepal_area
+  product: "{{products}}/features/sepal_area.parquet"
+
+- source: ml_online.tasks.features.petal_area
+  product: "{{products}}/features/petal_area.parquet"
+
+- source: ml_online.tasks.features.join
+  product: "{{products}}/features/join.parquet"
