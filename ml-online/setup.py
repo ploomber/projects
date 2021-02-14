@@ -30,11 +30,11 @@ def read(*names, **kwargs):
 
 # minimum dependencies for deployment
 REQUIRES = [
-    'pyarrow',
     'numpy',
     'pandas',
     'ploomber',
     'scikit-learn',
+    'flask',
 ]
 
 # extra dependencies for dewvelopment. e.g. run tests, build docs,
@@ -48,6 +48,7 @@ REQUIRES_DEV = [
     'jupyter',
     'matplotlib',
     'sklearn_evaluation',
+    'pyarrow',
 ]
 
 setup(
