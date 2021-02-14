@@ -131,7 +131,7 @@ jobs:
       - run: |
           cd ml-online
           eval "$(conda shell.bash hook)"
-          pip install invoke
+          pip install invoke soopervisor
           invoke setup
           conda activate ml-online
           ploomber build
