@@ -6,119 +6,119 @@ jobs:
   # TODO: test "sql-templating"
 
   # These are examples with the same structure, we use the same script
-  projects:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        folder:
-          - ml-basic
-          - etl
-          - parametrized
-          - python-api
-          - spec-api-python
-          - spec-api-r
-    env:
-      FOLDER: ${{ matrix.folder }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          # run pipeline
-          pip install soopervisor
-          cd $FOLDER
-          soopervisor build --clean-products-path
+  # projects:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       folder:
+  #         - ml-basic
+  #         - etl
+  #         - parametrized
+  #         - python-api
+  #         - spec-api-python
+  #         - spec-api-r
+  #   env:
+  #     FOLDER: ${{ matrix.folder }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: |
+  #         # run pipeline
+  #         pip install soopervisor
+  #         cd $FOLDER
+  #         soopervisor build --clean-products-path
 
-          # test readme works
-          eval "$(conda shell.bash hook)"
-          conda activate $FOLDER
-          pip install invoke
-          # install ploomberutils pkg
-          cd ..
-          pip install pkg/
-          # needed to run the readmes
-          pip install ipywidgets
-          # some readmes require pygraphviz
-          conda install pygraphviz -c conda-forge --yes
-          # test readme.md
-          invoke build --name $FOLDER
+  #         # test readme works
+  #         eval "$(conda shell.bash hook)"
+  #         conda activate $FOLDER
+  #         pip install invoke
+  #         # install ploomberutils pkg
+  #         cd ..
+  #         pip install pkg/
+  #         # needed to run the readmes
+  #         pip install ipywidgets
+  #         # some readmes require pygraphviz
+  #         conda install pygraphviz -c conda-forge --yes
+  #         # test readme.md
+  #         invoke build --name $FOLDER
 
-  # The rest have some particular details, so we test them separately
+  # # The rest have some particular details, so we test them separately
 
-  ml-intermediate:
-    runs-on: ubuntu-latest
-    name: ml-intermediate
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          eval "$(conda shell.bash hook)"
-          cd ml-intermediate/
-          conda env create --file environment.yml --name env
-          conda activate env
-          # train
-          ploomber build --entry-point pipeline.yaml
-          # serve
-          ploomber build --entry-point pipeline-serve.yaml
+  # ml-intermediate:
+  #   runs-on: ubuntu-latest
+  #   name: ml-intermediate
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: |
+  #         eval "$(conda shell.bash hook)"
+  #         cd ml-intermediate/
+  #         conda env create --file environment.yml --name env
+  #         conda activate env
+  #         # train
+  #         ploomber build --entry-point pipeline.yaml
+  #         # serve
+  #         ploomber build --entry-point pipeline-serve.yaml
 
-  spec-api-directory:
-    runs-on: ubuntu-latest
-    name: spec-api-directory
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          eval "$(conda shell.bash hook)"
-          cd spec-api-directory/
-          conda env create --file environment.yml --name env
-          conda activate env
-          ploomber build --entry-point '*.py'
+  # spec-api-directory:
+  #   runs-on: ubuntu-latest
+  #   name: spec-api-directory
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: |
+  #         eval "$(conda shell.bash hook)"
+  #         cd spec-api-directory/
+  #         conda env create --file environment.yml --name env
+  #         conda activate env
+  #         ploomber build --entry-point '*.py'
 
-  spec-api-sql:
-    runs-on: ubuntu-latest
-    name: spec-api-sql
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
-      - run: pip install soopervisor
-      - run: cd spec-api-sql/ && soopervisor build --clean-products-path
+  # spec-api-sql:
+  #   runs-on: ubuntu-latest
+  #   name: spec-api-sql
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
+  #     - run: pip install soopervisor
+  #     - run: cd spec-api-sql/ && soopervisor build --clean-products-path
 
-  testing:
-    runs-on: ubuntu-latest
-    name: testing
-    steps:
-      # this step makes your repo available to the next one
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          pip install pandas soopervisor
-          cd testing
-          mkdir output
-          cd setup && python script.py && cd ..
-          soopervisor build --clean-products-path
+  # testing:
+  #   runs-on: ubuntu-latest
+  #   name: testing
+  #   steps:
+  #     # this step makes your repo available to the next one
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: |
+  #         pip install pandas soopervisor
+  #         cd testing
+  #         mkdir output
+  #         cd setup && python script.py && cd ..
+  #         soopervisor build --clean-products-path
   
-  ml-advanced:
-    runs-on: ubuntu-latest
-    name: ml-advanced
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: |
-          cd ml-advanced
-          pip install "."
-          pytest
+  # ml-advanced:
+  #   runs-on: ubuntu-latest
+  #   name: ml-advanced
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
+  #     - run: |
+  #         cd ml-advanced
+  #         pip install "."
+  #         pytest
 
   ml-online:
     runs-on: ubuntu-latest
@@ -137,4 +137,5 @@ jobs:
           ploomber build
           cp products/model.pickle src/ml_online/model.pickle
           invoke test --inplace
-          # TODO: test soopervisor {export, export-airflow}
+          soopervisor export
+          soopervisor export-airflow

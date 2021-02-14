@@ -23,4 +23,4 @@ def test_wheel_includes_pipeline_and_model(tmp_path):
         'model.pickle',
         'env.yaml',
     ]
-    assert all((tmp_path / 'ml_online' / name).exists() for name in names)
+    assert all([(tmp_path / 'ml_online' / name).exists() for name in names])
