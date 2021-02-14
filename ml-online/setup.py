@@ -58,6 +58,7 @@ setup(
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
     install_requires=REQUIRES,
+    include_package_data=True,
     extras_require={
         'dev': REQUIRES_DEV,
     },
