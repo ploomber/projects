@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn import datasets
 
 
-def get():
+def get(sample):
     """Get training data
     """
     d = datasets.load_iris()
