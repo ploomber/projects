@@ -1,4 +1,3 @@
-import pytest
 import pandas as pd
 
 from ml_online.infer import InferencePipeline
