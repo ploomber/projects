@@ -7,6 +7,12 @@
 *.json
 *.db
 
+# do not include model file
+src/ml_online/model.pickle
+
+# artifacts from test_pipeline.py
+testing/
+
 # Exclude everything in the products/ and releases/ sfolder
 products/
 releases/

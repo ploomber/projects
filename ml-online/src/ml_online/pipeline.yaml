@@ -13,6 +13,8 @@ unserializer: ml_online.io.unserialize
 tasks:
   - source: ml_online.tasks.raw.get
     product: "{{products}}/raw/get.parquet"
+    params:
+      sample: '{{sample}}'
   
   - source: notebooks/fit.py
     product:
