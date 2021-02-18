@@ -137,6 +137,7 @@ jobs:
           ploomber build
           cp products/model.pickle src/ml_online/model.pickle
           invoke test --inplace
+          python -m build
           pip install soopervisor
           soopervisor export
           soopervisor export-airflow

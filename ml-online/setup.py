@@ -49,6 +49,7 @@ REQUIRES_DEV = [
     'matplotlib',
     'sklearn_evaluation',
     'pyarrow',
+    'build',
 ]
 
 setup(

@@ -47,6 +47,7 @@ Jupyter notebook format and with the output from each cell.
 your projects so you can install them using `pip install .`, how to test
 using `pytest`, how to create an array of experiments to try several models and
 run them in parallel.
+10. [`ml-online/`](ml-online/README.md) End-to-end machine learning example: training, testing, packaging, and serving predictions using flask.
 
 ## User guides
 
