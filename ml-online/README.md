@@ -4,6 +4,7 @@ This example shows and end-to-end machine learning project using Ploomber.
 
 Requires [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 
+Note: all commands must be executed in the `ml-online/` directory.
 
 ## Setup development environment
 
@@ -44,14 +45,12 @@ cp products/model.pickle src/ml_online/model.pickle
 
 Start web application:
 
-Note: Ploomber exports a Python object that encapsulates the full inference pipeline (pre-processing + feature engineering + model inference), can be deployed with any framework.
-
 ```sh
 export FLASK_APP=ml_online.service
 flask run
 ```
 
-Open a new terminal a make predictions:
+Open a new terminal to make predictions:
 
 ```sh
 curl -d  '{"sepal length (cm)": 5.1, "sepal width (cm)": 3.5, "petal length (cm)": 1.4, "petal width (cm)": 0.2}' -H 'Content-Type: application/json' http://127.0.0.1:5000/
@@ -59,6 +58,8 @@ curl -d  '{"sepal length (cm)": 5.1, "sepal width (cm)": 3.5, "petal length (cm)
 # with different values
 curl -d  '{"sepal length (cm)": 5.9, "sepal width (cm)": 3.0, "petal length (cm)": 5.1, "petal width (cm)": 1.8}' -H 'Content-Type: application/json' http://127.0.0.1:5000/
 ```
+
+Note: Ploomber exports a Python object that encapsulates the full inference pipeline (pre-processing + feature engineering + model inference), it can be deployed with any framework.
 
 ## Code
 
@@ -71,12 +72,14 @@ curl -d  '{"sepal length (cm)": 5.9, "sepal width (cm)": 3.0, "petal length (cm)
 
 ## Interactive console
 
+Run in a terminal:
+
 ```sh
 ploomber interact
 ```
 
 Starts an interactive session with a `dag` variable, which is the
-representation of your training pipeline, useful for debugging. Try the following:
+representation of the training pipeline, useful for debugging. Try the following:
 
 ```python
 # get task names
@@ -101,8 +104,7 @@ task.debug()
 # run tests in the current environment
 invoke test --inplace
 
-# creates a new virtual environment before running tests - useful setting up
-# continuous integration
+# creates a new virtual environment before running tests - useful for setting up continuous integration
 invoke test
 ```
 
@@ -131,4 +133,4 @@ soopervisor export
 soopervisor export-airflow
 ```
 
-Click here to go to [Soopervisor's documentation](https://soopervisor.readthedocs.io/)
+Click here to go to Soopervisor's  [documentation](https://soopervisor.readthedocs.io/) or [Github](github.com/ploomber/soopervisor)
