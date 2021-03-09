@@ -38,7 +38,7 @@ def clear(c):
         shutil.rmtree(f)
         Path(f).mkdir()
 
-    for f in iglob('*/*.source'):
+    for f in iglob('*/*.metadata'):
         print(f'Deleting contents of: {f}')
         Path(f).unlink()
 

@@ -1,11 +1,9 @@
 meta:
-  extract_upstream: True
-  extract_product: False
   jupyter_hot_reload: True
   jupyter_functions_as_notebooks: True
 
-# enable client if you want to upload arfifacts to google cloud storage
-# see clients.py for details
+# # enable client if you want to upload arfifacts to google cloud storage
+# # see clients.py for details
 # clients:
 #   File:
 #     dotted_path: clients.get_storage_client

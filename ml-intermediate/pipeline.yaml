@@ -1,6 +1,4 @@
 meta:
-  extract_upstream: True
-  extract_product: False
   jupyter_functions_as_notebooks: True
   import_tasks_from: pipeline-features.yaml
 

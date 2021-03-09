@@ -1,5 +1,5 @@
 **/argo.yaml
-*.source
+*.metadata
 **/runs/
 pipeline.png
 .vscode/

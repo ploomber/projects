@@ -1,6 +1,4 @@
 meta:
-  extract_product: False
-
   source_loader:
     module: ml_online
 
