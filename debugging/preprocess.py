@@ -3,7 +3,7 @@ from sklearn.preprocessing import OneHotEncoder
 
 # + tags=["parameters"]
 upstream = ['load']
-product = {'nb': 'output/clean.ipynb'}
+product = None
 
 # -
 

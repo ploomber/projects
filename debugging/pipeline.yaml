@@ -1,6 +1,9 @@
 tasks:
   - source: load.py
-    name: load
+    product:
+      nb: output/raw.ipynb
+      train: output/train.csv
+      test: output/test.csv
 
   - source: preprocess.py
-    name: preprocess
+    product: output/clean.ipynb
