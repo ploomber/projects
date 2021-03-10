@@ -17,7 +17,7 @@ dependencies:
   - nbgitpuller
   - pandas
   - patool
-  - ploomber
+  - git+https://github.com/ploomber/ploomber@dev
   - pyarrow
   - pyunpack
   - scikit-learn

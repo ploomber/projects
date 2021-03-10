@@ -8,4 +8,4 @@ dependencies:
   - r-base=4.0.3
   - r-irkernel
   - pip:
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev

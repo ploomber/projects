@@ -9,4 +9,4 @@ dependencies:
   - pygraphviz
   - pip:
     - seaborn
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev

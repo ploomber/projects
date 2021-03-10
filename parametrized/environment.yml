@@ -3,4 +3,4 @@ name: parametrized
 dependencies:
   - python=3.7
   - pip:
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev

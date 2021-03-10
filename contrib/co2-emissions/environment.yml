@@ -7,5 +7,5 @@ dependencies:
   - matplotlib
   - pandas
   - pip:
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev
     - moviepy

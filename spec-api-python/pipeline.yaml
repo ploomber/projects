@@ -1,9 +1,13 @@
 tasks:
   - source: raw.py
-    name: raw
+    product:
+      nb: output/data.ipynb
+      data: output/data.csv
 
   - source: clean.py
-    name: clean
+    product:
+      nb: output/clean.ipynb
+      data: output/clean.csv
 
   - source: plot.py
-    name: plot
+    product: output/plot.ipynb

@@ -114,7 +114,7 @@ dag.build()
 You should see that all three tasks ran, that's because the load function is the root node. Let's try with another task:
 
 ```python
-print(dag['clean.py'].source.loc)
+print(dag['clean'].source.loc)
 ```
 
 Go ahead and modify the file.

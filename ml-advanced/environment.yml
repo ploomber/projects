@@ -4,4 +4,4 @@ dependencies:
   - python=3.7
   - pip
   - pip:
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev

@@ -8,7 +8,7 @@ dependencies:
   - pip
 
   - pip:
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev
     - pandas
     - scikit-learn
     - pyarrow

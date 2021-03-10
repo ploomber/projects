@@ -8,6 +8,6 @@ dependencies:
   - pip
   - scikit-learn
   - pip:
-    - ploomber
+    - git+https://github.com/ploomber/ploomber@dev
     - seaborn
     - pyarrow
