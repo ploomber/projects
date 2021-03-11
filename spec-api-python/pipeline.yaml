@@ -1,7 +1,7 @@
 tasks:
   - source: raw.py
     product:
-      nb: output/data.ipynb
+      nb: output/raw.ipynb
       data: output/data.csv
 
   - source: clean.py
