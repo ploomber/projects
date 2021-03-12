@@ -12,11 +12,14 @@ Note: all commands must be executed in the `ml-online/` directory.
 # required to run cli commands
 pip installl invoke
 
-# setup development environment (requires conda)
+# if using conda
 invoke setup
-
 # activate environment
 conda activate ml-online
+
+# otherwise use pip directly
+pip install -r requirements.txt
+pip install --editable .
 ```
 
 ## Training pipeline

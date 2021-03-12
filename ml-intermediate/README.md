@@ -8,12 +8,16 @@ key).
 ## Setup
 
 ~~~bash
-# same instructions as the other version
+# clone code
 git clone https://github.com/ploomber/projects
 cd ml-intermediate
 
+# if using conda
 conda env create --file environment.yml
 conda activate ml-intermediate
+
+# otherwise use pip directly
+pip install -r requirements.txt
 ~~~
 
 ## Execute the training pipeline

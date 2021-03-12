@@ -3,10 +3,10 @@ name: spec-api-sql
 
 dependencies:
   - python=3.7
-  - numpy
-  - pandas
   - pip
   - pygraphviz
   - pip:
+    - numpy
+    - pandas
     - seaborn
     - git+https://github.com/ploomber/ploomber@dev

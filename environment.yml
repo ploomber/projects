@@ -9,15 +9,16 @@ dependencies:
 - pygraphviz
 - python=3.7
 - r-base
+- r-base=4.0.3
 - r-irkernel
 - scikit-learn
 - seaborn
 - pip:
+  - git+https://github.com/ploomber/ploomber@dev
   - jupyter
   - nbgitpuller
   - pandas
   - patool
-  - git+https://github.com/ploomber/ploomber@dev
   - pyarrow
   - pyunpack
   - scikit-learn

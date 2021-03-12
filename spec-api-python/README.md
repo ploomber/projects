@@ -18,8 +18,12 @@ cd projects/spec-api-python
 Install dependencies:
 
 ~~~sh
+# if using conda
 conda env create --file environment.yaml
 conda activate spec-api-python
+
+# otherwise use pip directly
+pip install -r requirements.txt
 ~~~
 
 ## Description

@@ -1,0 +1,6 @@
+git+https://github.com/ploomber/ploomber@dev
+pandas
+scikit-learn
+pyarrow
+sklearn-evaluation
+jupyter

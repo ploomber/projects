@@ -12,8 +12,14 @@ script or notebook-based (just replace the *.py files with *.ipynb) projects.
 required if using Binder/Deepnote)
 
 ~~~sh
+# (make sure you're in the spec-api-directory folder)
+
+# if using conda
 conda env create --file environment.yaml
 conda activate spec-api-directory
+
+# otherwise use pip directly
+pip install -r requirements.txt
 ~~~
 
 ## Pipeline description

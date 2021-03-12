@@ -6,8 +6,13 @@
 required if using Binder/Deepnote)
 
 ~~~sh
+# if using conda (installs R in the virtual env)
 conda env create --file environment.yaml
 conda activate spec-api-r
+
+# if using pip, you need to install R manual and set up the IRKernel
+# package manually: https://github.com/IRkernel/IRkernel, then
+pip install -r requirements.txt
 ~~~
 
 ## Pipeline description

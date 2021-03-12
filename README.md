@@ -53,7 +53,7 @@ run them in parallel.
 
 These are part of the User Guide section in the [main documentation](https://ploomber.readthedocs.io/en/stable/user-guide/index.html).
 
-8. [`parametrized/`](parametrized/README.ipynb) Pipeline with input parameters
-9. [`debugging/`](debugging/README.ipynb) Pipeline to demonstrate debugging capabilities
-10. [`testing/`](testing/README.ipynb) Pipeline with SQL and Python tasks showing how to test pipelines
-10. [`sql-templating/`](sql-templating/README.ipynb) SQL pipeline showing how to use macros to write concise SQL scripts
+1. [`parametrized/`](parametrized/README.ipynb) Pipeline with input parameters
+2. [`debugging/`](debugging/README.ipynb) Pipeline to demonstrate debugging capabilities
+3. [`testing/`](testing/README.ipynb) Pipeline with SQL and Python tasks showing how to test pipelines
+4. [`sql-templating/`](sql-templating/README.ipynb) SQL pipeline showing how to use macros to write concise SQL scripts

@@ -2,6 +2,30 @@
 
 This demo showcases the spec API that allows you to write pipelines using YAML files so you can focus on the Data Science and not dealing which complex task dependencies nor managing database connections.
 
+## Setup (skip if using deepnote or binder)
+
+Get code (run in a terminal):
+
+~~~sh
+git clone https://github.com/ploomber/projects
+cd projects/spec-api-sql
+~~~
+
+Install dependencies:
+
+~~~sh
+# if using conda
+conda env create --file environment.yaml
+conda activate spec-api-sql
+
+# otherwise use pip directly
+# note that this won't install pygraphviz. If you want to plot the pipeline
+# you have to install it first
+pip install -r requirements.txt
+~~~
+
+## Running the pipeline
+
 Let's take a look at the pipeline definition:
 
 ```python
@@ -23,6 +47,7 @@ Pipeline plot:
 
 ```bash tags=["bash"]
 # Note: plotting doesn't work in deepnote
+# Note: if plotting locally, install pygrapviz first
 ploomber plot
 ```
 

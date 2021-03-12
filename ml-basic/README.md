@@ -9,9 +9,14 @@ This example shows how to build a Machine Learning pipeline using the Spec API.
 required if using Binder/Deepnote)
 
 ~~~bash
-# make sure you are in the ml-basic folder.
+# (make sure you are in the ml-basic folder)
+
+# if using conda
 conda env create --file environment.yml
 conda activate ml-basic
+
+# otherwise use pip directly
+pip install -r requirements.txt
 ~~~
 
 ## Description

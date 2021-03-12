@@ -1,10 +1,5 @@
-# This file was automatically generated
 git+https://github.com/ploomber/ploomber@dev
-jupyter
 pandas
-patool
-pyarrow
-pyunpack
 scikit-learn
-seaborn
+pyarrow
 sklearn-evaluation

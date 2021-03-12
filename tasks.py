@@ -44,7 +44,7 @@ def clear(c):
 
 
 @task
-def build(c, name=None):
+def build(c, name=None, run=True):
     """Run README.md and generate environment files
 
     * Execute all */README.md files (to generate */README.ipynb)
@@ -61,12 +61,19 @@ def build(c, name=None):
     else:
         folders = [name]
 
-    process_readme_md(folders + ['.'])
+    # Run readme.md to generate readme.ipynb
+    if run:
+        process_readme_md(folders + ['.'])
 
     if name is None:
-        pip_deps = sorted(
-            list(set(chain(*(extract_pip_deps(folder)
-                             for folder in folders)))))
+        pip_deps_by_folder = {
+            folder: extract_pip_deps(folder)
+            for folder in folders
+        }
+
+        save_per_folder_requirements_txt(pip_deps_by_folder)
+
+        pip_deps = sorted(list(set(chain(*pip_deps_by_folder.values()))))
         reqs = '# This file was automatically generated\n' + '\n'.join(
             pip_deps)
         print('Generating requirements.txt')
@@ -96,6 +103,15 @@ def build(c, name=None):
 
         # export to binder env repo
         Path('../binder-env/environment.yml').write_text(conda)
+
+
+def save_per_folder_requirements_txt(pip_deps_by_folder):
+    print('\n')
+    for folder, reqs in pip_deps_by_folder.items():
+        path = Path(folder, 'requirements.txt')
+        print(f'Saving {path}...')
+        path.write_text('\n'.join(sorted(reqs)))
+    print('\n')
 
 
 def extract_conda_deps(folder):

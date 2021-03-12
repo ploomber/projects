@@ -2,12 +2,12 @@ name: spec-api-directory
 
 dependencies:
   - python=3.7
-  - numpy
-  - pandas
-  - matplotlib
   - pip
-  - scikit-learn
   - pip:
     - git+https://github.com/ploomber/ploomber@dev
+    - numpy
+    - pandas
+    - matplotlib
+    - scikit-learn
     - seaborn
     - pyarrow
