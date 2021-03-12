@@ -1,2 +1,5 @@
 git+https://github.com/ploomber/ploomber@dev
+matplotlib
+numpy
+pandas
 seaborn

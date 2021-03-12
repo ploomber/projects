@@ -1,3 +1,7 @@
 git+https://github.com/ploomber/ploomber@dev
-seaborn
+matplotlib
+numpy
+pandas
 pyarrow
+scikit-learn
+seaborn

@@ -17,7 +17,7 @@ def setup(c, create_conda=True):
            ' && conda activate projects '
            ' &&') if create_conda else ''
 
-    cmd += (' pip install --editable pkg/'
+    cmd += (' pip install --editable "pkg[dev]"'
             ' && pip install --editable python-api/'
             ' && pip install --editable ml-advanced/'
             ' && pip install invoke')
@@ -44,15 +44,15 @@ def clear(c):
 
 
 @task
-def build(c, name=None, run=True):
-    """Run README.md and generate environment files
-
-    * Execute all */README.md files (to generate */README.ipynb)
-    * Generate requirements.txt from environment.yml (for people who don't use conda)
+def build(c, name=None, run=True, force=False):
+    """See CONTRIBUTING.md for details
     """
-    from ploomberutils import process_readme_md
+    from ploomberutils import process_readme_md, readme
 
     if name is None:
+        print('Bulding README.md...')
+        Path('README.md').write_text(readme.render())
+
         folders = [
             'ml-basic', 'ml-intermediate', 'python-api', 'spec-api-directory',
             'spec-api-python', 'spec-api-r', 'spec-api-sql', 'ml-advanced',
@@ -63,7 +63,7 @@ def build(c, name=None, run=True):
 
     # Run readme.md to generate readme.ipynb
     if run:
-        process_readme_md(folders + ['.'])
+        process_readme_md(folders + ['.'], force=force)
 
     if name is None:
         pip_deps_by_folder = {
@@ -125,4 +125,4 @@ def extract_pip_deps(folder):
     with open(Path(folder, 'environment.yml')) as f:
         d = yaml.safe_load(f)
 
-    return d['dependencies'][-1]['pip']
+    return sorted(d['dependencies'][-1]['pip'])

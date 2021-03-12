@@ -1,47 +1,30 @@
 # Intermediate ML project
 
-This example shows how to build a training (`pipeline.yaml`) and a serving ML
-pipeline (`pipeline-serve.yaml`) that re-uses feature engineering code
-`pipeline-features.yaml`, and how to add integration testing (using the `on_finish`
-key).
+Training and serving ML pipeline with integration testing.
 
 ## Setup
 
 ~~~bash
-# clone code
-git clone https://github.com/ploomber/projects
-cd ml-intermediate
-
 # if using conda
 conda env create --file environment.yml
 conda activate ml-intermediate
 
-# otherwise use pip directly
+# or use pip directly
 pip install -r requirements.txt
 ~~~
 
-## Execute the training pipeline
+## Build
 
 ```bash tags=["bash"]
-ploomber build --entry-point pipeline.yaml
+ploomber build
 ```
 
-## Serving predictions
+## Serving
 
-Once a model has been trained, you can run the serving pipeline with:
+Once the model is trained, run the serving pipeline with:
 
 ```bash tags=["bash"]
 ploomber build --entry-point pipeline-serve.yaml
 ```
 
-This second pipeline loads some data and uses the model file to make
-predictions.
-
-## Where to go from here
-
-Using a `pipeline.yaml` is a convenient way to describe your workflows but it
-has some limitations. [`ml-advanced/`](../ml-advanced/README.ipynb) shows a
-pipeline written using the Python API, this gives you full flexibility and
-allows you to do things such as creating tasks dynamically.
-
-It also shows how to create a Python package to easily share your pipeline and how to test it using `pytest`.
+This pipeline loads some data and uses the model file to make predictions.

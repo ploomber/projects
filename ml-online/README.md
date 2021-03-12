@@ -1,12 +1,10 @@
-# Online API
+# Machine Learning pipeline with online API
 
-This example shows and end-to-end machine learning project using Ploomber.
-
-Requires [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+ML pipeline. Train in Kubernetes (via Argo Workflows), deploy using Flask.
 
 Note: all commands must be executed in the `ml-online/` directory.
 
-## Setup development environment
+## Setup
 
 ```sh
 # required to run cli commands
@@ -14,29 +12,30 @@ pip installl invoke
 
 # if using conda
 invoke setup
-# activate environment
 conda activate ml-online
 
-# otherwise use pip directly
+# or use pip directly
 pip install -r requirements.txt
 pip install --editable .
 ```
 
-## Training pipeline
+## File layout
 
-Get a summary of the training pipeline:
+`src/ml_online`:
 
-```sh
-ploomber status
-```
+1. `pipeline-features.yaml`: feature engineering YAML spec
+2. `pipeline.yaml`: training pipeline
+3. `infer.py`: converts training pipeline to an inference pipeline
+4. `service.py`: uses inference pipeline to serve predictions using flask
 
-Run training pipeline:
+## Training pipeline (local)
 
 ```sh
 ploomber build
 ```
 
 Output from the training pipeline saved in the `products/` folder.
+
 
 ## Online API
 
@@ -64,14 +63,43 @@ curl -d  '{"sepal length (cm)": 5.9, "sepal width (cm)": 3.0, "petal length (cm)
 
 Note: Ploomber exports a Python object that encapsulates the full inference pipeline (pre-processing + feature engineering + model inference), it can be deployed with any framework.
 
-## Code
+## Training in Kubernetes
 
-`src/ml_online`:
+If you want to train multiple models at once, you can export your training pipeline to run on Kubernetes/Argo or Airflow.
 
-1. `pipeline-features.yaml`: feature engineering YAML spec
-2. `pipeline.yaml`: training pipeline
-3. `infer.py`: converts training pipeline to an inference pipeline
-4. `service.py`: uses inference pipeline to serve predictions using flask
+```sh
+# install our package for exporting projects
+pip install soopervisor
+
+# export to kubernetes/argo
+soopervisor export
+
+# export to airflow
+soopervisor export-airflow
+```
+
+Click here to go to Soopervisor's  [documentation](https://soopervisor.readthedocs.io/) or [Github](github.com/ploomber/soopervisor)
+
+
+## Testing
+
+```sh
+# run tests in the current environment
+invoke test --inplace
+
+# creates a new virtual environment before running tests - useful for setting up continuous integration
+invoke test
+```
+
+## Packaging
+
+This project is a Python package, you can generate a distribution archive (`tar.gz`) or a built distribution (`.whl`) for deployment:
+
+```sh
+python -m build
+```
+
+Files are saved in in the `dist/` directory. Both contain all the necesary pieces to serve predictions: dependencies, preprocessing code, and model file.
 
 ## Interactive console
 
@@ -100,40 +128,3 @@ task.debug()
 
 # enter "quit" to exit the debugger
 ```
-
-## Testing
-
-```sh
-# run tests in the current environment
-invoke test --inplace
-
-# creates a new virtual environment before running tests - useful for setting up continuous integration
-invoke test
-```
-
-## Deployment
-
-This project is a Python package, you can generate a distribution archive (`tar.gz`) or a built distribution (`.whl`) for deployment:
-
-```sh
-python -m build
-```
-
-Files are saved in in the `dist/` directory. Both contain all the necesary pieces to serve predictions: dependencies, preprocessing code, and model file.
-
-## Scale up training
-
-If you want to train multiple models at once, you can export your training pipeline to run on Kubernetes/Argo or Airflow.
-
-```sh
-# install our package for exporting projects
-pip install soopervisor
-
-# export to kubernetes/argo
-soopervisor export
-
-# export to airflow
-soopervisor export-airflow
-```
-
-Click here to go to Soopervisor's  [documentation](https://soopervisor.readthedocs.io/) or [Github](github.com/ploomber/soopervisor)

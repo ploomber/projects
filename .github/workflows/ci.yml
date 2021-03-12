@@ -11,12 +11,16 @@ jobs:
     strategy:
       matrix:
         folder:
+          # basic
           - ml-basic
-          - etl
-          - parametrized
-          - python-api
-          - spec-api-python
           - spec-api-r
+          #  intermediate
+          - python-api
+          # advanced
+          - etl
+          # guides
+          - parametrized
+          - spec-api-python
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -25,12 +29,12 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          # run pipeline
+          # run pipeline using soopervisor
           pip install soopervisor
           cd $FOLDER
           soopervisor build --clean-products-path
 
-          # test readme works
+          # run commands in readme (re-use existing conda env)
           eval "$(conda shell.bash hook)"
           conda activate $FOLDER
           pip install invoke

@@ -13,8 +13,30 @@ Optional:
 * `pipeline.yaml` - If the example uses the Spec API
 * `setup/script.sh` - Bash script to run any pre-execution steps (`script.py` also works), it is executed with `setup/` as the current working directory
 
+# Building
 
-# README.md guidelines
+1. Generate README.md from README-template.md and index.csv
+2. Execute all */README.md files (to generate */README.ipynb)
+3. Generate requirements.txt from environment.yml (for people who don't use conda)
+4. Generate repository-level requirements.txt and environment.yml for binder and deepnote
+
+**Note:** The repository-level environment.yml is saved in a different repo to allow
+quick Binder loading.
+
+```sh
+invoke build
+```
+
+```sh
+invoke build --force
+```
+
+# Root README.md
+
+The root `README.md` is generated from
+`pkg/src/ploomberutils/README-template.md` and `index.csv`.
+
+# Example README.md guidelines
 
 `README.md` are converted to Jupyter notebooks and executed to test them and show the output of each command. Some of these files are also displayed in Ploomber's documentation.
 

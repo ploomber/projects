@@ -1,5 +1,5 @@
 git+https://github.com/ploomber/ploomber@dev
 pandas
-scikit-learn
 pyarrow
+scikit-learn
 sklearn-evaluation

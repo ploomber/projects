@@ -2,21 +2,18 @@
 channels:
 - conda-forge
 dependencies:
-- matplotlib
-- numpy
 - p7zip
-- pandas
 - pygraphviz
 - python=3.7
 - r-base
 - r-base=4.0.3
 - r-irkernel
-- scikit-learn
-- seaborn
 - pip:
   - git+https://github.com/ploomber/ploomber@dev
   - jupyter
+  - matplotlib
   - nbgitpuller
+  - numpy
   - pandas
   - patool
   - pyarrow

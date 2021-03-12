@@ -9,13 +9,13 @@ dependencies:
   # to uncompress .7z files
   - p7zip
   - pip
-  - seaborn
-  - pandas
   # one task is written in R, this creates local installation
   - r-base
   # we also need to Jupyter R kernel to run scripts
   - r-irkernel
   - pip:
+    - seaborn
+    - pandas
     - git+https://github.com/ploomber/ploomber@dev
     # this package provides a Python interface for p7zip
     - pyunpack

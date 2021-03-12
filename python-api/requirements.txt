@@ -1,2 +1,4 @@
-seaborn
 git+https://github.com/ploomber/ploomber@dev
+numpy
+pandas
+seaborn
