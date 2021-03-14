@@ -19,7 +19,7 @@ Choose from one of the hosted options:
 
 Or run locally:
 
-```sh
+~~~sh
 pip install ploomber
 
 # list examples
@@ -27,7 +27,7 @@ ploomber examples
 
 # download one example
 ploomber examples --name {name}
-```
+~~~
 
 ## How to read the examples
 
