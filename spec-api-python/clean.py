@@ -5,7 +5,7 @@ import pandas as pd
 
 # + tags=["parameters"]
 upstream = ['raw']
-product = {'nb': 'output/clean.ipynb', 'data': 'output/clean.csv'}
+product = None
 # -
 
 df = pd.read_csv(upstream['raw']['data'])

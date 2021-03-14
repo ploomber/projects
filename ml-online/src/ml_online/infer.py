@@ -7,11 +7,7 @@ import ml_online
 
 
 class InferencePipeline(OnlineDAG):
-    """
-    pipeline to make online predictions. You can use it directly by
-    instantiating the pipeline (see example) and integrate it with the
-    framework of your choice or use the provided flask app (which also uses
-    this pipeline)
+    """Pipeline for online predictions
 
     Examples
     --------

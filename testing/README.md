@@ -117,7 +117,7 @@ path.write_text(new_code)
 display_file('clean.sql')
 ```
 
-Let's see what happens if we run the pipeline (don't be intimidated by the long traceback, we'll explain it in a bit):
+Let's see what happens if we run the pipeline:
 
 ```python
 %%capture captured
@@ -129,28 +129,39 @@ ploomber build
 print(captured.stderr)
 ```
 
-Ploomber error messages are designed to give you enough context, so you can fix things quickly.
-
-The last line says that our pipeline failed to build:
+Ploomber a structured error message to understand why your pipeline failed. The last few lines are a summary:
 
 ```
-ploomber.exceptions.DAGBuildError: Failed to build DAG
+=============================== Summary (1 task) ===============================
+SQLScript: clean -> SQLRelation(('my_clean_table', 'table'))
+=============================== DAG build failed ===============================
 ```
 
-That's a very general error message, but it tells us at which stage our pipeline failed (building is not the only one). If you go up a few lines, you'll see this:
+By looking at the summary we know our pipeline failed because one task crashed (`clean`). If we
+scroll up we'll see a header section:
 
 ```
-ploomber.exceptions.TaskBuildError: Exception when running on_finish for task "clean"
+--------- SQLScript: clean -> SQLRelation(('my_clean_table', 'table')) ---------
+-------------- /Users/Edu/dev/projects-ploomber/testing/clean.sql --------------
 ```
 
-That's a bit more specific. It's pointing us to the `on_finish` hook in the `clean` task. Go up a few more lines:
+Each task displays its traceback on a separate section. Since only one task failed in our example
+we only see one task traceback.
+
+At the end of this task traceback, we see the following line:
+
+```
+Exception when running on_finish for task "clean":
+```
+
+Now we know that the `on_finish` hook crashed. If we go up a few lines up:
 
 ```
 assert not nulls_in_columns(client, ['score', 'age'], product)
 AssertionError
 ```
 
-That tells me the exact test that failed! While having this long error messages might seem to verbose, it helps a lot to understand why the pipeline failed, our take away from the error message is: "the pipeline building process failed because the `on_finish` hook in the `clean` task raised an exception in this line". That's much better than either "the pipeline failed" or "this line raised an exception".
+That tells me the exact test that failed! Pipelines can get very large; it helps a lot to have a structured error message that tells us what failed and where it happened. Our take away from the error message is: "the pipeline building process failed because the `on_finish` hook in the `clean` task raised an exception in certain assertion". That's much better than either "the pipeline failed" or "this line raised an exception".
 
 Let's fix our pipeline and add the `WHERE` clause again:
 

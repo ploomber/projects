@@ -1,7 +1,6 @@
 meta:
-  # Turn off upstream and extraction, SQLUpload does not support this yet
+  # Turn off upstream extraction, SQLUpload does not support this yet
   extract_upstream: False
-  extract_product: False
 
   # Set defaults here so we don't have to add them on each task
   product_default_class:

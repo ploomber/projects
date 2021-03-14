@@ -72,7 +72,7 @@ def post_process_nb(path):
     jupytext.write(nb, path)
 
 
-def process_readme_md(folders, parent_dir='.'):
+def process_readme_md(folders, parent_dir='.', force=False):
     """
     Process README.md files from given folders, executes them inline
     """
@@ -93,7 +93,7 @@ def process_readme_md(folders, parent_dir='.'):
             print(f'Deleting {out}')
             shutil.rmtree(out)
 
-    print(dag.build())
+    print(dag.build(force=force))
 
     for task_name in dag:
         task = dag[task_name]

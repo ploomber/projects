@@ -5,7 +5,7 @@ import pandas as pd
 
 # + tags=["parameters"]
 upstream = None
-product = {'nb': 'output/data.ipynb', 'data': 'output/data.csv'}
+product = None
 # -
 
 # +

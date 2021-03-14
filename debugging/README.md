@@ -93,29 +93,23 @@ ploomber build --force
 ```
 
 <!-- #region -->
-If you followed the previous tutorial, you are already familiar with Ploomber's detailed error messages. Let's see the messages to understand what's going on.
+If you followed the previous tutorial, you are already familiar with Ploomber's structured error messages. Let's see the messages to understand what's going on.
 
-The latest error message is the most general, the first one is the most specific. Let's take a look at the last one:
-
-
-```
-ploomber.exceptions.DAGBuildError: Failed to build DAG
-```
-
-This is just saying the build process failed. Let's see the next one:
+The summary tells us the following
 
 ```
-ploomber.exceptions.TaskBuildError: Error building task "preprocess"
+=============================== Summary (1 task) ===============================
+NotebookRunner: preprocess -> File('output/clean.ipynb')
+=============================== DAG build failed ===============================
 ```
 
-That gives us more context. It's saying the specific task that failed. Next one:
-
+The `preprocess` task failed. Go up a few lines:
 
 ```
 ploomber.exceptions.TaskBuildError: An error occurred when calling papermil.execute_notebook, partially executed notebook with traceback available at ...
 ```
 
-That's useful, it's telling us where we can find the partially executed notebook in case we want to take a look at it. Finally:
+That's useful, it's telling us where we can find the partially executed notebook in case we want to take a look at it. A few lines up:
 
 ```
 ValueError: Found unknown categories ['d'] in column 1 during transform

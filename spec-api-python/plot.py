@@ -7,8 +7,7 @@ import seaborn as sns
 
 # + tags=["parameters"]
 upstream = ["clean"]
-# outputs two files: the script itself as a notebook and a csv file
-product = {"nb": "output/plot.ipynb"}
+product = None
 # -
 
 df = pd.read_csv(upstream['clean']['data'])

@@ -1,31 +1,30 @@
 # Basic ML project
 
-This example shows how to build a Machine Learning pipeline using the Spec API.
+Machine Learning pipeline.
 
+## Setup
 
-## Setup (skip if using deepnote or binder)
-
-(**Note**: Only required if you are running this example in your computer, not
-required if using Binder/Deepnote)
+(**Note**: Skip if running in binder or deepnote)
 
 ~~~bash
-# make sure you are in the ml-basic folder.
+# if using conda
 conda env create --file environment.yml
 conda activate ml-basic
+
+# or use pip directly
+pip install -r requirements.txt
 ~~~
 
 ## Description
 
-Let's take a look at the `pipeline.yaml file`:
+Let's take a look at the `pipeline.yaml`:
 
 ```bash tags=["bash"]
 cat pipeline.yaml
 ```
 
-Note that we changed one of the default settings: instead of
-extracting the output directly from the source code, we'll declare it in
-the `pipeline.yaml` file. Also observe that the first three tasks as Python
-functions, while the last one is a script.
+Note that the first three tasks as Python functions, while the last one is a
+script.
 
 Generate the plot:
 
@@ -35,59 +34,27 @@ ploomber plot
 ```
 
 ```python
+# If using jupyter, you can show the plot with this code:
 from IPython.display import Image
 Image(filename='pipeline.png')
+
+# otherwise open the pipeline.png file directly
 ```
 
-This pipeline gets some data, generates some features and trains a model.
-
-## Executing the pipeline from the command line (shell)
+## Build pipeline
 
 ```bash tags=["bash"]
 ploomber build
 ```
 
-Since the training task is a script, it will generate a jupyter notebook,
-[open it](output/nb.ipynb) to see the generated evaluation charts.
+Since the training task is a script, it will generate a Jupyter notebook at
+[output/nb.ipynb](output/nb.ipynb) with evaluation charts.
 
-## Interacting with your pipeline from Python session
+## Interacting with the pipeline
 
-The shell command line interface is a convenient way to interact with your
-pipeline. You can also load your pipeline in a Python session, which offers
-more features than the shell version.
-
-To load a pipeline from a `pipeline.yaml` file:
-
-```python
-from ploomber.spec import DAGSpec
-dag = DAGSpec('pipeline.yaml').to_dag()
-
-# same as "ploomber status"
-dag.status()
-```
-
-```python
-# same as "ploomber build"
-dag.build()
-```
-
-``DAG`` has a dict-like interface, to get a task:
-
-```python
-dag['fit']
-```
-
-There are a lot of things you can do with from a Python session, see the
-documentation for ``ploomber.DAG`` for details.
-
-A shortcut to initialize a Python session from a terminal:
+The command line interface is a convenient way to interact with your
+pipeline. Try this in a terminal:
 
 ~~~bash
 ploomber interact
 ~~~
-
-## Where to go from here
-
-* [`ml-intermediate/`](../ml-intermediate/README.ipynb) contains another ML
-pipeline with more features. It shows how to parametrize a pipeline using
-an `env.yaml` file (so you can run your pipeline with a small sample to test things quickly), run integration tests using `on_finish` and customizing output notebooks/reports.

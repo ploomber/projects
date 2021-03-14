@@ -1,6 +1,4 @@
 meta:
-  extract_product: False
-
   product_default_class:
     SQLScript: SQLiteRelation
 

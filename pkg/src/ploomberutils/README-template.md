@@ -19,7 +19,7 @@ Choose from one of the hosted options:
 
 Or run locally:
 
-~~~sh
+```sh
 pip install ploomber
 
 # list examples
@@ -27,7 +27,7 @@ ploomber examples
 
 # download one example
 ploomber examples --name {name}
-~~~
+```
 
 ## How to read the examples
 
@@ -39,33 +39,21 @@ Jupyter notebook format and with the output from each cell.
 
 ### Basic
 
-
-1. [`ml-basic/`](ml-basic/README.ipynb) Machine Learning pipeline
-
-2. [`spec-api-r/`](spec-api-r/README.ipynb) R pipeline
-
-3. [`spec-api-directory/`](spec-api-directory/README.ipynb) Pipeline from a directory of scripts
-
+{% for idx, name, entry, description in basic %}
+{{idx}}. [`{{name}}/`]({{name}}/README.{{entry}}) {{description}}
+{% endfor %}
 
 ### Intermediate
 
-
-4. [`ml-intermediate/`](ml-intermediate/README.ipynb) Training and serving ML pipeline with integration testing
-
-5. [`spec-api-sql/`](spec-api-sql/README.ipynb) Pipeline with SQL and Python tasks
-
-6. [`python-api/`](python-api/README.ipynb) Pipeline using the Python API
-
+{% for idx, name, entry, description in intermediate %}
+{{idx}}. [`{{name}}/`]({{name}}/README.{{entry}}) {{description}}
+{% endfor %}
 
 ### Advanced
 
-
-7. [`ml-online/`](ml-online/README.md) ML pipeline. Train in Kubernetes (via Argo Workflows), deploy using Flask
-
-8. [`etl/`](etl/README.ipynb) SQL pipeline that downloads data, uploads to a database, process it, and plots using Python/R
-
-9. [`ml-advanced/`](ml-advanced/README.ipynb) ML pipeline using the Python API. Shows how to package project, test it using pytest and train models in parallel
-
+{% for idx, name, entry, description in advanced %}
+{{idx}}. [`{{name}}/`]({{name}}/README.{{entry}}) {{description}}
+{% endfor %}
 
 ## Guides
 

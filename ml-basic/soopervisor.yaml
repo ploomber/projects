@@ -1,6 +1,8 @@
+# uncomment if you run this in Argo and want to save artifacts to cloud storage
+# args: --env--run_id {{workflow.uid}}
 cache_env: False
 
-# config for minikube
+# uncomment if running in Argo - minikube
 # mounted_volumes:
 #   - name: shared-folder
 #     sub_path: '{{project_name}}'
@@ -9,7 +11,7 @@ cache_env: False
 #         path: /host
 
 
-# config for google cloud
+# uncomment if running in Argo - Google Cloud
 # code_pod:
 #   args: -l role=nfs-server
 #   path: /exports/{{project_name}}

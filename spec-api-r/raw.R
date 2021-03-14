@@ -1,6 +1,6 @@
 # + tags=["parameters"]
 upstream = NULL
-product = list(nb='output/data.ipynb', data='output/data.csv')
+product = NULL
 # -
 
 

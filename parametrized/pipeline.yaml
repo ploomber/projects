@@ -1,6 +1,3 @@
-meta:
-  extract_product: False
-
 tasks:
   - source: print.py
     name: print

@@ -1,0 +1,6 @@
+ploomber
+jupyter
+pandas
+pyarrow
+scikit-learn
+sklearn-evaluation

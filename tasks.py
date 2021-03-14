@@ -17,7 +17,7 @@ def setup(c, create_conda=True):
            ' && conda activate projects '
            ' &&') if create_conda else ''
 
-    cmd += (' pip install --editable pkg/'
+    cmd += (' pip install --editable "pkg[dev]"'
             ' && pip install --editable python-api/'
             ' && pip install --editable ml-advanced/'
             ' && pip install invoke')
@@ -38,21 +38,21 @@ def clear(c):
         shutil.rmtree(f)
         Path(f).mkdir()
 
-    for f in iglob('*/*.source'):
+    for f in iglob('*/*.metadata'):
         print(f'Deleting contents of: {f}')
         Path(f).unlink()
 
 
 @task
-def build(c, name=None):
-    """Run README.md and generate environment files
-
-    * Execute all */README.md files (to generate */README.ipynb)
-    * Generate requirements.txt from environment.yml (for people who don't use conda)
+def build(c, name=None, run=True, force=False):
+    """See CONTRIBUTING.md for details
     """
-    from ploomberutils import process_readme_md
+    from ploomberutils import process_readme_md, readme
 
     if name is None:
+        print('Bulding README.md...')
+        Path('README.md').write_text(readme.render())
+
         folders = [
             'ml-basic', 'ml-intermediate', 'python-api', 'spec-api-directory',
             'spec-api-python', 'spec-api-r', 'spec-api-sql', 'ml-advanced',
@@ -61,12 +61,19 @@ def build(c, name=None):
     else:
         folders = [name]
 
-    process_readme_md(folders + ['.'])
+    # Run readme.md to generate readme.ipynb
+    if run:
+        process_readme_md(folders + ['.'], force=force)
 
     if name is None:
-        pip_deps = sorted(
-            list(set(chain(*(extract_pip_deps(folder)
-                             for folder in folders)))))
+        pip_deps_by_folder = {
+            folder: extract_pip_deps(folder)
+            for folder in folders
+        }
+
+        save_per_folder_requirements_txt(pip_deps_by_folder)
+
+        pip_deps = sorted(list(set(chain(*pip_deps_by_folder.values()))))
         reqs = '# This file was automatically generated\n' + '\n'.join(
             pip_deps)
         print('Generating requirements.txt')
@@ -98,6 +105,15 @@ def build(c, name=None):
         Path('../binder-env/environment.yml').write_text(conda)
 
 
+def save_per_folder_requirements_txt(pip_deps_by_folder):
+    print('\n')
+    for folder, reqs in pip_deps_by_folder.items():
+        path = Path(folder, 'requirements.txt')
+        print(f'Saving {path}...')
+        path.write_text('\n'.join(sorted(reqs)))
+    print('\n')
+
+
 def extract_conda_deps(folder):
     with open(Path(folder, 'environment.yml')) as f:
         d = yaml.safe_load(f)
@@ -109,4 +125,4 @@ def extract_pip_deps(folder):
     with open(Path(folder, 'environment.yml')) as f:
         d = yaml.safe_load(f)
 
-    return d['dependencies'][-1]['pip']
+    return sorted(d['dependencies'][-1]['pip'])

@@ -1,6 +1,4 @@
 meta:
-  extract_upstream: True
-  extract_product: False
   import_tasks_from: pipeline-features.yaml
 
 tasks:

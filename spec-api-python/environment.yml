@@ -2,10 +2,10 @@ name: spec-api-python
 
 dependencies:
   - python=3.7
-  - numpy
-  - pandas
-  - matplotlib
   - pip
   - pip:
     - ploomber
     - seaborn
+    - numpy
+    - pandas
+    - matplotlib

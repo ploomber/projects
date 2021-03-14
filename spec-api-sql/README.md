@@ -1,70 +1,66 @@
-# SQL/Python pipeline example
+# SQL/Python pipeline
 
-This demo showcases the spec API that allows you to write pipelines using YAML files so you can focus on the Data Science and not dealing which complex task dependencies nor managing database connections.
+Pipeline with SQL and Python tasks.
 
-Let's take a look at the pipeline definition:
+## Setup
 
-```python
-from pathlib import Path
-from IPython.display import Markdown
+(**Note**: Skip if running in binder or deepnote)
 
-Markdown('```yaml\n{}\n```'.format(Path('pipeline.yaml').read_text()))
+~~~sh
+# if using conda
+conda env create --file environment.yaml
+conda activate spec-api-sql
+
+# or use pip directly
+# note that this won't install pygraphviz. If you want to plot the pipeline
+# you have to install it first
+pip install -r requirements.txt
+~~~
+
+## Create sample data
+
+
+```bash tags=["bash"]
+# create sample data
+cd setup
+bash setup.sh
+# move back to the original spec-api-sql folder
+cd ..
 ```
 
-The first two sections configure our pipeline, the `tasks` section is the actual pipeline definition. Each element defines a task, we see that we have a few SQL transformations, then we dump a table to a CSV file and we produce an HTML report at the end. The order here doesn't matter, the source code itself declares its own upstream dependencies and Ploomber extracts them to execute your pipeline.
+## Definition
 
-Let's take a look at one of the SQL files:
-
-```python
-Markdown('```sql\n{}\n```'.format(Path('join.sql').read_text()))
+```bash tags=["bash"]
+cat pipeline.yaml
 ```
+The first two sections configure our pipeline; the `tasks` section is the
+actual pipeline definition. We see that we have a few SQL transformations,
+then we dump a table to a CSV file and we produce an HTML report at the end.
+The order here doesn't matter, the source code itself declares its own
+upstream dependencies, and Ploomber extracts them to execute your pipeline.
 
-Pipeline plot:
+
+## Plot
 
 ```bash tags=["bash"]
 # Note: plotting doesn't work in deepnote
+# Note: if plotting locally, install pygrapviz first
 ploomber plot
 ```
+
+If running in Jupyter, load the plot with this code:
 
 ```python
 from IPython.display import Image
 Image(filename='pipeline.png')
 ```
 
-We can run our pipeline with the following command:
+Otherwise, open the `pipeline.png` file directly.
+
+
+## Build
 
 ```bash tags=["bash"]
 ploomber build
 ```
-That's it. We just build our pipeline. Let's try again.
-
-```bash tags=["bash"]
-ploomber build
-```
-
-This time it finished real quick because there is nothing to do, nothing has changed.
-
-Let's now modify one of the tasks to see what happens (make sure you save changes):
-
-[Click here to open plot.py](plot.py)
-
-Also try modifying any of the SQL scripts:
-
-[Click here to go to the spec folder](.)
-
-Let's build again:
-
-```bash tags=["bash"]
-ploomber build
-```
-
-Depending on your changes, Ploomber will determine which tasks to run again and which ones to skip.
-
-The final output of our pipeline is a report, [let's see it](output/plot.html).
-
-That's it! Ploomber makes it very simple to manage your data workflows.
-
-
-## Where to go from here
-
-[`etl/`](../etl/README.ipynb) contains a more complete SQL example.
+The final output is a report: [output/plot.html](output/plot.html).

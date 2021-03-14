@@ -3,9 +3,7 @@ meta:
   source_loader:
     # use the sql/ folder as the "root" for loading files
     path: sql/
-  
-  extract_upstream: False
-  extract_product: False
+
 
 tasks:
   # sources are now loaded from the source loader, paths are relative

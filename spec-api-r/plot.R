@@ -1,6 +1,6 @@
 # + tags=["parameters"]
 upstream = list('clean')
-product = list(nb='output/plot.ipynb')
+product = NULL
 # -
 
 # +
