@@ -1,8 +1,9 @@
 # Ploomber sample projects
 
-![](https://github.com/ploomber/projects/workflows/ci/badge.svg)
+![CI](https://github.com/ploomber/projects/workflows/ci/badge.svg)
+[![Twitter](https://img.shields.io/twitter/follow/edublancas?label=Follow&style=social)](https://twitter.com/intent/user?screen_name=edublancas)
 
-This repository contains sample pipelines developed using [Ploomber](github.com/ploomber/ploomber)
+This repository contains sample pipelines developed using [Ploomber](https://github.com/ploomber/ploomber)
 
 **Note:** Make sure you read the [first two tutorials](https://ploomber.readthedocs.io/en/stable/get-started/spec-api-python.html) in the documentation to familiarize yourself with Ploomber's basic concepts.
 
