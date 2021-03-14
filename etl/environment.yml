@@ -16,7 +16,7 @@ dependencies:
   - pip:
     - seaborn
     - pandas
-    - git+https://github.com/ploomber/ploomber@dev
+    - ploomber
     # this package provides a Python interface for p7zip
     - pyunpack
     # dependency for the package above

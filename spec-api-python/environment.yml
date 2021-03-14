@@ -4,7 +4,7 @@ dependencies:
   - python=3.7
   - pip
   - pip:
-    - git+https://github.com/ploomber/ploomber@dev
+    - ploomber
     - seaborn
     - numpy
     - pandas

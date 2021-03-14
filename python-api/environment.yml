@@ -7,5 +7,5 @@ dependencies:
     - numpy
     - pandas
     - seaborn
-    - git+https://github.com/ploomber/ploomber@dev
+    - ploomber
 

@@ -1,4 +1,4 @@
-git+https://github.com/ploomber/ploomber@dev
+ploomber
 matplotlib
 numpy
 pandas

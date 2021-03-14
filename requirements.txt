@@ -1,5 +1,5 @@
 # This file was automatically generated
-git+https://github.com/ploomber/ploomber@dev
+ploomber
 jupyter
 matplotlib
 numpy

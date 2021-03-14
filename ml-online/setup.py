@@ -32,7 +32,7 @@ def read(*names, **kwargs):
 REQUIRES = [
     'numpy',
     'pandas',
-    'ploomber @ git+https://github.com/ploomber/ploomber@dev',
+    'ploomber',
     'scikit-learn',
     'flask',
 ]

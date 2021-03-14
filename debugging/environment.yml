@@ -5,5 +5,5 @@ dependencies:
   - pandas
   - scikit-learn
   - pip:
-    - git+https://github.com/ploomber/ploomber@dev
+    - ploomber
 
