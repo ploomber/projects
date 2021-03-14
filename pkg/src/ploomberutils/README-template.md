@@ -6,13 +6,28 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 
 **Note:** Make sure you read the [first two tutorials](https://ploomber.readthedocs.io/en/stable/get-started/spec-api-python.html) in the documentation to familiarize yourself with Ploomber's basic concepts.
 
-## Running examples (no installation needed)
+## Running examples
+
+Choose from one of the hosted options:
 
 | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252FREADME.ipynb%26branch%3Dmaster) | [<img src="https://deepnote.com/buttons/launch-in-deepnote-small.svg">](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/README.ipynb) |
 | ----------- | ----------- |
 | No account required | Free account required |
 | Might take ~2 mins to load | Loads faster |
 | All examples work | ETL example doesn't work yet |
+
+
+Or run locally:
+
+```sh
+pip install ploomber
+
+# list examples
+ploomber examples
+
+# download one example
+ploomber examples --name {name}
+```
 
 ## How to read the examples
 
