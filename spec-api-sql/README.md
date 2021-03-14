@@ -33,7 +33,7 @@ cd ..
 ```bash tags=["bash"]
 cat pipeline.yaml
 ```
-The first two sections configure our pipeline, the `tasks` section is the
+The first two sections configure our pipeline; the `tasks` section is the
 actual pipeline definition. We see that we have a few SQL transformations,
 then we dump a table to a CSV file and we produce an HTML report at the end.
 The order here doesn't matter, the source code itself declares its own

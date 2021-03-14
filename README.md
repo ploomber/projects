@@ -17,7 +17,7 @@ This repository contains sample pipelines developed using [Ploomber](github.com/
 ## How to read the examples
 
 Each example contains a `README.md` file with more information, and a
-`README.ipynb` file which has the same contents as the `.md` file but in a
+`README.ipynb` file, which has the same contents as the `.md` file but in a
 Jupyter notebook format and with the output from each cell.
 
 ## Index
