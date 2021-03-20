@@ -34,7 +34,15 @@ REQUIRES = [
     'pandas',
     'ploomber',
     'scikit-learn',
+
+    # only required for deploying microservice
     'flask',
+
+    # only required for training in argo
+    'jupyter',
+    'matplotlib',
+    'sklearn_evaluation',
+    'pyarrow',
 ]
 
 # extra dependencies for dewvelopment. e.g. run tests, build docs,
@@ -45,10 +53,6 @@ REQUIRES_DEV = [
     'pyyaml',
     'invoke',
     'flake8',
-    'jupyter',
-    'matplotlib',
-    'sklearn_evaluation',
-    'pyarrow',
     'build',
 ]
 

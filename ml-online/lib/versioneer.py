@@ -228,8 +228,9 @@ def release(project_root='.', tag=True):
 
     # Replace version number and create tag
     print('Commiting release version: {}'.format(release))
-    versioner.commit_version(
-        release, msg_template='{ml_online} release {new_version}', tag=tag)
+    versioner.commit_version(release,
+                             msg_template='{ml_online} release {new_version}',
+                             tag=tag)
 
     # Create a new dev version and save it
     bumped_version = versioner.bump_up_version()
@@ -261,7 +262,7 @@ def upload(tag, production):
                   abort=True)
 
     # create distribution
-    call(['rm', '-rf', 'dist/'])
+    call(['rm', '-rf', 'dist/', 'build/'])
     call(['python', 'setup.py', 'bdist_wheel'])
 
     print('Publishing to PyPI...')
