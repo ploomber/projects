@@ -19,8 +19,16 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
-    install_requires=[],
+    install_requires=['ploomber', 'click'],
     extras_require={
-        # pandas required to render root README.md
-        'dev': ['pandas']
-    })
+        'dev': [
+            # pandas required to render root README.md
+            'pandas',
+            # to validate argo specs
+            'pyyaml',
+        ]
+    },
+    entry_points={
+        'console_scripts': ['ploomberutils=ploomberutils.cli:cli'],
+    },
+)

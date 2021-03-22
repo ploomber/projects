@@ -23,8 +23,8 @@ def join(upstream):
     """Join raw data with generated features
     """
     first = upstream['get']
-    sepal = upstream['sepal_area']
-    petal = upstream['petal_area']
+    sepal = upstream['sepal-area']
+    petal = upstream['petal-area']
     df = first.join(sepal).join(petal)
 
     # make sure features are always generated in the same order

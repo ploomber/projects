@@ -1,8 +1,10 @@
 - source: tasks.features.sepal_area
   product: "output/features/sepal_area.parquet"
+  name: sepal-area
 
 - source: tasks.features.petal_area
   product: "output/features/petal_area.parquet"
+  name: petal-area
 
 - source: tasks.join.fn
   name: join

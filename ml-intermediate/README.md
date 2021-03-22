@@ -19,6 +19,13 @@ pip install -r requirements.txt
 ploomber build
 ```
 
+Export to Argo workflows:
+
+~~~bash
+soopervisor export
+~~~
+
+
 ## Serving
 
 Once the model is trained, run the serving pipeline with:

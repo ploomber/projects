@@ -1,4 +1,5 @@
 ploomber
+soopervisor
 pandas
 pyarrow
 scikit-learn

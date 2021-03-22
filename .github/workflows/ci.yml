@@ -63,10 +63,15 @@ jobs:
           cd ml-intermediate/
           conda env create --file environment.yml --name env
           conda activate env
+          # install ploomberutils
+          pip install ../pkg/
           # train
           ploomber build --entry-point pipeline.yaml
           # serve
           ploomber build --entry-point pipeline-serve.yaml
+          # export to argo
+          soopervisor export
+          ploomberutils validate-argo argo.yaml
 
   spec-api-directory:
     runs-on: ubuntu-latest
@@ -133,6 +138,8 @@ jobs:
         with:
           python-version: 3.8
       - run: |
+          # install ploomberutils
+          pip install pkg/
           cd ml-online
           eval "$(conda shell.bash hook)"
           pip install invoke
@@ -144,4 +151,6 @@ jobs:
           python -m build
           pip install soopervisor
           soopervisor export
+          # validate argo spec
+          ploomberutils validate-argo argo.yaml
           soopervisor export-airflow
