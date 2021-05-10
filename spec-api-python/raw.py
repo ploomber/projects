@@ -1,7 +1,7 @@
 """
 Get data
 """
-import pandas as pd
+import seaborn as sns
 
 # + tags=["parameters"]
 upstream = None
@@ -9,9 +9,7 @@ product = None
 # -
 
 # +
-df = pd.read_csv('https://archive.ics.uci.edu'
-                 '/ml/machine-learning-databases'
-                 '/iris/iris.data')
+df = sns.load_dataset('iris')
 df.columns = [
     'sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class'
 ]
