@@ -10,11 +10,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn_evaluation import plot
 
 # + tags=["parameters"]
-upstream = ['join']
+upstream = ['features']
 product = None
 # -
 
-df = pd.read_parquet(str(upstream['join']))
+df = pd.read_parquet(str(upstream['features']))
 X = df.drop('target', axis='columns')
 y = df.target
 

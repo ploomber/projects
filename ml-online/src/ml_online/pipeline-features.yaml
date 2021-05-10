@@ -1,10 +1,10 @@
 - source: ml_online.tasks.features.sepal_area
-  product: "{{cwd}}/products/features/sepal_area.parquet"
+  product: "{{product_root}}/products/features/sepal_area.parquet"
   name: sepal-area
 
 - source: ml_online.tasks.features.petal_area
-  product: "{{cwd}}/products/features/petal_area.parquet"
+  product: "{{product_root}}/products/features/petal_area.parquet"
   name: petal-area
 
-- source: ml_online.tasks.features.join
-  product: "{{cwd}}/products/features/join.parquet"
+- source: ml_online.tasks.features.features
+  product: "{{product_root}}/products/features/features.parquet"

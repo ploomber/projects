@@ -1,1 +1,3 @@
 recursive-include src/ml_online env.yaml pipeline.yaml pipeline-features.yaml model.pickle
+include credentials.json
+include env.yaml

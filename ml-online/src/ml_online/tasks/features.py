@@ -19,7 +19,7 @@ def petal_area(upstream):
     return df
 
 
-def join(upstream):
+def features(upstream):
     """Join raw data with generated features
     """
     first = upstream['get']

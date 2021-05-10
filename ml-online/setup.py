@@ -12,7 +12,6 @@ from setuptools import setup
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
-# read __version__ = VERSION from __init__.py
 with open('src/ml_online/__init__.py', 'rb') as f:
     VERSION = str(
         ast.literal_eval(
@@ -24,29 +23,25 @@ def read(*names, **kwargs):
                    encoding=kwargs.get('encoding', 'utf8')).read()
 
 
-# NOTE: keep these lists updated as you add more dependencies to your project
-# if you rather have any dependency installed via conda, add it here and in
-# the environment.yml file
-
-# minimum dependencies for deployment
 REQUIRES = [
     'numpy',
     'pandas',
     'ploomber',
     'scikit-learn',
-
-    # only required for deploying microservice
-    'flask',
-
-    # only required for training in argo
+    # for training models
     'jupyter',
     'matplotlib',
     'sklearn_evaluation',
     'pyarrow',
+
+    # for deploying as flask microservice
+    'flask',
+
+    # for artifact storage
+    'google-cloud-storage',
+    'boto3',
 ]
 
-# extra dependencies for dewvelopment. e.g. run tests, build docs,
-# train new models, generate exploratory notebooks, etc
 REQUIRES_DEV = [
     'pytest',
     'nox',
@@ -54,6 +49,7 @@ REQUIRES_DEV = [
     'invoke',
     'flake8',
     'build',
+    'soopervisor',
 ]
 
 setup(

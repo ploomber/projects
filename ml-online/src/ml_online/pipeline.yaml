@@ -8,13 +8,16 @@ meta:
 serializer: ml_online.io.serialize
 unserializer: ml_online.io.unserialize
 
+# clients:
+#   File: ml_online.clients.get_s3
+
 tasks:
   - source: ml_online.tasks.raw.get
-    product: "{{cwd}}/products/raw/get.parquet"
+    product: "{{product_root}}/products/raw/get.parquet"
     params:
       sample: '{{sample}}'
   
   - source: notebooks/fit.py
     product:
-      nb: "{{cwd}}/products/report.html"
-      model: "{{cwd}}/products/model.pickle"
+      nb: "{{product_root}}/products/report.html"
+      model: "{{product_root}}/products/model.pickle"
