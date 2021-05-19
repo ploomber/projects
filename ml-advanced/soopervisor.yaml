@@ -1,6 +1,0 @@
-# adding this so yaml.load does not return None
-cache_env: False
-
-# code_pod:
-#   args: -l role=nfs-server
-#   path: /exports/{{project_name}}

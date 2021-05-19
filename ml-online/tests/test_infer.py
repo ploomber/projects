@@ -28,20 +28,21 @@ def test_no_training_serve_skew():
     del get['target']
 
     # load feature vectors
-    join = pd.read_parquet(dag['join'].product)
-    del join['target']
+    features = pd.read_parquet(dag['features'].product)
+    del features['target']
 
     pipeline = InferencePipeline()
 
     # make predictions using the online pipeline (if training set is large
     # you can take a random sample)
     online = [
-        pipeline.predict(get=get.loc[[idx]])['join'] for idx in join.index
+        pipeline.predict(get=get.loc[[idx]])['features']
+        for idx in features.index
     ]
 
     # cast to a data frame
     online_df = pd.concat(online)
-    online_df.index = join.index
+    online_df.index = features.index
 
     # compare data frames
-    assert online_df.equals(join)
+    assert online_df.equals(features)

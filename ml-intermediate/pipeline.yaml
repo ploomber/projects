@@ -1,25 +1,19 @@
 meta:
   jupyter_functions_as_notebooks: True
-  import_tasks_from: pipeline-features.yaml
+  import_tasks_from: partial.features.yaml
+
+# clients:
+#   File: clients.get_s3
 
 tasks:
   - source: tasks.get.fn
     name: get
-    product: output/training/get.parquet
+    product: '{{root}}/sample={{sample}}/get.parquet'
+    params:
+      sample: '{{sample}}'
 
   - source: fit.py
     name: fit
     product:
-        # changing the extension triggers a format conversion automatically
-        nb: output/training/nb.html
-        model: output/training/model.pickle
-    # use this parameter to customize the output notebook (optional)
-    nbconvert_export_kwargs:
-      # do not show input code
-      exclude_input: True
-      # selectively remove cells based on tags
-      config:
-        TagRemovePreprocessor: {'remove_cell_tags': ['model-training']}
-        HTMLExporter: {'preprocessors': ['nbconvert.preprocessors.TagRemovePreprocessor']}
-    # for details, check out nbconvert's docs:
-    # https://nbconvert.readthedocs.io/en/latest/config_options.html#preprocessor-options
+        nb: '{{root}}/sample={{sample}}/nb.html'
+        model: '{{root}}/sample={{sample}}/model.pickle'

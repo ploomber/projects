@@ -74,7 +74,7 @@ jobs:
           # train
           ploomber build --entry-point pipeline.yaml
           # serve
-          ploomber build --entry-point pipeline-serve.yaml
+          ploomber build --entry-point pipeline.serve.yaml
           # TODO: export to argo
           # ploomberutils validate-argo argo.yaml
 

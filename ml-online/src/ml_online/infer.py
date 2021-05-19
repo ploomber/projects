@@ -32,4 +32,4 @@ class InferencePipeline(OnlineDAG):
 
     @staticmethod
     def terminal_task(upstream, model):
-        return int(model.predict(upstream['join'])[0])
+        return int(model.predict(upstream['features'])[0])

@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn import datasets
 
 
-def get(product):
+def get(product, sample):
     """Get input data to make predictions
     """
     Path(str(product)).parent.mkdir(parents=True, exist_ok=True)
@@ -17,6 +17,9 @@ def get(product):
 
     df = pd.DataFrame(d['data'])
     df.columns = d['feature_names']
+
+    if sample:
+        df = df.sample(frac=0.1)
 
     df.to_parquet(str(product))
 

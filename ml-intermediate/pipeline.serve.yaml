@@ -1,0 +1,15 @@
+meta:
+  import_tasks_from: partial.features.yaml
+
+tasks:
+  - source: tasks.serve.get
+    name: get
+    product: '{{root}}/sample={{sample}}/get.parquet'
+    params:
+      sample: '{{sample}}'
+
+  - source: tasks.serve.predict
+    name: predict
+    product: '{{root}}/sample={{sample}}/predictions.csv'
+    params:
+      path_to_model: 'output/train/sample=False/model.pickle'

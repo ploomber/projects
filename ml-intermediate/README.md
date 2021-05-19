@@ -19,19 +19,13 @@ pip install -r requirements.txt
 ploomber build
 ```
 
-Export to Argo workflows:
-
-~~~bash
-soopervisor export
-~~~
-
 
 ## Serving
 
 Once the model is trained, run the serving pipeline with:
 
 ```bash tags=["bash"]
-ploomber build --entry-point pipeline-serve.yaml
+ploomber build --entry-point pipeline.serve.yaml
 ```
 
 This pipeline loads some data and uses the model file to make predictions.

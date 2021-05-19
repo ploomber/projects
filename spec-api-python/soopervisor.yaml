@@ -1,9 +1,0 @@
-# This configuration file is needed for the scheduling in cron example in the docs
-storage:
-  provider: local
-
-  # You can also configure to upload to box, for example:
-  # provider: box
-  # path: "runs/{{now.replace(':', '-')}}"
-
-cache_env: True

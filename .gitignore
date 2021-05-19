@@ -1,4 +1,5 @@
 **/argo.yaml
+**/credentials.json
 *.metadata
 **/runs/
 pipeline.png
@@ -6,6 +7,7 @@ pipeline.png
 *.db
 output-test/
 **/README-preprocessed.ipynb
+environment.lock.yml
 
 # Ignore all in any output/ folder except README.txt - this is just to make
 # sure the folder exists in the repo and "ploomber build" runs without having
