@@ -29,14 +29,20 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          # run pipeline using soopervisor
-          pip install soopervisor
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
+
           cd $FOLDER
-          soopervisor build --clean-products-path
+
+          if [ -f "setup.py" ]; then
+            echo "Found setup.py, installing package..."
+            pip install .
+          fi
+
+          ploomber build
 
           # run commands in readme (re-use existing conda env)
-          eval "$(conda shell.bash hook)"
-          conda activate $FOLDER
           pip install invoke
           # install ploomberutils pkg
           cd ..
@@ -69,9 +75,8 @@ jobs:
           ploomber build --entry-point pipeline.yaml
           # serve
           ploomber build --entry-point pipeline-serve.yaml
-          # export to argo
-          soopervisor export
-          ploomberutils validate-argo argo.yaml
+          # TODO: export to argo
+          # ploomberutils validate-argo argo.yaml
 
   spec-api-directory:
     runs-on: ubuntu-latest
@@ -96,9 +101,14 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - run: cd spec-api-sql/setup/ && bash setup.sh && cd ../..
-      - run: pip install soopervisor
-      - run: cd spec-api-sql/ && soopervisor build --clean-products-path
+      - run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
+          cd spec-api-sql/setup/
+          bash setup.sh
+          cd ..
+          ploomber build
 
   testing:
     runs-on: ubuntu-latest
@@ -110,11 +120,13 @@ jobs:
         with:
           python-version: 3.8
       - run: |
-          pip install pandas soopervisor
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
           cd testing
           mkdir output
           cd setup && python script.py && cd ..
-          soopervisor build --clean-products-path
+          ploomber build
   
   ml-advanced:
     runs-on: ubuntu-latest
@@ -149,8 +161,7 @@ jobs:
           cp products/model.pickle src/ml_online/model.pickle
           invoke test --inplace
           python -m build
-          pip install soopervisor
-          soopervisor export
+          # TODO: export to argo
           # validate argo spec
-          ploomberutils validate-argo argo.yaml
-          soopervisor export-airflow
+          # ploomberutils validate-argo argo.yaml
+          # TODO: export to airflow
