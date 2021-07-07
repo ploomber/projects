@@ -1,7 +1,3 @@
-meta:
-  jupyter_hot_reload: True
-  jupyter_functions_as_notebooks: True
-
 # # enable client if you want to upload arfifacts to google cloud storage
 # # see clients.py for details
 # clients:
