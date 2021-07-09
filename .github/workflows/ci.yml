@@ -51,7 +51,7 @@ jobs:
           conda activate env
 
           # test with dev version
-          pip install git+https://github.com/ploomber/ploomber@fix
+          # pip install git+https://github.com/ploomber/ploomber
 
           cd $FOLDER
 
@@ -180,7 +180,7 @@ jobs:
           conda activate ml-online
 
           # test with dev version
-          pip install git+https://github.com/ploomber/ploomber@fix
+          # pip install git+https://github.com/ploomber/ploomber
 
           ploomber build
           cp products/model.pickle src/ml_online/model.pickle
