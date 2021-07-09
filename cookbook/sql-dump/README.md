@@ -1,0 +1,1 @@
+Minimal example to dump from a SQL database.
