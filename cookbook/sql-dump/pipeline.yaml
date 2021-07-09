@@ -1,0 +1,8 @@
+clients:
+  SQLDump: clients.get
+
+tasks:
+  - source: query.sql
+    product: output/data.csv
+    # dump everything into a single file
+    chunksize: null

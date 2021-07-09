@@ -54,9 +54,15 @@ def build(c, name=None, run=True, force=False):
         Path('README.md').write_text(readme.render())
 
         folders = [
-            'ml-basic', 'ml-intermediate', 'python-api', 'spec-api-directory',
-            'spec-api-python', 'spec-api-r', 'spec-api-sql', 'ml-advanced',
-            'etl'
+            'ml-basic',
+            'ml-intermediate',
+            'python-api',
+            'spec-api-directory',
+            'spec-api-python',
+            'spec-api-r',
+            'spec-api-sql',
+            'ml-advanced',
+            'etl',
         ]
     else:
         folders = [name]

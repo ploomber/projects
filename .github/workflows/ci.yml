@@ -5,6 +5,23 @@ jobs:
   # TODO: test "debugging"
   # TODO: test "sql-templating"
 
+  cookbook:
+    runs-on: ubuntu-latest
+    name: cookbook
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          cd cookbook
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
+          cd sql-dump
+          jupytext README.md --to .ipynb
+          papermill README.ipynb README.ipynb --kernel python
+
   # These are examples with the same structure, we use the same script
   projects:
     runs-on: ubuntu-latest
@@ -33,6 +50,9 @@ jobs:
           conda env create --file environment.yml --name env
           conda activate env
 
+          # test with dev version
+          pip install git+https://github.com/ploomber/ploomber@fix
+
           cd $FOLDER
 
           if [ -f "setup.py" ]; then
@@ -51,6 +71,7 @@ jobs:
           pip install ipywidgets
           # some readmes require pygraphviz
           conda install pygraphviz -c conda-forge --yes
+
           # test readme.md
           invoke build --name $FOLDER
 
@@ -157,6 +178,10 @@ jobs:
           pip install invoke
           invoke setup
           conda activate ml-online
+
+          # test with dev version
+          pip install git+https://github.com/ploomber/ploomber@fix
+
           ploomber build
           cp products/model.pickle src/ml_online/model.pickle
           invoke test --inplace
