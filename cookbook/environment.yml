@@ -10,3 +10,4 @@ dependencies:
   - pip:
     - ploomber
     - pandas
+    - joblib
