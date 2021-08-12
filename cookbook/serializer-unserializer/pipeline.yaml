@@ -1,0 +1,17 @@
+serializer: util.serializer
+unserializer: util.unserializer
+
+tasks:
+  - source: tasks.one_product
+    product: output/one.txt
+
+  - source: tasks.many_products
+    product:
+      something: output/something.csv
+      another: output/something.txt
+
+  - source: tasks.joblib_product
+    product: output/something.joblib
+
+  - source: tasks.final_product
+    product: output/final.csv
