@@ -18,9 +18,15 @@ jobs:
           eval "$(conda shell.bash hook)"
           conda env create --file environment.yml --name env
           conda activate env
+
+          # sql-dump
           cd sql-dump
           jupytext README.md --to .ipynb
           papermill README.ipynb README.ipynb --kernel python
+
+          # serializer-unserializer
+          cd ../serializer-unserializer
+          ploomber build
 
   # These are examples with the same structure, we use the same script
   projects:
