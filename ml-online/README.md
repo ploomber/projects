@@ -65,18 +65,7 @@ Note: Ploomber exports a Python object that encapsulates the full inference pipe
 
 ## Training in Kubernetes
 
-If you want to train multiple models at once, you can export your training pipeline to run on Kubernetes/Argo or Airflow.
-
-```sh
-# install our package for exporting projects
-pip install soopervisor
-
-# export to kubernetes/argo
-soopervisor export
-
-# export to airflow
-soopervisor export-airflow
-```
+If you want to train models distributively, you can export your training pipeline to run on Kubernetes (via Argo Workflows), AWS Batch, or Airflow using `soopervisor`.
 
 Click here to go to Soopervisor's  [documentation](https://soopervisor.readthedocs.io/) or [Github](github.com/ploomber/soopervisor)
 
