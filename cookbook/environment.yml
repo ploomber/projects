@@ -11,3 +11,4 @@ dependencies:
     - ploomber
     - pandas
     - joblib
+    - scikit-learn

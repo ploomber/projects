@@ -28,6 +28,10 @@ jobs:
           cd ../serializer-unserializer
           ploomber build
 
+          # grid
+          cd ../grid
+          ploomber build
+
   # These are examples with the same structure, we use the same script
   projects:
     runs-on: ubuntu-latest

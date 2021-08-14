@@ -1,0 +1,32 @@
+# run tasks in parallel
+executor: parallel
+
+tasks:
+  - source: tasks.raw.get
+    product: products/raw/get.csv
+
+  - source: tasks.features.sepal
+    product: products/features/sepal.csv
+
+  - source: tasks.features.petal
+    product: products/features/petal.csv
+
+  - source: tasks.features.features
+    product: products/features/features.csv
+
+  - source: scripts/fit.py
+    # generates tasks fit-1, fit-2, etc
+    name: fit-
+    product:
+      nb: products/report.html
+      model: products/model.pickle
+    grid:
+      # generates 6 tasks (1 * 3 * 2)
+      - model_type: [random-forest]
+        n_estimators: [1, 3, 5]
+        criterion: [gini, entropy]
+
+      # generates 9 tasks (1 * 3 * 2)
+      - model_type: [ada-boost]
+        n_estimators: [1, 3, 5]
+        learning_rate: [1, 2]
