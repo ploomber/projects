@@ -1,0 +1,11 @@
+serializer: custom.my_serializer
+unserializer: custom.my_unserializer
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict.json
+        final: output/final_dict.json

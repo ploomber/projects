@@ -26,6 +26,8 @@ setup(
             'pandas',
             # to validate argo specs
             'pyyaml',
+            # to extract symbols
+            'parso',
         ]
     },
     entry_points={

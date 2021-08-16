@@ -1,0 +1,11 @@
+serializer: ploomber.io.serializer_pickle
+unserializer: ploomber.io.unserializer_pickle
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict
+        final: output/final_dict
