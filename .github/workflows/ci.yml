@@ -19,12 +19,18 @@ jobs:
           conda env create --file environment.yml --name env
           conda activate env
 
+          # test with dev version
+          pip install git+https://github.com/ploomber/ploomber@serializer
+
+          # install ploomberutils pkg
+          pip install ../pkg
+
           # sql-dump
           cd sql-dump
           jupytext README.md --to .ipynb
-          papermill README.ipynb README.ipynb --kernel python
+          papermill README.ipynb README.ipynb --kernel python  --log-output
 
-          # serializer-unserializer
+          # cookbook serializer-unserializer
           cd ../serializer-unserializer
           ploomber build
 
@@ -32,10 +38,10 @@ jobs:
           cd ../grid
           ploomber build
 
-          # guides/serialize-unserialize
-          cd ../../guides/serialize-unserialize
+          # guides/serialization
+          cd ../../guides/serialization
           jupytext README.md --to .ipynb
-          papermill README.ipynb README.ipynb --kernel python
+          papermill README.ipynb README.ipynb --kernel python  --log-output
 
   # These are examples with the same structure, we use the same script
   projects:
