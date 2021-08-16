@@ -49,7 +49,7 @@ ploomber build --entry-point custom.yaml --force
 
 ## Custom serialization logic based on the product's extension
 
-Under many circumstances, there are more suitable formats than pickle. For example, we may want to store lists or dicts as JSON files, and any other files using pickle. The `@serializer`/`@unserializer` decorators take a mapping as first argument to dispatch to different functions depending on the product's logic. Let's see an example:
+Under many circumstances, there are more suitable formats than pickle. For example, we may want to store lists or dicts as JSON files, and any other files using pickle. The `@serializer`/`@unserializer` decorators take a mapping as first argument to dispatch to different functions depending on the product's extension. Let's see an example:
 
 ```python
 display_file('custom.py', symbols=['write_json', 'read_json', 'my_serializer', 'my_unserializer'])
@@ -79,9 +79,9 @@ display_file('output/final_dict.json')
 
 Since it's common to have a `fallback` serialization format. The decorators have a `fallback` argument that when enabled, uses the `pickle` module when the product's extension does not match any of the registered one in the first argument.
 
-The example works the same as the previous one, except we don't have to write our on pickle-based logic.
+The example works the same as the previous one, except we don't have to write our own pickle-based logic.
 
-`fallback` can also take the [joblib](https://github.com/joblib/joblib) or [cloudpickle](https://github.com/cloudpipe/cloudpickle) values. They're similar to the pickle format but have some advantages. For example, `joblib` produces smaller files when the serialized object contains many NumPy arrays, where as cloudpickle supports serialization of some objects that the pickle module doesn't. To use `joblib` or `cloudpickle` the corresponding module must be installed.
+`fallback` can also take the [joblib](https://github.com/joblib/joblib) or [cloudpickle](https://github.com/cloudpipe/cloudpickle) values. They're similar to the pickle format but have some advantages. For example, `joblib` produces smaller files when the serialized object contains many NumPy arrays, while cloudpickle supports serialization of some objects that the pickle module doesn't. To use `fallback='joblib'` or `fallback='cloudpickle'` the corresponding module must be installed.
 
 ```python
 display_file('custom.py', symbols=['my_fallback_serializer', 'my_fallback_unserializer'])

@@ -12,7 +12,6 @@ from ploomberutils.nb import process_readme_md
 # if we set sql and have jinja placeholders, but postgresql works!
 _SYNTAX_MAP = {
     'sql': 'postresql',
-    'py': 'python',
 }
 
 

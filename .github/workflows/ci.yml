@@ -32,6 +32,11 @@ jobs:
           cd ../grid
           ploomber build
 
+          # guides/serialize-unserialize
+          cd ../../guides/serialize-unserialize
+          jupytext README.md --to .ipynb
+          papermill README.ipynb README.ipynb --kernel python
+
   # These are examples with the same structure, we use the same script
   projects:
     runs-on: ubuntu-latest
