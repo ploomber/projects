@@ -30,8 +30,8 @@ jobs:
           jupytext README.md --to .ipynb
           papermill README.ipynb README.ipynb --kernel python  --log-output
 
-          # cookbook serializer-unserializer
-          cd ../serializer-unserializer
+          # cookbook serialization
+          cd ../serialization
           ploomber build
 
           # grid

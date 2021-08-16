@@ -170,6 +170,6 @@ display_file('output/final_dict.json')
 
 Configuring a `serializer` and `unserializer` in your `pipeline.yaml` is optional, but it helps you quickly generate a fully in-memory pipeline for serving predictions.
 
-If you want to learn more about in-memory pipelines, check out the [following guide.](https://ploomber.readthedocs.io/en/latest/user-guide/deployment.html#online-service-api).
+If you want to learn more about in-memory pipelines, check out the [following guide](https://ploomber.readthedocs.io/en/latest/user-guide/deployment.html#online-service-api).
 
-For a complete example showing how to manage a training and a serving pipeline, and deploy it as a Flask API, [click here.](https://github.com/ploomber/projects/tree/master/ml-online).
+For a complete example showing how to manage a training and a serving pipeline, and deploy it as a Flask API, [click here](https://github.com/ploomber/projects/tree/master/ml-online).

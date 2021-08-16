@@ -1,5 +1,5 @@
-serializer: util.serializer
-unserializer: util.unserializer
+serializer: util.my_serializer
+unserializer: util.my_unserializer
 
 tasks:
   - source: tasks.one_product
