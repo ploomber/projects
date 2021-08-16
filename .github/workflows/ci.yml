@@ -20,7 +20,7 @@ jobs:
           conda activate env
 
           # test with dev version
-          pip install git+https://github.com/ploomber/ploomber@serializer
+          pip install git+https://github.com/ploomber/ploomber
 
           # install ploomberutils pkg
           pip install ../pkg
