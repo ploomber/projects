@@ -2,12 +2,7 @@
 Parametrized DAGs
 =================
 
-Most data pipelines involve interacting with external resources (e.g. a remote
-database) or local processes (e.g. run an R script). Interacting with external
-resources or processes requires adding supporting code to manage them, if not
-managed properly, this code gets in the way of the relevant code (the one that
-performs data transformations) and offuscates their intent, adding a cognitive
-overhead for whoever is reading the code.
+This example shows how to parametrize tasks that use the same source code.
 """
 from pathlib import Path
 import tempfile

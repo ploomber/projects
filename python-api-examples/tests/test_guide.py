@@ -1,9 +1,10 @@
 """
 Test notebooks in doc/
 """
+import shutil
 import subprocess
 from pathlib import Path
-from glob import glob
+import os
 
 # we have to use this, nbconvert removes cells that execute shell comands
 import jupytext
@@ -11,12 +12,9 @@ import jupytext
 import pytest
 from conftest import _path_to_tests
 
-path_to_doc = _path_to_tests().parent / 'doc'
+_base = str(_path_to_tests().parent / 'guide')
 
-nbs = [
-    f for f in glob(str(Path(path_to_doc, '**', '*.ipynb')))
-    if 'auto_examples' not in f
-]
+nbs = [Path(_base, f) for f in os.listdir(_base) if f.endswith('.ipynb')]
 
 
 # we cannot use papermill since some notebooks use papermill via NotebookRunner
@@ -46,6 +44,9 @@ def run_notebook(nb):
 
 
 @pytest.mark.parametrize('nb', nbs, ids=[Path(nb).name for nb in nbs])
-def test_examples(nb, tmp_directory):
+def test_guide(nb, tmp_directory):
     # TODO: add timeout
-    assert run_notebook(nb) == 0
+    name = Path(nb).name
+    shutil.copy(nb, name)
+
+    assert run_notebook(name) == 0

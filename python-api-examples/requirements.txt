@@ -1,0 +1,8 @@
+ploomber
+numpy
+pandas
+scikit-learn
+seaborn
+sqlalchemy
+pytest
+pyarrow

@@ -5,6 +5,26 @@ jobs:
   # TODO: test "debugging"
   # TODO: test "sql-templating"
 
+  python-api-examples:
+    runs-on: ubuntu-latest
+    name: python-api-examples
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          # for the tests that depend on git repos
+          git config --global user.email "someone@example.com"
+          git config --global user.name "Someone"
+
+          cd python-api-examples
+          eval "$(conda shell.bash hook)"
+          conda create --name env python=3.8 pygraphviz -c conda-forge --yes
+          conda activate env
+          pip install -r requirements.txt
+          pytest
+
   cookbook:
     runs-on: ubuntu-latest
     name: cookbook

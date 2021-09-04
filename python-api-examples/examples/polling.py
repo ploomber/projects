@@ -7,8 +7,8 @@ inserts them to a table
 import shutil
 from pathlib import Path
 import tempfile
-import pandas as pd
 
+import pandas as pd
 from sqlalchemy import create_engine
 
 from ploomber import DAG
@@ -16,13 +16,16 @@ from ploomber.tasks import SQLDump, PythonCallable, SQLUpload
 from ploomber.products import File, SQLiteRelation
 from ploomber.clients import SQLAlchemyClient
 from ploomber.exceptions import DAGBuildEarlyStop
+from ploomber.executors import Serial
 
 
 def make(tmp):
     """Make the dag
     """
     tmp = Path(tmp)
-    dag = DAG()
+    # NOTE: passing the executor parameter is only required for testing
+    # purposes
+    dag = DAG(executor=Serial(build_in_subprocess=False))
 
     # db with the source data
     client_source = SQLAlchemyClient('sqlite:///' + str(tmp / 'source.db'))

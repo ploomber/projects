@@ -78,3 +78,9 @@ These are part of the [documentation](https://ploomber.readthedocs.io/en/stable/
 3. [`debugging/`](debugging/README.ipynb) Pipeline to demonstrate debugging capabilities
 4. [`testing/`](testing/README.ipynb) Pipeline with SQL and Python tasks showing how to test pipelines
 5. [`sql-templating/`](sql-templating/README.ipynb) SQL pipeline showing how to use macros to write concise SQL scripts
+
+## Python API
+
+The simplest way to get started with Ploomber is via the Spec API, which allows you to describe pipelines using a `pipeline.yaml` file, most examples on this repository use the Spec API. However, if you want more flexibility, you may write pipelines with Python.
+
+The [`python-api/`](python-api) directory contains a project written using the Python API. And the [`python-api-examples/`](python-api-examples) includes some tutorials and more examples.

@@ -49,7 +49,11 @@ def build(c, name=None, run=True, force=False):
     """
     from ploomberutils import process_readme_md, readme
 
-    if name is None:
+    if name == 'readme':
+        print('Bulding README.md...')
+        Path('README.md').write_text(readme.render())
+        folders = []
+    elif name is None:
         print('Bulding README.md...')
         Path('README.md').write_text(readme.render())
 

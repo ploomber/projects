@@ -1,6 +1,8 @@
 # Python API
 
-Pipeline using the Python API
+Pipeline project using the Python API.
+
+If you're new to the Python API, check out [python-api-examples/](../python-api-examples) directory, containing tutorials and more examples.
 
 ## Setup
 

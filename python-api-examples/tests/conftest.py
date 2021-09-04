@@ -11,6 +11,14 @@ def _path_to_tests():
     return Path(__file__).absolute().parent
 
 
+@pytest.fixture
+def tmp_directory(tmp_path):
+    old = os.getcwd()
+    os.chdir(str(tmp_path))
+    yield str(Path(tmp_path).resolve())
+    os.chdir(old)
+
+
 def fixture_tmp_dir(source):
     def decorator(function):
         @wraps(function)
