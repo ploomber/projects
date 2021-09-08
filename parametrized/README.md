@@ -1,14 +1,13 @@
 # Parametrized pipelines
 
 
-Often, pipelines perform the same operation over different subsets of the data. For example, say you are developing visualizations of economic data. You might want to generate the same charts for different countries. 
+Often, pipelines perform the same operation over different subsets of the data. For example, say you are developing visualizations of economic data. You might want to generate the same charts for other countries. 
 
-One way to approach the problem is to have a for loop on each pipeline task to process all countries you need. But such approach adds unnecessary complexity to our code, it's better to keep our logic simple (each task processes a single country) and take the iterative logic out of our pipeline.
+One way to approach the problem is to have a for loop on each pipeline task to process all needed countries. But such an approach adds unnecessary complexity to our code; it's better to keep our logic simple (each task processes a single country) and take the iterative logic out of our pipeline.
 
-Ploomber allows you to do so using parametrized pipelines. Let's see a sample `pipeline.yaml`.
+Ploomber allows you to do so using parametrized pipelines. Let's see a sample using a `pipeline.yaml` file.
 
-
-## Spec (``pipeline.yaml``)
+## Spec API (``pipeline.yaml``)
 
 ```python
 from ploomberutils import display_file, filter_output
@@ -24,9 +23,9 @@ The `pipeline.yaml` above has a placeholder called `some_param`. It is coming fr
 display_file('env.yaml')
 ```
 
-When assembling your pipeline, Ploomber looks for an `env.yaml` file. If found, all defined keys will be available to your pipeline definition. You can use these placeholders (placeholders are strings between double curly brackets) in any of the fields of your `pipeline.yaml` file.
+When reading your `pipeline.yaml`, Ploomber looks for an `env.yaml` file. If found, all defined keys will be available to your pipeline definition. You can use these placeholders (placeholders are strings between double curly brackets) in any of the fields of your `pipeline.yaml` file.
 
-In our case, we are using it in two places. First, we are going to save the executed notebook in a folder with the value of `some_param`. This will allow you to keep copies of the generated output in a different folder depending on your parameter. Second, if we want to use the parameter in our code, we have to pass it to our tasks, all tasks take an optional `params` with arbitrary parameters.
+In our case, we are using it in two places. First, we will save the executed notebook in a folder with the value of `some_param`; this will allow you to keep copies of the generated output in a different folder depending on your parameter. Second, if we want to use the parameter in our code, we have to pass it to our tasks; all tasks take an optional `params` with arbitrary parameters.
 
 Let's see how the code looks like:
 
@@ -34,7 +33,7 @@ Let's see how the code looks like:
 display_file('print.py')
 ```
 
-Our task is a Python script. This means parameters are passed as an injected cell at runtime. Let's see what happens if we build our pipeline.
+Our task is a Python script, meaning that parameters are passed as an injected cell at runtime. Let's see what happens if we build our pipeline.
 
 ```python
 %%capture captured
@@ -46,13 +45,13 @@ ploomber build --force --log INFO
 filter_output(captured, startswith='INFO:papermill:some_param')
 ```
 
-We see that our param `some_param` is taking the default value (`default_value`) as defined in `env.yaml`. The command line interface is aware of any parameters, you can see them using the `--help` option:
+We see that our param `some_param` is taking the default value (`default_value`) as defined in `env.yaml`. The command-line interface is aware of any parameters. You can see them using the `--help` option:
 
 ```sh
 ploomber build --help
 ```
 
-Apart from the default parameters from the `ploomber build` command, Ploomber automatically adds any parameters from `env.yaml`, we can easily override the default value, let's do that:
+Apart from the default parameters from the `ploomber build` command, Ploomber automatically adds any parameters from `env.yaml`, we can easily override the default value. Let's do that:
 
 ```python
 %%capture captured
@@ -64,7 +63,7 @@ ploomber build --force --env--some_param another_value --log INFO
 filter_output(captured, startswith='INFO:papermill:some_param')
 ```
 
-We see that our task, effectively changed the value!
+We see that our task effectively changed the value!
 
 Finally, let's see how the `output/` folder looks like:
 
@@ -73,31 +72,34 @@ tree output
 ```
 
 <!-- #region -->
-We have separate folders for each parameter, this helps keep things organized and takes the looping logic out of our pipeline.
+
+We have separate folders for each parameter, helping to keep things organized and taking the looping logic out of our pipeline.
 
 
-### Tips
+### Notes
 
-* This example uses a Python script as a task, in SQL pipeline, you can achieve the same effect (keeping output separate) by using the placeholder either in the product's schema or as a prefix in the table/view name
-* If the parameter takes a lot of different values and you want to run your pipeline using all of them, calling them by hand might get tedious. You have two options 1) write a  bash script that calls the CLI with different value parameters or 2) Use the Python API (everything that the CLI can do, you can do with Python directly), take a look at the `DAGSpec` documentation
-* Parametrized `pipeline.yaml` files are a great way to simplify task's logic but don't overdo it. If you find yourself adding too many parameters, it's a better idea to use the Python API directly. Factory function are the right pattern for highly customized pipeline construction
-* Given that the two pipelines are completely independent we could even run them in parallel to speed things up
+* There are some built-in placeholders that you can use without having an `env.yaml` file. For example, `{{here}}` will expand to the `pipeline.yaml` parent directory. [Check out the Spec API documentation](https://ploomber.readthedocs.io/en/latest/api/spec.html#default-placeholders) for more information.
+* This example uses a Python script as a task. In SQL pipeline, you can achieve the same effect by using the placeholder in the product's schema or a table/view name prefix.
+* If the parameter takes many different values and you want to run your pipeline using all of them, calling them by hand might get tedious. So you have two options 1) write a  bash script that calls the CLI with different value parameters or 2) Use the Python API (everything that the CLI can do, you can do with Python directly), take a look at the `DAGSpec` documentation.
+* Parametrized `pipeline.yaml` files are a great way to simplify a task's logic but not overdo it. If you find yourself adding too many parameters, it's a better idea to use the Python AP directly; factory functions are the correct pattern for highly customized pipeline construction.
+* Given that the two pipelines are entirely independent, we could even run them in parallel.
 
 
-## Factory functions
+## Python API (factory functions)
 
 Parametrization is straightforward when using a factory function. If your
-factory takes parameters, they'll also be available in the command
-line interface. Types are inferred from [type hints](https://docs.python.org/3/library/typing.html). Let's see an example:
+factory takes parameters, they'll also be available in the command-line interface. Types are inferred from [type hints](https://docs.python.org/3/library/typing.html). Let's see an example:
 <!-- #endregion -->
 
 ```python
 display_file('factory.py')
 ```
 
-Our function takes two parameters: `param` and `another`. Parameters with no default values (`param`) are converted to positional arguments and function parameters with default values are converted
-to optional parameters (`another`). To see the exact auto-generated API, you can use the `--help` command:
+Our function takes two parameters: `param` and `another`. Parameters with no default values (`param`) turn into positional arguments, and function parameters with default values convert
+to optional parameters (`another`). To see the same auto-generated API, you can use the `--help` command:
 
 ```sh
 ploomber build --entry-point factory.make --help
 ```
+
+Note that the Python API requires more work than a `pipeline.yaml` file, but it is more flexible. [Click here] to see [examples](https://github.com/ploomber/projects/tree/master/python-api-examples) using the Python API.
