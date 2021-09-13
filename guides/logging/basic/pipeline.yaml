@@ -1,0 +1,8 @@
+tasks:
+  - source: script.py
+    product: output/nb-log.ipynb
+    papermill_params:
+      log_output: True
+
+  - source: tasks.function
+    product: output/fn-log.txt

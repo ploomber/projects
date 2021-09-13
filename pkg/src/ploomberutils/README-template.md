@@ -66,6 +66,8 @@ These are part of the [documentation](https://ploomber.readthedocs.io/en/stable/
 3. [`debugging/`](debugging/README.ipynb) Pipeline to demonstrate debugging capabilities
 4. [`testing/`](testing/README.ipynb) Pipeline with SQL and Python tasks showing how to test pipelines
 5. [`sql-templating/`](sql-templating/README.ipynb) SQL pipeline showing how to use macros to write concise SQL scripts
+6. [`logging`](guides/logging/README.ipynb) Logging configuration
+7. [`serialization`](guides/serialization/README.ipynb) Configuring serialization for function tasks
 
 ## Python API
 

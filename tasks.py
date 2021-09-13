@@ -67,6 +67,7 @@ def build(c, name=None, run=True, force=False):
             'spec-api-sql',
             'ml-advanced',
             'etl',
+            'guides/logging',
         ]
     else:
         folders = [name]

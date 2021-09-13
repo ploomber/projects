@@ -1,0 +1,12 @@
+tasks:
+  - source: script.py
+    product: output/nb-log.ipynb
+    papermill_params:
+      log_output: True
+    params:
+      logging_level: '{{logging_level}}'
+
+  - source: tasks.function
+    product: output/fn-log.txt
+    params:
+      logging_level: '{{logging_level}}'
