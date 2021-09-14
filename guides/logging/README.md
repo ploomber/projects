@@ -84,7 +84,7 @@ cd basic
 ploomber build --log info --force
 ```
 
-We can see that the logging statements appear in the console. If you want to take a look at the code, click here.
+We can see that the logging statements appear in the console. If you want to take a look at the code, [click here](https://github.com/ploomber/projects/tree/master/guides/logging/basic).
 
 
 ## Why not print?
@@ -140,6 +140,8 @@ Let's now run the pipeline but switch the logging level to debug, this will prin
 cd parametrized
 ploomber build --log debug --env--logging_level debug --force
 ```
+
+To get the code for the previous example, [click here](https://github.com/ploomber/projects/tree/master/guides/logging/parametrized).
 
 <!-- #region -->
 ## Implementation details
