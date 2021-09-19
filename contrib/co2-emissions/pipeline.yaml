@@ -1,9 +1,0 @@
-tasks:
-  - source: raw.py
-    name: raw
-  
-  - source: clean.py
-    name: clean
-  
-  - source: plot.py
-    name: plot

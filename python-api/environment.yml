@@ -1,7 +1,7 @@
 name: python-api
 
 dependencies:
-  - python=3.7
+  - python=3.9
   - pip
   - pip:
     - numpy

@@ -1,7 +1,7 @@
 name: debugging
 
 dependencies:
-  - python=3.7
+  - python=3.9
   - pandas
   - scikit-learn
   - pip:

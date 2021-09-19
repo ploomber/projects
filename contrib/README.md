@@ -1,3 +1,0 @@
-# Contributed
-
-Contributed projects.

@@ -57,23 +57,21 @@ def build(c, name=None, run=True, force=False):
         print('Bulding README.md...')
         Path('README.md').write_text(readme.render())
 
+        exclude = {
+            '.',
+            'cookbook/grid',
+            'cookbook/serialization',
+            'cookbook/sql-dump',
+            'ml-online',
+            'python-api-examples',
+        }
+
         folders = [
-            'ml-basic',
-            'ml-intermediate',
-            'python-api',
-            'spec-api-directory',
-            'spec-api-python',
-            'spec-api-r',
-            'spec-api-sql',
-            'ml-advanced',
-            'etl',
-            'guides/logging',
-            'debugging',
-            'parametrized',
-            'sql-templating',
-            'testing',
-            'guides/serialization',
+            str(Path(path).parent)
+            for path in iglob('**/README.md', recursive=True)
+            if str(Path(path).parent) not in exclude
         ]
+
     else:
         folders = [name]
 
