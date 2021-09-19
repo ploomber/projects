@@ -1,6 +1,6 @@
-ploomber
 jupyter
 pandas
+ploomber
 pyarrow
 scikit-learn
 sklearn-evaluation

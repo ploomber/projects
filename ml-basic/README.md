@@ -4,7 +4,7 @@ Machine Learning pipeline.
 
 ## Setup
 
-(**Note**: Skip if running in binder or deepnote)
+(**Note**: Skip if running in Binder)
 
 ~~~bash
 # if using conda
@@ -29,7 +29,6 @@ script.
 Generate the plot:
 
 ```bash tags=["bash"]
-# Note: plotting doesn't work in deepnote
 ploomber plot
 ```
 

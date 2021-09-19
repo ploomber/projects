@@ -6,7 +6,7 @@ This guide shows you how to run your first Ploomber pipeline.
 to learn about Ploomber's core concepts and design rationale, go to the
 [the next tutorial](https://ploomber.readthedocs.io/en/stable/get-started/basic-concepts.html)
 
-## Setup (skip if using deepnote or binder)
+## Setup (skip if using Binder)
 
 Get code (run in a terminal):
 
@@ -60,7 +60,6 @@ cat pipeline.yaml
 Let's plot the pipeline:
 
 ```bash tags=["bash"]
-# Note: plotting doesn't work in deepnote
 ploomber plot
 ```
 

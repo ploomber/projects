@@ -9,12 +9,9 @@ import nbformat
 import jupytext
 
 md_cell = """
-*Note:* You can run this from your computer (Jupyter or terminal), or use one of the
-hosted options:
+*Note:* You can run this from your computer (Jupyter or terminal), or using Binder (does not require any installation, takes a few minutes to be ready)
 
 [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252F{name}%252FREADME.ipynb%26branch%3Dmaster)
-
-[![deepnote-logo](https://deepnote.com/buttons/launch-in-deepnote-small.svg)](https://deepnote.com/launch?template=deepnote&url=https://github.com/ploomber/projects/blob/master/{name}/README.ipynb)
 """
 
 

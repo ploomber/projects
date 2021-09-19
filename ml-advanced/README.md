@@ -4,7 +4,7 @@ ML pipeline using the Python API. Shows how to package project, test it using py
 
 ## Setup
 
-(**Note**: Skip if running in binder or deepnote)
+(**Note**: Skip if running in Binder)
 
 ~~~bash
 # if using conda

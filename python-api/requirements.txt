@@ -1,4 +1,4 @@
-ploomber
 numpy
 pandas
+ploomber
 seaborn

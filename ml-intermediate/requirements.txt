@@ -1,6 +1,6 @@
-ploomber
-soopervisor
 pandas
+ploomber
 pyarrow
 scikit-learn
 sklearn-evaluation
+soopervisor

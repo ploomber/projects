@@ -1,7 +1,7 @@
-ploomber
 matplotlib
 numpy
 pandas
+ploomber
 pyarrow
 scikit-learn
 seaborn

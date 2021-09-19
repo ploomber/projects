@@ -4,7 +4,7 @@ Pipeline from a directory of scripts.
 
 ## Setup
 
-(**Note**: Skip if running in binder or deepnote)
+(**Note**: Skip if running in Binder)
 
 ~~~sh
 # if using conda

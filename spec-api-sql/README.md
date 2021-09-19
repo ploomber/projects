@@ -4,7 +4,7 @@ Pipeline with SQL and Python tasks.
 
 ## Setup
 
-(**Note**: Skip if running in binder or deepnote)
+(**Note**: Skip if running in Binder)
 
 ~~~sh
 # if using conda
@@ -43,7 +43,6 @@ upstream dependencies, and Ploomber extracts them to execute your pipeline.
 ## Plot
 
 ```bash tags=["bash"]
-# Note: plotting doesn't work in deepnote
 # Note: if plotting locally, install pygrapviz first
 ploomber plot
 ```

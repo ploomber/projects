@@ -68,9 +68,22 @@ def build(c, name=None, run=True, force=False):
             'ml-advanced',
             'etl',
             'guides/logging',
+            'debugging',
+            'parametrized',
+            'sql-templating',
+            'testing',
+            'guides/serialization',
         ]
     else:
         folders = [name]
+
+    missing_env_yml = [
+        folder for folder in folders
+        if not Path(folder, 'environment.yml').exists()
+    ]
+
+    if missing_env_yml:
+        raise ValueError(f'Missing environment.yml: {missing_env_yml}')
 
     # Run readme.md to generate readme.ipynb
     if run:
@@ -88,7 +101,7 @@ def build(c, name=None, run=True, force=False):
         reqs = '# This file was automatically generated\n' + '\n'.join(
             pip_deps)
         print('Generating requirements.txt')
-        # this file is used by deepnote
+        # for people not using conda
         Path('requirements.txt').write_text(reqs)
 
         # TODO: generate per-example requirements.txt for people not using

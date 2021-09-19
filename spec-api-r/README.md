@@ -4,7 +4,7 @@ R pipeline.
 
 ## Setup environment
 
-(**Note**: Skip if running in binder or deepnote)
+(**Note**: Skip if running in Binder)
 
 ~~~sh
 # if using conda (installs R in the virtual env)

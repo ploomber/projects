@@ -61,7 +61,7 @@ point to share binder links.
 1. Generate README.md from README-template.md and index.csv
 2. Execute all */README.md files (to generate */README.ipynb)
 3. Generate requirements.txt from environment.yml (for people who don't use conda)
-4. Generate repository-level requirements.txt and environment.yml for binder and deepnote
+4. Generate repository-level requirements.txt and environment.yml for binder
 
 **Note:** The repository-level environment.yml is saved in a different repo to allow
 quick Binder loading.

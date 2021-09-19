@@ -13,7 +13,7 @@ The ``pipeline.yaml`` file contains a few comments to understand what's going on
 
 ## Setup
 
-(**Note**: Skip if running in binder or deepnote)
+(**Note**: Skip if running in Binder)
 
 ~~~bash
 # make sure you are in the etl folder.

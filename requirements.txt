@@ -1,12 +1,14 @@
 # This file was automatically generated
-ploomber
 jupyter
 matplotlib
 numpy
 pandas
 patool
+ploomber
 pyarrow
 pyunpack
 scikit-learn
 seaborn
 sklearn-evaluation
+soopervisor
+sqlalchemy
