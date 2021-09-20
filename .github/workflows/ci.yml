@@ -107,14 +107,13 @@ jobs:
         with:
           python-version: 3.9
       - run: |
+          cd $FOLDER
           eval "$(conda shell.bash hook)"
           conda env create --file environment.yml --name env
           conda activate env
 
           # test with dev version
           # pip install git+https://github.com/ploomber/ploomber
-
-          cd $FOLDER
 
           if [ -f "setup.py" ]; then
             echo "Found setup.py, installing package..."
@@ -184,10 +183,11 @@ jobs:
         with:
           python-version: 3.9
       - run: |
+          cd spec-api-sql
           eval "$(conda shell.bash hook)"
           conda env create --file environment.yml --name env
           conda activate env
-          cd spec-api-sql/setup/
+          cd setup/
           bash setup.sh
           cd ..
           ploomber build
@@ -202,10 +202,10 @@ jobs:
         with:
           python-version: 3.9
       - run: |
+          cd testing
           eval "$(conda shell.bash hook)"
           conda env create --file environment.yml --name env
           conda activate env
-          cd testing
           mkdir output
           cd setup && python script.py && cd ..
           ploomber build
