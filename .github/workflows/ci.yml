@@ -17,245 +17,237 @@ jobs:
         with:
           python-version: 3.9
       - run: |
-          cd $FOLDER
+          eval "$(conda shell.bash hook)"
+          conda env create --file $FOLDER/environment.yml --name env
+          conda activate env
+          pip install invoke ipywidgets pkg/
 
+          # test readme.md
+          invoke build --name $FOLDER
+
+  python-api-examples:
+    runs-on: ubuntu-latest
+    name: python-api-examples
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          # for the tests that depend on git repos
+          git config --global user.email "someone@example.com"
+          git config --global user.name "Someone"
+
+          cd python-api-examples
+          eval "$(conda shell.bash hook)"
+          conda create --name env python=3.9 pygraphviz -c conda-forge --yes
+          conda activate env
+          pip install -r requirements.txt
+          pytest
+
+  cookbook:
+    runs-on: ubuntu-latest
+    name: cookbook
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          cd cookbook
           eval "$(conda shell.bash hook)"
           conda env create --file environment.yml --name env
           conda activate env
+
+          # test with dev version
+          # pip install git+https://github.com/ploomber/ploomber
+
+          # install ploomberutils pkg
+          pip install ../pkg
+
+          # sql-dump
+          cd sql-dump
+          jupytext README.md --to .ipynb
+          papermill README.ipynb README.ipynb --kernel python  --log-output
+
+          # cookbook serialization
+          cd ../serialization
+          ploomber build
+
+          # grid
+          cd ../grid
+          ploomber build
+
+          # guides/serialization
+          cd ../../guides/serialization
+          jupytext README.md --to .ipynb
+          papermill README.ipynb README.ipynb --kernel python  --log-output
+
+  # These are examples with the same structure, we use the same script
+  projects:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        folder:
+          # basic
+          - ml-basic
+          - spec-api-r
+          #  intermediate
+          - python-api
+          # advanced
+          - etl
+          # guides
+          - parametrized
+          - spec-api-python
+    env:
+      FOLDER: ${{ matrix.folder }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
+
+          # test with dev version
+          # pip install git+https://github.com/ploomber/ploomber
+
+          cd $FOLDER
 
           if [ -f "setup.py" ]; then
             echo "Found setup.py, installing package..."
             pip install .
           fi
 
-          pip install invoke ipywidgets ../pkg
+          ploomber build
+
+          # run commands in readme (re-use existing conda env)
+          pip install invoke
+          # install ploomberutils pkg
+          cd ..
+          pip install pkg/
+          # needed to run the readmes
+          pip install ipywidgets
+          # some readmes require pygraphviz
+          conda install pygraphviz -c conda-forge --yes
 
           # test readme.md
           invoke build --name $FOLDER
 
-  # python-api-examples:
-  #   runs-on: ubuntu-latest
-  #   name: python-api-examples
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         # for the tests that depend on git repos
-  #         git config --global user.email "someone@example.com"
-  #         git config --global user.name "Someone"
+  # The rest have some particular details, so we test them separately
 
-  #         cd python-api-examples
-  #         eval "$(conda shell.bash hook)"
-  #         conda create --name env python=3.8 pygraphviz -c conda-forge --yes
-  #         conda activate env
-  #         pip install -r requirements.txt
-  #         pytest
+  ml-intermediate:
+    runs-on: ubuntu-latest
+    name: ml-intermediate
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          eval "$(conda shell.bash hook)"
+          cd ml-intermediate/
+          conda env create --file environment.yml --name env
+          conda activate env
+          # install ploomberutils
+          pip install ../pkg/
+          # train
+          ploomber build --entry-point pipeline.yaml
+          # serve
+          ploomber build --entry-point pipeline.serve.yaml
+          # TODO: export to argo
+          # ploomberutils validate-argo argo.yaml
 
-  # cookbook:
-  #   runs-on: ubuntu-latest
-  #   name: cookbook
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         cd cookbook
-  #         eval "$(conda shell.bash hook)"
-  #         conda env create --file environment.yml --name env
-  #         conda activate env
+  spec-api-directory:
+    runs-on: ubuntu-latest
+    name: spec-api-directory
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          eval "$(conda shell.bash hook)"
+          cd spec-api-directory/
+          conda env create --file environment.yml --name env
+          conda activate env
+          ploomber build --entry-point '*.py'
 
-  #         # test with dev version
-  #         # pip install git+https://github.com/ploomber/ploomber
+  spec-api-sql:
+    runs-on: ubuntu-latest
+    name: spec-api-sql
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
+          cd spec-api-sql/setup/
+          bash setup.sh
+          cd ..
+          ploomber build
 
-  #         # install ploomberutils pkg
-  #         pip install ../pkg
-
-  #         # sql-dump
-  #         cd sql-dump
-  #         jupytext README.md --to .ipynb
-  #         papermill README.ipynb README.ipynb --kernel python  --log-output
-
-  #         # cookbook serialization
-  #         cd ../serialization
-  #         ploomber build
-
-  #         # grid
-  #         cd ../grid
-  #         ploomber build
-
-  #         # guides/serialization
-  #         cd ../../guides/serialization
-  #         jupytext README.md --to .ipynb
-  #         papermill README.ipynb README.ipynb --kernel python  --log-output
-
-  # # These are examples with the same structure, we use the same script
-  # projects:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       folder:
-  #         # basic
-  #         - ml-basic
-  #         - spec-api-r
-  #         #  intermediate
-  #         - python-api
-  #         # advanced
-  #         - etl
-  #         # guides
-  #         - parametrized
-  #         - spec-api-python
-  #   env:
-  #     FOLDER: ${{ matrix.folder }}
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         eval "$(conda shell.bash hook)"
-  #         conda env create --file environment.yml --name env
-  #         conda activate env
-
-  #         # test with dev version
-  #         # pip install git+https://github.com/ploomber/ploomber
-
-  #         cd $FOLDER
-
-  #         if [ -f "setup.py" ]; then
-  #           echo "Found setup.py, installing package..."
-  #           pip install .
-  #         fi
-
-  #         ploomber build
-
-  #         # run commands in readme (re-use existing conda env)
-  #         pip install invoke
-  #         # install ploomberutils pkg
-  #         cd ..
-  #         pip install pkg/
-  #         # needed to run the readmes
-  #         pip install ipywidgets
-  #         # some readmes require pygraphviz
-  #         conda install pygraphviz -c conda-forge --yes
-
-  #         # test readme.md
-  #         invoke build --name $FOLDER
-
-  # # The rest have some particular details, so we test them separately
-
-  # ml-intermediate:
-  #   runs-on: ubuntu-latest
-  #   name: ml-intermediate
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         eval "$(conda shell.bash hook)"
-  #         cd ml-intermediate/
-  #         conda env create --file environment.yml --name env
-  #         conda activate env
-  #         # install ploomberutils
-  #         pip install ../pkg/
-  #         # train
-  #         ploomber build --entry-point pipeline.yaml
-  #         # serve
-  #         ploomber build --entry-point pipeline.serve.yaml
-  #         # TODO: export to argo
-  #         # ploomberutils validate-argo argo.yaml
-
-  # spec-api-directory:
-  #   runs-on: ubuntu-latest
-  #   name: spec-api-directory
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         eval "$(conda shell.bash hook)"
-  #         cd spec-api-directory/
-  #         conda env create --file environment.yml --name env
-  #         conda activate env
-  #         ploomber build --entry-point '*.py'
-
-  # spec-api-sql:
-  #   runs-on: ubuntu-latest
-  #   name: spec-api-sql
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         eval "$(conda shell.bash hook)"
-  #         conda env create --file environment.yml --name env
-  #         conda activate env
-  #         cd spec-api-sql/setup/
-  #         bash setup.sh
-  #         cd ..
-  #         ploomber build
-
-  # testing:
-  #   runs-on: ubuntu-latest
-  #   name: testing
-  #   steps:
-  #     # this step makes your repo available to the next one
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         eval "$(conda shell.bash hook)"
-  #         conda env create --file environment.yml --name env
-  #         conda activate env
-  #         cd testing
-  #         mkdir output
-  #         cd setup && python script.py && cd ..
-  #         ploomber build
+  testing:
+    runs-on: ubuntu-latest
+    name: testing
+    steps:
+      # this step makes your repo available to the next one
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file environment.yml --name env
+          conda activate env
+          cd testing
+          mkdir output
+          cd setup && python script.py && cd ..
+          ploomber build
   
-  # ml-advanced:
-  #   runs-on: ubuntu-latest
-  #   name: ml-advanced
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         cd ml-advanced
-  #         pip install "."
-  #         pytest
+  ml-advanced:
+    runs-on: ubuntu-latest
+    name: ml-advanced
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          cd ml-advanced
+          pip install "."
+          pytest
 
-  # ml-online:
-  #   runs-on: ubuntu-latest
-  #   name: ml-online
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #     - run: |
-  #         # install ploomberutils
-  #         pip install pkg/
-  #         cd ml-online
-  #         eval "$(conda shell.bash hook)"
-  #         pip install invoke
-  #         invoke setup
-  #         conda activate ml-online
+  ml-online:
+    runs-on: ubuntu-latest
+    name: ml-online
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          # install ploomberutils
+          pip install pkg/
+          cd ml-online
+          eval "$(conda shell.bash hook)"
+          pip install invoke
+          invoke setup
+          conda activate ml-online
 
-  #         # test with dev version
-  #         # pip install git+https://github.com/ploomber/ploomber
+          # test with dev version
+          # pip install git+https://github.com/ploomber/ploomber
 
-  #         ploomber build
-  #         cp products/model.pickle src/ml_online/model.pickle
-  #         invoke test --inplace
-  #         python -m build
-  #         # TODO: export to argo
-  #         # validate argo spec
-  #         # ploomberutils validate-argo argo.yaml
-  #         # TODO: export to airflow
+          ploomber build
+          cp products/model.pickle src/ml_online/model.pickle
+          invoke test --inplace
+          python -m build
+          # TODO: export to argo
+          # validate argo spec
+          # ploomberutils validate-argo argo.yaml
+          # TODO: export to airflow
