@@ -55,7 +55,8 @@ def make_task(dag, readme):
                    name=parent.name,
                    nbconvert_exporter_name='notebook',
                    local_execution=True,
-                   papermill_params={'log_output': True})
+                   papermill_params={'log_output': True},
+                   static_analysis=False)
 
 
 def post_process_nb(path):
