@@ -60,7 +60,7 @@ jobs:
           conda activate env
 
           # test with dev version
-          # pip install git+https://github.com/ploomber/ploomber
+          pip install git+https://github.com/ploomber/ploomber@0.13.1dev
 
           # install ploomberutils pkg
           pip install ../pkg
@@ -73,6 +73,14 @@ jobs:
           # cookbook serialization
           cd ../serialization
           ploomber build
+
+          # variable number of products
+          cd ../variable-number-of-products/
+          cd basic
+          ploomber build
+          cd ../serializer
+          ploomber build
+          cd ..
 
           # grid
           cd ../grid

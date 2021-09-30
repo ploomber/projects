@@ -17,6 +17,9 @@ tasks:
   - source: scripts/fit.py
     # generates tasks fit-1, fit-2, etc
     name: fit-
+    # disabling static_analysis because the notebook does not have
+    # a fixed set of parameters (depends on random-forest vs ada-boost)
+    static_analysis: False
     product:
       nb: products/report.html
       model: products/model.pickle

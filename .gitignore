@@ -2,6 +2,7 @@
 **/credentials.json
 *.metadata
 **/runs/
+**/products/
 pipeline.png
 .vscode/
 *.db

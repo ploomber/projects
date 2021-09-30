@@ -1,0 +1,17 @@
+serializer: io_.my_serializer
+unserializer: io_.my_unserializer
+
+tasks:
+  - source: tasks.variable
+    product: products/variable
+
+  - source: tasks.many_products_one_variable
+    product:
+      one: products/many-products/one
+      variable: products/many-products/variable
+
+  - source: tasks.variable_downstream
+    product: products/variable_downstream.json
+
+  - source: tasks.many_products_one_variable_downstream
+    product: products/many_products_one_variable_downstream.json
