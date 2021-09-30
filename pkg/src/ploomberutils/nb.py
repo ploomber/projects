@@ -48,15 +48,18 @@ def make_task(dag, readme):
 
     nbformat.write(nb, preprocessed)
 
-    NotebookRunner(Path(preprocessed),
-                   File(out),
-                   dag,
-                   kernelspec_name='python3',
-                   name=parent.name,
-                   nbconvert_exporter_name='notebook',
-                   local_execution=True,
-                   papermill_params={'log_output': True},
-                   static_analysis=False)
+    NotebookRunner(
+        Path(preprocessed),
+        File(out),
+        dag,
+        kernelspec_name='python3',
+        name=parent.name,
+        nbconvert_exporter_name='notebook',
+        local_execution=True,
+        papermill_params={'log_output': True},
+        # some readmes contain the %%capture magic which breaks
+        # static analysis
+        static_analysis=False)
 
 
 def post_process_nb(path):
