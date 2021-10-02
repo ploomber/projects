@@ -1,6 +1,8 @@
 <!-- #region -->
 # Debugging
 
+*This is an in-depth tutorial, for a quick reference,* [click here](https://ploomber.readthedocs.io/en/latest/cookbook/debugging.html).
+
 ## Why debugging pipelines is hard
 
 Debugging data pipelines is hard because there are three factors involved:
@@ -18,12 +20,12 @@ Inspecting our program requires us to re-execute it under the same conditions
 to replicate the crash. Replicating conditions means having the same code, parameters
 and input data.
 
-Getting the same code is easy if we know the version (i.e. git hash) that was running
-during the crash. Replicating parameters involves more work, one way to approach
-this is to make sure we always log parameters at the start of every pipeline execution.
+Getting the same code is easy if we know the version (i.e., git hash) running
+during the crash. Replicating parameters involves more work; one way to approach
+this is to ensure we always log parameters at the start of every pipeline execution.
 
 
-Input data is harder than it sounds. When our project is not properly assembled as a
+Input data is more complex than it sounds. When our project is not properly assembled as a
 data pipeline, we might run into issues if we use an incorrect file as input
 (e.g. reading `/data/some-file.csv` instead of `/data/file.csv`). That's why Ploomber
 puts a lot of emphasis on declaring products once and automatically propagating them
@@ -38,8 +40,8 @@ Ploomber will provide you tools to catch those sneaky bugs.
 
 ## Debugger basics
 
-A debugger is a program that helps inspect anoter program for debugging. Python
-comes with its own debugger called
+A debugger is a program that helps inspect another program for debugging. Python
+comes with a debugger called
 [pdb](https://docs.python.org/3/library/pdb.html).
 
 There are a few approaches for debugging programs. One approach is line-by-line
@@ -65,7 +67,7 @@ def reciprocal_and_multiply(x, y):
 
 There are two places where things can go wrong in the program
 above: if we pass `x=0`, the `reciprocal` operation will
-fail. If we pass `y=None`, the program fails as well, but it
+fail. If we pass `y=None`, the program fails, but it
 will do so in the `reciprocal_and_multiply` function. For this trivial example,
 it's easy to see at which level the code breaks but in a real program the source
 code alone is usually not enough to know. Moving between stack frames can
@@ -93,7 +95,7 @@ ploomber build --force
 ```
 
 <!-- #region -->
-If you followed the previous tutorial, you are already familiar with Ploomber's structured error messages. Let's see the messages to understand what's going on.
+If you followed the previous tutorial, you are already familiar with Ploomber's structured error messages. So let's see the messages to understand what's going on.
 
 The summary tells us the following
 
@@ -109,7 +111,7 @@ The `preprocess` task failed. Go up a few lines:
 ploomber.exceptions.TaskBuildError: An error occurred when calling papermil.execute_notebook, partially executed notebook with traceback available at ...
 ```
 
-That's useful, it's telling us where we can find the partially executed notebook in case we want to take a look at it. A few lines up:
+That's useful, it tells us where we can find the partially executed notebook in case we want to take a look at it. A few lines up:
 
 ```
 ValueError: Found unknown categories ['d'] in column 1 during transform
@@ -129,7 +131,7 @@ ValueError: Found unknown categories ['d'] in column 0 during transform
 ```
 
 
-The error message provides us a lot of information: Our pipeline failed while trying to execute task `preprocess`. Somewhere in our task's code we ran something that made scikit-learn crash.
+The error message provides us a lot of information: Our pipeline failed while executing task `preprocess`. Somewhere in our task's code we ran something that made scikit-learn crash.
 
 Let's take a look at the failing task's source code:
 <!-- #endregion -->
@@ -206,9 +208,9 @@ ipdb> X_test
 ipdb> quit
 ```
 
-Ah-ha! The encoder is fitted with a column that has values `a`, `b` and `c` but then is applied to a testing set that has value `d`. That's why it's breaking.
+Ah-ha! The encoder is fitted with a column with values `a`, `b` and `c` but then applied to a testing set with value `d`. That's why it's breaking.
 
-This is an example of how your code could be doing everything right but your data is not compatible with it. How you fix this is up to. The important thing is that we know why things are failing.
+This is an example of how your code could be doing everything right, but your data is incompatible. How you fix this is up to us. The important thing is that we know why things are failing.
 
 
 ## Post-mortem debugging
@@ -267,7 +269,7 @@ As you can see, we can use either of these two approaches.
 <!-- #region -->
 ## More difficult scenario: no exceptions raised but wrong output
 
-The previous example showed how we can debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find issues in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
+The previous example showed how we could debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find issues in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
 
 This is a much harder problem because we don't know where to look at! If a bug is originated in task `A` it might propagate to any downstream tasks that use the product from `A` as input, this is why testing is essential. By explicitly checking our data expectations, we increase the chance of catching errors at the source, rather than in a downstream task.
 
@@ -333,11 +335,11 @@ ploomber build --partially B
 
 ## Letting our pipeline fail under unforeseen circumstances
 
-The error in our program is of particular interest because it posits a common scenario: our program is correct, but still failed due to unforeseen circumstances (unexpected data properties). This type of bugs challenge our assumptions about input data, fixing the error is just as important as explaining *why* we fixed the way we did it.
+The error in our program is of particular interest because it posits a common scenario: our program is correct but still failed due to unforeseen circumstances (unexpected data properties). Although these bugs challenge our assumptions about input data, fixing the error is just as important as explaining *why* we fixed the way we did it.
 
 Picture this: we decide to drop all observations that contain the unexpected value (`d`), now our pipeline runs correctly. A few months later, we receive new data so we run the pipeline again, but we run into the same issue because of a new unexpected value (say, `e`).
 
-We could argue that one solution would be to *drop all unexpected values*. Is this the best approach? Dropping observations silently is dangerous, as they might contain useful information for our analysis. If we bury a `drop=True` piece of code in a pipeline with dozens of files, we are going to cause *a lot of* trouble to someone (which could be us) in the future. As we mentioned in the previous guide: explicitly stating our data expectations is the way to move forward.
+We could argue that one solution would be to *drop all unexpected values*. Is this the best approach? Dropping observations silently is dangerous, as they might contain helpful information for our analysis. If we bury a `drop=True` piece of code in a pipeline with dozens of files, we will cause *a lot of* trouble to someone (which could be us) in the future. As we mentioned in the previous guide: explicitly stating our data expectations is the way to move forward.
 
 If we decide dropping `d` is a reasonable choice, we can encode our new data expectations in the upstream task testing function (because that's the task that supplies input data). Let's recall how our pipeline looks like:
 <!-- #endregion -->

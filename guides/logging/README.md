@@ -6,62 +6,6 @@ from ploomberutils import display_file
 
 This guide will show you how to log pipeline execution.
 
-The *Summary* section provides a quick reference for configuring logging. If you want the details, continue reading.
-
-<!-- #region -->
-## Summary
-
-### Function tasks
-
-If you're using functions as tasks, configure logging like this:
-
-```python
-import logging
-
-
-def some_task(product):
-    # uncomment the next line if using Python >= 3.8 on macOS
-    # logging.basicConfig(level=logging.INFO)
-
-    logger = logging.getLogger(__name__)
-
-    # to log a message, call logger.info
-    logger.info('Some message')
-```
-
-### Scripts or notebooks
-
-If using scripts/notebooks tasks, add this a the top of **each** one:
-
-```python
-import sys
-import logging
-
-logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-logger = logging.getLogger(__name__)
-
-# to log a message, call logger.info
-logger.info('Some message')
-```
-
-**and** add the following to **each** task definition:
-
-```yaml
-tasks:
-  - source: scripts/script.py
-    product: products/output.ipynb
-    # add this
-    papermill_params:
-      log_output: True
-```
-
-Then, use the `--log` option when building the pipeline:
-
-```sh
-ploomber build --log info
-```
-<!-- #endregion -->
-
 ## Sample pipeline
 
 The pipeline we'll be using for this guide contains two tasks (a script and a function):
