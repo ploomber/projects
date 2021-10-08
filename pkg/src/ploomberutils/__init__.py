@@ -15,7 +15,7 @@ _SYNTAX_MAP = {
 }
 
 
-def display_file(path, syntax=None, symbols=None):
+def display_file(path, syntax=None, symbols=None, lines=None):
     """Display file in Jupyter
 
     Parameters
@@ -44,11 +44,18 @@ def display_file(path, syntax=None, symbols=None):
     if symbols:
         content = _get_symbols(content, symbols)
 
+    content = content.strip()
+
+    if lines:
+        # convert to zero based index
+        first, last = (lines[0] - 1, lines[1] - 1)
+        content = '\n'.join(content.splitlines()[first:last])
+
     display(Markdown("""
 ```{}
 {}
 ```
-""".format(syntax, content.strip())))
+""".format(syntax, content)))
 
 
 def _process_node(node):

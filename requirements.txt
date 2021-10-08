@@ -1,6 +1,7 @@
 # This file was automatically generated
 jupyter
 matplotlib
+mlflow
 numpy
 pandas
 patool

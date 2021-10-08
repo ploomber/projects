@@ -62,6 +62,7 @@ def build(c, name=None, run=True, force=False):
             'cookbook/grid',
             'cookbook/serialization',
             'cookbook/sql-dump',
+            'cookbook/variable-number-of-products',
             'ml-online',
             'python-api-examples',
         }

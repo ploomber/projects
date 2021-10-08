@@ -13,6 +13,7 @@ dependencies:
 - pip:
   - jupyter
   - matplotlib
+  - mlflow
   - nbgitpuller
   - numpy
   - pandas

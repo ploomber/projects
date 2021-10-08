@@ -21,7 +21,6 @@ from ploomber.products import SQLiteRelation, File
 from ploomber.executors import Serial
 
 
-""
 @atexit.register
 def clean():
     """Helper function to ensure products/ is deleted when the Python interpreter shuts down
@@ -30,10 +29,9 @@ def clean():
         shutil.rmtree('products')
 
 
-""
 def _dump(product, kind):
     """Dump data into a local file
-    
+
     Parameters
     ----------
     kind
@@ -55,7 +53,7 @@ def _dump(product, kind):
 @load_env
 def make_task_dump(env, dag, kind):
     """Returns a task instance using the _dump function
-    
+
     Parameters
     ----------
     kind
@@ -71,7 +69,7 @@ def make_task_dump(env, dag, kind):
 @load_env
 def make_task_upload(env, dag, kind):
     """Uploads the data to a SQLite database
-    
+
     Parameters
     ----------
     kind
@@ -84,11 +82,10 @@ def make_task_upload(env, dag, kind):
                      to_sql_kwargs={'if_exists': 'replace'})
 
 
-
 @load_env
 def make_task_clean(env, dag, kind):
     """Clean data
-    
+
     Parameters
     ----------
     kind
@@ -104,7 +101,6 @@ def make_task_clean(env, dag, kind):
                      name='clean')
 
 
-
 @load_env
 def make_task_report(env, dag, kind):
     report = """
@@ -114,9 +110,10 @@ import pandas as pd
 from IPython.display import Markdown
 
 # + tags=['parameters']
-# db_uri = None
-# upstream = None
-# product = None
+db_uri = None
+upstream = None
+product = None
+kind = None
 
 # +
 Markdown(f'# {kind}')
@@ -132,8 +129,15 @@ engine.dispose()
 # +
 sns.distplot(df['sepal length (cm)'])
 """
-    return NotebookRunner(report, File(env.path / f'report-{kind}.html'), dag, ext_in='py', name='report',
-                          params={'db_uri': env.db_uri, 'kind': kind})
+    return NotebookRunner(report,
+                          File(env.path / f'report-{kind}.html'),
+                          dag,
+                          ext_in='py',
+                          name='report',
+                          params={
+                              'db_uri': env.db_uri,
+                              'kind': kind
+                          })
 
 
 ###############################################################################
@@ -144,15 +148,16 @@ sns.distplot(df['sepal length (cm)'])
 # data, you can call the a DAG factory twice (both DAGs with the same Env)
 # but one dag with the 2018 parameter and another one with the 2019 parameter
 
+
 @with_env({
     'path': 'products',
     'db_uri': 'sqlite:///' + str(Path('products', 'my.db')),
 })
 def make_dag(env, kind):
     Path(env.path).mkdir(exist_ok=True, parents=True)
-    
+
     dag = DAG(executor=Serial(build_in_subprocess=False))
-    
+
     client = SQLAlchemyClient(env.db_uri)
     dag.clients[SQLUpload] = client
     dag.clients[SQLiteRelation] = client
@@ -162,10 +167,11 @@ def make_dag(env, kind):
     upload = make_task_upload(dag, kind)
     clean = make_task_clean(dag, kind)
     report = make_task_report(dag, kind)
-    
+
     dump >> upload >> clean >> report
 
     return dag
+
 
 ###############################################################################
 # Now multiple dag objects can be created easily. Note that although DAGs
@@ -191,7 +197,6 @@ dags['virginica'].status()
 
 dags['setosa'].plot()
 
-""
 dags['virginica'].plot()
 
 ###############################################################################

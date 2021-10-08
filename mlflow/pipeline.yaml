@@ -1,0 +1,40 @@
+executor: parallel
+
+tasks:
+  - source: tasks.raw.get
+    product: products/raw/get.csv
+
+  - source: tasks.features.sepal
+    product: products/features/sepal.csv
+
+  - source: tasks.features.petal
+    product: products/features/petal.csv
+
+  - source: tasks.features.features
+    product: products/features/features.csv
+
+  - source: scripts/fit.py
+    name: fit-
+    # we need to turn this off because parameters depend on the type of model
+    static_analysis: false
+    product: products/report.ipynb
+    grid:
+      - model: sklearn.ensemble.RandomForestClassifier
+        n_estimators: [10, 20]
+        criterion: [gini, entropy]
+        params_names: [[n_estimators, criterion]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+      - model: sklearn.ensemble.AdaBoostClassifier
+        n_estimators: [10, 20]
+        learning_rate: [0.5, 1.0]
+        params_names: [[n_estimators, learning_rate]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+    on_finish: hooks.store_report
+
+
+  - source: scripts/compare.py
+    product: products/compare.ipynb
+    params:
+      mlflow_tracking_uri: '{{mlflow_tracking_uri}}'

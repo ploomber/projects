@@ -1,0 +1,17 @@
+name: mlflow
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - pip
+  - pygraphviz
+
+  - pip:
+    - ploomber
+    - pandas
+    - scikit-learn
+    - sklearn-evaluation
+    - jupyter
+    - mlflow

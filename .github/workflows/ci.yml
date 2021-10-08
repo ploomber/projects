@@ -9,6 +9,7 @@ jobs:
         folder:
           - debugging
           - sql-templating
+          - mlflow
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -60,7 +61,7 @@ jobs:
           conda activate env
 
           # test with dev version
-          pip install git+https://github.com/ploomber/ploomber
+          # pip install git+https://github.com/ploomber/ploomber
 
           # install ploomberutils pkg
           pip install ../pkg

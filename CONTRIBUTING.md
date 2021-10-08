@@ -8,7 +8,7 @@ To update the root `README.md`, modify `pkg/src/ploomberutils/README-template.md
 invoke build --name readme
 ```
 
-Note that `ploombre examples` uses `index.csv` to list available examples.
+Note that `ploomber examples` uses `index.csv` to list available examples.
 
 ## Documentation tutorials
 
@@ -36,7 +36,7 @@ After adding an example, include it in the `ci.yml` to run it on each push.
 
 `README.md` are converted to Jupyter notebooks and executed to test them and show the output of each command. Some of these files are part of Ploomber's documentation.
 
-Jupyter can execute bash scripts but given that jupytext loses the language
+Jupyter can execute bash scripts, but given that jupytext loses the language
 markdown tag when it converts from .md to .ipynb, we have to indicate the
 language using a tag:
 

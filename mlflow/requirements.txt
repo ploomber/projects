@@ -1,0 +1,6 @@
+jupyter
+mlflow
+pandas
+ploomber
+scikit-learn
+sklearn-evaluation
