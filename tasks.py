@@ -127,6 +127,9 @@ def build(c, name=None, run=True, force=False):
         # export to binder env repo
         Path('../binder-env/environment.yml').write_text(conda)
 
+    print('Done. If the environment.yml needs to be built again, '
+          'push changes from the binder-env repository.')
+
 
 def save_per_folder_requirements_txt(pip_deps_by_folder):
     print('\n')

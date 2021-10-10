@@ -8,3 +8,4 @@ intermediate,python-api,ipynb,Pipeline using the Python API
 advanced,ml-online,md,"ML pipeline. Train in Kubernetes (via Argo Workflows), deploy using Flask"
 advanced,etl,ipynb,"SQL pipeline that downloads data, uploads to a database, process it, and plots using Python/R"
 advanced,ml-advanced,ipynb,"ML pipeline using the Python API. Shows how to package project, test it using pytest and train models in parallel"
+advanced,mlflow,ipynb,"ML pipeline that trains a grid of models and logs them using MLflow"

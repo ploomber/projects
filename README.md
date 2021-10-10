@@ -62,6 +62,8 @@ Jupyter notebook format and with the output from each cell.
 
 9. [`ml-advanced/`](ml-advanced/README.ipynb) ML pipeline using the Python API. Shows how to package project, test it using pytest and train models in parallel
 
+10. [`mlflow/`](mlflow/README.ipynb) ML pipeline that trains a grid of models and logs them using MLflow
+
 
 ## Guides
 

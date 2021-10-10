@@ -1,4 +1,5 @@
-executor: parallel
+# uncomment to run in parallel
+# executor: parallel
 
 tasks:
   - source: tasks.raw.get
