@@ -7,7 +7,7 @@
 MLflow is a popular library for tracking Machine Learning experiments. This example shows how to use Ploomber and MLflow to train multiple models in parallel and log them to MLflow.
 
 ```python
-# this function is only used to show files, if running locally, you may skip cell's calling this function
+# this function is only used to show files, if running locally, you can skip cells calling this function
 from ploomberutils import display_file
 
 import black
