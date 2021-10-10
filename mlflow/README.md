@@ -26,7 +26,7 @@ dag = DAGSpec('pipeline.yaml').to_dag()
 dag.plot()
 ```
 
-The pipeline gets the iris dataset (`get` task), creates a few features (`sepal`, and `petal` tasks), and joins everything into a single file (`features` task). Then we see 8 in parallel (`fit-0` to `fit-7` tasks); they all use the same script as a source but train different models; we log the models to MLflow here. Finally, we have a task (`compare`) that uses MLflow's API to query the runs and prints the best overall experiment.
+The pipeline gets the iris dataset (`get` task), creates a few features (`sepal`, and `petal` tasks), and joins everything into a single file (`features` task). Then we see eight tasks in parallel (`fit-0` to `fit-7`); they all use the same script as a source but train different models; we log the models to MLflow here. Finally, we have a task (`compare`) that uses MLflow's API to query the runs and prints the best overall experiment.
 
 Now that we have a high-level idea of what the pipeline is doing, let's look at the `pipeline.yaml`:
 
@@ -42,13 +42,14 @@ display_file('pipeline.yaml', lines=(16, 36))
 
 The task uses `scripts/fit.py` as its source and sets the name to `fit-` so that generated tasks have the same prefix. Then we set `static_analysis` to `false`, the static analysis feature checks that the parameters passed to the task match the ones declared by the script (in the `parameters` cell). Still, since we'll be passing different parameters depending on the model, we have to turn off this feature. Finally, we can see that we'll store the output in `products/report.ipynb`.
 
-`grid` is where the magic happens. This feature allows us to pass a grid of parameters and generate many tasks from a single declaration. For example, the first element statest we want to train a random forest and vary some of the hyperparameters (`n_estimator`, and `criterion`).
+`grid` is where the magic happens. This feature allows us to pass a grid of parameters and generate many tasks from a single declaration. For example, the first element states we want to train a random forest and vary some hyperparameters (`n_estimator`, and `criterion`).
 
-`params_names` is a list of parameters that we are going to vary across experiments; we need to collect all the appropriate values to pass to the model constructor (which depend on the model type), for example:
+`params_names` is a list of parameters that we are going to vary across experiments; we use this list to pass the values to the model constructor (since depend on the model type), for example:
 
-```pythonthon
+```python
 from sklearn.ensemble import RandomForestClassifier
 
+# init parameters depend on model type
 model = RandomForestClassifier(n_estimators=10, criterion='gini')
 ```
 
@@ -110,7 +111,7 @@ You can see that most parameters are the same, except for `criterion` (the first
 
 ## Running the pipeline
 
-Every parameter declared in `env.yaml` can be switched from the command line; let's get the `--help` information to see hwo to do it:
+Every parameter declared in `env.yaml` can be switched from the command line; let's get the `--help` information to see how to do it:
 
 ```bash tags=["bash"]
 ploomber build --help
