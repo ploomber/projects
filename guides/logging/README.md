@@ -95,7 +95,7 @@ To get the code for the previous example, [click here](https://github.com/ploomb
 <!-- #region -->
 ## Implementation details
 
-To keep the tutorial short, we overlooked some technical details. However, if you want to customize logging, they are important to know.
+To keep the tutorial short, we overlooked some technical details. However, if you want to customize logging, they are essential to know.
 
 ### Function tasks and sub-processes
 
@@ -117,7 +117,7 @@ def some_task(product):
 
 ### Scripts and notebooks
 
-Unlike function tasks, which can run in the same process that runs Ploomber, or in a child process, scripts and notebooks execute independently. Hence, any logging configuration made in the main process is lost, and We have to configure a separate logger at the top of the script/notebook.
+Unlike function tasks, which can run in the same process as Ploomber or in a child process, scripts and notebooks execute independently. Hence, any logging configuration made in the main process is lost, and We have to configure a separate logger at the top of the script/notebook.
 
 ### Parallel execution
 

@@ -10,6 +10,7 @@ jobs:
           - debugging
           - sql-templating
           - mlflow
+          - logging
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -89,10 +90,6 @@ jobs:
 
           # guides/serialization
           cd ../../guides/serialization
-          jupytext README.md --to .ipynb
-          papermill README.ipynb README.ipynb --kernel python  --log-output
-
-          cd ../logging
           jupytext README.md --to .ipynb
           papermill README.ipynb README.ipynb --kernel python  --log-output
 
