@@ -1,5 +1,6 @@
 # This file was automatically generated
 jupyter
+jupyter-server-proxy
 matplotlib
 mlflow
 numpy
