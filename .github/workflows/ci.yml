@@ -10,7 +10,7 @@ jobs:
           - debugging
           - sql-templating
           - mlflow
-          - logging
+          - guides/logging
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
