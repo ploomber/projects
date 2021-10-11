@@ -154,7 +154,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+        python-version: 3.9
       - run: |
           eval "$(conda shell.bash hook)"
           cd ml-intermediate/
@@ -162,10 +162,10 @@ jobs:
           conda activate env
           # install ploomberutils
           pip install ../pkg/
-          # train
-          ploomber build --entry-point pipeline.yaml
-          # serve
-          ploomber build --entry-point pipeline.serve.yaml
+          
+          jupytext README.md --to .ipynb
+          papermill README.ipynb README.ipynb --kernel python  --log-output
+
           # TODO: export to argo
           # ploomberutils validate-argo argo.yaml
 

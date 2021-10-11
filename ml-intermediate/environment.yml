@@ -14,3 +14,4 @@ dependencies:
     - scikit-learn
     - pyarrow
     - sklearn-evaluation
+    - ipywidgets

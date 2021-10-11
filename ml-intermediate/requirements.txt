@@ -1,3 +1,4 @@
+ipywidgets
 pandas
 ploomber
 pyarrow
