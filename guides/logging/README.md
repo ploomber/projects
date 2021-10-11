@@ -54,10 +54,15 @@ Alternatively, you can configure logging from Python, which gives you more flexi
 # e.g., python run_pipeline.py
 import logging
 from pathlib import Path
+import sys
 
+from ploomber.executors import Serial
 from ploomber.spec import DAGSpec
 
 logging.basicConfig(filename='my.log', format='%(levelname)s:%(message)s', level=logging.INFO)
+
+# make sure we can import basic/tasks.py since basic/pipeline.yaml uses it
+sys.path.append('basic')
 
 dag = DAGSpec('basic/pipeline.yaml').to_dag()
 dag.build(force=True)
