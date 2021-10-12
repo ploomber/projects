@@ -11,6 +11,16 @@ jobs:
           - sql-templating
           - mlflow
           - guides/logging
+          - spec-api-directory
+          - cookbook/serialization
+          - cookbook/grid
+          - ml-intermediate
+          - spec-api-sql
+          - testing
+          - guides/serialization
+          - cookbook/sql-dump
+          - cookbook/variable-number-of-products
+          - ml-advanced
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -24,8 +34,17 @@ jobs:
           conda activate env
           pip install invoke ipywidgets pkg/
 
+          if [ -f "$FOLDER/setup.py" ]; then
+            echo "Found setup.py, installing package..."
+            pip install $FOLDER/
+          fi
+
           # test readme.md
           invoke build --name $FOLDER
+
+          # TODO: export to argo and validate
+          # ploomberutils validate-argo argo.yaml
+
 
   python-api-examples:
     runs-on: ubuntu-latest
@@ -46,52 +65,6 @@ jobs:
           conda activate env
           pip install -r requirements.txt
           pytest
-
-  cookbook:
-    runs-on: ubuntu-latest
-    name: cookbook
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          cd cookbook
-          eval "$(conda shell.bash hook)"
-          conda env create --file environment.yml --name env
-          conda activate env
-
-          # test with dev version
-          # pip install git+https://github.com/ploomber/ploomber
-
-          # install ploomberutils pkg
-          pip install ../pkg
-
-          # sql-dump
-          cd sql-dump
-          jupytext README.md --to .ipynb
-          papermill README.ipynb README.ipynb --kernel python  --log-output
-
-          # cookbook serialization
-          cd ../serialization
-          ploomber build
-
-          # variable number of products
-          cd ../variable-number-of-products/
-          cd basic
-          ploomber build
-          cd ../serializer
-          ploomber build
-          cd ..
-
-          # grid
-          cd ../grid
-          ploomber build
-
-          # guides/serialization
-          cd ../../guides/serialization
-          jupytext README.md --to .ipynb
-          papermill README.ipynb README.ipynb --kernel python  --log-output
 
   # These are examples with the same structure, we use the same script
   projects:
@@ -146,93 +119,6 @@ jobs:
           invoke build --name $FOLDER
 
   # The rest have some particular details, so we test them separately
-
-  ml-intermediate:
-    runs-on: ubuntu-latest
-    name: ml-intermediate
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          eval "$(conda shell.bash hook)"
-          cd ml-intermediate/
-          conda env create --file environment.yml --name env
-          conda activate env
-          # install ploomberutils
-          pip install ../pkg/
-          
-          jupytext README.md --to .ipynb
-          papermill README.ipynb README.ipynb --kernel python  --log-output
-
-          # TODO: export to argo
-          # ploomberutils validate-argo argo.yaml
-
-  spec-api-directory:
-    runs-on: ubuntu-latest
-    name: spec-api-directory
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          eval "$(conda shell.bash hook)"
-          cd spec-api-directory/
-          conda env create --file environment.yml --name env
-          conda activate env
-          ploomber build --entry-point '*.py'
-
-  spec-api-sql:
-    runs-on: ubuntu-latest
-    name: spec-api-sql
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          cd spec-api-sql
-          eval "$(conda shell.bash hook)"
-          conda env create --file environment.yml --name env
-          conda activate env
-          cd setup/
-          bash setup.sh
-          cd ..
-          ploomber build
-
-  testing:
-    runs-on: ubuntu-latest
-    name: testing
-    steps:
-      # this step makes your repo available to the next one
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          cd testing
-          eval "$(conda shell.bash hook)"
-          conda env create --file environment.yml --name env
-          conda activate env
-          mkdir output
-          cd setup && python script.py && cd ..
-          ploomber build
-  
-  ml-advanced:
-    runs-on: ubuntu-latest
-    name: ml-advanced
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          cd ml-advanced
-          pip install "."
-          pytest
-
   ml-online:
     runs-on: ubuntu-latest
     name: ml-online
@@ -244,19 +130,11 @@ jobs:
       - run: |
           # install ploomberutils
           pip install pkg/
-          cd ml-online
-          eval "$(conda shell.bash hook)"
           pip install invoke
-          invoke setup
-          conda activate ml-online
+          pip install -e "ml-online[dev]"
 
-          # test with dev version
-          # pip install git+https://github.com/ploomber/ploomber
+          invoke build --name ml-online
 
-          ploomber build
-          cp products/model.pickle src/ml_online/model.pickle
-          invoke test --inplace
-          python -m build
           # TODO: export to argo
           # validate argo spec
           # ploomberutils validate-argo argo.yaml

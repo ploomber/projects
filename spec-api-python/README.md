@@ -1,3 +1,18 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n spec-api-python`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fspec-api-python%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=spec-api-python%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb)
+<!-- end header -->
+
+
+
+
 # Your first Python pipeline
 
 This guide shows you how to run your first Ploomber pipeline.
@@ -6,32 +21,13 @@ This guide shows you how to run your first Ploomber pipeline.
 to learn about Ploomber's core concepts and design rationale, go to the
 [the next tutorial](https://ploomber.readthedocs.io/en/stable/get-started/basic-concepts.html)
 
-## Setup (skip if using Binder)
-
-Get code (run in a terminal):
-
-~~~sh
-git clone https://github.com/ploomber/projects
-cd projects/spec-api-python
-~~~
-
-Install dependencies:
-
-~~~sh
-# if using conda
-conda env create --file environment.yaml
-conda activate spec-api-python
-
-# otherwise use pip directly
-pip install -r requirements.txt
-~~~
 
 ## Description
 
 This pipeline contains 3 **tasks**, the first task `get.py` gets some data,
 `clean.py` cleans it and `plot.py` generates a visualization:
 
-```bash tags=["bash"]
+```bash
 ls *.py
 ```
 
@@ -49,9 +45,25 @@ Ploomber integrates with Jupyter. If you open the scripts inside the
 Along with the `*.py` files, there is a `pipeline.yaml` file where we declare
 which files we use as tasks:
 
-```bash tags=["bash"]
-cat pipeline.yaml
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+tasks:
+  - source: raw.py
+    product:
+      nb: output/raw.ipynb
+      data: output/data.csv
+
+  - source: clean.py
+    product:
+      nb: output/clean.ipynb
+      data: output/clean.csv
+
+  - source: plot.py
+    product: output/plot.ipynb
+
 ```
+<!-- #endmd -->
 
 **Note:** The `pipeline.yaml` file is optional, but it gives you more flexibility.
 [Click here](https://github.com/ploomber/projects/tree/master/spec-api-directory) to see an example without a `pipeline.yaml` file.
@@ -59,7 +71,7 @@ cat pipeline.yaml
 
 Let's plot the pipeline:
 
-```bash tags=["bash"]
+```bash
 ploomber plot
 ```
 
@@ -70,7 +82,7 @@ Image(filename='pipeline.png')
 
 The `status` command gives us an overview of the pipeline:
 
-```bash tags=["bash"]
+```bash
 ploomber status
 ```
 
@@ -115,7 +127,7 @@ as tasks. Our upcoming tutorial goes deeper into the different types of tasks av
 
 Let's build the pipeline:
 
-```bash tags=["bash"]
+```bash
 mkdir output
 ploomber build
 ```
@@ -123,13 +135,13 @@ ploomber build
 This pipeline saves all the output in the `output/` directory; we have a few
 data files:
 
-```bash tags=["bash"]
+```bash
 ls output/*.csv
 ```
 
 And a notebook for each script:
 
-```bash tags=["bash"]
+```bash
 ls output/*.ipynb
 ```
 
@@ -149,7 +161,7 @@ Ploomber does that for you and only executes outdated tasks on each run.
 
 Make some changes to the `clean.py` script, then build again:
 
-```bash tags=["bash"]
+```bash
 ploomber build
 ```
 

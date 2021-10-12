@@ -1,6 +1,17 @@
-```python
-from ploomberutils import display_file
-```
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n guides/logging`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/logging%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/logging%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/guides/logging/README.ipynb)
+<!-- end header -->
+
+
+
 
 # Logging
 
@@ -10,9 +21,20 @@ This guide will show you how to log pipeline execution.
 
 The pipeline we'll be using for this guide contains two tasks (a script and a function):
 
-```python
-display_file('basic/pipeline.yaml')
+<!-- #md -->
+```yaml
+# Content of basic/pipeline.yaml
+tasks:
+  - source: script.py
+    product: output/nb-log.ipynb
+    papermill_params:
+      log_output: True
+
+  - source: tasks.function
+    product: output/fn-log.txt
+
 ```
+<!-- #endmd -->
 
 Note that the script task contains:
 

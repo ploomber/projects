@@ -2,7 +2,7 @@
 
 ## Updating root README.md
 
-To update the root `README.md`, modify `pkg/src/ploomberutils/README-template.md` or `index.csv`. Then execute the following command:
+To update the root `README.md`, modify `_source.md`. Then execute the following command:
 
 ```sh
 invoke build --name readme
@@ -32,39 +32,83 @@ Optional:
 
 After adding an example, include it in the `ci.yml` to run it on each push.
 
-### README.md guidelines for new examples
+### Guidelines for new examples
 
-`README.md` are converted to Jupyter notebooks and executed to test them and show the output of each command. Some of these files are part of Ploomber's documentation.
+You should create a `_source.md` file at the root of the example. This file generates the `README.md`, which contains a header with links and resolves references to external files (more on this below).
 
-Jupyter can execute bash scripts, but given that jupytext loses the language
-markdown tag when it converts from .md to .ipynb, we have to indicate the
-language using a tag:
+Using the `README.md`, we generate the `README.ipynb` and execute it. Here are the guidelines for the `_source.md` file:
 
-```bash tags=["bash"]
-echo 'hello'
+Once a new example is included, you must add a new entry to `index.csv`.
+
+#### Front matter
+
+Add this to the top of the `_source.md`, this is necessary for the conversion to `README.md` (note the `---` at the beginning and the end).
+
+```
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.13.0
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
 ```
 
-To prevent a cell from executing use `~~~`:
+#### Setup instructions
 
-~~~bash
-# this won't be executed
-~~~
+*Do not* include a section to show how to setup the example (e.g., `pip install ...`).
 
-Note: from the many [alternatives](https://jupytext.readthedocs.io/en/latest/formats.html#jupytext-markdown),
-we selected the `~~~` option because it's the only one that produces notebooks that correctly render on Github.
+#### Skip execution
 
-The output stores as `README.ipynb`. Which is the file that you should
-point to share binder links.
+After generating the `README.ipynb`, it is executed. To skip execution of certain code chunk, enclose it using the following tags:
+
+```md
+<!-- #md -->
+
+<!-- Your code snippet -->
+
+<!-- #endmd -->
+```
+
+#### Reference other files
+
+If you need to reference external files, do not copy their content; use the following instead:
+
+```md
+
+README.md will add the contents here:
+<% expand('some_file.py') %>
+
+To select specific symbols like function definitions (only works with .py files):
+<% expand('some_file.py', symbols='some_function') %>
+<% expand('some_file.py', symbols=['some_function', 'another']) %>
+
+To select specific lines:
+<% expand('some_file.py', lines=(10, 15)) %>
+```
+
+*Note:* code chunks added this way are not executed (see previous section).
+
 
 ## Building process
 
-1. Generate README.md from README-template.md and index.csv
+1. Generate root README.md from README-template.md and index.csv
+2. Compile all */_source.md files (to generate */README.md)
 2. Execute all */README.md files (to generate */README.ipynb)
-3. Generate requirements.txt from environment.yml (for people who don't use conda)
+3. Generate requirements.txt from environment.yml
 4. Generate repository-level requirements.txt and environment.yml for binder
 
 **Note:** The repository-level environment.yml is saved in a different repo to allow
 quick Binder loading.
+
+
+To build:
 
 ```sh
 invoke build

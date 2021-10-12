@@ -1,3 +1,17 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n sql-templating`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fsql-templating%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=sql-templating%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/sql-templating/README.ipynb)
+<!-- end header -->
+
+
+
 # SQL templating
 
 ## Basic templating
@@ -61,19 +75,40 @@ GROUP BY some_column
 
 Macros let us to maximize SQL code reusability by defining snippets that we can "import" in other files. To define a macro, enclose your snippet between the  `{% macro MACRO_NAME %} ... {% endmacro %}` tags. Let's create a macro using our previous snippet:
 
-```python
-from ploomberutils import display_file
-```
 
-```python
-display_file('sql/macros.sql')
+<!-- #md -->
+```sql
+# Content of sql/macros.sql
+{% macro agg(col_group, col_agg, from_table) -%}
+
+SELECT
+    {{col_group}},
+{% for fn in ['AVG', 'STDEV', 'COUNT', 'SUM', 'MAX', 'MIN'] %}
+    {{fn}}({{col_agg}}) as {{fn}}_{{col_agg}}{{ ',' if not loop.last else '' }}
+{% endfor %}
+FROM {{from_table}}
+GROUP BY {{col_group}}
+
+{%- endmacro %}
 ```
+<!-- #endmd -->
 
 The `{% macro %}` tag defines the macro name and parameters (if any). To use our macro in a different file, we have to import it. Let's say we define the previous macro in a `macros.sql` file:
 
-```python
-display_file('sql/create-table.sql')
+<!-- #md -->
+```sql
+# Content of sql/create-table.sql
+-- import macros
+{% import "macros.sql" as m %}
+
+DROP TABLE IF EXISTS {{product}};
+
+CREATE TABLE {{product}} AS
+-- use macro
+{{m.agg(col_group='country', col_agg='price', from_table='sales')}}
+
 ```
+<!-- #endmd -->
 
 ### Configuring support for macros
 
@@ -89,9 +124,25 @@ tree sql
 
 To configure our source loader. We just need to add a `source_loader` section like this:
 
-```python
-display_file('pipeline.yaml')
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+meta:
+  # initialize source loader
+  source_loader:
+    # use the sql/ folder as the "root" for loading files
+    path: sql/
+
+
+tasks:
+  # sources are now loaded from the source loader, paths are relative
+  # to the source loader root directory
+  - source: create-table.sql
+    name: sql-task
+    product: [some_table, table]
+    client: db.get_client
 ```
+<!-- #endmd -->
 
 ## Printing rendered code
 
@@ -106,4 +157,3 @@ As we can see, our template is generating a valid SQL script. But if it didn't i
 ## Where to go next
 
 * [Jinja documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/)
-

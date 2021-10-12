@@ -1,4 +1,4 @@
-name: cookbook
+name: cookbook-serialization
 
 channels:
   - conda-forge
@@ -11,4 +11,4 @@ dependencies:
     - ploomber
     - pandas
     - joblib
-    - scikit-learn
+

@@ -1,3 +1,17 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n testing`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Ftesting%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=testing%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/testing/README.ipynb)
+<!-- end header -->
+
+
+
 # Pipeline testing
 
 Testing your pipeline is critical to ensure your data expectations hold. When you perform a data transformation, you are expecting the output to have certain properties (e.g. no nulls in certain column). Without testing, these expectations won't be verified and will cause errors errors to propagate to all downstream tasks.
@@ -23,12 +37,35 @@ Let's take a look at our example `pipeline.yaml`:
 
 ```python
 from pathlib import Path
-from ploomberutils import display_file
 ```
 
-```python
-display_file('pipeline.yaml')
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+clients:
+  SQLScript: db.get_client
+  SQLDump: db.get_client
+
+tasks:
+  - source: clean.sql
+    name: clean
+    product: ['my_clean_table', 'table']
+    on_finish: integration_tests.test_sql_clean
+  
+  - source: dump.sql
+    name: dump
+    class: SQLDump
+    product: output/my_clean_table.csv
+    chunksize: null
+
+  - source: transform.py
+    product:
+        nb: output/transformed.html
+        data: output/transformed.csv
+    on_finish: integration_tests.test_py_transform
+
 ```
+<!-- #endmd -->
 
 <!-- #region -->
 The pipeline has three tasks, one to clean the raw table, another one to dump the clean data to a CSV file and finally, one Python task to transform the data. We included a SQL and a Python task to show how you can test both types of tasks but we recommend you to do as much analysis as you can using SQL because it scales much better than Python code (you won't have to deal with memory errors).
@@ -49,27 +86,73 @@ Before diving into the testing source code, let's see the rest of the tasks.
 `clean.sql` just filters columns we don't want to include in the analysis:
 <!-- #endregion -->
 
-```python
-display_file('clean.sql')
+<!-- #md -->
+```sql
+# Content of clean.sql
+DROP TABLE IF EXISTS {{product}};
+
+CREATE TABLE {{product}} AS
+SELECT * FROM my_table
+WHERE score is not null AND age > 0
 ```
+<!-- #endmd -->
 
 `dump.sql` just selects all rows from the clean table to dump it to the CSV file:
 
-```python
-display_file('dump.sql')
+<!-- #md -->
+```sql
+# Content of dump.sql
+SELECT * FROM {{upstream['clean']}}
 ```
+<!-- #endmd -->
 
 Finally, the `transform.py` script generates a new column using `score`
 
+<!-- #md -->
 ```python
-display_file('transform.py')
+# Content of transform.py
+import pandas as pd
+
+# + tags=["parameters"]
+upstream = ['dump']
+product = None
+
+# +
+df = pd.read_csv(upstream['dump'])
+df['multiplied_score'] = df.score * 42
+
+# +
+df.to_csv(product['data'])
+
 ```
+<!-- #endmd -->
 
 Let's now take a look at our tests:
 
+<!-- #md -->
 ```python
-display_file('integration_tests.py')
+# Content of integration_tests.py
+import pandas as pd
+from ploomber.testing.sql import nulls_in_columns, range_in_column
+
+
+def test_sql_clean(client, product):
+    """Tests for clean.sql
+    """
+    assert not nulls_in_columns(client, ['score', 'age'], product)
+    min_age, max_age = range_in_column(client, 'age', product)
+    assert min_age > 0
+
+
+def test_py_transform(product):
+    """Tests for transform.py
+    """
+    df = pd.read_csv(str(product['data']))
+    assert not df.multiplied_score.isna().sum()
+    assert df.multiplied_score.min() >= 0
+
 ```
+<!-- #endmd -->
 
 ## Testing Python scripts
 
@@ -93,7 +176,7 @@ The `ploomber.testing.sql` module implements convenient functions to test your t
 
 Before we run the pipeline, we generate a sample database:
 
-```bash tags=["bash"]
+```sh
 cd setup
 python script.py
 ```
@@ -114,8 +197,18 @@ The script now looks like this:
 path = Path('clean.sql')
 new_code = path.read_text().replace('WHERE score is not null AND age > 0', '')
 path.write_text(new_code)
-display_file('clean.sql')
 ```
+
+<!-- #md -->
+```sql
+# Content of clean.sql
+DROP TABLE IF EXISTS {{product}};
+
+CREATE TABLE {{product}} AS
+SELECT * FROM my_table
+WHERE score is not null AND age > 0
+```
+<!-- #endmd -->
 
 Let's see what happens if we run the pipeline:
 
@@ -168,8 +261,8 @@ Let's fix our pipeline and add the `WHERE` clause again:
 ```python
 path = Path('clean.sql')
 new_code = path.read_text() + 'WHERE score is not null AND age > 0'
+print(new_code)
 path.write_text(new_code)
-display_file('clean.sql')
 ```
 
 ```sh

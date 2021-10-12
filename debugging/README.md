@@ -1,3 +1,17 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n debugging`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fdebugging%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=debugging%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/debugging/README.ipynb)
+<!-- end header -->
+
+
+
 <!-- #region -->
 # Debugging
 
@@ -78,13 +92,21 @@ help you find out where the error is coming from.
 
 Let's take a look at our example pipeline declaration:
 
-```python
-from ploomberutils import display_file
-```
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+tasks:
+  - source: load.py
+    product:
+      nb: output/raw.ipynb
+      train: output/train.csv
+      test: output/test.csv
 
-```python
-display_file('pipeline.yaml')
+  - source: preprocess.py
+    product: output/clean.ipynb
+
 ```
+<!-- #endmd -->
 
 Very simple, two tasks. One loads the data and the next one preprocess it.
 
@@ -136,9 +158,36 @@ The error message provides us a lot of information: Our pipeline failed while ex
 Let's take a look at the failing task's source code:
 <!-- #endregion -->
 
+<!-- #md -->
 ```python
-display_file('preprocess.py')
+# Content of preprocess.py
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
+
+# + tags=["parameters"]
+upstream = ['load']
+product = None
+
+# -
+
+
+# +
+def my_preprocessing_function(X_train, X_test):
+    encoder = OneHotEncoder()
+    X_train_t = encoder.fit_transform(X_train)
+    X_test_t = encoder.transform(X_test)
+    return X_train_t, X_test_t
+
+
+# +
+X_train = pd.read_csv(upstream['load']['train'])
+X_test = pd.read_csv(upstream['load']['test'])
+
+# +
+my_preprocessing_function(X_train, X_test)
+
 ```
+<!-- #endmd -->
 
 Our `preprocess.py` script is using scikit-learn's `OneHotEncoder` to transform variables. The error message offers some information but not enough to fix the issue (*we don't have a column named "0"!*). There must be something going on internally.
 
@@ -345,9 +394,21 @@ If we decide dropping `d` is a reasonable choice, we can encode our new data exp
 <!-- #endregion -->
 
 
-```python
-display_file('pipeline.yaml')
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+tasks:
+  - source: load.py
+    product:
+      nb: output/raw.ipynb
+      train: output/train.csv
+      test: output/test.csv
+
+  - source: preprocess.py
+    product: output/clean.ipynb
+
 ```
+<!-- #endmd -->
 
 `load` supplies input for `preprocess`. Our testing function for the `load` task would look like this:
 

@@ -1,16 +1,17 @@
----
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.11.2
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n guides/serialization`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/serialization%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/serialization%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/guides/serialization/README.ipynb)
+<!-- end header -->
+
+
+
 
 # Serialization
 
@@ -20,9 +21,7 @@ To enable a pipeline to work in both disk-based and in-memory scenarios, we can 
 
 Note that this only applies to function tasks; other tasks are unaffected by the `serializer`/`unserializer` configuration.
 
-```python nbsphinx="hidden"
-from ploomberutils import display_file
-```
+
 
 ## Built-in pickle serialization
 
@@ -30,15 +29,40 @@ The easiest way to get started is to use the built-in serializer and unserialize
 
 Let's see an example; the following pipeline has two tasks. The first one generates a dictionary, and the second one creates two dictionaries. Since we are using the pickle-based serialization, each dictionary is saved in the pickle binary format:
 
-```python
-display_file('simple.yaml')
+<!-- #md -->
+```yaml
+# Content of simple.yaml
+serializer: ploomber.io.serializer_pickle
+unserializer: ploomber.io.unserializer_pickle
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict
+        final: output/final_dict
 ```
+<!-- #endmd -->
 
 Let's take a look at the task's source code:
 
+<!-- #md -->
 ```python
-display_file('tasks.py')
+# Content of tasks.py
+def first():
+    return dict(a=1, b=2)
+
+
+def second(upstream):
+    first = upstream['first']
+    another = dict(a=first['b'] + 1, b=first['a'] + 1)
+    final = dict(a=100, b=200)
+    return dict(another=another, final=final)
+
 ```
+<!-- #endmd -->
 
 Since we configured a `serializer` and `unserializer`, function tasks must `return` their outpues instead of saving them to disk in the function's body.
 
@@ -57,17 +81,46 @@ The pickle format has important [security concerns](https://docs.python.org/3/li
 
 We can also define our own serialization logic, by using the `@serializer`, and `@unserializer` decorators. Let's replicate what our pickle-based serializer/unserializer is doing as an example:
 
+<!-- #md -->
 ```python
-display_file('custom.py', symbols=['my_pickle_serializer', 'my_pickle_unserializer'])
+# Content of custom.py
+from pathlib import Path
+import pickle
+
+from ploomber.io import serializer, unserializer
+
+
+@serializer()
+def my_pickle_serializer(obj, product):
+    Path(product).write_bytes(pickle.dumps(obj))
+
+
+@unserializer()
+def my_pickle_unserializer(product):
+    return pickle.loads(Path(product).read_bytes())
 ```
+<!-- #endmd -->
 
 A `@serializer` function must take two arguments: the object to serializer and the product object (taken from the task declaration). The `@unserializer` must take a single argument (the product to unserializer), and return the unserializer object.
 
 Let's modify our original pipeline to use this serializer/unserializer:
 
-```python
-display_file('custom.yaml')
+<!-- #md -->
+```yaml
+# Content of custom.yaml
+serializer: custom.my_pickle_serializer
+unserializer: custom.my_pickle_unserializer
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict
+        final: output/final_dict
 ```
+<!-- #endmd -->
 
 ```sh
 ploomber build --entry-point custom.yaml --force
@@ -77,15 +130,53 @@ ploomber build --entry-point custom.yaml --force
 
 Under many circumstances, there are more suitable formats than pickle. For example, we may want to store lists or dictionaries as JSON files and other files using pickle. The `@serializer`/`@unserializer` decorators use mapping as the first argument to dispatch to different functions depending on the product's extension. Let's see an example:
 
+<!-- #md -->
 ```python
-display_file('custom.py', symbols=['write_json', 'read_json', 'my_serializer', 'my_unserializer'])
+# Content of custom.py
+from pathlib import Path
+import pickle
+import json
+
+from ploomber.io import serializer, unserializer
+
+
+def write_json(obj, product):
+    Path(product).write_text(json.dumps(obj))
+
+
+def read_json(product):
+    return json.loads(Path(product).read_text())
+
+
+@serializer({'.json': write_json})
+def my_serializer(obj, product):
+    Path(product).write_bytes(pickle.dumps(obj))
+
+
+@unserializer({'.json': read_json})
+def my_unserializer(product):
+    return pickle.loads(Path(product).read_bytes())
 ```
+<!-- #endmd -->
 
 Let's modify our example pipeline. The product in the first task does not have an extension (`output/one_dict`), hence, it will use pickle-based logic. However, the tasks in the second task have a `.json` extension, and will be saved as JSON files.
 
-```python
-display_file('with-json.yaml')
+<!-- #md -->
+```yaml
+# Content of with-json.yaml
+serializer: custom.my_serializer
+unserializer: custom.my_unserializer
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict.json
+        final: output/final_dict.json
 ```
+<!-- #endmd -->
 
 ```sh
 ploomber build --entry-point with-json.yaml --force
@@ -93,12 +184,13 @@ ploomber build --entry-point with-json.yaml --force
 
 Let's print the `.json` files to verify they're not pickle files:
 
-```python
-display_file('output/another_dict.json')
+```sh
+cat output/another_dict.json
 ```
 
-```python
-display_file('output/final_dict.json')
+
+```sh
+cat output/final_dict.json
 ```
 
 ## Using a fallback format
@@ -109,13 +201,40 @@ The example works the same as the previous one, except we don't have to write ou
 
 `fallback` can also take the [joblib](https://github.com/joblib/joblib) or [cloudpickle](https://github.com/cloudpipe/cloudpickle) values. They're similar to the pickle format but have some advantages. For example, `joblib` produces smaller files when the serialized object contains many NumPy arrays, while cloudpickle supports serialization of some objects that the pickle module doesn't. To use `fallback='joblib'` or `fallback='cloudpickle'` the corresponding module must be installed.
 
+<!-- #md -->
 ```python
-display_file('custom.py', symbols=['my_fallback_serializer', 'my_fallback_unserializer'])
-```
+# Content of custom.py
 
-```python
-display_file('fallback.yaml')
+from ploomber.io import serializer, unserializer
+
+
+@serializer({'.json': write_json}, fallback=True)
+def my_fallback_serializer(obj, product):
+    pass
+
+
+@unserializer({'.json': read_json}, fallback=True)
+def my_fallback_unserializer(product):
+    pass
 ```
+<!-- #endmd -->
+
+<!-- #md -->
+```yaml
+# Content of fallback.yaml
+serializer: custom.my_fallback_serializer
+unserializer: custom.my_fallback_unserializer
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict.json
+        final: output/final_dict.json
+```
+<!-- #endmd -->
 
 ```sh
 ploomber build --entry-point fallback.yaml --force
@@ -123,21 +242,35 @@ ploomber build --entry-point fallback.yaml --force
 
 Let's print the JSON files to verify their contents:
 
-```python
-display_file('output/another_dict.json')
+```sh
+cat output/another_dict.json
 ```
 
-```python
-display_file('output/final_dict.json')
+```sh
+cat output/final_dict.json
 ```
 
 ## Using default serializers
 
 Ploomber comes with a few convenient serialization functions to write more succint serializers. We can request the use of such default serializers using the `defaults` argument, which takes a list of extensions:
 
+<!-- #md -->
 ```python
-display_file('custom.py', symbols=['my_defaults_serializer', 'my_defaults_unserializer'])
+# Content of custom.py
+
+from ploomber.io import serializer, unserializer
+
+
+@serializer(fallback=True, defaults=['.json'])
+def my_defaults_serializer(obj, product):
+    pass
+
+
+@unserializer(fallback=True, defaults=['.json'])
+def my_defaults_unserializer(product):
+    pass
 ```
+<!-- #endmd -->
 
 Here we're asking to dispatch `.json` products and use `pickle` for all other extensions, the same as we did for the previous examples, except this time, we don't have to pass the mapping argument to the decorators.
 
@@ -148,9 +281,22 @@ Here we're asking to dispatch `.json` products and use `pickle` for all other ex
 3. `.csv`: the returned object must be a `pandas.DataFrame`
 4. `.parquet`: the returned object must be a `pandas.DataFrame,` and a parquet library should be installed (such as `pyarrow`).
 
-```python
-display_file('defaults.yaml')
+<!-- #md -->
+```yaml
+# Content of defaults.yaml
+serializer: custom.my_defaults_serializer
+unserializer: custom.my_defaults_unserializer
+
+tasks:
+  - source: tasks.first
+    product: output/one_dict
+  
+  - source: tasks.second
+    product:
+        another: output/another_dict.json
+        final: output/final_dict.json
 ```
+<!-- #endmd -->
 
 ```sh
 ploomber build --entry-point defaults.yaml --force
@@ -158,12 +304,12 @@ ploomber build --entry-point defaults.yaml --force
 
 Let's print the JSON files to verify their contents:
 
-```python
-display_file('output/another_dict.json')
+```sh
+cat output/another_dict.json
 ```
 
-```python
-display_file('output/final_dict.json')
+```sh
+cat output/final_dict.json
 ```
 
 ## Wrapping up

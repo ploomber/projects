@@ -12,6 +12,7 @@ dependencies:
 - scikit-learn
 - pip:
   - ipywidgets
+  - joblib
   - jupyter
   - matplotlib
   - mlflow

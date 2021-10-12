@@ -1,22 +1,28 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n ml-online`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fml-online%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=ml-online%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/ml-online/README.ipynb)
+<!-- end header -->
+
+
+
+<!-- #region -->
 # Machine Learning pipeline with online API
 
-ML pipeline. Train in Kubernetes (via Argo Workflows), deploy using Flask.
+ML pipeline that deploys using flask.
 
 Note: all commands must be executed in the `ml-online/` directory.
 
 ## Setup
 
 ```sh
-# required to run cli commands
-pip installl invoke
-
-# if using conda
-invoke setup
-conda activate ml-online
-
-# or use pip directly
-pip install -r requirements.txt
-pip install --editable .
+pip install --editable ".[dev]"
 ```
 
 ## File layout
@@ -26,9 +32,10 @@ pip install --editable .
 1. `pipeline-features.yaml`: feature engineering YAML spec
 2. `pipeline.yaml`: training pipeline
 3. `infer.py`: converts training pipeline to an inference pipeline
-4. `service.py`: uses inference pipeline to serve predictions using flask
+4. `service.py`: uses inference pipeline to serve predictions using Flask
 
-## Training pipeline (local)
+## Training pipeline
+<!-- #endregion -->
 
 ```sh
 ploomber build
@@ -47,73 +54,107 @@ cp products/model.pickle src/ml_online/model.pickle
 
 Start web application:
 
+```python
+from os import environ
+import subprocess
+
+def start_flask():
+    """Start Flask and wait until it's ready
+    """
+    proc = subprocess.Popen(['flask', 'run'],
+                        env=dict(environ, FLASK_APP='ml_online.service'),
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    
+    while True:
+        out = proc.stdout.readline()
+        print(out.decode().strip())
+    
+        if b'5000' in out:
+            break
+    
+    return proc
+```
+
+```python
+proc = start_flask()
+```
+
+<!-- #region -->
+*Note:* `start_flask()` is the same as executing the following a terminal:
+
 ```sh
 export FLASK_APP=ml_online.service
 flask run
 ```
+<!-- #endregion -->
 
 Open a new terminal to make predictions:
 
-```sh
-curl -d  '{"sepal length (cm)": 5.1, "sepal width (cm)": 3.5, "petal length (cm)": 1.4, "petal width (cm)": 0.2}' -H 'Content-Type: application/json' http://127.0.0.1:5000/
-
-# with different values
-curl -d  '{"sepal length (cm)": 5.9, "sepal width (cm)": 3.0, "petal length (cm)": 5.1, "petal width (cm)": 1.8}' -H 'Content-Type: application/json' http://127.0.0.1:5000/
+```python
+import requests
 ```
 
-Note: Ploomber exports a Python object that encapsulates the full inference pipeline (pre-processing + feature engineering + model inference), it can be deployed with any framework.
+```python
+def make_request(data):
+    """Hit the prediction endpoint
+    """
+    response = requests.post('http://127.0.0.1:5000/',
+                             data=data,
+                             headers={'Content-Type': 'application/json'})
+    return response.json()
+```
 
-## Training in Kubernetes
+```python
+make_request('{"sepal length (cm)": 5.1, "sepal width (cm)": 3.5, "petal length (cm)": 1.4, "petal width (cm)": 0.2}')
+```
 
-If you want to train models distributively, you can export your training pipeline to run on Kubernetes (via Argo Workflows), AWS Batch, or Airflow using `soopervisor`.
+<!-- #region -->
+*Note: The previous command is equivalent to running the following on the terminal*
 
-Click here to go to Soopervisor's  [documentation](https://soopervisor.readthedocs.io/) or [Github](github.com/ploomber/soopervisor)
+```sh
+curl -d  '{"sepal length (cm)": 5.1, "sepal width (cm)": 3.5, "petal length (cm)": 1.4, "petal width (cm)": 0.2}' -H 'Content-Type: application/json' http://127.0.0.1:5000/
+```
+<!-- #endregion -->
 
+```python
+make_request('{"sepal length (cm)": 5.9, "sepal width (cm)": 3.0, "petal length (cm)": 5.1, "petal width (cm)": 1.8}')
+```
+
+<!-- #region -->
+*Note: The previous command is equivalent to running the following on the terminal*
+
+```sh
+curl -d  '{"sepal length (cm)": 5.9, "sepal width (cm)": 3.0, "petal length (cm)": 5.1, "petal width (cm)": 1.8}' -H 'Content-Type: application/json' http://127.0.0.1:5000/
+```
+<!-- #endregion -->
+
+Note: Ploomber exports a Python object that encapsulates the entire inference pipeline (pre-processing + feature engineering + model inference). You can deploy it with any framework.
+
+```python
+# terminate flask app
+proc.kill()
+```
 
 ## Testing
 
-```sh
-# run tests in the current environment
-invoke test --inplace
+The example contains some basic unit tests. To run them:
 
-# creates a new virtual environment before running tests - useful for setting up continuous integration
-invoke test
+```sh
+pytest -p no:warnings
 ```
+
+<!-- #region -->
 
 ## Packaging
 
-This project is a Python package, you can generate a distribution archive (`tar.gz`) or a built distribution (`.whl`) for deployment:
+This project is a Python package. You can generate a distribution archive (`tar.gz`) or a built distribution (`.whl`) for deployment:
+
 
 ```sh
 python -m build
 ```
 
-Files are saved in in the `dist/` directory. Both contain all the necesary pieces to serve predictions: dependencies, preprocessing code, and model file.
+<!-- #endregion -->
 
-## Interactive console
-
-Run in a terminal:
-
-```sh
-ploomber interact
-```
-
-Starts an interactive session with a `dag` variable, which is the
-representation of the training pipeline, useful for debugging. Try the following:
-
-```python
-# get task names
-list(dag)
-
-# get task object
-task = dag['get']
-
-# get task information
-task.source
-task.product
-
-# debug task
-task.debug()
-
-# enter "quit" to exit the debugger
-```
+The previous command creates a `.whl` and a `.tar.gz` file in the `dist/` directory; both contain all the necessary pieces to serve predictions: dependencies, pre-processing code, and model file.

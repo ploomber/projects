@@ -1,5 +1,6 @@
 # This file was automatically generated
 ipywidgets
+joblib
 jupyter
 matplotlib
 mlflow

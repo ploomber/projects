@@ -24,11 +24,11 @@ def read(*names, **kwargs):
 
 
 REQUIRES = [
+    # for training models
     'numpy',
     'pandas',
     'ploomber',
     'scikit-learn',
-    # for training models
     'jupyter',
     'matplotlib',
     'sklearn_evaluation',
@@ -44,11 +44,9 @@ REQUIRES = [
 
 REQUIRES_DEV = [
     'pytest',
-    'nox',
-    'pyyaml',
     'invoke',
-    'flake8',
     'build',
+    'wheel',
     'soopervisor',
 ]
 

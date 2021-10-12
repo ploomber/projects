@@ -1,3 +1,17 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n parametrized`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fparametrized%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=parametrized%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/parametrized/README.ipynb)
+<!-- end header -->
+
+
+
 # Parametrized pipelines
 
 
@@ -9,19 +23,30 @@ Ploomber allows you to do so using parametrized pipelines. Let's see a sample us
 
 ## Spec API (``pipeline.yaml``)
 
-```python
-from ploomberutils import display_file, filter_output
-```
 
-```python
-display_file('pipeline.yaml')
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+tasks:
+  - source: print.py
+    name: print
+    product:
+      nb: 'output/{{some_param}}/notebook.ipynb'
+    papermill_params:
+        log_output: True
+    params:
+      some_param: '{{some_param}}'
 ```
+<!-- #endmd -->
 
 The `pipeline.yaml` above has a placeholder called `some_param`. It is coming from a file called `env.yaml`:
 
-```python
-display_file('env.yaml')
+<!-- #md -->
+```yaml
+# Content of env.yaml
+some_param: default_value
 ```
+<!-- #endmd -->
 
 When reading your `pipeline.yaml`, Ploomber looks for an `env.yaml` file. If found, all defined keys will be available to your pipeline definition. You can use these placeholders (placeholders are strings between double curly brackets) in any of the fields of your `pipeline.yaml` file.
 
@@ -29,9 +54,19 @@ In our case, we are using it in two places. First, we will save the executed not
 
 Let's see how the code looks like:
 
+<!-- #md -->
 ```python
-display_file('print.py')
+# Content of print.py
+# + tags=["parameters"]
+upstream = None
+product = None
+some_param = None
+
+# +
+print('some_param: ', some_param, ' type: ', type(some_param))
+
 ```
+<!-- #endmd -->
 
 Our task is a Python script, meaning that parameters are passed as an injected cell at runtime. Let's see what happens if we build our pipeline.
 
@@ -42,6 +77,12 @@ ploomber build --force --log INFO
 ```
 
 ```python
+def filter_output(captured, startswith):
+    return print('\n'.join([
+        line for line in captured.stderr.split('\n')
+        if line.startswith(startswith)
+    ]))
+
 filter_output(captured, startswith='INFO:papermill:some_param')
 ```
 
@@ -91,9 +132,19 @@ Parametrization is straightforward when using a factory function. If your
 factory takes parameters, they'll also be available in the command-line interface. Types are inferred from [type hints](https://docs.python.org/3/library/typing.html). Let's see an example:
 <!-- #endregion -->
 
+<!-- #md -->
 ```python
-display_file('factory.py')
+# Content of factory.py
+from ploomber import DAG
+
+
+def make(param: str, another: int = 10):
+    dag = DAG()
+    # add tasks to your pipeline...
+    return dag
+
 ```
+<!-- #endmd -->
 
 Our function takes two parameters: `param` and `another`. Parameters with no default values (`param`) turn into positional arguments, and function parameters with default values convert
 to optional parameters (`another`). To see the same auto-generated API, you can use the `--help` command:

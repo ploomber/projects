@@ -19,7 +19,7 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
-    install_requires=['ploomber', 'click'],
+    install_requires=['ploomber', 'click', 'jupyblog'],
     extras_require={
         'dev': [
             # pandas required to render root README.md

@@ -1,3 +1,17 @@
+<!-- start header -->
+To run this example locally, execute: `ploomber examples -n mlflow`.
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fmlflow%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=mlflow%20issue)
+
+Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/mlflow/README.ipynb)
+<!-- end header -->
+
+
+
 # Ploomber + MLflow
 
 *Note: This is an advanced tutorial and assumes familiarity with basic Ploomber concepts, you may want to read the basic tutorial first and then come back here.*
@@ -6,12 +20,6 @@
 
 MLflow is a popular library for tracking Machine Learning experiments. This example shows how to use Ploomber and MLflow to train multiple models in parallel and log them to MLflow.
 
-```python
-# this function is only used to show files, if running locally, you can skip cells calling this function
-from ploomberutils import display_file
-
-import black
-```
 
 Let's first load our `pipeline.yaml` as a DAG object and plot it:
 
@@ -30,15 +38,81 @@ The pipeline gets the iris dataset (`get` task), creates a few features (`sepal`
 
 Now that we have a high-level idea of what the pipeline is doing, let's look at the `pipeline.yaml`:
 
-```python
-display_file('pipeline.yaml')
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+# uncomment to run in parallel
+# executor: parallel
+
+tasks:
+  - source: tasks.raw.get
+    product: products/raw/get.csv
+
+  - source: tasks.features.sepal
+    product: products/features/sepal.csv
+
+  - source: tasks.features.petal
+    product: products/features/petal.csv
+
+  - source: tasks.features.features
+    product: products/features/features.csv
+
+  - source: scripts/fit.py
+    name: fit-
+    # we need to turn this off because parameters depend on the type of model
+    static_analysis: false
+    product: products/report.ipynb
+    grid:
+      - model: sklearn.ensemble.RandomForestClassifier
+        n_estimators: [10, 20]
+        criterion: [gini, entropy]
+        params_names: [[n_estimators, criterion]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+      - model: sklearn.ensemble.AdaBoostClassifier
+        n_estimators: [10, 20]
+        learning_rate: [0.5, 1.0]
+        params_names: [[n_estimators, learning_rate]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+    on_finish: hooks.store_report
+
+
+  - source: scripts/compare.py
+    product: products/compare.ipynb
+    params:
+      mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
 ```
+<!-- #endmd -->
 
 The first four tasks are simple, they execute Python functions to prepare the data. The 5th and 6th entries are the interesting ones. Let's analyze the 5th entry first:
 
-```python
-display_file('pipeline.yaml', lines=(16, 36))
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+
+  - source: scripts/fit.py
+    name: fit-
+    # we need to turn this off because parameters depend on the type of model
+    static_analysis: false
+    product: products/report.ipynb
+    grid:
+      - model: sklearn.ensemble.RandomForestClassifier
+        n_estimators: [10, 20]
+        criterion: [gini, entropy]
+        params_names: [[n_estimators, criterion]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+      - model: sklearn.ensemble.AdaBoostClassifier
+        n_estimators: [10, 20]
+        learning_rate: [0.5, 1.0]
+        params_names: [[n_estimators, learning_rate]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+    on_finish: hooks.store_report
+
 ```
+<!-- #endmd -->
 
 The task uses `scripts/fit.py` as its source and sets the name to `fit-` so that generated tasks have the same prefix. Then we set `static_analysis` to `false`, the static analysis feature checks that the parameters passed to the task match the ones declared by the script (in the `parameters` cell). Still, since we'll be passing different parameters depending on the model, we have to turn off this feature. Finally, we can see that we'll store the output in `products/report.ipynb`.
 
@@ -55,17 +129,34 @@ model = RandomForestClassifier(n_estimators=10, criterion='gini')
 
 `track` controls whether to track experiments with MLflow or not; it's turned off by default because we may want to open `scripts/fit.py` and edit it interactively using Jupyter without tracking anything. `mlflow_tracking_uri` is the URI that we'll use for MLflow. Note that `track` and `mlflow_tracking_uri` are placeholders, and their values come from an `env.yaml` file, whose contents are shown next:
 
-```python
-display_file('env.yaml')
+<!-- #md -->
+```yaml
+# Content of env.yaml
+track: false
+mlflow_tracking_uri: 'file:{{root}}/mlruns'
 ```
+<!-- #endmd -->
 
 We can see that `track` is set to `false`, and `mlflow_tracking_uri` to `file:{{root}}/mlruns`. Ploomber automatically resolves the `{{root}}` placeholder to the parent directory of our `pipeline.yaml` file, but we could have an explicit value instead (e.g., `file:/path/to/directory`).
 
 Let's take a look at the portion of `scripts/fit.py` that uses `track` and `mlflow_tracking_uri`:
 
+<!-- #md -->
 ```python
-display_file('scripts/fit.py', syntax='python', lines=(28, 38))
+# Content of scripts/fit.py
+if track:
+    print('tracking with mlflow...')
+    mlflow.set_tracking_uri(mlflow_tracking_uri)
+
+    @atexit.register
+    def end_run():
+        mlflow.end_run()
+else:
+    print('tracking skipped...')
+    mlflow = Mock()
+
 ```
+<!-- #endmd -->
 
 <!-- #region -->
 If `track` is `True`, we set the tracking URI and use the built-in `atexit` module to ensure that we call `mlflow.end_run` when our script finishes execution. If `track` is `False`, we mock `mlflow` (using a built-in module) so all our calls to `mlflow` don't do anything.
@@ -74,9 +165,32 @@ If `track` is `True`, we set the tracking URI and use the built-in `atexit` modu
 Now that we explained what each parameter is doing, let's go back to our task declaration:
 <!-- #endregion -->
 
-```python
-display_file('pipeline.yaml', lines=(16, 36))
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+
+  - source: scripts/fit.py
+    name: fit-
+    # we need to turn this off because parameters depend on the type of model
+    static_analysis: false
+    product: products/report.ipynb
+    grid:
+      - model: sklearn.ensemble.RandomForestClassifier
+        n_estimators: [10, 20]
+        criterion: [gini, entropy]
+        params_names: [[n_estimators, criterion]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+      - model: sklearn.ensemble.AdaBoostClassifier
+        n_estimators: [10, 20]
+        learning_rate: [0.5, 1.0]
+        params_names: [[n_estimators, learning_rate]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+    on_finish: hooks.store_report
+
 ```
+<!-- #endmd -->
 
 The total number of tasks generated by grid depends on the number of parameters; for the first entry, we have:
 
@@ -96,6 +210,8 @@ The next entry on the grid is similar and generates another four tasks.
 To see more clearly what parameters each task receives, let's use the `dag` object to print the parameters of the first two `fit-` tasks:
 
 ```python
+import black
+
 fm = black.FileMode()
 
 tasks_fit = [t for t in dag.values() if 'fit' in t.name]
@@ -113,26 +229,16 @@ You can see that most parameters are the same, except for `criterion` (the first
 
 Every parameter declared in `env.yaml` can be switched from the command line; let's get the `--help` information to see how to do it:
 
-```bash tags=["bash"]
+```bash
 ploomber build --help
 ```
 
 As you can see, we can use `--env--track` to switch the track flag. So let's run the pipeline and switch this value to ensure MLflow tracks our experiments:
 
-```bash tags=["bash"]
+```bash
 # note: this will take about a minute to run
 ploomber build --env--track true
 ```
-
-Click `File -> New -> Terminal` on the JupyterLab menu bar and execute the following command in the Terminal tab.
-
-```
-cd projects/mlflow/
-mlflow ui
-```
-
-Then open the URL with the Binder URL `lab/tree/projects/mlflow` replaced with `proxy/5000/` in a new tab.
-Be sure to add `/` after `5000`.
 
 That's it! We just trained eight models and logged them to MLflow! Here's how my MLflow looks like:
 
@@ -156,9 +262,30 @@ Storing the notebook helps debug: we can use `print` statements in our script to
 
 Ploomber has a feature called "hooks", which allows running code when a task finishes execution. In our case, we're using it for converting the generated notebook to HTML and log it to MLflow:
 
+<!-- #md -->
 ```python
-display_file('hooks.py', syntax='python')
+# Content of hooks.py
+import mlflow
+from nbconvert import HTMLExporter
+from sklearn_evaluation import NotebookIntrospector
+
+
+def store_report(product, params):
+    if params['track']:
+        nb = NotebookIntrospector(product)
+        run_id = nb['mlflow-run-id'].strip()
+
+        # https://nbconvert.readthedocs.io/en/latest/config_options.html#preprocessor-options
+        exporter = HTMLExporter()
+        # hide code cells
+        exporter.exclude_input = True
+        body, _ = exporter.from_filename(product)
+
+        with mlflow.start_run(run_id):
+            mlflow.log_text(body, 'nb.html')
+
 ```
+<!-- #endmd -->
 
 We add `product` and `params` to the function signature to tell Ploomber that we want the `product` that the task generates and the task params. We use this to load the generated notebook and convert it to HTML. Then we retrieve the run id and log it to MLflow.
 
@@ -166,12 +293,43 @@ We add `product` and `params` to the function signature to tell Ploomber that we
 
 To register the hook, we add the `on_finish` entry to the task declaration:
 
-```python
-display_file('pipeline.yaml', lines=(31, 36))
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+        learning_rate: [0.5, 1.0]
+        params_names: [[n_estimators, learning_rate]]
+        track: '{{track}}'
+        mlflow_tracking_uri: '{{mlflow_tracking_uri}}'
+    on_finish: hooks.store_report
+
 ```
+<!-- #endmd -->
 
 <!-- #region -->
-## Visualizing results in MLflow
+
+## Visualizing results in MLflow (UI)
+
+To review your experiments using MLflow's web application, click
+`File -> New -> Terminal` on the JupyterLab menu bar and execute the following
+command in the Terminal tab.
+
+```
+cd projects/mlflow/
+mlflow ui
+```
+
+*If you're running this example locally:*
+
+Upon initialization, go to [http://127.0.0.1:5000](http://127.0.0.1:5000) to open MLflow (`5000` is the default port, but it may change, check out the URL printed in the terminal)
+
+*If you're running this example on Binder:*
+
+The URL in your browser should look like this `https://{x}.mybinder.org/user/ploomber-{y}/lab/tree/projects/mlflow`. Copy the URL, open a new tab and delete everything after the `ploomber-y` portion (in our case, that would be `lab/tree/projects/mlflow`) and append `proxy/5000/` (note the trailing `/`), your URL should look like this: `https://{x}.mybinder.org/user/ploomber-{y}/proxy/5000/`.
+
+<!-- #endregion -->
+
+<!-- #region -->
+## Visualizing results in MLflow (CLI)
 
 If you're running this example locally, you may start MLflow with the following command:
 
@@ -182,11 +340,11 @@ mlflow ui
 If you're using Binder, you can use MLflow's CLI to see the results. List experiments:
 <!-- #endregion -->
 
-```bash tags=["bash"]
+```bash
 mlflow experiments list
 ```
 
-```bash tags=["bash"]
+```bash
 mlflow runs list --experiment-id 1
 ```
 
@@ -207,9 +365,14 @@ But if we want to run tasks serially, we can remove that line. For example, we m
 
 The final task in our pipeline generates a notebook that prints the best experiment overall. We want this task to execute after all our experiments are done, but we cannot list all of them because the exact number may change (e.g., suppose you add more parameters to the random forest grid). Ploomber allows us wildcards to solve this:
 
+<!-- #md -->
 ```python
-display_file('scripts/compare.py', syntax='python', lines=(17, 19))
+# Content of scripts/compare.py
+# + tags=["parameters"]
+upstream = ['fit-*']
+product = None
 ```
+<!-- #endmd -->
 
 Our `scripts/compare.py` declares upstream dependencies with the wildcard `fit-*`, which translates to "execute all tasks that match the `fit-*` pattern before `scripts/compare.py`".
 
