@@ -124,6 +124,16 @@ As you can see, we can use `--env--track` to switch the track flag. So let's run
 ploomber build --env--track true
 ```
 
+Click `File -> New -> Terminal` on the JupyterLab menu bar and execute the following command in the Terminal tab.
+
+```
+cd projects/mlflow/
+mlflow ui
+```
+
+Then open the URL with the Binder URL `lab/tree/projects/mlflow` replaced with `proxy/5000/` in a new tab.
+Be sure to add `/` after `5000`.
+
 That's it! We just trained eight models and logged them to MLflow! Here's how my MLflow looks like:
 
 ![list](images/list.png)
