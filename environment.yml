@@ -12,6 +12,7 @@ dependencies:
 - scikit-learn
 - jupyter-server-proxy
 - pip:
+  - ipywidgets
   - jupyter
   - matplotlib
   - mlflow

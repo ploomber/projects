@@ -54,10 +54,15 @@ Alternatively, you can configure logging from Python, which gives you more flexi
 # e.g., python run_pipeline.py
 import logging
 from pathlib import Path
+import sys
 
+from ploomber.executors import Serial
 from ploomber.spec import DAGSpec
 
 logging.basicConfig(filename='my.log', format='%(levelname)s:%(message)s', level=logging.INFO)
+
+# make sure we can import basic/tasks.py since basic/pipeline.yaml uses it
+sys.path.append('basic')
 
 dag = DAGSpec('basic/pipeline.yaml').to_dag()
 dag.build(force=True)
@@ -90,7 +95,7 @@ To get the code for the previous example, [click here](https://github.com/ploomb
 <!-- #region -->
 ## Implementation details
 
-To keep the tutorial short, we overlooked some technical details. However, if you want to customize logging, they are important to know.
+To keep the tutorial short, we overlooked some technical details. However, if you want to customize logging, they are essential to know.
 
 ### Function tasks and sub-processes
 
@@ -112,7 +117,7 @@ def some_task(product):
 
 ### Scripts and notebooks
 
-Unlike function tasks, which can run in the same process that runs Ploomber, or in a child process, scripts and notebooks execute independently. Hence, any logging configuration made in the main process is lost, and We have to configure a separate logger at the top of the script/notebook.
+Unlike function tasks, which can run in the same process as Ploomber or in a child process, scripts and notebooks execute independently. Hence, any logging configuration made in the main process is lost, and We have to configure a separate logger at the top of the script/notebook.
 
 ### Parallel execution
 

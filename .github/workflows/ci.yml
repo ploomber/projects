@@ -10,6 +10,7 @@ jobs:
           - debugging
           - sql-templating
           - mlflow
+          - guides/logging
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -161,10 +162,10 @@ jobs:
           conda activate env
           # install ploomberutils
           pip install ../pkg/
-          # train
-          ploomber build --entry-point pipeline.yaml
-          # serve
-          ploomber build --entry-point pipeline.serve.yaml
+          
+          jupytext README.md --to .ipynb
+          papermill README.ipynb README.ipynb --kernel python  --log-output
+
           # TODO: export to argo
           # ploomberutils validate-argo argo.yaml
 
