@@ -14,6 +14,10 @@ jupyter:
 
 # SQL templating
 
+<!-- start description -->
+Introductory tutorial teaching how to develop modular SQL pipelines.
+<!-- end description -->
+
 ## Basic templating
 
 SQL templating is a powerful way to make your SQL scripts more concise. It works by using a templating language (Ploomber uses [jinja](https://github.com/pallets/jinja)) to generate SQL code on the fly.

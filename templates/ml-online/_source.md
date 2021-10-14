@@ -15,7 +15,9 @@ jupyter:
 <!-- #region -->
 # Machine Learning pipeline with online API
 
-ML pipeline that deploys using flask.
+<!-- start description -->
+Load data, generate features, train a model, and deploy model with flask.
+<!-- end description -->
 
 Note: all commands must be executed in the `ml-online/` directory.
 

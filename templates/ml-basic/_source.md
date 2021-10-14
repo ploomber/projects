@@ -14,7 +14,9 @@ jupyter:
 
 # Basic ML project
 
-Machine Learning pipeline.
+<!-- start description -->
+Download data, clean it, generate features and train a model.
+<!-- end description -->
 
 ## Description
 

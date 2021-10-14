@@ -14,7 +14,9 @@ jupyter:
 
 # R pipeline
 
-R pipeline.
+<!-- start description -->
+Load, clean and plot data with R.
+<!-- end description -->
 
 **Note:** If using conda (`environment.yml`), R will be installed and configured. If using pip (`requirements.txt`), you must install R and [configure it yourself]( https://github.com/IRkernel/IRkernel).
 

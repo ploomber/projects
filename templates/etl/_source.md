@@ -15,7 +15,9 @@ jupyter:
 
 # ETL SQL pipeline
 
-SQL pipeline that downloads data, uploads to a database, process it, and plots using Python/R
+<!-- start description -->
+Download a data file, upload it to a database, process it, and plot with Python and R.
+<!-- end description -->
 
 **Note:** This pipeline requires the `p7zip` package. It is installed if using `conda` (`environment.yml`). If using `pip`, you must install it yourself.
 

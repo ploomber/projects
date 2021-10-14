@@ -14,7 +14,9 @@ jupyter:
 
 # ML advanced
 
-ML pipeline using the Python API. Shows how to package project, test it using pytest, and train models in parallel.
+<!-- start description -->
+ML pipeline using the Python API. Shows how to create a Python package, test it with pytest, and train models in parallel.
+<!-- end description -->
 
 ## Build
 

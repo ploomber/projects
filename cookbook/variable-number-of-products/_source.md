@@ -14,8 +14,9 @@ jupyter:
 
 # Tasks with a variable number of products
 
-This example shows how to declare tasks that generate a variable number of
-products.
+<!-- start description -->
+Shows how to create tasks whose number of products depends on runtime conditions.
+<!-- end description -->
 
 1. [Basic](basic) - Basic example
 2. [Serializer](serializer) - Example using serializer and unserializer

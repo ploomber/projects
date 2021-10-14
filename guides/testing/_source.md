@@ -14,6 +14,10 @@ jupyter:
 
 # Pipeline testing
 
+<!-- start description -->
+Tutorial showing how to use a task's on_finish hook to test data quality.
+<!-- end description -->
+
 Testing your pipeline is critical to ensure your data expectations hold. When you perform a data transformation, you are expecting the output to have certain properties (e.g. no nulls in certain column). Without testing, these expectations won't be verified and will cause errors errors to propagate to all downstream tasks.
 
 These are the most common sources of errors when transforming data:

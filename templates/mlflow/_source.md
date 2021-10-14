@@ -18,8 +18,11 @@ jupyter:
 
 *Note: This example requires ploomber 0.13.2 or higher.*
 
-MLflow is a popular library for tracking Machine Learning experiments. This example shows how to use Ploomber and MLflow to train multiple models in parallel and log them to MLflow.
+<!-- start description -->
+Train a grid of models and log them to MLflow.
+<!-- end description -->
 
+## Introduction
 
 Let's first load our `pipeline.yaml` as a DAG object and plot it:
 

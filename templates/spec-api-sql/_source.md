@@ -15,7 +15,10 @@ jupyter:
 
 # SQL/Python pipeline
 
-Pipeline with SQL and Python tasks.
+<!-- start description -->
+Use SQL scripts to manipulate data in a database, dump a table, and plot it with Python.
+<!-- end description -->
+
 
 ## Create sample data
 

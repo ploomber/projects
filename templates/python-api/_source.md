@@ -14,7 +14,10 @@ jupyter:
 
 # Python API
 
-Pipeline project using the Python API.
+<!-- start description -->
+Loads, clean, and plot data using the Python API.
+<!-- end description -->
+
 
 If you're new to the Python API, check out [python-api-examples/](../python-api-examples) directory, containing tutorials and more examples.
 

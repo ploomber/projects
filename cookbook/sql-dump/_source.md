@@ -14,7 +14,9 @@ jupyter:
 
 # SQLDump example
 
-A minimal example to dump from a SQL database using SQLDump.
+<!-- start description -->
+A minimal example showing how to dump a table from a SQL database.
+<!-- end description -->
 
 Create some sample data:
 

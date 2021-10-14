@@ -14,6 +14,9 @@ jupyter:
 
 # Parametrized pipelines
 
+<!-- start description -->
+Tutorial showing how to parametrize pipelines and change parameters from the command-line.
+<!-- end description -->
 
 Often, pipelines perform the same operation over different subsets of the data. For example, say you are developing visualizations of economic data. You might want to generate the same charts for other countries. 
 

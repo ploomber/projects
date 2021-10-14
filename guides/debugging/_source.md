@@ -15,7 +15,11 @@ jupyter:
 <!-- #region -->
 # Debugging
 
-*This is an in-depth tutorial, for a quick reference,* [click here](https://ploomber.readthedocs.io/en/latest/cookbook/debugging.html).
+<!-- start description -->
+Tutorial showing techniques for debugging pipelines.
+<!-- end description -->
+
+*For a quick reference,* [click here](https://ploomber.readthedocs.io/en/latest/cookbook/debugging.html).
 
 ## Why debugging pipelines is hard
 

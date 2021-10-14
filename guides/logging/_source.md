@@ -15,7 +15,9 @@ jupyter:
 
 # Logging
 
-This guide will show you how to log pipeline execution.
+<!-- start description -->
+Tutorial showing how to add logging to a pipeline.
+<!-- end description -->
 
 ## Sample pipeline
 

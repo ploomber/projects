@@ -14,7 +14,9 @@ jupyter:
 
 # Intermediate ML project
 
-Example showing training and serving ML pipelines with integration testing to evaluate training data quality.
+<!-- start description -->
+Training and serving ML pipelines with integration testing to evaluate training data quality.
+<!-- end description -->
 
 ## Training pipeline
 

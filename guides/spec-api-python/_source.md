@@ -15,7 +15,9 @@ jupyter:
 
 # Your first Python pipeline
 
-This guide shows you how to run your first Ploomber pipeline.
+<!-- start description -->
+Introductory tutorial to learn the basics of Ploomber.
+<!-- end description -->
 
 **Note:** This is intended for a quick and interactive experience. If you want
 to learn about Ploomber's core concepts and design rationale, go to the

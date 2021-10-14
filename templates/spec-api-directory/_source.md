@@ -12,9 +12,11 @@ jupyter:
     name: python3
 ---
 
-# Pipeline from directory
+# Pipeline from a directory
 
-Pipeline from a directory of scripts.
+<!-- start description -->
+Create a pipeline from a directory with scripts (without a pipeline.yaml file).
+<!-- end description -->
 
 ## Build
 
