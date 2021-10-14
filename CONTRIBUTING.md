@@ -10,9 +10,13 @@ invoke build --name readme
 
 Note that `ploomber examples` uses `index.csv` to list available examples.
 
-## Documentation tutorials
+## Types of examples
 
-Some directories are not examples but tutorials that are part of the documentation: debugging, parametrized, testing and sql-templating.
+We classify examples depending on their objective:
+
+1. `cookbook`: Short and to-the-point examples showing how to achieve something specific. These are for users to get some sample code that they can incorporate into their projects.
+2. `tutorials`: Long, in-depth tutorials for learning. These teach users concepts and features in-depth; some of these are part of the documentation itself, the introductory ones are part of the *Get Started* section, while the more advanced ones are part of the *User Guide*. Some of these are related and have an order to set the *learning journey*: users learn something basic, then move on to something more advanced. If tutorials are related, they should link to each other.
+3. `templates`: They're are halfway through `cookbook` and `tutorials`. They're starting points for new projects; hence, they achieve something specific but have a high-level explanation of each part so users can understand it and customize it quickly. Templates may be related (e.g., a template for an ML regression problem and one for a classification problem), but the relationship is unordered; they are suggestions for users to explore related content. Relatec tutorials should link each other.
 
 ## Adding examples
 
@@ -59,6 +63,21 @@ jupyter:
     name: python3
 ---
 ```
+
+#### Title and description
+
+Next to the front matter, you should include a title and a description:
+
+```md
+# This is a title
+
+<!-- start description -->
+This is a description.
+<!-- end description -->
+
+```
+
+Note that the description is enclosed between two special marks (`<!-- start/end description -->`). The marks are necessary because we use them to identify the description and compile the root `README.md` from `_source.md`.
 
 #### Setup instructions
 

@@ -14,8 +14,9 @@ jupyter:
 
 # Serializer and unserializer
 
-Shows how to use `serialize` and `unserialize`, including cases where products
-have different extensions, and some tasks generate multiple products.
+<!-- start description -->
+Shows how to use the serializer and unserializer decorators.
+<!-- end description -->
 
 To execute the pipeline:
 

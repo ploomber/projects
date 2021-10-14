@@ -1,8 +1,13 @@
+import sys
 from pathlib import Path
 import shutil
 from glob import iglob
 
 from invoke import task
+
+if not Path('LICENSE').exists():
+    sys.exit('Error: Run the command from the root folder (the directory '
+             'with the LICENSE file).')
 
 
 @task
@@ -15,7 +20,7 @@ def setup(c, create_conda=True):
            ' && conda activate projects '
            ' &&') if create_conda else ''
 
-    cmd += (' pip install --editable "pkg[dev]"'
+    cmd += (' pip install --editable "_pkg[dev]"'
             ' && pip install --editable python-api/'
             ' && pip install --editable ml-advanced/'
             ' && pip install invoke')

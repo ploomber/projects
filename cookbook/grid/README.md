@@ -14,7 +14,9 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 
 # Task grids
 
-Sample code for creating task grids, this example uses `grid` to create many tasks at once:
+<!-- start description -->
+An example showing how to create a grid of tasks to train models with different parameters.
+<!-- end description -->
 
 <!-- #md -->
 ```yaml

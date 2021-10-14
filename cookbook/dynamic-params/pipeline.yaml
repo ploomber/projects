@@ -1,0 +1,9 @@
+# To run the pipeline: python run.py
+tasks:
+  - source: tasks.create_file
+    product: 'products/{{run_number}}/some_file.txt'
+  
+  - source: script.py
+    product:
+      nb: 'products/{{run_number}}/another.ipynb'
+      file: 'products/{{run_number}}/another.txt'

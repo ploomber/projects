@@ -15,7 +15,9 @@ jupyter:
 
 # Logging
 
-This guide will show you how to log pipeline execution.
+<!-- start description -->
+Tutorial showing how to add logging to a pipeline.
+<!-- end description -->
 
 ## Sample pipeline
 
@@ -30,7 +32,7 @@ papermill_params:
     log_output: True
 ```
 
-This extra configuration is required on each script/notebook task in your pipeline to enable logging. The code on each task isn't important, they contain a for loop and log a message on each iteration. Let's see it in action:
+This extra configuration is required on each script/notebook task in your pipeline to enable logging. The code on each task isn't important; they contain a for loop and log a message on each iteration. Let's see it in action:
 
 ```sh
 cd basic
@@ -45,16 +47,16 @@ We can see that the logging statements appear in the console. If you want to tak
 Note that the snippets above use the `logging` module instead of `print`. Although `print` is a quick and easy way to display messages in the console, the `logging` module is more flexible. Hence, it is the recommended option.
 
 <!-- #region -->
-## Logging to a file (On Linux and macOS)
+## Logging to a file
 
-It's common to send all your log records to a file. You can easily do so on Linux and macOS with the following command:
+It's common to send all your log records to a file. You can do so with the ``--log-file/-F`` option:
 
 ```sh
-ploomber build --log info > my.log 2>&1
+ploomber build --log info --log-file my.log
 ```
 <!-- #endregion -->
 
-## Logging to a file from Python (Linux, macOS, and Windows)
+## Logging to a file from Python
 
 Alternatively, you can configure logging from Python, which gives you more flexibility:
 
@@ -67,6 +69,9 @@ import sys
 
 from ploomber.executors import Serial
 from ploomber.spec import DAGSpec
+
+if Path('my.log').exists():
+    Path('my.log').unlink()
 
 logging.basicConfig(filename='my.log', format='%(levelname)s:%(message)s', level=logging.INFO)
 

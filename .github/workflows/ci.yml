@@ -7,20 +7,21 @@ jobs:
     strategy:
       matrix:
         folder:
-          - debugging
-          - sql-templating
-          - mlflow
-          - guides/logging
-          - spec-api-directory
           - cookbook/serialization
           - cookbook/grid
-          - ml-intermediate
-          - spec-api-sql
-          - testing
-          - guides/serialization
           - cookbook/sql-dump
           - cookbook/variable-number-of-products
-          - ml-advanced
+          - cookbook/dynamic-params
+          - guides/debugging
+          - guides/sql-templating
+          - guides/logging
+          - guides/testing
+          - guides/serialization
+          - templates/mlflow
+          - templates/spec-api-directory
+          - templates/ml-intermediate
+          - templates/spec-api-sql
+          - templates/ml-advanced
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -32,7 +33,7 @@ jobs:
           eval "$(conda shell.bash hook)"
           conda env create --file $FOLDER/environment.yml --name env
           conda activate env
-          pip install invoke ipywidgets pkg/
+          pip install invoke ipywidgets _pkg/
 
           if [ -f "$FOLDER/setup.py" ]; then
             echo "Found setup.py, installing package..."
@@ -73,15 +74,15 @@ jobs:
       matrix:
         folder:
           # basic
-          - ml-basic
-          - spec-api-r
+          - templates/ml-basic
+          - templates/spec-api-r
           #  intermediate
-          - python-api
+          - templates/python-api
           # advanced
-          - etl
+          # - templates/etl
           # guides
-          - parametrized
-          - spec-api-python
+          - guides/parametrized
+          - guides/spec-api-python
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -90,33 +91,26 @@ jobs:
         with:
           python-version: 3.9
       - run: |
-          cd $FOLDER
           eval "$(conda shell.bash hook)"
-          conda env create --file environment.yml --name env
+          conda env create --file $FOLDER/environment.yml --name env
           conda activate env
-
-          # test with dev version
-          # pip install git+https://github.com/ploomber/ploomber
-
-          if [ -f "setup.py" ]; then
-            echo "Found setup.py, installing package..."
-            pip install .
-          fi
-
-          ploomber build
-
-          # run commands in readme (re-use existing conda env)
-          pip install invoke
-          # install ploomberutils pkg
-          cd ..
-          pip install pkg/
-          # needed to run the readmes
-          pip install ipywidgets
           # some readmes require pygraphviz
           conda install pygraphviz -c conda-forge --yes
 
+          pip install _pkg/
+          pip install invoke ipywidgets
+
+          if [ -f "$FOLDER/setup.py" ]; then
+            echo "Found setup.py, installing package..."
+            pip install $FOLDER/
+          fi
+
           # test readme.md
           invoke build --name $FOLDER
+
+          # NOTE: i dont think we need this anymore
+          cd $FOLDER
+          ploomber build
 
   # The rest have some particular details, so we test them separately
   ml-online:
@@ -129,11 +123,12 @@ jobs:
           python-version: 3.9
       - run: |
           # install ploomberutils
-          pip install pkg/
+          pip install _pkg/
           pip install invoke
-          pip install -e "ml-online[dev]"
 
-          invoke build --name ml-online
+          pip install -e "templates/ml-online[dev]"
+
+          invoke build --name templates/ml-online
 
           # TODO: export to argo
           # validate argo spec

@@ -23,47 +23,44 @@ ploomber examples
 
 # download example with name
 ploomber examples --name {name}
+
+# example
+ploomber examples --name templates/mlflow
 ~~~
 
 ## How to read the examples
 
-Each example contains a `README.md` file that describes it; a `README.ipynb` is also available with the same contents but in Jupyter notebook format and commands outputs. In addition, files for `pip` (`requirements.txt`) and  `conda` (`environment.yml`) are provided for local execution.
+Each example contains a `README.md` file that describes it; a `README.ipynb` is also available with the same contents but in Jupyter notebook format and with command outputs. In addition, files for `pip` (`requirements.txt`) and  `conda` (`environment.yml`) are provided for local execution.
 
 ## Index
 
-### Basic
+### Templates
 
-{% for idx, name, entry, description in basic %}
-{{idx}}. [`{{name}}/`]({{name}}/README.{{entry}}) {{description}}
+Starting points for common use cases. Use them to ramp up a project quickly.
+
+{% for e in templates %}
+{{e.idx}}. [`{{e.path}}`]({{e.path}}/README.ipynb) {{e.description}}
 {% endfor %}
 
-### Intermediate
+### Cookbook
 
-{% for idx, name, entry, description in intermediate %}
-{{idx}}. [`{{name}}/`]({{name}}/README.{{entry}}) {{description}}
+Short and to-the-point examples showing how to use a specific feature.
+
+{% for e in cookbook %}
+{{e.idx}}. [`{{e.path}}`]({{e.path}}/README.ipynb) {{e.description}}
 {% endfor %}
 
-### Advanced
+### Guides
 
-{% for idx, name, entry, description in advanced %}
-{{idx}}. [`{{name}}/`]({{name}}/README.{{entry}}) {{description}}
+In-depth tutorials for learning.  These are part of the [documentation](https://ploomber.readthedocs.io/en/stable/user-guide/index.html).
+
+{% for e in guides %}
+{{e.idx}}. [`{{e.path}}`]({{e.path}}/README.ipynb) {{e.description}}
 {% endfor %}
 
-## Guides
-
-These are part of the [documentation](https://ploomber.readthedocs.io/en/stable/user-guide/index.html).
-
-
-1. [`spec-api-python/`](spec-api-python/README.ipynb) Introductory tutorial
-2. [`parametrized/`](parametrized/README.ipynb) Pipeline with input parameters
-3. [`debugging/`](debugging/README.ipynb) Pipeline to demonstrate debugging capabilities
-4. [`testing/`](testing/README.ipynb) Pipeline with SQL and Python tasks showing how to test pipelines
-5. [`sql-templating/`](sql-templating/README.ipynb) SQL pipeline showing how to use macros to write concise SQL scripts
-6. [`logging`](guides/logging/README.ipynb) Logging configuration
-7. [`serialization`](guides/serialization/README.ipynb) Configuring serialization for function tasks
 
 ## Python API
 
 The simplest way to get started with Ploomber is via the Spec API, which allows you to describe pipelines using a `pipeline.yaml` file, most examples on this repository use the Spec API. However, if you want more flexibility, you may write pipelines with Python.
 
-The [`python-api/`](python-api) directory contains a project written using the Python API. And the [`python-api-examples/`](python-api-examples) includes some tutorials and more examples.
+The [`templates/python-api/`](templates/python-api) directory contains a project written using the Python API. And the [`python-api-examples/`](python-api-examples) includes some tutorials and more examples.

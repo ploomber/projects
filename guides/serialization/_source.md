@@ -15,12 +15,15 @@ jupyter:
 
 # Serialization
 
+<!-- start description -->
+Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
+<!-- end description -->
+
 Incremental builds allow Ploomber to skip tasks whose source code hasn't changed; each task must save their products to disk to enable such a feature. However, there are some cases when we don't want our pipeline to perform disk operations. For example, if we're going to deploy our pipeline, eliminating disk operations reduces runtime considerably.
 
 To enable a pipeline to work in both disk-based and in-memory scenarios, we can declare a `serializer` and `unzerializer` in our pipeline declaration, effectively separating our task's logic from the read/write logic.
 
 Note that this only applies to function tasks; other tasks are unaffected by the `serializer`/`unserializer` configuration.
-
 
 
 ## Built-in pickle serialization
@@ -152,4 +155,4 @@ Configuring a `serializer` and `unserializer` in your `pipeline.yaml` is optiona
 
 If you want to learn more about in-memory pipelines, check out the [following guide](https://ploomber.readthedocs.io/en/latest/user-guide/deployment.html#online-service-api).
 
-For a complete example showing how to manage a training and a serving pipeline, and deploy it as a Flask API, [click here](https://github.com/ploomber/projects/tree/master/ml-online).
+For a complete example showing how to manage a training and a serving pipeline, and deploy it as a Flask API, [click here](https://github.com/ploomber/projects/tree/master/templates/ml-online).

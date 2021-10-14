@@ -1,0 +1,13 @@
+tasks:
+  - source: get.py
+    product:
+      nb: output/get.ipynb
+      data: output/data.csv
+
+  - source: clean.py
+    product:
+      nb: output/clean.ipynb
+      data: output/clean.csv
+
+  - source: plot.py
+    product: output/plot.ipynb
