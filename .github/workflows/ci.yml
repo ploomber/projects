@@ -7,20 +7,20 @@ jobs:
     strategy:
       matrix:
         folder:
-          - debugging
-          - sql-templating
-          - mlflow
-          - guides/logging
-          - spec-api-directory
           - cookbook/serialization
           - cookbook/grid
-          - ml-intermediate
-          - spec-api-sql
-          - testing
-          - guides/serialization
           - cookbook/sql-dump
           - cookbook/variable-number-of-products
-          - ml-advanced
+          - guides/debugging
+          - guides/sql-templating
+          - guides/logging
+          - guides/testing
+          - guides/serialization
+          - templates/mlflow
+          - templates/spec-api-directory
+          - templates/ml-intermediate
+          - templates/spec-api-sql
+          - templates/ml-advanced
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -73,15 +73,15 @@ jobs:
       matrix:
         folder:
           # basic
-          - ml-basic
-          - spec-api-r
+          - templates/ml-basic
+          - templates/spec-api-r
           #  intermediate
-          - python-api
+          - templates/python-api
           # advanced
-          - etl
+          - templates/etl
           # guides
-          - parametrized
-          - spec-api-python
+          - guides/parametrized
+          - guides/spec-api-python
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
@@ -131,9 +131,10 @@ jobs:
           # install ploomberutils
           pip install pkg/
           pip install invoke
-          pip install -e "ml-online[dev]"
 
-          invoke build --name ml-online
+          pip install -e "templates/ml-online[dev]"
+
+          invoke build --name templates/ml-online
 
           # TODO: export to argo
           # validate argo spec
