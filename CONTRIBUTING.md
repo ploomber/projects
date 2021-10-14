@@ -10,9 +10,13 @@ invoke build --name readme
 
 Note that `ploomber examples` uses `index.csv` to list available examples.
 
-## Documentation tutorials
+## Types of examples
 
-Some directories are not examples but tutorials that are part of the documentation: debugging, parametrized, testing and sql-templating.
+We classify examples depending on their objective:
+
+1. `cookbook`: Short and to-the-point examples showing how to achieve something specific. These are for users to get some sample code that they can incorporate into their projects.
+2. `tutorials`: Long, in-depth tutorials for learning. These teach users concepts and features in-depth; some of these are part of the documentation itself, the introductory ones are part of the *Get Started* section, while the more advanced ones are part of the *User Guide*.
+3. `templates`: They're are halfway through `cookbook` and `tutorials`. They're starting points for new projects; hence, they achieve something specific but have a high-level explanation of each part so users can understand it and customize it quickly.
 
 ## Adding examples
 
