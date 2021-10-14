@@ -41,16 +41,16 @@ def _render(resources_, product):
     """
     templates = [
         Example(path=path, idx=idx)
-        for idx, path in enumerate(glob('templates/*'), start=1)
+        for idx, path in enumerate(sorted(glob('templates/*')), start=1)
     ]
 
     cookbook = [
         Example(path=path, idx=idx)
-        for idx, path in enumerate(glob('cookbook/*'), start=1)
+        for idx, path in enumerate(sorted(glob('cookbook/*')), start=1)
     ]
     guides = [
         Example(path=path, idx=idx)
-        for idx, path in enumerate(glob('guides/*'), start=1)
+        for idx, path in enumerate(sorted(glob('guides/*')), start=1)
     ]
 
     template = Template(Path(resources_['source']).read_text())
