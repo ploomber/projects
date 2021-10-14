@@ -90,13 +90,15 @@ jobs:
         with:
           python-version: 3.9
       - run: |
+          pip install pkg/
+          pip install invoke ipywidgets
+          # some readmes require pygraphviz
+          conda install pygraphviz -c conda-forge --yes
+
           cd $FOLDER
           eval "$(conda shell.bash hook)"
           conda env create --file environment.yml --name env
           conda activate env
-
-          # test with dev version
-          # pip install git+https://github.com/ploomber/ploomber
 
           if [ -f "setup.py" ]; then
             echo "Found setup.py, installing package..."
@@ -104,16 +106,6 @@ jobs:
           fi
 
           ploomber build
-
-          # run commands in readme (re-use existing conda env)
-          pip install invoke
-          # install ploomberutils pkg
-          cd ..
-          pip install pkg/
-          # needed to run the readmes
-          pip install ipywidgets
-          # some readmes require pygraphviz
-          conda install pygraphviz -c conda-forge --yes
 
           # test readme.md
           invoke build --name $FOLDER
