@@ -95,20 +95,21 @@ jobs:
           # some readmes require pygraphviz
           conda install pygraphviz -c conda-forge --yes
 
-          cd $FOLDER
           eval "$(conda shell.bash hook)"
-          conda env create --file environment.yml --name env
+          conda env create --file $FOLDER/environment.yml --name env
           conda activate env
 
-          if [ -f "setup.py" ]; then
+          if [ -f "$FOLDER/setup.py" ]; then
             echo "Found setup.py, installing package..."
-            pip install .
+            pip install $FOLDER/
           fi
-
-          ploomber build
 
           # test readme.md
           invoke build --name $FOLDER
+
+          # NOTE: i dont think we need this anymore
+          cd $FOLDER
+          ploomber build
 
   # The rest have some particular details, so we test them separately
   ml-online:
