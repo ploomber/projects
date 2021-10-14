@@ -64,6 +64,21 @@ jupyter:
 ---
 ```
 
+#### Title and description
+
+Next to the front matter, you should include a title and a description:
+
+```md
+# This is a title
+
+<!-- start description -->
+This is a description.
+<!-- end description -->
+
+```
+
+Note that the description is enclosed between two special marks (`<!-- start/end description -->`). The marks are necessary because we use them to identify the description and compile the root `README.md` from `_source.md`.
+
 #### Setup instructions
 
 *Do not* include a section to show how to setup the example (e.g., `pip install ...`).
