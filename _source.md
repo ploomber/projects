@@ -36,7 +36,7 @@ Each example contains a `README.md` file that describes it; a `README.ipynb` is 
 
 ### Templates
 
-Starting points for common use cases. Use them to quicky ramp up a project.
+Starting points for common use cases. Use them to ramp up a project quickly.
 
 {% for e in templates %}
 {{e.idx}}. [`{{e.path}}`]({{e.path}}/README.ipynb) {{e.description}}
