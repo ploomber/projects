@@ -315,8 +315,10 @@ def make(name=None, parent_dir='.', force=False):
         ]
 
         write_root_dep_files_and_examples_reqs_txt(folders)
-    else:
+    elif name != 'readme':
         folders = [name]
+    else:
+        folders = []
 
     dag = DAG(executor=Serial(build_in_subprocess=False))
 
@@ -333,9 +335,10 @@ def make(name=None, parent_dir='.', force=False):
         task_expand >> task_create
         task_expand >> task_execute
 
-    if not name:
+    if not name or name == 'readme':
         readme.render(dag) >> readme.execute(dag)
 
+    if not name:
         # check they all have an environment.yml and requirements.txt
         check_file(folders, 'environment.yml')
         check_file(folders, 'requirements.txt')

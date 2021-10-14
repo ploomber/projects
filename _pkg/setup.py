@@ -22,8 +22,6 @@ setup(
     install_requires=['ploomber', 'click', 'jupyblog'],
     extras_require={
         'dev': [
-            # pandas required to render root README.md
-            'pandas',
             # to validate argo specs
             'pyyaml',
             # to extract symbols
