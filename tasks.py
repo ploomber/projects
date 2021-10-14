@@ -15,7 +15,7 @@ def setup(c, create_conda=True):
            ' && conda activate projects '
            ' &&') if create_conda else ''
 
-    cmd += (' pip install --editable "pkg[dev]"'
+    cmd += (' pip install --editable "_pkg[dev]"'
             ' && pip install --editable python-api/'
             ' && pip install --editable ml-advanced/'
             ' && pip install invoke')

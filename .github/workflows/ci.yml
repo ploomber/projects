@@ -32,7 +32,7 @@ jobs:
           eval "$(conda shell.bash hook)"
           conda env create --file $FOLDER/environment.yml --name env
           conda activate env
-          pip install invoke ipywidgets pkg/
+          pip install invoke ipywidgets _pkg/
 
           if [ -f "$FOLDER/setup.py" ]; then
             echo "Found setup.py, installing package..."
@@ -78,7 +78,7 @@ jobs:
           #  intermediate
           - templates/python-api
           # advanced
-          - templates/etl
+          # - templates/etl
           # guides
           - guides/parametrized
           - guides/spec-api-python
@@ -90,14 +90,14 @@ jobs:
         with:
           python-version: 3.9
       - run: |
-          pip install pkg/
-          pip install invoke ipywidgets
-          # some readmes require pygraphviz
-          conda install pygraphviz -c conda-forge --yes
-
           eval "$(conda shell.bash hook)"
           conda env create --file $FOLDER/environment.yml --name env
           conda activate env
+          # some readmes require pygraphviz
+          conda install pygraphviz -c conda-forge --yes
+
+          pip install _pkg/
+          pip install invoke ipywidgets
 
           if [ -f "$FOLDER/setup.py" ]; then
             echo "Found setup.py, installing package..."
@@ -122,7 +122,7 @@ jobs:
           python-version: 3.9
       - run: |
           # install ploomberutils
-          pip install pkg/
+          pip install _pkg/
           pip install invoke
 
           pip install -e "templates/ml-online[dev]"
