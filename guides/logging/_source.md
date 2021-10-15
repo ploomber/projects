@@ -32,7 +32,7 @@ papermill_params:
     log_output: True
 ```
 
-This extra configuration is required on each script/notebook task in your pipeline to enable logging. The code on each task isn't important, they contain a for loop and log a message on each iteration. Let's see it in action:
+This extra configuration is required on each script/notebook task in your pipeline to enable logging. The code on each task isn't important; they contain a for loop and log a message on each iteration. Let's see it in action:
 
 ```sh
 cd basic
@@ -49,10 +49,10 @@ Note that the snippets above use the `logging` module instead of `print`. Althou
 <!-- #region -->
 ## Logging to a file (On Linux and macOS)
 
-It's common to send all your log records to a file. You can easily do so on Linux and macOS with the following command:
+It's common to send all your log records to a file. You can do so with the ``--log-file/-F`` option:
 
 ```sh
-ploomber build --log info > my.log 2>&1
+ploomber build --log info --log-file my.log
 ```
 <!-- #endregion -->
 
@@ -69,6 +69,9 @@ import sys
 
 from ploomber.executors import Serial
 from ploomber.spec import DAGSpec
+
+if Path('my.log').exists():
+    Path('my.log').unlink()
 
 logging.basicConfig(filename='my.log', format='%(levelname)s:%(message)s', level=logging.INFO)
 
