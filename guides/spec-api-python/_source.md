@@ -50,7 +50,7 @@ which files we use as tasks:
 <% expand('pipeline.yaml') %>
 
 **Note:** The `pipeline.yaml` file is optional, but it gives you more flexibility.
-[Click here](https://github.com/ploomber/projects/tree/master/spec-api-directory) to see an example without a `pipeline.yaml` file.
+[Click here](https://github.com/ploomber/projects/tree/master/templates/spec-api-directory) to see an example without a `pipeline.yaml` file.
 
 
 Let's plot the pipeline:
