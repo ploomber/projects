@@ -47,7 +47,7 @@ We can see that the logging statements appear in the console. If you want to tak
 Note that the snippets above use the `logging` module instead of `print`. Although `print` is a quick and easy way to display messages in the console, the `logging` module is more flexible. Hence, it is the recommended option.
 
 <!-- #region -->
-## Logging to a file (On Linux and macOS)
+## Logging to a file
 
 It's common to send all your log records to a file. You can do so with the ``--log-file/-F`` option:
 
@@ -56,7 +56,7 @@ ploomber build --log info --log-file my.log
 ```
 <!-- #endregion -->
 
-## Logging to a file from Python (Linux, macOS, and Windows)
+## Logging to a file from Python
 
 Alternatively, you can configure logging from Python, which gives you more flexibility:
 
