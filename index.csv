@@ -1,11 +1,11 @@
 ﻿type,name,entry,description
-basic,ml-basic,ipynb,Machine Learning pipeline
-basic,spec-api-r,ipynb,R pipeline
-basic,spec-api-directory,ipynb,Pipeline from a directory of scripts
-intermediate,ml-intermediate,ipynb,Training and serving ML pipeline with integration testing
-intermediate,spec-api-sql,ipynb,Pipeline with SQL and Python tasks
-intermediate,python-api,ipynb,Pipeline using the Python API
-advanced,ml-online,md,"ML pipeline. Train in Kubernetes (via Argo Workflows), deploy using Flask"
-advanced,etl,ipynb,"SQL pipeline that downloads data, uploads to a database, process it, and plots using Python/R"
-advanced,ml-advanced,ipynb,"ML pipeline using the Python API. Shows how to package project, test it using pytest and train models in parallel"
-advanced,mlflow,ipynb,"ML pipeline that trains a grid of models and logs them using MLflow"
+basic,templates/ml-basic,ipynb,Machine Learning pipeline
+basic,templates/spec-api-r,ipynb,R pipeline
+basic,templates/spec-api-directory,ipynb,Pipeline from a directory of scripts
+intermediate,templates/ml-intermediate,ipynb,Training and serving ML pipeline with integration testing
+intermediate,templates/spec-api-sql,ipynb,Pipeline with SQL and Python tasks
+intermediate,templates/python-api,ipynb,Pipeline using the Python API
+advanced,templates/ml-online,md,"ML pipeline. Train in Kubernetes (via Argo Workflows), deploy using Flask"
+advanced,templates/etl,ipynb,"SQL pipeline that downloads data, uploads to a database, process it, and plots using Python/R"
+advanced,templates/ml-advanced,ipynb,"ML pipeline using the Python API. Shows how to package project, test it using pytest and train models in parallel"
+advanced,templates/mlflow,ipynb,"ML pipeline that trains a grid of models and logs them using MLflow"
