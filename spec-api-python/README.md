@@ -1,13 +1,13 @@
 <!-- start header -->
-To run this example locally, execute: `ploomber examples -n guides/spec-api-python`.
+To run this example locally, execute: `ploomber examples -n spec-api-python`.
 
-To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/spec-api-python%252FREADME.ipynb%26branch%3Dmaster)
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fspec-api-python%252FREADME.ipynb%26branch%3Dmaster)
 
-Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/spec-api-python%20issue)
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=spec-api-python%20issue)
 
 Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
 
-For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/guides/spec-api-python/README.ipynb)
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/spec-api-python/README.ipynb)
 <!-- end header -->
 
 
