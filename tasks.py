@@ -1,8 +1,13 @@
+import sys
 from pathlib import Path
 import shutil
 from glob import iglob
 
 from invoke import task
+
+if not Path('LICENSE').exists():
+    sys.exit('Error: Run the command from the root folder (the directory '
+             'with the LICENSE file).')
 
 
 @task
