@@ -12,6 +12,7 @@ jobs:
           - cookbook/sql-dump
           - cookbook/variable-number-of-products
           - cookbook/dynamic-params
+          - cookbook/python-load
           - guides/debugging
           - guides/sql-templating
           - guides/logging

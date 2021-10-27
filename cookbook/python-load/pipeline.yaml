@@ -1,0 +1,3 @@
+tasks:
+  - source: tasks.create_file
+    product: 'products/{{run_number}}/some_file.txt'
