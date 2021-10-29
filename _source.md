@@ -1,7 +1,22 @@
 # Ploomber sample projects
 
 ![CI](https://github.com/ploomber/projects/workflows/ci/badge.svg)
-[![Twitter](https://img.shields.io/twitter/follow/edublancas?label=Follow&style=social)](https://twitter.com/intent/user?screen_name=edublancas)
+
+<p align="center">
+  <a href="http://community.ploomber.io">Join our community</a>
+  |
+  <a href="https://www.getrevue.co/profile/ploomber">Newsletter</a>
+  |
+  <a href="https://ploomber.readthedocs.io/">Docs</a>
+  |
+  <a href="https://twitter.com/intent/user?screen_name=ploomber">Twitter</a>
+  |
+  <a href="https://ploomber.io/">Blog</a>
+  |
+  <a href="https://www.youtube.com/channel/UCaIS5BMlmeNQE4-Gn0xTDXQ">YouTube</a>
+  |
+  <a href="mailto:contact@ploomber.io">Contact us</a>
+</p>
 
 This repository contains sample pipelines developed using [Ploomber](https://github.com/ploomber/ploomber).
 
