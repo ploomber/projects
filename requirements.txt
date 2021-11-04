@@ -6,8 +6,10 @@ matplotlib
 mlflow
 numpy
 pandas
+pandas-profiling
 patool
 ploomber
+plotly
 pyarrow
 pyunpack
 scikit-learn

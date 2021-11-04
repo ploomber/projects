@@ -19,8 +19,10 @@ dependencies:
   - nbgitpuller
   - numpy
   - pandas
+  - pandas-profiling
   - patool
   - ploomber
+  - plotly
   - pyarrow
   - pyunpack
   - scikit-learn

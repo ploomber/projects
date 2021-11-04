@@ -1,0 +1,12 @@
+name: exploratory-analysis
+
+dependencies:
+  - python=3.9
+  - pip
+
+  - pip:
+    - ploomber
+    - pandas
+    - seaborn
+    - pandas-profiling
+    - plotly

@@ -20,7 +20,7 @@
 
 This repository contains sample pipelines developed using [Ploomber](https://github.com/ploomber/ploomber).
 
-**Note:** Make sure you read the [first two tutorials](https://ploomber.readthedocs.io/en/stable/get-started/spec-api-python.html) in the documentation to familiarize yourself with Ploomber's basic concepts.
+**Note:** We recommend you to go through the [first tutorial](https://ploomber.readthedocs.io/en/stable/get-started/spec-api-python.html) to learn the basics of Ploomber.
 
 ## Running examples
 
@@ -56,23 +56,25 @@ Starting points for common use cases. Use them to ramp up a project quickly.
 
 1. [`templates/etl`](templates/etl/README.ipynb) Download a data file, upload it to a database, process it, and plot with Python and R.
 
-2. [`templates/ml-advanced`](templates/ml-advanced/README.ipynb) ML pipeline using the Python API. Shows how to create a Python package, test it with pytest, and train models in parallel.
+2. [`templates/exploratory-analysis`](templates/exploratory-analysis/README.ipynb) Sample pipeline that explores penguins data.
 
-3. [`templates/ml-basic`](templates/ml-basic/README.ipynb) Download data, clean it, generate features and train a model.
+3. [`templates/ml-advanced`](templates/ml-advanced/README.ipynb) ML pipeline using the Python API. Shows how to create a Python package, test it with pytest, and train models in parallel.
 
-4. [`templates/ml-intermediate`](templates/ml-intermediate/README.ipynb) Training and serving ML pipelines with integration testing to evaluate training data quality.
+4. [`templates/ml-basic`](templates/ml-basic/README.ipynb) Download data, clean it, generate features and train a model.
 
-5. [`templates/ml-online`](templates/ml-online/README.ipynb) Load data, generate features, train a model, and deploy model with flask.
+5. [`templates/ml-intermediate`](templates/ml-intermediate/README.ipynb) Training and serving ML pipelines with integration testing to evaluate training data quality.
 
-6. [`templates/mlflow`](templates/mlflow/README.ipynb) Train a grid of models and log them to MLflow.
+6. [`templates/ml-online`](templates/ml-online/README.ipynb) Load data, generate features, train a model, and deploy model with flask.
 
-7. [`templates/python-api`](templates/python-api/README.ipynb) Loads, clean, and plot data using the Python API.
+7. [`templates/mlflow`](templates/mlflow/README.ipynb) Train a grid of models and log them to MLflow.
 
-8. [`templates/spec-api-directory`](templates/spec-api-directory/README.ipynb) Create a pipeline from a directory with scripts (without a pipeline.yaml file).
+8. [`templates/python-api`](templates/python-api/README.ipynb) Loads, clean, and plot data using the Python API.
 
-9. [`templates/spec-api-r`](templates/spec-api-r/README.ipynb) Load, clean and plot data with R.
+9. [`templates/spec-api-directory`](templates/spec-api-directory/README.ipynb) Create a pipeline from a directory with scripts (without a pipeline.yaml file).
 
-10. [`templates/spec-api-sql`](templates/spec-api-sql/README.ipynb) Use SQL scripts to manipulate data in a database, dump a table, and plot it with Python.
+10. [`templates/spec-api-r`](templates/spec-api-r/README.ipynb) Load, clean and plot data with R.
+
+11. [`templates/spec-api-sql`](templates/spec-api-sql/README.ipynb) Use SQL scripts to manipulate data in a database, dump a table, and plot it with Python.
 
 
 ### Cookbook

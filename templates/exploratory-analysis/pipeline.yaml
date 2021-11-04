@@ -1,0 +1,28 @@
+tasks:
+  # get raw data
+  - source: scripts/get.py
+    product:
+      nb: products/get.html
+      data: products/raw.csv
+
+  # quick raw data profiling
+  - source: scripts/profile-raw.py
+    # html report
+    product: products/report-raw.html
+
+  # clean raw data
+  - source: scripts/clean.py
+    product:
+      nb: products/clean.html
+      # clean data
+      data: products/clean.csv
+
+  # quick clean data profiling
+  - source: scripts/profile-clean.py
+    # html report     
+    product: products/report-clean.html
+
+
+  # custom plots
+  - source: scripts/custom.py
+    product: products/custom.html

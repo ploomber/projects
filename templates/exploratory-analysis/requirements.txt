@@ -1,0 +1,5 @@
+pandas
+pandas-profiling
+ploomber
+plotly
+seaborn
