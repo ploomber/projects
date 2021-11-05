@@ -21,7 +21,7 @@ Introductory tutorial to learn the basics of Ploomber.
 
 **Note:** This is intended for a quick and interactive experience. If you want
 to learn about Ploomber's core concepts and design rationale, go to the
-[the next tutorial](https://ploomber.readthedocs.io/en/stable/get-started/basic-concepts.html).
+[the next tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
 
 ## Why Ploomber?
 
@@ -164,10 +164,11 @@ Incremental builds are a powerful feature: you can open any of the `.py` files i
 
 ## Where to go from here
 
-That's it; this concludes our first tutorial. This tutorial shows a bit of what Ploomber can do for you. However, there are many other features to discover: task parallelization, parametrization, execution in the cloud, among others.
+This tutorial shows a bit of what Ploomber can do for you. However, there are many other features to discover: task parallelization, parametrization, execution in the cloud, among others.
 
-Want to dig deeper into Ploomber's core concepts and design rationale? Check out [the upcoming
-tutorial](https://ploomber.readthedocs.io/en/stable/get-started/basic-concepts.html).
+Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
+
+Want to take a look at some examples? Check out how to [download templates](https://ploomber.readthedocs.io/en/latest/user-guide/templates.html).
 
 Have questions? [Ask us anything on Slack](http://community.ploomber.io/) or [open an issue](https://github.com/ploomber/ploomber/issues/new?title=Question) on GitHub.
 

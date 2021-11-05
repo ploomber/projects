@@ -20,7 +20,7 @@
 
 This repository contains sample pipelines developed using [Ploomber](https://github.com/ploomber/ploomber).
 
-**Note:** We recommend you to go through the [first tutorial](https://ploomber.readthedocs.io/en/stable/get-started/spec-api-python.html) to learn the basics of Ploomber.
+**Note:** We recommend you to go through the [first tutorial](https://ploomber.readthedocs.io/en/latest/get-started/spec-api-python.html) to learn the basics of Ploomber.
 
 ## Running examples
 
@@ -67,7 +67,7 @@ Short and to-the-point examples showing how to use a specific feature.
 
 ### Guides
 
-In-depth tutorials for learning.  These are part of the [documentation](https://ploomber.readthedocs.io/en/stable/user-guide/index.html).
+In-depth tutorials for learning.  These are part of the [documentation](https://ploomber.readthedocs.io/en/latest/user-guide/index.html).
 
 {% for e in guides %}
 {{e.idx}}. [`{{e.path}}`]({{e.path}}/README.ipynb) {{e.description}}
