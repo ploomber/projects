@@ -1,13 +1,17 @@
 tasks:
+  # use plain R scripts
   - source: raw.R
     product:
-      nb: output/raw.ipynb
+      # this is the executed version of your script
+      # you can review tables and charts here
+      nb: output/raw.html
       data: output/raw.csv
 
   - source: clean.R
     product:
-      nb: output/clean.ipynb
+      nb: output/clean.html
       data: output/clean.csv
 
-  - source: plot.R
-    product: output/plot.ipynb
+  # R markdown files also supported
+  - source: plot.Rmd
+    product: output/plot.html

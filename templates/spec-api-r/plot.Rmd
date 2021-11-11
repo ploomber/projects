@@ -1,11 +1,13 @@
-# + tags=["parameters"]
+```{r tags=c("parameters")}
 upstream = list('clean')
 product = NULL
-# -
+```
 
-# +
+```{r}
 df = read.csv(upstream$clean$data)
 head(df)
+```
 
-# +
+```{r}
 hist(df$sepal_length)
+```
