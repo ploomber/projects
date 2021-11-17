@@ -24,6 +24,7 @@ jobs:
           - templates/spec-api-sql
           - templates/ml-advanced
           - templates/exploratory-analysis
+          - templates/shell
     env:
       FOLDER: ${{ matrix.folder }}
     steps:
