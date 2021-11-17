@@ -70,11 +70,13 @@ Starting points for common use cases. Use them to ramp up a project quickly.
 
 8. [`templates/python-api`](templates/python-api/README.ipynb) Loads, clean, and plot data using the Python API.
 
-9. [`templates/spec-api-directory`](templates/spec-api-directory/README.ipynb) Create a pipeline from a directory with scripts (without a pipeline.yaml file).
+9. [`templates/shell`](templates/shell/README.ipynb) Create a pipeline with shell scripts as tasks.
 
-10. [`templates/spec-api-r`](templates/spec-api-r/README.ipynb) Load, clean and plot data with R.
+10. [`templates/spec-api-directory`](templates/spec-api-directory/README.ipynb) Create a pipeline from a directory with scripts (without a pipeline.yaml file).
 
-11. [`templates/spec-api-sql`](templates/spec-api-sql/README.ipynb) Use SQL scripts to manipulate data in a database, dump a table, and plot it with Python.
+11. [`templates/spec-api-r`](templates/spec-api-r/README.ipynb) Load, clean and plot data with R.
+
+12. [`templates/spec-api-sql`](templates/spec-api-sql/README.ipynb) Use SQL scripts to manipulate data in a database, dump a table, and plot it with Python.
 
 
 ### Cookbook

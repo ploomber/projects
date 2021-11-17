@@ -1,0 +1,12 @@
+tasks:
+  # this script downloads a dataset
+  - source: scripts/download.sh
+    product: output/data.csv
+
+  # this script plots outputs/data.csv
+  - source: scripts/plot.py
+    product: output/report.ipynb
+
+  # this script has scripts/download.sh as dependency
+  - source: scripts/copy.sh
+    product: output/copy.csv
