@@ -5,7 +5,7 @@ To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_l
 
 Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=cookbook/dynamic-params%20issue)
 
-Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+Have questions? [Ask us anything on Slack.](https://ploomber.io/community/)
 
 For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/cookbook/dynamic-params/README.ipynb)
 <!-- end header -->

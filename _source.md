@@ -3,7 +3,7 @@
 ![CI](https://github.com/ploomber/projects/workflows/ci/badge.svg)
 
 <p align="center">
-  <a href="http://community.ploomber.io">Join our community</a>
+  <a href="https://ploomber.io/community">Join our community</a>
   |
   <a href="https://www.getrevue.co/profile/ploomber">Newsletter</a>
   |

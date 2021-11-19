@@ -5,7 +5,7 @@ To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_l
 
 Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/spec-api-python%20issue)
 
-Have questions? [Ask us anything on Slack.](http://community.ploomber.io/)
+Have questions? [Ask us anything on Slack.](https://ploomber.io/community/)
 
 For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/guides/spec-api-python/README.ipynb)
 <!-- end header -->
@@ -188,6 +188,6 @@ Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts 
 
 Want to take a look at some examples? Check out how to [download templates](https://ploomber.readthedocs.io/en/latest/user-guide/templates.html).
 
-Have questions? [Ask us anything on Slack](http://community.ploomber.io/) or [open an issue](https://github.com/ploomber/ploomber/issues/new?title=Question) on GitHub.
+Have questions? [Ask us anything on Slack](https://ploomber.io/community/) or [open an issue](https://github.com/ploomber/ploomber/issues/new?title=Question) on GitHub.
 
 Do you like our project? Show your support with a [star on GitHub](https://github.com/ploomber/ploomber)!
