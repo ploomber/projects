@@ -29,5 +29,6 @@ dependencies:
   - seaborn
   - sklearn-evaluation
   - soopervisor
+  - soorgeon
   - sqlalchemy
 name: projects

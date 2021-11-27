@@ -1,0 +1,16 @@
+name: refactor
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - pip
+  - pygraphviz
+
+  - pip:
+    - ploomber
+    - soorgeon
+    - matplotlib
+    - seaborn
+    - scikit-learn

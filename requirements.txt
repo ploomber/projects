@@ -16,4 +16,5 @@ scikit-learn
 seaborn
 sklearn-evaluation
 soopervisor
+soorgeon
 sqlalchemy

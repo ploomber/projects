@@ -25,6 +25,19 @@ Each project must have the same layout:
 Required:
 
 * `environment.yml` - Conda environment spec
+
+```yaml
+name: {example-name}
+
+dependencies:
+  - python=3.9
+  - pip
+
+  - pip:
+    - ploomber
+    # other dependencies...
+```
+
 * `README.md` - Instructions to execute the project
 * `output/` - All output files should be stored in a relative folder named `output`
 

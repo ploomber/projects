@@ -108,13 +108,15 @@ In-depth tutorials for learning.  These are part of the [documentation](https://
 
 3. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
 
-4. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
+4. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
 
-5. [`guides/spec-api-python`](guides/spec-api-python/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
+5. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
 
-6. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
+6. [`guides/spec-api-python`](guides/spec-api-python/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
 
-7. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
+7. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
+
+8. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
 
 
 
