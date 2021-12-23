@@ -2,8 +2,8 @@ meta:
   jupyter_functions_as_notebooks: True
   import_tasks_from: partial.features.yaml
 
-# clients:
-#   File: clients.get_s3
+#clients:
+#  File: clients.get_s3
 
 tasks:
   - source: tasks.get.fn
