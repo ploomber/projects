@@ -1,4 +1,4 @@
-# Script trains a model
+# Train a model
 
 # +
 import pickle

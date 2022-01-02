@@ -45,7 +45,7 @@ and SQL scripts. An upcoming guide explains how other types of tasks work.
 Ploomber integrates with Jupyter. If you open the scripts inside the
 `jupyter notebook` app, they will render as notebooks. If you're using `jupyter lab`, you need to right click -> open with -> Notebook as shown below:
 
-![lab-open-with-nb](https://ploomber.io/doc/lab-open-with-notebook.png)
+![lab-open-with-nb](https://ploomber.io/images/doc/lab-open-with-notebook.png)
 
 **Note**: You can use regular `.ipynb` files for your pipeline; however, using plain `.py` files is recommended since they're easier to manage with git.
 
