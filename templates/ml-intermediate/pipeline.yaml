@@ -8,12 +8,12 @@ meta:
 tasks:
   - source: tasks.get.fn
     name: get
-    product: '{{root}}/product/data/get.parquet'
+    product: '{{root}}/sample={{sample}}/get.parquet'
     params:
       sample: '{{sample}}'
 
   - source: fit.py
     name: fit
     product:
-        nb: '{{root}}/nb/data/nb.html'
-        model: '{{root}}/model/data/model.pickle'
+        nb: '{{root}}/sample={{sample}}/nb.html'
+        model: '{{root}}/sample={{sample}}/model.pickle'

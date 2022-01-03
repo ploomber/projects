@@ -1,12 +1,12 @@
 - source: tasks.features.sepal_area
-  product: "{{root}}/product/data/sepal_area.parquet"
+  product: "{{root}}/sample={{sample}}/sepal_area.parquet"
   name: sepal-area
 
 - source: tasks.features.petal_area
-  product: "{{root}}/product/data/petal_area.parquet"
+  product: "{{root}}/sample={{sample}}/petal_area.parquet"
   name: petal-area
 
 - source: tasks.join.fn
   name: join
-  product: "{{root}}/product/data/join.parquet"
+  product: "{{root}}/sample={{sample}}/join.parquet"
   on_finish: integration.no_missing_values

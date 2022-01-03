@@ -9,7 +9,7 @@ dependencies:
   - pygraphviz
 
   - pip:
-    - ploomber==0.13.6
+    - ploomber
     - soopervisor
     - pandas
     - scikit-learn
