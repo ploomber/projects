@@ -28,6 +28,7 @@ jobs:
           - templates/shell
     env:
       FOLDER: ${{ matrix.folder }}
+      PLOOMBER_STATS_ENABLED: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -54,6 +55,8 @@ jobs:
   python-api-examples:
     runs-on: ubuntu-latest
     name: python-api-examples
+    env:
+      PLOOMBER_STATS_ENABLED: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -89,6 +92,7 @@ jobs:
           - guides/spec-api-python
     env:
       FOLDER: ${{ matrix.folder }}
+      PLOOMBER_STATS_ENABLED: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -120,6 +124,8 @@ jobs:
   ml-online:
     runs-on: ubuntu-latest
     name: ml-online
+    env:
+      PLOOMBER_STATS_ENABLED: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
