@@ -1,13 +1,22 @@
 tasks:
-  - source: get.py
+   # source is the code you want to execute
+  - source: 1-get.py
+    # products = task outputs
     product:
-      nb: output/get.ipynb
+      # nb is short for 'notebook'
+      nb: output/1-get.ipynb
+      # you can define as many outputs (of any type) as you want
       data: output/data.csv
-
-  - source: clean.py
+      # e.g., another: output/another.parquet
+    
+    # the outputs of 1-get.py become inputs of 2-clean.py
+  - source: 2-clean.py
     product:
-      nb: output/clean.ipynb
+      nb: output/2-clean.ipynb
       data: output/clean.csv
-
-  - source: plot.py
-    product: output/plot.ipynb
+    
+    # the outputs of 2-clean.py become inputs of 3-plot.py
+  - source: 3-plot.py
+    product: output/3-plot.ipynb
+    
+  # add more tasks by adding new entries here

@@ -6,11 +6,11 @@ import pandas as pd
 import seaborn as sns
 
 # + tags=["parameters"]
-upstream = ["clean"]
+upstream = ['2-clean']
 product = None
 # -
 
-df = pd.read_csv(upstream['clean']['data'])
+df = pd.read_csv(upstream['2-clean']['data'])
 
 sns.distplot(df.sepal_length)
 
