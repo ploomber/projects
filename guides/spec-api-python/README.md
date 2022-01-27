@@ -23,66 +23,62 @@ Introductory tutorial to learn the basics of Ploomber.
 to learn about Ploomber's core concepts and design rationale, go to the
 [the next tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
 
-## Why Ploomber?
-
-**Notebooks are hard to maintain.** Teams often prototype projects in notebooks, but maintaining them is an error-prone process that slows progress down. Ploomber overcomes the challenges of working with `.ipynb` files allowing teams to develop collaborative, production-ready pipelines interactively using JupyterLab or any text editor.
 
 ## Introduction
 
 A pipeline (or **DAG**) is a group of tasks with a particular execution order, where subsequent (or **downstream** tasks) use previous (or **upstream**) tasks as inputs.
 
-This example pipeline contains three tasks, the first task, `1-get.py` gets some data, `2-clean.py` cleans it, and `3-plot.py` generates a visualization:
+**Note:** Ploomber also supports Python functions, Jupyter notebooks, R scripts, and SQL scripts.
 
-```bash
-ls *.py
-```
+## Pipeline declaration
 
-**Note:** These tasks are Python scripts, but you can use Python functions, Jupyter notebooks, R scripts and SQL scripts.
-
-**Note:** This is a simple three-task pipeline, but Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
-
-## Integration with Jupyter
-
-Ploomber integrates with Jupyter. If you open the scripts inside the
-`jupyter notebook` app, they will render as notebooks. If you're using `jupyter lab`, you need to right click -> open with -> Notebook as shown below:
-
-![lab-open-with-nb](https://ploomber.io/images/doc/lab-open-with-notebook.png)
-
-**Note**: You can use regular `.ipynb` files for your pipeline; however, using plain `.py` files is recommended since they're easier to manage with git.
-
-Along with the `*.py` files, there is a `pipeline.yaml` file where we declare which files we use as tasks:
+This example pipeline contains three tasks, `1-get.py`, `2-clean.py`,
+and `3-plot.py`; we declare them in a `pipeline.yaml` file:
 
 <!-- #md -->
 ```yaml
 # Content of pipeline.yaml
 tasks:
-   # source is the code you want to execute
+   # source is the code you want to execute (.ipynb also supported)
   - source: 1-get.py
-    # products = task outputs
+    # products are task's outputs
     product:
-      # nb is short for 'notebook'
+      # scripts generate executed notebooks as outputs
       nb: output/1-get.ipynb
-      # you can define as many outputs (of any type) as you want
+      # you can define as many outputs as you want
       data: output/data.csv
-      # e.g., another: output/another.parquet
     
-    # the outputs of 1-get.py become inputs of 2-clean.py
   - source: 2-clean.py
     product:
       nb: output/2-clean.ipynb
       data: output/clean.csv
-    
-    # the outputs of 2-clean.py become inputs of 3-plot.py
+
   - source: 3-plot.py
-    product: output/3-plot.ipynb
-    
-  # add more tasks by adding new entries here
+    product:
+      nb: output/3-plot.ipynb
+
 ```
 <!-- #endmd -->
 
 **Note:** YAML is a human-readable text format similar to JSON; Ploomber uses it to describe the tasks in our pipeline.
 
-Let's plot the pipeline:
+## Opening `.py` files as notebooks
+
+Ploomber integrates with Jupyter. Among other things, it allows you to open `.py` files as notebooks (via jupytext).
+
+![lab-open-with-nb](https://ploomber.io/images/doc/lab-open-with-notebook.png)
+
+### How is execution order determined?
+
+Ploomber infers the pipeline structure from your code. For example, to
+clean the data, we must get it first; hence, we declare the following in `2-clean.py`:
+
+~~~python
+# this tells Ploomber to execute the '1-get' task before '2-clean'
+upstream = ['1-get']
+~~~
+
+## Plotting the pipeline
 
 ```bash
 ploomber plot
@@ -93,81 +89,28 @@ from IPython.display import Image
 Image(filename='pipeline.png')
 ```
 
-You can see that our pipeline has a defined execution order: `1-get` -> `2-clean` -> `3-plot`.
+You can see that our pipeline has a defined execution order.
 
-Let's now execute the `status` command, which gives us an overview of the pipeline:
+**Note:** This is a simple three-task pipeline, but Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
 
-```bash
-ploomber status
-```
-
-We can see a summary of each task: last execution date, if it's outdated (i.e., source code changed since previous execution), product (output files), documentation (if any), and the source code location.
-
-## How is execution order determined?
-
-Ploomber infers the pipeline structure from your code. For example, to
-clean the data, we must get it first; hence, we declare the following in `2-clean.py`:
-
-~~~python
-# this tells Ploomber to execute the '1-get' task before '2-clean'
-upstream = ['1-get']
-~~~
-
-Once we finish cleaning the data, we must save it somewhere (In Ploomber, an output is known
-as a **product**). Products can be files or SQL relations. Our current example
-only generates files.
-
-To specify where to save the output of each task, we use the `product`
-key. For example, the `1-get` task definition looks like this:
-
-~~~yaml
-- source: 1-get.py
-  # task outputs
-  product:
-    # nb is generated by executing the 1-get.py file as a notebook
-    nb: output/get.ipynb
-    # declare any other outputs here
-    data: output/data.csv
-~~~
-
-Scripts automatically generate a copy of themselves in Jupyter
-notebook format (`.ipynb`). That's why we see a notebook in the `product`
-dictionary (under the `nb` key). Generating a copy on each execution allows us to create standalone reports for each task, no need to write extra code to save our charts! Notebooks as outputs are an essential concept: `1-get.py` is part of the pipeline's
-source code; in contrast, `output/1-get.ipynb` is an artifact generated by the source code.
-
-If you don't want to generate output notebooks, you can use Python functions
-as tasks. Our upcoming tutorial goes deeper into the different types of tasks.
-
-## Building the pipeline
-
-Let's build the pipeline:
+## Running the pipeline
 
 ```bash
 # takes a few seconds to finish
 ploomber build
 ```
 
-This pipeline saves all the output in the `output/` directory; we have a few
-data files:
+This pipeline saves all the output in the `output/` directory; we have the output notebooks and data files:
 
 ```bash
-ls output/*.csv
-```
-
-And a notebook for each script:
-
-```bash
-ls output/*.ipynb
+ls output
 ```
 
 ## Updating the pipeline
 
-Quick experimentation is essential to analyze data. Ploomber allows
-you to iterate faster and run more experiments.
+Ploomber automatically caches your pipeline’s previous results and only runs tasks that changed since your last execution.
 
-Say you found a problematic column and need to add few more lines to your `2-clean.py` script. Since `1-get.py` does not depend on `2-clean.py`, we don't have to rerun it. However, if we modify `2-clean.py` and want to bring our results up-to-date, we must run `2-clean.py`, and then `3-plot.py`, in that order. To save you valuable time, Ploomber keeps track of those dependencies and only reruns outdated tasks.
-
-To see how it works, execute the following to modify the `2-clean.py` script
+Execute the following to modify the `2-clean.py` script
 
 ```python
 from pathlib import Path
@@ -177,7 +120,7 @@ clean = path.read_text()
 path.write_text(clean + '\nprint("hello")')
 ```
 
-Let's now build again:
+Execute the pipeline again:
 
 ```bash
 # takes a few seconds to finish
@@ -191,22 +134,13 @@ path.write_text(clean)
 
 You'll see that `1-get.py` didn't run because it was not affected by the change!
 
-Incremental builds are a powerful feature: you can open any of the `.py` files in Jupyter, edit them interactively (as if they were notebooks), then call `ploomber build` to quickly get your results up-to-date.
-
 ## Where to go from here
 
-This tutorial shows a bit of what Ploomber can do for you. However, there are many other features to discover: task parallelization, parametrization, execution in the cloud, among others.
-
-Want to learn more about what Ploomber is good for? Check out the [use cases](https://docs.ploomber.io/en/latest/use-cases/index.html) documentation.
+**Bring your own code!** Check out the refactoring tutorial [create your own pipeline](https://docs.ploomber.io/en/latest/user-guide/refactoring.html).
+<br><br>
 
 Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
 
 Want to take a look at some examples? Check out how to [download templates](https://ploomber.readthedocs.io/en/latest/user-guide/templates.html).
 
-Have questions? [Ask us anything on Slack](https://ploomber.io/community/) or [open an issue](https://github.com/ploomber/ploomber/issues/new?title=Question) on GitHub.
-
-Do you like our project? Show your support with a [star on GitHub](https://github.com/ploomber/ploomber)!
-
-```python
-
-```
+Have questions? [Ask us anything on Slack](https://ploomber.io/community/).

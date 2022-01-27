@@ -77,8 +77,7 @@ You can see that our pipeline has a defined execution order.
 ploomber build
 ```
 
-This pipeline saves all the output in the `output/` directory; we have a few
-data files and the output notebooks:
+This pipeline saves all the output in the `output/` directory; we have the output notebooks and data files:
 
 ```bash
 ls output
@@ -114,7 +113,7 @@ You'll see that `1-get.py` didn't run because it was not affected by the change!
 
 ## Where to go from here
 
-**Bring your own code!** Check out the refactoring tutorial [create your own pipeline](https://docs.ploomber.io/en/latest/user-guide/refactoring.html)
+**Bring your own code!** Check out the refactoring tutorial [create your own pipeline](https://docs.ploomber.io/en/latest/user-guide/refactoring.html).
 <br><br>
 
 Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
