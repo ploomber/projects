@@ -19,16 +19,9 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 Introductory tutorial to learn the basics of Ploomber.
 <!-- end description -->
 
-**Note:** This tutorial is a quick introduction. If you want
-to learn about Ploomber's core concepts and design rationale, go to the
-[the next tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
-
-
 ## Introduction
 
-A pipeline (or **DAG**) is a group of tasks with a particular execution order, where subsequent (or **downstream** tasks) use previous (or **upstream**) tasks as inputs.
-
-**Note:** Ploomber also supports Python functions, Jupyter notebooks, R scripts, and SQL scripts.
+Ploomber helps you build modular pipelines. A pipeline (or **DAG**) is a group of tasks with a particular execution order, where subsequent (or **downstream** tasks) use previous (or **upstream**) tasks as inputs.
 
 ## Pipeline declaration
 
@@ -60,11 +53,13 @@ tasks:
 ```
 <!-- #endmd -->
 
-**Note:** YAML is a human-readable text format similar to JSON; Ploomber uses it to describe the tasks in our pipeline.
+**Note:** YAML is a human-readable text format similar to JSON.
+
+**Note:** Ploomber supports Python scripts, Python functions, Jupyter notebooks, R scripts, and SQL scripts.
 
 ## Opening `.py` files as notebooks
 
-Ploomber integrates with Jupyter. Among other things, it allows you to open `.py` files as notebooks (via jupytext).
+Ploomber integrates with Jupyter. Among other things, it **allows you to open `.py` files as notebooks** (via `jupytext`).
 
 ![lab-open-with-nb](https://ploomber.io/images/doc/lab-open-with-notebook.png)
 
@@ -74,6 +69,8 @@ Ploomber infers the pipeline structure from your code. For example, to
 clean the data, we must get it first; hence, we declare the following in `2-clean.py`:
 
 ~~~python
+# 2-clean.py
+
 # this tells Ploomber to execute the '1-get' task before '2-clean'
 upstream = ['1-get']
 ~~~
@@ -117,7 +114,11 @@ from pathlib import Path
 
 path = Path('2-clean.py')
 clean = path.read_text()
-path.write_text(clean + '\nprint("hello")')
+
+# add a print statement at the end of 2-clean.py
+path.write_text(clean + """
+print("hello")
+""")
 ```
 
 Execute the pipeline again:
@@ -136,11 +137,11 @@ You'll see that `1-get.py` didn't run because it was not affected by the change!
 
 ## Where to go from here
 
-**Bring your own code!** Check out the refactoring tutorial [create your own pipeline](https://docs.ploomber.io/en/latest/user-guide/refactoring.html).
+**Bring your own code!** Check out the tutorial to [migrate your code to Ploomber](https://docs.ploomber.io/en/latest/user-guide/refactoring.html).
 <br><br>
 
-Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts tutorial](https://ploomber.readthedocs.io/en/latest/get-started/basic-concepts.html).
-
-Want to take a look at some examples? Check out how to [download templates](https://ploomber.readthedocs.io/en/latest/user-guide/templates.html).
-
 Have questions? [Ask us anything on Slack](https://ploomber.io/community/).
+
+Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts tutorial](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
+
+Want to start a new project quickly? Check out [how to get examples](https://docs.ploomber.io/en/latest/user-guide/templates.html).
