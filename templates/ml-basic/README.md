@@ -25,13 +25,6 @@ Let's take a look at the `pipeline.yaml`:
 <!-- #md -->
 ```yaml
 # Content of pipeline.yaml
-# # enable client if you want to upload arfifacts to google cloud storage
-# # see clients.py for details
-# clients:
-#   File:
-#     dotted_path: clients.get_storage_client
-#     run_id: '{{run_id}}'
-
 tasks:
     # tasks.get, features and join are python functions
   - source: tasks.get
@@ -43,12 +36,17 @@ tasks:
   - source: tasks.join
     product: output/join.parquet
 
-    # fit.py is a script executed as a notebook
+    # fit.py is a script
   - source: fit.py
     name: fit
     product:
-        nb: output/nb.ipynb
+        # that generates an html report as output
+        nb: output/nb.html
         model: output/model.pickle
+
+    # only show outputs (not code) in the report
+    nbconvert_export_kwargs:
+      exclude_input: True
 
 ```
 <!-- #endmd -->
@@ -76,12 +74,12 @@ Image(filename='pipeline.png')
 ploomber build
 ```
 
-Since the training task is a script, it will generate a Jupyter notebook at
-[output/nb.ipynb](output/nb.ipynb) with evaluation charts.
+Since the training task is a script, it will generate an HTML report at
+[output/nb.html](output/nb.html) with evaluation charts.
 
 ## Interacting with the pipeline
 
-The command line interface is a convenient way to interact with your
+The command-line interface is a convenient way to interact with your
 pipeline. Try this in a terminal:
 
 ~~~bash

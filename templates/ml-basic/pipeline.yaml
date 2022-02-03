@@ -1,10 +1,3 @@
-# # enable client if you want to upload arfifacts to google cloud storage
-# # see clients.py for details
-# clients:
-#   File:
-#     dotted_path: clients.get_storage_client
-#     run_id: '{{run_id}}'
-
 tasks:
     # tasks.get, features and join are python functions
   - source: tasks.get
@@ -16,9 +9,14 @@ tasks:
   - source: tasks.join
     product: output/join.parquet
 
-    # fit.py is a script executed as a notebook
+    # fit.py is a script
   - source: fit.py
     name: fit
     product:
-        nb: output/nb.ipynb
+        # that generates an html report as output
+        nb: output/nb.html
         model: output/model.pickle
+
+    # only show outputs (not code) in the report
+    nbconvert_export_kwargs:
+      exclude_input: True

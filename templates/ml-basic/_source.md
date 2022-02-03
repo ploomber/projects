@@ -47,12 +47,12 @@ Image(filename='pipeline.png')
 ploomber build
 ```
 
-Since the training task is a script, it will generate a Jupyter notebook at
-[output/nb.ipynb](output/nb.ipynb) with evaluation charts.
+Since the training task is a script, it will generate an HTML report at
+[output/nb.html](output/nb.html) with evaluation charts.
 
 ## Interacting with the pipeline
 
-The command line interface is a convenient way to interact with your
+The command-line interface is a convenient way to interact with your
 pipeline. Try this in a terminal:
 
 ~~~bash
