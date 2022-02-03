@@ -54,3 +54,118 @@ jobs:
 
           # test readme.md
           invoke build --name $FOLDER
+
+
+  python-api-examples:
+    runs-on: ubuntu-latest
+    name: python-api-examples
+    env:
+      PLOOMBER_STATS_ENABLED: false
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          activate-environment: conda-env
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          # for the tests that depend on git repos
+          git config --global user.email "someone@example.com"
+          git config --global user.name "Someone"
+
+          cd python-api-examples
+          eval "$(conda shell.bash hook)"
+          conda create --name env python=3.9 pygraphviz -c conda-forge --yes
+          conda activate env
+          pip install -r requirements.txt
+          pytest
+
+  # These are examples with the same structure, we use the same script
+  projects:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        folder:
+          # basic
+          - templates/ml-basic
+          - templates/spec-api-r
+          #  intermediate
+          - templates/python-api
+          # advanced
+          # - templates/etl
+          # guides
+          - guides/parametrized
+          - guides/spec-api-python
+    env:
+      FOLDER: ${{ matrix.folder }}
+      PLOOMBER_STATS_ENABLED: false
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          activate-environment: conda-env
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file $FOLDER/environment.yml --name env
+          conda activate env
+          # some readmes require pygraphviz
+          conda install pygraphviz -c conda-forge --yes
+
+          pip install _pkg/
+          pip install invoke ipywidgets
+
+          if [ -f "$FOLDER/setup.py" ]; then
+            echo "Found setup.py, installing package..."
+            pip install $FOLDER/
+          fi
+
+          # test readme.md
+          invoke build --name $FOLDER
+
+          # NOTE: i dont think we need this anymore
+          cd $FOLDER
+          ploomber build
+
+  # The rest have some particular details, so we test them separately
+  ml-online:
+    runs-on: ubuntu-latest
+    name: ml-online
+    env:
+      PLOOMBER_STATS_ENABLED: false
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          activate-environment: conda-env
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          # install ploomberutils
+          pip install _pkg/
+          pip install invoke
+
+          pip install -e "templates/ml-online[dev]"
+
+          invoke build --name templates/ml-online
+
+          # TODO: export to argo
+          # validate argo spec
+          # ploomberutils validate-argo argo.yaml
+          # TODO: export to airflow
