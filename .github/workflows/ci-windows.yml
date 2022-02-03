@@ -1,0 +1,52 @@
+name: ci-windows
+on: push
+
+jobs:
+  readme-only:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        folder:
+          - cookbook/serialization
+          - cookbook/grid
+          - cookbook/sql-dump
+          - cookbook/variable-number-of-products
+          - cookbook/dynamic-params
+          - cookbook/python-load
+          - guides/debugging
+          - guides/sql-templating
+          - guides/logging
+          - guides/testing
+          - guides/serialization
+          - guides/refactor
+          - templates/mlflow
+          - templates/spec-api-directory
+          - templates/ml-intermediate
+          - templates/spec-api-sql
+          - templates/ml-advanced
+          - templates/exploratory-analysis
+          - templates/shell
+    env:
+      FOLDER: ${{ matrix.folder }}
+      PLOOMBER_STATS_ENABLED: false
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file $FOLDER/environment.yml --name env
+          conda activate env
+          pip install invoke ipywidgets _pkg/
+
+          if [ -f "$FOLDER/setup.py" ]; then
+            echo "Found setup.py, installing package..."
+            pip install $FOLDER/
+          fi
+
+          # test readme.md
+          invoke build --name $FOLDER
