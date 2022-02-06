@@ -1,5 +1,5 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://ploomber.readthedocs.io/en/latest/get-started/install.html) and execute: `ploomber examples -n guides/debugging`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n guides/debugging`
 
 To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/debugging%252FREADME.ipynb%26branch%3Dmaster)
 
@@ -19,7 +19,7 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 Tutorial showing techniques for debugging pipelines.
 <!-- end description -->
 
-*For a quick reference,* [click here](https://ploomber.readthedocs.io/en/latest/cookbook/debugging.html).
+*For a quick reference,* [click here](https://docs.ploomber.io/en/latest/cookbook/debugging.html).
 
 ## Why debugging pipelines is hard
 

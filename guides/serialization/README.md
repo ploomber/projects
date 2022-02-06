@@ -1,5 +1,5 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://ploomber.readthedocs.io/en/latest/get-started/install.html) and execute: `ploomber examples -n guides/serialization`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n guides/serialization`
 
 To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/serialization%252FREADME.ipynb%26branch%3Dmaster)
 
@@ -319,6 +319,6 @@ cat output/final_dict.json
 
 Configuring a `serializer` and `unserializer` in your `pipeline.yaml` is optional, but it helps you quickly generate a fully in-memory pipeline for serving predictions.
 
-If you want to learn more about in-memory pipelines, check out the [following guide](https://ploomber.readthedocs.io/en/latest/user-guide/deployment.html#online-service-api).
+If you want to learn more about in-memory pipelines, check out the [following guide](https://docs.ploomber.io/en/latest/user-guide/deployment.html#online-service-api).
 
 For a complete example showing how to manage a training and a serving pipeline, and deploy it as a Flask API, [click here](https://github.com/ploomber/projects/tree/master/templates/ml-online).

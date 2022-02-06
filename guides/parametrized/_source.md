@@ -92,7 +92,7 @@ We have separate folders for each parameter, helping to keep things organized an
 
 ### Notes
 
-* There are some built-in placeholders that you can use without having an `env.yaml` file. For example, `{{here}}` will expand to the `pipeline.yaml` parent directory. [Check out the Spec API documentation](https://ploomber.readthedocs.io/en/latest/api/spec.html#default-placeholders) for more information.
+* There are some built-in placeholders that you can use without having an `env.yaml` file. For example, `{{here}}` will expand to the `pipeline.yaml` parent directory. [Check out the Spec API documentation](https://docs.ploomber.io/en/latest/api/spec.html#default-placeholders) for more information.
 * This example uses a Python script as a task. In SQL pipeline, you can achieve the same effect by using the placeholder in the product's schema or a table/view name prefix.
 * If the parameter takes many different values and you want to run your pipeline using all of them, calling them by hand might get tedious. So you have two options 1) write a  bash script that calls the CLI with different value parameters or 2) Use the Python API (everything that the CLI can do, you can do with Python directly), take a look at the `DAGSpec` documentation.
 * Parametrized `pipeline.yaml` files are a great way to simplify a task's logic but not overdo it. If you find yourself adding too many parameters, it's a better idea to use the Python AP directly; factory functions are the correct pattern for highly customized pipeline construction.
