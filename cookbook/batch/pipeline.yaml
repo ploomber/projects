@@ -1,0 +1,9 @@
+tasks:
+  - source: tasks.functions.clean
+    product: 'products/{{target_dir}}/clean.csv'
+    params:
+      input_path: '{{input_path}}'
+
+  - source: tasks/plot.py
+    product: 'products/{{target_dir}}/plot.html'
+      
