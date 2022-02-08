@@ -4,7 +4,11 @@ This pipeline polls a folder and it processes them whenever it finds a new one.
 ## Setup
 
 ```sh
+# install ploomber
 pip install ploomber
+
+# download example
+ploomber examples -b batch -n cookbook/directory-polling -o polling
 ```
 
 ## Runnning the example
