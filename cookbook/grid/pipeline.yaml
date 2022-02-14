@@ -29,7 +29,7 @@ tasks:
         n_estimators: [1, 3, 5]
         criterion: [gini, entropy]
 
-      # generates 9 tasks (1 * 3 * 2)
+      # generates 6 tasks (1 * 3 * 2)
       - model_type: [ada-boost]
         n_estimators: [1, 3, 5]
         learning_rate: [1, 2]
