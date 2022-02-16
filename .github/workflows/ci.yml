@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: '3.10'
       - run: |
           eval "$(conda shell.bash hook)"
           conda env create --file $FOLDER/environment.yml --name env
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: '3.10'
       - run: |
           # for the tests that depend on git repos
           git config --global user.email "someone@example.com"
@@ -97,7 +97,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: '3.10'
       - run: |
           eval "$(conda shell.bash hook)"
           conda env create --file $FOLDER/environment.yml --name env
@@ -130,7 +130,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: '3.10'
       - run: |
           # install ploomberutils
           pip install _pkg/
