@@ -30,7 +30,7 @@ Required:
 name: {example-name}
 
 dependencies:
-  - python=3.9
+  
   - pip
 
   - pip:

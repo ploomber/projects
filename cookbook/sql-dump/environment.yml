@@ -1,7 +1,7 @@
 name: cookbook-sql-dump
 
 dependencies:
-  - python=3.9
+  
   - pip
 
   - pip:
