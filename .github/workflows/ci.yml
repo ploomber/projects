@@ -13,6 +13,7 @@ jobs:
           - cookbook/variable-number-of-products
           - cookbook/dynamic-params
           - cookbook/python-load
+          - cookbook/file-client
           - guides/debugging
           - guides/sql-templating
           - guides/logging
