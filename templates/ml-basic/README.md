@@ -40,13 +40,9 @@ tasks:
   - source: fit.py
     name: fit
     product:
-        # that generates an html report as output
-        nb: output/nb.html
+        # this output notebook is the model's evaluation report
+        nb: output/nb.ipynb
         model: output/model.pickle
-
-    # only show outputs (not code) in the report
-    nbconvert_export_kwargs:
-      exclude_input: True
 
 ```
 <!-- #endmd -->
@@ -74,8 +70,9 @@ Image(filename='pipeline.png')
 ploomber build
 ```
 
-Since the training task is a script, it will generate an HTML report at
-[output/nb.html](output/nb.html) with evaluation charts.
+Since Ploomber executes scripts as notebooks by default, `fit.py` will
+generate a model report at [output/nb.ipynb](output/nb.ipynb) with evaluation
+charts.
 
 ## Interacting with the pipeline
 

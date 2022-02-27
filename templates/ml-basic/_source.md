@@ -47,8 +47,9 @@ Image(filename='pipeline.png')
 ploomber build
 ```
 
-Since the training task is a script, it will generate an HTML report at
-[output/nb.html](output/nb.html) with evaluation charts.
+Since Ploomber executes scripts as notebooks by default, `fit.py` will
+generate a model report at [output/nb.ipynb](output/nb.ipynb) with evaluation
+charts.
 
 ## Interacting with the pipeline
 
