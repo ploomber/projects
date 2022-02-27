@@ -1,3 +1,4 @@
+from copy import copy
 import logging
 from glob import iglob
 import shutil
@@ -292,33 +293,39 @@ def write_root_dep_files_and_examples_reqs_txt(folders):
     # env for binder
     Path('environment.yml').write_text(conda)
 
-    # export to binder env repo
-    Path('../binder-env/environment.yml').write_text(conda)
+    return conda
 
 
 def make(name=None, parent_dir='.', force=False):
     """
     Process _source.md files from given folders, executes them inline
     """
+    exclude = {
+        # root readme is built differently
+        '.',
+        'python-api-examples',
+    }
+
+    # find all folders
+    folders_all = [
+        str(Path(path).parent)
+        for path in iglob('**/_source.md', recursive=True)
+        if str(Path(path).parent) not in exclude
+    ]
+
     if not name:
-        exclude = {
-            # root readme is built differently
-            '.',
-            'python-api-examples',
-        }
+        folders = copy(folders_all)
 
-        # find all folders
-        folders = [
-            str(Path(path).parent)
-            for path in iglob('**/_source.md', recursive=True)
-            if str(Path(path).parent) not in exclude
-        ]
-
-        write_root_dep_files_and_examples_reqs_txt(folders)
     elif name != 'readme':
         folders = [name]
     else:
         folders = []
+
+    env_yml = write_root_dep_files_and_examples_reqs_txt(folders_all)
+
+    if not name:
+        # export to binder env repo
+        Path('../binder-env/environment.yml').write_text(env_yml)
 
     dag = DAG(executor=Serial(build_in_subprocess=False))
 
@@ -338,10 +345,9 @@ def make(name=None, parent_dir='.', force=False):
     if not name or name == 'readme':
         readme.render(dag) >> readme.execute(dag)
 
-    if not name:
-        # check they all have an environment.yml and requirements.txt
-        check_file(folders, 'environment.yml')
-        check_file(folders, 'requirements.txt')
+    # check they all have an environment.yml and requirements.txt
+    check_file(folders, 'environment.yml')
+    check_file(folders, 'requirements.txt')
 
     return dag
 

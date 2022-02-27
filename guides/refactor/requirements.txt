@@ -1,2 +1,5 @@
+matplotlib
 ploomber
+scikit-learn
+seaborn
 soorgeon

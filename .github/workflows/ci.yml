@@ -20,6 +20,7 @@ jobs:
           - guides/testing
           - guides/serialization
           - guides/refactor
+          - guides/cron
           - templates/mlflow
           - templates/spec-api-directory
           - templates/ml-intermediate
