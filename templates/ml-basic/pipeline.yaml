@@ -13,10 +13,6 @@ tasks:
   - source: fit.py
     name: fit
     product:
-        # that generates an html report as output
-        nb: output/nb.html
+        # this output notebook is the model's evaluation report
+        nb: output/nb.ipynb
         model: output/model.pickle
-
-    # only show outputs (not code) in the report
-    nbconvert_export_kwargs:
-      exclude_input: True
