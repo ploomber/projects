@@ -89,7 +89,7 @@ jobs:
           # - templates/etl
           # guides
           - guides/parametrized
-          - guides/spec-api-python
+          - guides/first-pipeline
     env:
       FOLDER: ${{ matrix.folder }}
       PLOOMBER_STATS_ENABLED: false

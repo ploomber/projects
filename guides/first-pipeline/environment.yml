@@ -1,4 +1,4 @@
-name: spec-api-python
+name: first-pipeline
 
 dependencies:
   - python=3.9
