@@ -25,8 +25,8 @@ Ploomber helps you build modular pipelines. A pipeline (or **DAG**) is a group o
 
 ## Pipeline declaration
 
-This example pipeline contains three tasks, `1-get.py`, `2-clean.py`,
-and `3-plot.py`; we declare them in a `pipeline.yaml` file:
+This example pipeline contains five tasks, `1-get.py`, `2-profile-raw.py`, 
+`3-clean.py`, `4-profile-clean.py` and `5-plot.py`; we declare them in a `pipeline.yaml` file:
 
 <% expand('pipeline.yaml') %>
 
@@ -40,15 +40,15 @@ Ploomber integrates with Jupyter. Among other things, it **allows you to open `.
 
 ![lab-open-with-nb](https://ploomber.io/images/doc/lab-open-with-notebook.png)
 
-### How is execution order determined?
+### What sets the execution order?
 
 Ploomber infers the pipeline structure from your code. For example, to
-clean the data, we must get it first; hence, we declare the following in `2-clean.py`:
+clean the data, we must get it first; hence, we declare the following in `3-clean.py`:
 
 ~~~python
-# 2-clean.py
+# 3-clean.py
 
-# this tells Ploomber to execute the '1-get' task before '2-clean'
+# this tells Ploomber to execute the '1-get' task before '3-clean'
 upstream = ['1-get']
 ~~~
 
@@ -65,7 +65,7 @@ Image(filename='pipeline.png')
 
 You can see that our pipeline has a defined execution order.
 
-**Note:** This is a simple three-task pipeline, but Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
+**Note:** This is a sample predifined five-task pipeline, Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
 
 ## Running the pipeline
 
@@ -84,15 +84,15 @@ ls output
 
 Ploomber automatically caches your pipeline’s previous results and only runs tasks that changed since your last execution.
 
-Execute the following to modify the `2-clean.py` script
+Execute the following to modify the `3-clean.py` script
 
 ```python
 from pathlib import Path
 
-path = Path('2-clean.py')
+path = Path('3-clean.py')
 clean = path.read_text()
 
-# add a print statement at the end of 2-clean.py
+# add a print statement at the end of 3-clean.py
 path.write_text(clean + """
 print("hello")
 """)
@@ -110,12 +110,11 @@ ploomber build
 path.write_text(clean)
 ```
 
-You'll see that `1-get.py` didn't run because it was not affected by the change!
+You'll see that `1-get.py` & `2-profile-raw.py` didn't run because it was not affected by the change!
 
 ## Where to go from here
 
 **Bring your own code!** Check out the tutorial to [migrate your code to Ploomber](https://docs.ploomber.io/en/latest/user-guide/refactoring.html).
-<br><br>
 
 Have questions? [Ask us anything on Slack](https://ploomber.io/community/).
 
