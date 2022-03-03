@@ -7,17 +7,20 @@ import pandas as pd
 import seaborn as sns
 
 # %% tags=["parameters"]
-upstream = ['2-clean']
+upstream = ['3-clean']
 product = None
 
 # %%
-df = pd.read_csv(upstream['2-clean']['data'])
+df = pd.read_parquet(upstream['3-clean']['data'])
 
 # %%
-sns.distplot(df.sepal_length)
+sns.displot(df.death_percents)
 
 # %%
-sns.distplot(df.sepal_width)
+sns.displot(df.cases)
+
+# %%
+sns.displot(df.confirmed_deaths)
 
 # %%
 df.head()
