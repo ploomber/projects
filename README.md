@@ -112,7 +112,7 @@ In-depth tutorials for learning.  These are part of the [documentation](https://
 
 5. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
 
-6. [`guides/spec-api-python`](guides/first-pipeline/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
+6. [`guides/first-pipeline`](guides/first-pipeline/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
 
 7. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
 
