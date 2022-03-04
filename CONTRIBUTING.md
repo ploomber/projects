@@ -1,5 +1,24 @@
 # Contributing
 
+## Setup your env with conda
+
+The simplest way to setup the environment is via conda. [Click here for miniconda installation details](https://docs.conda.io/en/latest/miniconda.html).
+
+
+```sh
+# invoke is needed to run the next command
+pip install invoke
+
+# install dependencies
+invoke setup
+```
+
+Then activate the environment:
+
+```sh
+conda activate projects
+```
+
 ## Updating root README.md
 
 To update the root `README.md`, modify `_source.md`. Then execute the following command:

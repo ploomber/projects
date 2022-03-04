@@ -2,5 +2,5 @@ matplotlib
 numpy
 pandas
 ploomber
-seaborn
 pyarrow
+seaborn
