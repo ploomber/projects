@@ -20,6 +20,11 @@ conda activate projects
 ```
 
 ## Updating root README.md
+Updating a specific example:
+
+```
+invoke build --name guides/first-pipeline
+```
 
 To update the root `README.md`, modify `_source.md`. Then execute the following command:
 
