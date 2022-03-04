@@ -2,7 +2,7 @@
 """
 Get data
 """
-import seaborn as sns
+import pandas as pd
 from pathlib import Path
 
 # %% tags=["parameters"]
@@ -10,10 +10,7 @@ upstream = None
 product = None
 
 # %%
-df = sns.load_dataset('iris')
-df.columns = [
-    'sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class'
-]
+df = pd.read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv")
 df.head()
 
 # %%
