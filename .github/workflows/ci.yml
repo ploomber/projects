@@ -145,3 +145,25 @@ jobs:
           # validate argo spec
           # ploomberutils validate-argo argo.yaml
           # TODO: export to airflow
+
+  colab:
+    runs-on: ubuntu-latest
+    name: colab-first-pipeline
+    env:
+      PLOOMBER_STATS_ENABLED: false
+      FOLDER: guides/first-pipeline/
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - run: |
+          eval "$(conda shell.bash hook)"
+          conda env create --file $FOLDER/environment.yml --name env
+          conda activate env
+
+          pip install _pkg/
+          pip install invoke ipywidgets
+
+          # test readme.md
+          papermill $FOLDER/colab.ipynb $FOLDER/colab-out.ipynb
