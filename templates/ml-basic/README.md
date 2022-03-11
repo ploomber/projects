@@ -36,14 +36,17 @@ tasks:
   - source: tasks.join
     product: output/join.parquet
 
-    # fit.py is a script
+    # fit.py is a script (that you can open as notebook in Jupyter)
   - source: fit.py
     name: fit
     product:
         # this output notebook is the model's evaluation report
-        nb: output/nb.ipynb
+        nb: output/nb.html
         model: output/model.pickle
 
+    # optional config to hide the code in the output/nb.html report
+    nbconvert_export_kwargs:
+      exclude_input: True
 ```
 <!-- #endmd -->
 
