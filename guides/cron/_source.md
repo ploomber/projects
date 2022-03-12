@@ -14,7 +14,9 @@ jupyter:
 
 # Scheduling with cron
 
-This guide shows how to schedule Ploomber pipelines using `cron`.
+<!-- start description -->
+This guide shows how to schedule Ploomber pipelines using cron.
+<!-- end description -->
 
 **Note:** `cron` is only available on macOS and Linux.
 
