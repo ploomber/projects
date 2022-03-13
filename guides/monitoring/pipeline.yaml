@@ -1,0 +1,15 @@
+tasks:
+  - source: tasks.get
+    product: output/get.parquet
+
+  - source: tasks.features
+    product: output/features.parquet
+
+  - source: tasks.join
+    product: output/join.parquet
+
+  - source: fit.py
+    name: fit
+    product:
+        nb: output/nb.ipynb
+        model: output/model.pickle
