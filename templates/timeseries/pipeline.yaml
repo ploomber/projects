@@ -1,0 +1,42 @@
+tasks:
+
+- source: tasks/section-1-load-data.py
+  product:
+    y: output/section-1-load-data-y.pkl
+    nb: output/section-1-load-data.ipynb
+
+- source: tasks/section-2-preprocess-data.py
+  product:
+    y: output/section-2-preprocess-data-y.pkl
+    nb: output/section-2-preprocess-data.ipynb
+
+- source: tasks/section-3-visualize-data.py
+  product:
+    nb: output/section-3-visualize-data.ipynb
+
+- source: tasks/section-4-modeling-hyperparameter-optimization-via-grid-search.py
+  product:
+    min_model: output/section-4-modeling-hyperparameter-optimization-via-grid-search-min_model.pkl
+    results: output/section-4-modeling-hyperparameter-optimization-via-grid-search-results.pkl
+    nb: output/section-4-modeling-hyperparameter-optimization-via-grid-search.ipynb
+
+- source: tasks/section-5-model-fit-and-diagnostics.py
+  product:
+    results: output/section-5-model-fit-and-diagnostics-results.pkl
+    nb: output/section-5-model-fit-and-diagnostics.ipynb
+
+- source: tasks/section-6-model-validation.py
+  product:
+    nb: output/section-6-model-validation.ipynb
+
+- source: tasks/section-6-1-static-forecasts.py
+  product:
+    nb: output/section-6-1-static-forecasts.ipynb
+
+- source: tasks/section-6-2-dynamic-forecasts.py
+  product:
+    nb: output/section-6-2-dynamic-forecasts.ipynb
+
+- source: tasks/section-7-producing-and-visualizing-forecasts.py
+  product:
+    nb: output/section-7-producing-and-visualizing-forecasts.ipynb
