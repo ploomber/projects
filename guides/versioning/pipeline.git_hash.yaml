@@ -1,0 +1,9 @@
+tasks:
+  - source: tasks/load.py
+    product:
+      nb: 'output/{{git_hash}}/load.html'
+      data: 'output/{{git_hash}}/data.csv'
+
+  - source: tasks/plot.py
+    product:
+      nb: 'output/{{git_hash}}/plot.html'

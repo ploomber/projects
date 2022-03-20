@@ -21,6 +21,7 @@ jobs:
           - guides/serialization
           - guides/refactor
           - guides/cron
+          - guides/versioning
           - templates/mlflow
           - templates/spec-api-directory
           - templates/ml-intermediate

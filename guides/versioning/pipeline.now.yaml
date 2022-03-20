@@ -1,0 +1,9 @@
+tasks:
+  - source: tasks/load.py
+    product:
+      nb: 'output/{{now}}/load.html'
+      data: 'output/{{now}}/data.csv'
+
+  - source: tasks/plot.py
+    product:
+      nb: 'output/{{now}}/plot.html'
