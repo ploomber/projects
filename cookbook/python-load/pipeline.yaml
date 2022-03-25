@@ -1,3 +1,10 @@
 tasks:
   - source: tasks.create_file
     product: 'products/{{run_number}}/some_file.txt'
+
+  - source: tasks.create_another
+    product: 'products/{{run_number}}/another_file.txt'
+
+
+  - source: tasks.create_final
+    product: 'products/{{run_number}}/final.txt'
