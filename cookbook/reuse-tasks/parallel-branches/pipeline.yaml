@@ -1,0 +1,32 @@
+executor: parallel
+
+meta:
+  extract_upstream: false
+
+
+tasks:
+  - source: tasks.make_train
+    product: products/train.csv
+
+  - source: tasks.drop_columns
+    name: drop-train
+    upstream: [make_train]
+    product: products/drop-train.csv
+
+  - source: tasks.clean
+    name: clean-train
+    upstream: [drop-train]
+    product: products/clean-train.csv
+
+  - source: tasks.make_test
+    product: products/test.csv
+
+  - source: tasks.drop_columns
+    name: drop-test
+    upstream: [make_test]
+    product: products/drop-test.csv
+
+  - source: tasks.clean
+    name: clean-test
+    upstream: [drop-test]
+    product: products/clean-test.csv
