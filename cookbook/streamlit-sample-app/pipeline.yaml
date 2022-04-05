@@ -1,0 +1,10 @@
+tasks:
+  - source: scripts/get.py
+    product:
+      nb: products/get.html
+      data: products/raw.csv
+
+  - source: scripts/clean.py
+    product:
+      nb: products/clean.html
+      data: products/clean.csv
