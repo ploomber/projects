@@ -1,5 +1,5 @@
 pandas
 pandas-profiling
 ploomber
-streamlit
-streamlit-pandas-profiling
+plotly
+seaborn

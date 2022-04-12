@@ -90,13 +90,15 @@ Short and to-the-point examples showing how to use a specific feature.
 
 3. [`cookbook/grid`](cookbook/grid/README.ipynb) An example showing how to create a grid of tasks to train models with different parameters.
 
-4. [`cookbook/python-load`](cookbook/python-load/README.ipynb) Load pipeline.yaml file in a Python session to customize ininitialization.
+4. [`cookbook/nested-cv`](cookbook/nested-cv/README.ipynb) Nested cross-validation for model selection and hyperparameter tuning.
 
-5. [`cookbook/serialization`](cookbook/serialization/README.ipynb) Shows how to use the serializer and unserializer decorators.
+5. [`cookbook/python-load`](cookbook/python-load/README.ipynb) Load pipeline.yaml file in a Python session to customize ininitialization.
 
-6. [`cookbook/sql-dump`](cookbook/sql-dump/README.ipynb) A minimal example showing how to dump a table from a SQL database.
+6. [`cookbook/serialization`](cookbook/serialization/README.ipynb) Shows how to use the serializer and unserializer decorators.
 
-7. [`cookbook/variable-number-of-products`](cookbook/variable-number-of-products/README.ipynb) Shows how to create tasks whose number of products depends on runtime conditions.
+7. [`cookbook/sql-dump`](cookbook/sql-dump/README.ipynb) A minimal example showing how to dump a table from a SQL database.
+
+9. [`cookbook/variable-number-of-products`](cookbook/variable-number-of-products/README.ipynb) Shows how to create tasks whose number of products depends on runtime conditions.
 
 
 ### Guides
@@ -104,23 +106,27 @@ Short and to-the-point examples showing how to use a specific feature.
 In-depth tutorials for learning.  These are part of the [documentation](https://docs.ploomber.io/en/latest/user-guide/index.html).
 
 
-1. [`guides/cron`](guides/cron/README.ipynb) This guide shows how to schedule Ploomber pipelines using cron.
+2. [`guides/cron`](guides/cron/README.ipynb) This guide shows how to schedule Ploomber pipelines using cron.
 
-2. [`guides/debugging`](guides/debugging/README.ipynb) Tutorial showing techniques for debugging pipelines.
+3. [`guides/debugging`](guides/debugging/README.ipynb) Tutorial showing techniques for debugging pipelines.
 
-3. [`guides/first-pipeline`](guides/first-pipeline/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
+4. [`guides/first-pipeline`](guides/first-pipeline/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
 
-4. [`guides/logging`](guides/logging/README.ipynb) Tutorial showing how to add logging to a pipeline.
+5. [`guides/logging`](guides/logging/README.ipynb) Tutorial showing how to add logging to a pipeline.
 
-5. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
+6. [`guides/monitoring`](guides/monitoring/README.ipynb) To show the capabilities we'll run our pipeline monitoring through a pre-built Ploomber template: ml-basic.
 
-6. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
+7. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
 
-7. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
+8. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
 
-8. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
+9. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
 
-9. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
+10. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
+
+11. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
+
+12. [`guides/versioning`](guides/versioning/README.ipynb) A tutorial showing how to version pipeline products.
 
 
 

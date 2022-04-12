@@ -5,6 +5,7 @@ dependencies:
 - p7zip
 - pandas
 - pygraphviz
+- python=3.8
 - r-base
 - r-base=4.0.3
 - r-irkernel

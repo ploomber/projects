@@ -163,6 +163,7 @@ To select specific lines:
 **Note:** The repository-level environment.yml is saved in a different repo to allow
 quick Binder loading.
 
+**Note:** If you want to exclude a task from being executed by the build task (and skipped from the index), add a `.skip` file.
 
 To build:
 
@@ -172,4 +173,16 @@ invoke build
 
 ```sh
 invoke build --force
+```
+
+To build a specific example:
+
+```sh
+invoke build -n cookbook/name
+```
+
+To re-build the index and readme:
+
+```
+invoke build -n readme
 ```
