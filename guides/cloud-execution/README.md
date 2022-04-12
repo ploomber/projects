@@ -12,9 +12,9 @@ jupyter:
     name: python3
 ---
 
-# Cloud execution
+# Cloud Execution
 
-**Note:** Ploomber Cloud execution is currently in private alpha. If you'd like try it out. [Join our community](https://ploomber.io/community) and ask us for an invite.
+**Note:** To use Ploomber Cloud, you need an API key, [click here](https://docs.ploomber.io/en/latest/cloud/api-key.html) to get one.
 
 Ploomber Cloud allows you to go from your local environment to a distributed environment in the cloud (to run hundreds of experiments in parallel!) and back in a single command.
 
