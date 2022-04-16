@@ -35,8 +35,16 @@ The CLI will work just as if you were using the `pipeline.yaml` file directly, p
 ploomber status -e pipeline.make
 ```
 
+To build the pipeline:
+
 ```sh
 ploomber build -e pipeline.make
+```
+
+Note that you can modify values set in the `env.yaml`, to see how, pass ``--help``:
+
+```sh
+ploomber build -e pipeline.make --help
 ```
 
 *Note:* Check out the other functions in `pipeline.yaml` for more examples.
