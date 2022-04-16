@@ -41,7 +41,7 @@ Runnable example:
 <!-- #md -->
 ```sh
 # get example
-pip install ploomber "nbconvert[webpdf]"
+pip install ploomber "nbconvert[webpdf]" --upgrade
 ploomber examples -n cookbook/report-generation -o example
 cd example
 
@@ -82,7 +82,7 @@ Runnable example:
 <!-- #md -->
 ```sh
 # get example
-pip install ploomber "nbconvert[webpdf]"
+pip install ploomber "nbconvert[webpdf]" --upgrade
 ploomber examples -n cookbook/report-generation -o example
 cd example
 
@@ -117,7 +117,7 @@ Runnable example:
 <!-- #md -->
 ```sh
 # get example
-pip install ploomber "nbconvert[webpdf]"
+pip install ploomber "nbconvert[webpdf]" --upgrade
 ploomber examples -n cookbook/report-generation -o example
 cd example
 
@@ -187,7 +187,7 @@ Runnable example:
 <!-- #md -->
 ```sh
 # get example
-pip install ploomber "nbconvert[webpdf]"
+pip install ploomber "nbconvert[webpdf]" --upgrade
 ploomber examples -n cookbook/report-generation -o example
 cd example
 
@@ -234,7 +234,7 @@ Runnable example:
 <!-- #md -->
 ```sh
 # get example
-pip install ploomber "nbconvert[webpdf]"
+pip install ploomber "nbconvert[webpdf]" --upgrade
 ploomber examples -n cookbook/report-generation -o example
 cd example
 
