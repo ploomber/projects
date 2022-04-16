@@ -1,0 +1,13 @@
+name: cron
+
+channels:
+  - conda-forge
+
+dependencies:
+  - pip
+
+  - pip:
+    - ploomber
+    - numpy
+    - pandas
+    - matplotlib

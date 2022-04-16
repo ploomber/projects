@@ -15,6 +15,7 @@ jobs:
           - cookbook/dynamic-params
           - cookbook/python-load
           - cookbook/file-client
+          - cookbook/report-generation
           - guides/debugging
           - guides/sql-templating
           - guides/logging

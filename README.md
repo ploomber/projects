@@ -92,13 +92,15 @@ Short and to-the-point examples showing how to use a specific feature.
 
 4. [`cookbook/nested-cv`](cookbook/nested-cv/README.ipynb) Nested cross-validation for model selection and hyperparameter tuning.
 
-5. [`cookbook/python-load`](cookbook/python-load/README.ipynb) Load pipeline.yaml file in a Python session to customize ininitialization.
+5. [`cookbook/python-load`](cookbook/python-load/README.ipynb) Load pipeline.yaml file in a Python session to customize initialization.
 
-6. [`cookbook/serialization`](cookbook/serialization/README.ipynb) Shows how to use the serializer and unserializer decorators.
+6. [`cookbook/report-generation`](cookbook/report-generation/README.ipynb) Generating HTML/PDF reports.
 
-7. [`cookbook/sql-dump`](cookbook/sql-dump/README.ipynb) A minimal example showing how to dump a table from a SQL database.
+7. [`cookbook/serialization`](cookbook/serialization/README.ipynb) Shows how to use the serializer and unserializer decorators.
 
-9. [`cookbook/variable-number-of-products`](cookbook/variable-number-of-products/README.ipynb) Shows how to create tasks whose number of products depends on runtime conditions.
+8. [`cookbook/sql-dump`](cookbook/sql-dump/README.ipynb) A minimal example showing how to dump a table from a SQL database.
+
+10. [`cookbook/variable-number-of-products`](cookbook/variable-number-of-products/README.ipynb) Shows how to create tasks whose number of products depends on runtime conditions.
 
 
 ### Guides

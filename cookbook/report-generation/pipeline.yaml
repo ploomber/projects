@@ -1,0 +1,50 @@
+tasks:
+    # scripts can generate reports
+    - source: tasks/script.py
+      name: html-report
+      product:
+        nb: reports/report.html
+        # the task can generate more outputs, list them here
+    
+    # notebooks as well
+    - source: tasks/notebook.ipynb
+      name: another-html-report
+      product:
+        nb: reports/another.html
+
+      nbconvert_export_kwargs:
+        # optionally hide the code from the report
+        exclude_input: True
+      
+        # optionally, exclude cells with certain tags
+        config:
+          HTMLExporter:
+            preprocessors: [nbconvert.preprocessors.TagRemovePreprocessor]
+          TagRemovePreprocessor:
+            remove_cell_tags: [boxplot]
+
+    # pdf report example
+    - source: tasks/script.py
+      name: webpdf-report
+      # use the webpdf exporter (supportes embedded charts)
+      # (it will download chromium if needed)
+      nbconvert_exporter_name: webpdf
+      product:
+        nb: reports/report-webpdf.pdf
+
+    # pdf report example (requires latex)
+    - source: tasks/script.py
+      name: pdf-report
+      # generate pdf report by changing the extension.
+      product:
+        nb: reports/report.pdf
+
+    # skip report generation
+    - source: tasks/download.py
+      name: no-report
+      # run as a script. Do not generate output report
+      # Note: ScriptRunner was introduced in Ploomber 0.17.2
+      class: ScriptRunner
+      product:
+        data: data/data-another.csv
+    
