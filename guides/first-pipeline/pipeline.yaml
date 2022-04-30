@@ -4,20 +4,20 @@ tasks:
     # products are task's outputs
     product:
       # scripts generate executed notebooks as outputs
-      nb: output/1-get.ipynb
+      nb: output/1-get.html
       # you can define as many outputs as you want
       data: output/raw_data.csv
 
   - source: 2-profile-raw.py
-    product: output/2-profile-raw.ipynb
+    product: output/2-profile-raw.html
 
   - source: 3-clean.py
     product:
-      nb: output/3-clean.ipynb
+      nb: output/3-clean.html
       data: output/clean_data.parquet
 
   - source: 4-profile-clean.py
-    product: output/4-profile-clean.ipynb
+    product: output/4-profile-clean.html
 
   - source: 5-plot.py
-    product: output/5-plot.ipynb
+    product: output/5-plot.html
