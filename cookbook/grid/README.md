@@ -26,7 +26,7 @@ An example showing how to create a grid of tasks to train models with different 
     name: fit-
     # disabling static_analysis because the notebook does not have
     # a fixed set of parameters (depends on random-forest vs ada-boost)
-    static_analysis: False
+    static_analysis: disable
     product:
       nb: products/report.html
       model: products/model.pickle
@@ -36,7 +36,7 @@ An example showing how to create a grid of tasks to train models with different 
         n_estimators: [1, 3, 5]
         criterion: [gini, entropy]
 
-      # generates 9 tasks (1 * 3 * 2)
+      # generates 6 tasks (1 * 3 * 2)
       - model_type: [ada-boost]
         n_estimators: [1, 3, 5]
         learning_rate: [1, 2]
