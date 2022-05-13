@@ -31,7 +31,7 @@ ploomber plot
 <!-- #endmd -->
 
 
-Open the `pipeline.png` file to see the diagram.
+Open the generated file to see the diagram.
 
 ## Build pipeline
 

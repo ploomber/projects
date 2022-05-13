@@ -37,8 +37,10 @@ ploomber plot
 # If using jupyter, you can show the plot with this code:
 from IPython.display import Image
 Image(filename='pipeline.png')
-
 # otherwise open the pipeline.png file directly
+
+# NOTE: ploomber plot will generate a pipeline.html (not .png) file if
+# pygraphviz is missing. In such case, open the file to view the pipeline plot
 ```
 
 ## Build pipeline
