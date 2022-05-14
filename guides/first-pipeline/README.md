@@ -93,7 +93,7 @@ Image(filename='pipeline.png')
 
 You can see that our pipeline has a defined execution order.
 
-**Note:** This is a sample predifined five-task pipeline, Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
+**Note:** This is a sample predefined five-task pipeline, Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
 
 ## Running the pipeline
 

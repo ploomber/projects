@@ -48,6 +48,8 @@ ploomber plot
 
 ```python
 Image('pipeline.png')
+# NOTE: ploomber plot will generate a pipeline.html (not .png) file if
+# pygraphviz is missing. In such case, open the file to view the pipeline plot
 ```
 
 We can see that `soorgeon refactor` generated a Ploomber pipeline with one task per notebook section. The source code for each task is in the `tasks/` folder:

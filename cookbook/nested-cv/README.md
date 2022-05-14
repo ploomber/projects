@@ -57,14 +57,16 @@ tasks:
 Plot:
 
 ```sh
-# run this in a terminal
 ploomber plot
 ```
 
+Display the pipeline:
+
 ```python
-# run this in a python session
 from IPython.display import Image
 Image('pipeline.png')
+# NOTE: ploomber plot will generate a pipeline.html (not .png) file if
+# pygraphviz is missing. In such case, open the file to view the pipeline plot
 ```
 
 Run the pipeline:
