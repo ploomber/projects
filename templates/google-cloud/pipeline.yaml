@@ -1,6 +1,7 @@
 clients:
-  SQLDump: clients.get
-  SQLScript: clients.get
+  File: clients.storage
+  SQLDump: clients.db
+  SQLScript: clients.db
 
 tasks:
   - source: transform.sql
