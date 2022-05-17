@@ -1,0 +1,11 @@
+clients:
+  SQLDump: clients.get
+  SQLScript: clients.get
+
+tasks:
+  - source: transform.sql
+    product: [my_dataset, some_table, table]
+
+  - source: script.sql
+    product: products/dump.parquet
+    chunksize: null

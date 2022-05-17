@@ -1,0 +1,13 @@
+name: google-cloud
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - ploomber
+    - pandas
+    - scikit-learn
+    - google-cloud-storage
