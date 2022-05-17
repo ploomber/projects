@@ -11,3 +11,4 @@ dependencies:
     - pandas
     - scikit-learn
     - google-cloud-storage
+    - sqlalchemy-bigquery

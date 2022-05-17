@@ -1,12 +1,28 @@
+meta:
+  product_default_class:
+    SQLScript: GenericSQLRelation
+    SQLUpload: GenericSQLRelation
+
 clients:
   File: clients.storage
-  SQLDump: clients.db
-  SQLScript: clients.db
+  SQLDump: clients.db_sqlalchemy
+  SQLScript: clients.db_sqlalchemy
+  SQLUpload: clients.db_sqlalchemy
+  GenericSQLRelation: clients.metadata
 
 tasks:
-  - source: transform.sql
-    product: [my_dataset, some_table, table]
+  - source: sql/create-table.sql
+    product: [my_dataset, my_table, table]
 
-  - source: script.sql
+  - source: sql/create-view.sql
+    product: [my_dataset, my_view, view]
+
+  - source: sql/create-materialized-view.sql
+    product: [my_dataset, my_materialized_view, view]
+
+  - source: sql/dump-table.sql
     product: products/dump.parquet
     chunksize: null
+
+  - source: scripts/plot.py
+    product: products/plot.html
