@@ -24,6 +24,6 @@ df = pd.read_parquet(upstream['dump-table'])
 
 # %%
 # most popular names
-df.groupby('name').number.sum().sort_values().tail(10).plot(kind='bar')
+df.set_index('name').sort_values(by='number').tail(10).plot(kind='bar')
 
 # %%

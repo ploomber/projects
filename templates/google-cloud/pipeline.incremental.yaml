@@ -1,14 +1,15 @@
-# NOTE: edit clients.py with your connection details
+meta:
+  product_default_class:
+    SQLScript: GenericSQLRelation
+
 clients:
-  # all output files will use the Cloud Storage client
   File: clients.storage
-  # dumping data from BigQuery
   SQLDump: clients.db_sqlalchemy
-  # creating tables/views on BigQuery
   SQLScript: clients.db_sqlalchemy
+  SQLUpload: clients.db_sqlalchemy
+  GenericSQLRelation: clients.metadata
 
 tasks:
-  # NOTE: ensure all products match the dataset name you created
   - source: sql/create-table.sql
     product: [my_dataset, my_table, table]
 
@@ -18,11 +19,9 @@ tasks:
   - source: sql/create-materialized-view.sql
     product: [my_dataset, my_materialized_view, view]
 
-  # dump data locally (and upload outputs to Cloud Storage)
   - source: sql/dump-table.sql
     product: products/dump.parquet
     chunksize: null
 
-  # process data with Python (and upload outputs to Cloud Storage)
   - source: scripts/plot.py
     product: products/plot.html

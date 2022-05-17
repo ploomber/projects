@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS {{ product }};
 CREATE TABLE {{ product }} AS
-SELECT *
+SELECT name, sum(number) AS number
 FROM `bigquery-public-data.usa_names.usa_1910_2013`
-LIMIT 100000
+GROUP BY name

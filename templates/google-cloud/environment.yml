@@ -9,6 +9,7 @@ dependencies:
   - pip:
     - ploomber
     - pandas
-    - scikit-learn
+    - matplotlib
     - google-cloud-storage
+    - google-cloud-bigquery
     - sqlalchemy-bigquery
