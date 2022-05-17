@@ -1,16 +1,16 @@
----
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.13.0
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
----
+<!-- start header -->
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n templates/google-cloud`
+
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Ftemplates/google-cloud%252FREADME.ipynb%26branch%3Dmaster)
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=templates/google-cloud%20issue)
+
+Have questions? [Ask us anything on Slack.](https://ploomber.io/community/)
+
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/templates/google-cloud/README.ipynb)
+<!-- end header -->
+
+
 
 # google-cloud
 
@@ -116,7 +116,30 @@ You can look at the files in detail [here.](https://github.com/ploomber/projects
 `pipeline.yaml` is the central file in this project; Ploomber uses this file
 to assemble your pipeline and run it, here's what it looks like:
 
-<% expand('pipeline.yaml', lines=(10, 28)) %>
+<!-- #md -->
+```yaml
+# Content of pipeline.yaml
+tasks:
+  # NOTE: ensure all products match the dataset name you created
+  - source: sql/create-table.sql
+    product: [my_dataset, my_table, table]
+
+  - source: sql/create-view.sql
+    product: [my_dataset, my_view, view]
+
+  - source: sql/create-materialized-view.sql
+    product: [my_dataset, my_materialized_view, view]
+
+  # dump data locally (and upload outputs to Cloud Storage)
+  - source: sql/dump-table.sql
+    product: products/dump.parquet
+    chunksize: null
+
+  # process data with Python (and upload outputs to Cloud Storage)
+  - source: scripts/plot.py
+    product: products/plot.html
+```
+<!-- #endmd -->
 
 Each task in the `pipeline.yaml` file contains two elements: the source code
 we want to execute and the product. You can see that we have a few SQL scripts
@@ -130,7 +153,15 @@ You might be wondering how the order is determined. Ploomber extracts references
 from the source code itself; for example, the `create-view.sql` depends on
 `create-table.sql`. If we look at the code, we'll see the reference:
 
-<% expand('sql/create-view.sql') %>
+<!-- #md -->
+```sql
+# Content of sql/create-view.sql
+DROP VIEW IF EXISTS {{ product }};
+CREATE VIEW {{ product }} AS
+SELECT *
+FROM {{ upstream["create-table"] }}
+```
+<!-- #endmd -->
 
 There is a placeholder `{{ upstream["create-table"] }}`, this indicates
 that we should run `create-table.sql` first. At runtime, Ploomber will replace
@@ -146,14 +177,32 @@ BigQuery and Cloud Storage.
 
 For example, this is how we connect to BigQuery:
 
-<% expand('clients.py', lines=(10, 13)) %>
+<!-- #md -->
+```python
+# Content of clients.py
+def db():
+    """Client to send queries to BigQuery
+    """
+    return DBAPIClient(connect, dict())
+```
+<!-- #endmd -->
 
 Note that we're returning a `ploomber.clients.DBAPIClient` object. Ploomber
 wraps BigQuery's connector, so it works with other databases.
 
 Secondly, we configure the Cloud Storage client:
 
-<% expand('clients.py', lines=(24, 29)) %>
+<!-- #md -->
+```python
+# Content of clients.py
+def storage():
+    """Client to upload files to Google Cloud Storage
+    """
+    # ensure your bucket_name matches
+    return GCloudStorageClient(bucket_name='ploomber-bucket',
+                               parent='my-pipeline')
+```
+<!-- #endmd -->
 
 Here, we return a `ploomber.clients.GCloudStorageClient` object (ensure
 that the `bucket_name` matches yours!)

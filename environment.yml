@@ -6,11 +6,13 @@ dependencies:
 - pandas
 - pygraphviz
 - python=3.8
+- python=3.9
 - r-base
 - r-base=4.0.3
 - r-irkernel
 - scikit-learn
 - pip:
+  - google-cloud-bigquery
   - google-cloud-storage
   - ipywidgets
   - joblib
@@ -32,4 +34,5 @@ dependencies:
   - soopervisor
   - soorgeon
   - sqlalchemy
+  - sqlalchemy-bigquery
 name: projects
