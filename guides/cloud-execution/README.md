@@ -75,7 +75,7 @@ ploomber cloud status 5fe5d32b-8686-4978-bb26-d11146b576f2
 ploomber cloud status 5fe5d32b-8686-4978-bb26-d11146b576f2
 ```
 
-Great! We see that our jobs have been scheduled, let's give it a few minutes for it to finish training the 10 models.
+Great! We see that our jobs have been scheduled, let's give it a few minutes for it to finish training the 10 models. Ploomber Cloud runs one container per task, allowing you to parallelize our pipeline easily!
 
 ```sh
 ploomber cloud status 5fe5d32b-8686-4978-bb26-d11146b576f2
