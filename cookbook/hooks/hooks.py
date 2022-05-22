@@ -3,10 +3,10 @@ DAG-level and task-level hooks. All arguments in the functions are optional
 """
 
 
-def dag_level_on_render():
+def dag_level_on_render(my_param):
     """Executed after the pipeline renders (before execution)
     """
-    print('rendered DAG!')
+    print(f'rendered DAG! my_param={my_param}')
 
 
 def dag_level_on_finish(dag, report):
@@ -25,11 +25,11 @@ def dag_level_on_failure(traceback):
         print('Pipeline execution failed while executing an on_finish hook!')
 
 
-def on_render(task, client, product, params):
+def on_render(my_param, task, client, product, params):
     """Executed after the task renders (before execution)
     """
-    print(f'Finished rendering {task.name} with client {client}, '
-          f'product {product} and params {params}')
+    print(f'Finished rendering {task.name} with my_param {my_param}, '
+          f'client {client}, product {product}, and task params {params}')
 
 
 def on_finish(task, client, product, params):
