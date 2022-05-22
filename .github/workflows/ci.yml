@@ -16,6 +16,7 @@ jobs:
           - cookbook/python-load
           - cookbook/file-client
           - cookbook/report-generation
+          - cookbook/hooks
           - guides/debugging
           - guides/sql-templating
           - guides/logging
