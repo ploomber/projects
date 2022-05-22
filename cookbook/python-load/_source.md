@@ -15,7 +15,7 @@ jupyter:
 # Loading pipeline.yaml in Python
 
 <!-- start description -->
-Load pipeline.yaml file in a Python session to customize ininitialization.
+Load pipeline.yaml file in a Python session to customize initialization.
 <!-- end description -->
 
 ## Loading the pipeline
@@ -24,7 +24,7 @@ Create a function that loads it and returns the DAG object:
 
 <% expand('pipeline.py') %>
 
-*Note:* If your pipeline isn't using an `env.yaml` file, simply remove the decorator, and the `env` argument in the function.
+*Note:* If your pipeline isn't using an `env.yaml` file, remove the decorator and the `env` argument in the function.
 
 
 ## Command-line interface
@@ -35,6 +35,16 @@ The CLI will work just as if you were using the `pipeline.yaml` file directly, p
 ploomber status -e pipeline.make
 ```
 
+To build the pipeline:
+
 ```sh
 ploomber build -e pipeline.make
 ```
+
+Note that you can modify values set in the `env.yaml`, to see how, pass ``--help``:
+
+```sh
+ploomber build -e pipeline.make --help
+```
+
+*Note:* Check out the other functions in `pipeline.yaml` for more examples.

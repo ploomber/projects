@@ -1,0 +1,21 @@
+# dag-level hooks
+on_render:
+  dotted_path: hooks.dag_level_on_render
+  my_param: 10
+on_finish: hooks.dag_level_on_finish
+on_failure: hooks.dag_level_on_failure
+
+tasks:
+  - source: tasks.do_something
+    product: output/data.csv
+    # task-level hooks
+    on_render:
+      dotted_path: hooks.on_render
+      my_param: 20
+    on_finish: hooks.on_finish
+    on_failure: hooks.on_failure
+
+    # parameter to switch wether the task crashes or not (to show how
+    # on_failure hooks work)
+    params:
+      crash: '{{crash}}'

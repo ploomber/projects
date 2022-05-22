@@ -1,0 +1,27 @@
+executor: parallel
+
+tasks:
+  - source: tasks/load.py
+    product:
+      nb: products/load.html
+      data: products/data.csv
+
+  - source: tasks/fit.py
+    name: fit-
+    product:
+      nb: products/fit.html
+      model: products/model.pkl
+    grid:
+      - model: sklearn.ensemble.RandomForestClassifier
+        model_params:
+          # optimize over these parameters
+          - n_estimators: [2, 5]
+            criterion: [gini, entropy]
+    
+      - model: sklearn.svm.SVC
+        model_params:
+          # optimize over these parameters
+          - kernel: [linear, poly]
+            C: [0.1, 1.0]
+      
+      

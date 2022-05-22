@@ -1,0 +1,9 @@
+name: cookbook-hooks
+
+channels:
+  - conda-forge
+
+dependencies:
+  - pip
+  - pip:
+    - ploomber

@@ -42,15 +42,18 @@ def _render(resources_, product):
     templates = [
         Example(path=path, idx=idx)
         for idx, path in enumerate(sorted(glob('templates/*')), start=1)
+        if not Path(path, '.skip').exists()
     ]
 
     cookbook = [
         Example(path=path, idx=idx)
         for idx, path in enumerate(sorted(glob('cookbook/*')), start=1)
+        if not Path(path, '.skip').exists()
     ]
     guides = [
         Example(path=path, idx=idx)
         for idx, path in enumerate(sorted(glob('guides/*')), start=1)
+        if not Path(path, '.skip').exists()
     ]
 
     template = Template(Path(resources_['source']).read_text())

@@ -34,30 +34,33 @@ def make(clean_up=True):
     # task, it will convert it to a Jupyter notebook before execution (you can
     # still pass a .ipynb file). We recommend using .py files as they are
     # easier to merge with git
-    clean = NotebookRunner(loader['clean.py'],
-                           # this task generates two files, the .ipynb
-                           # output notebook and another csv file
-                           product={'nb': File(out / 'clean.ipynb'),
-                                    'data': File(out / 'clean.csv')},
-                           dag=dag,
-                           # you can run any language supported by Jupyter
-                           # by specifying which kernel to use
-                           kernelspec_name='python3',
-                           # by enabling this option, a few checks are
-                           # performed on your code before running the
-                           # notebook. Given that jupyter notebooks are run
-                           # cell by cell, something as simple as a syntax
-                           # error will be discovered until such cell is run,
-                           # this gives you immediate feedback
-                           static_analysis=True,
-                           papermill_params={'nest_asyncio': True})
+    clean = NotebookRunner(
+        loader['clean.py'],
+        # this task generates two files, the .ipynb
+        # output notebook and another csv file
+        product={
+            'nb': File(out / 'clean.ipynb'),
+            'data': File(out / 'clean.csv')
+        },
+        dag=dag,
+        # you can run any language supported by Jupyter
+        # by specifying which kernel to use
+        kernelspec_name='python3',
+        # by enabling this option, a few checks are
+        # performed on your code before running the
+        # notebook. Given that jupyter notebooks are run
+        # cell by cell, something as simple as a syntax
+        # error will be discovered until such cell is run,
+        # this gives you immediate feedback
+        static_analysis='disable',
+        papermill_params={'nest_asyncio': True})
 
     # the final task is also a notebook that generates a plot
     plot = NotebookRunner(loader['plot.py'],
                           File(out / 'plot.ipynb'),
                           dag=dag,
                           kernelspec_name='python3',
-                          static_analysis=True,
+                          static_analysis='disable',
                           papermill_params={'nest_asyncio': True})
 
     # declare execution dependencies, by leveraging the graph structure

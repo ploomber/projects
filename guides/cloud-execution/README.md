@@ -5,16 +5,16 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.13.2
+      jupytext_version: 1.13.6
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
 
-# Cloud execution
+# Cloud Execution
 
-**Note:** Ploomber Cloud execution is currently in private alpha. If you'd like try it out. [Join our community](https://ploomber.io/community) and ask us for an invite.
+**Note:** To use Ploomber Cloud, you need an API key, [click here](https://docs.ploomber.io/en/latest/cloud/api-key.html) to get one.
 
 Ploomber Cloud allows you to go from your local environment to a distributed environment in the cloud (to run hundreds of experiments in parallel!) and back in a single command.
 
@@ -75,7 +75,7 @@ ploomber cloud status 5fe5d32b-8686-4978-bb26-d11146b576f2
 ploomber cloud status 5fe5d32b-8686-4978-bb26-d11146b576f2
 ```
 
-Great! We see that our jobs have been scheduled, let's give it a few minutes for it to finish training the 10 models.
+Great! We see that our jobs have been scheduled, let's give it a few minutes for it to finish training the 10 models. Ploomber Cloud runs one container per task, allowing you to parallelize our pipeline easily!
 
 ```sh
 ploomber cloud status 5fe5d32b-8686-4978-bb26-d11146b576f2

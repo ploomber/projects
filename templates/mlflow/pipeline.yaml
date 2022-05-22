@@ -17,7 +17,7 @@ tasks:
   - source: scripts/fit.py
     name: fit-
     # we need to turn this off because parameters depend on the type of model
-    static_analysis: false
+    static_analysis: disable
     product: products/report.ipynb
     grid:
       - model: sklearn.ensemble.RandomForestClassifier

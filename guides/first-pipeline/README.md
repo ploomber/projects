@@ -1,5 +1,5 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n guides/first-pipeline`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n guides/first-pipeline`
 
 To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/first-pipeline%252FREADME.ipynb%26branch%3Dmaster)
 
@@ -93,7 +93,7 @@ Image(filename='pipeline.png')
 
 You can see that our pipeline has a defined execution order.
 
-**Note:** This is a sample predifined five-task pipeline, Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
+**Note:** This is a sample predefined five-task pipeline, Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
 
 ## Running the pipeline
 

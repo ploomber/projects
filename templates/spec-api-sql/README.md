@@ -1,5 +1,5 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n templates/spec-api-sql`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n templates/spec-api-sql`
 
 To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Ftemplates/spec-api-sql%252FREADME.ipynb%26branch%3Dmaster)
 
@@ -89,7 +89,6 @@ The order here doesn't matter, the source code itself declares its upstream depe
 ## Plot
 
 ```bash
-# Note: if plotting locally, install pygrapviz first
 ploomber plot
 ```
 
@@ -98,6 +97,9 @@ If running in Jupyter, load the plot with this code:
 ```python
 from IPython.display import Image
 Image(filename='pipeline.png')
+
+# NOTE: ploomber plot will generate a pipeline.html (not .png) file if
+# pygraphviz is missing. In such case, open the file to view the pipeline plot
 ```
 
 Otherwise, open the `pipeline.png` file directly.

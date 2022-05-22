@@ -40,7 +40,7 @@ We classify examples depending on their objective:
 
 1. `cookbook`: Short and to-the-point examples showing how to achieve something specific. These are for users to get some sample code that they can incorporate into their projects.
 2. `tutorials`: Long, in-depth tutorials for learning. These teach users concepts and features in-depth; some of these are part of the documentation itself, the introductory ones are part of the *Get Started* section, while the more advanced ones are part of the *User Guide*. Some of these are related and have an order to set the *learning journey*: users learn something basic, then move on to something more advanced. If tutorials are related, they should link to each other.
-3. `templates`: They're are halfway through `cookbook` and `tutorials`. They're starting points for new projects; hence, they achieve something specific but have a high-level explanation of each part so users can understand it and customize it quickly. Templates may be related (e.g., a template for an ML regression problem and one for a classification problem), but the relationship is unordered; they are suggestions for users to explore related content. Relatec tutorials should link each other.
+3. `templates`: They're are halfway through `cookbook` and `tutorials`. They're starting points for new projects; hence, they achieve something specific but have a high-level explanation of each part so users can understand it and customize it quickly. Templates may be related (e.g., a template for an ML regression problem and one for a classification problem), but the relationship is unordered; they are suggestions for users to explore related content. Related tutorials should link each other.
 
 ## Adding examples
 
@@ -62,7 +62,7 @@ dependencies:
     # other dependencies...
 ```
 
-* `README.md` - Instructions to execute the project
+* `_source.md` - Instructions to execute the project
 * `output/` - All output files should be stored in a relative folder named `output`
 
 Optional:
@@ -163,6 +163,7 @@ To select specific lines:
 **Note:** The repository-level environment.yml is saved in a different repo to allow
 quick Binder loading.
 
+**Note:** If you want to exclude a task from being executed by the build task (and skipped from the index), add a `.skip` file.
 
 To build:
 
@@ -172,4 +173,16 @@ invoke build
 
 ```sh
 invoke build --force
+```
+
+To build a specific example:
+
+```sh
+invoke build -n cookbook/name
+```
+
+To re-build the index and readme:
+
+```
+invoke build -n readme
 ```
