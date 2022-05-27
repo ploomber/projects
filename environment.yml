@@ -35,4 +35,5 @@ dependencies:
   - soorgeon
   - sqlalchemy
   - sqlalchemy-bigquery
+  - torch
 name: projects

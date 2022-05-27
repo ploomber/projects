@@ -21,3 +21,4 @@ soopervisor
 soorgeon
 sqlalchemy
 sqlalchemy-bigquery
+torch
