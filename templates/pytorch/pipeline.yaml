@@ -15,6 +15,6 @@ tasks:
       nb: products/train.html
       model: products/model.pth
     params:
-      test: true
+      test: false
     grid:
       width: [6, 12, 18, 24, 32]
