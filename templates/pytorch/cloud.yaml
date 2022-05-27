@@ -1,4 +1,4 @@
-# environment: 
+# environment:
 
 task_resources:
   # * is a wildcard, fit-* matches all tasks with the fit- prefix
