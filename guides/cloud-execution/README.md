@@ -117,6 +117,48 @@ Let's say you modify the `join` task. If you run `ploomber cloud build`, Ploombe
 To force execution of all tasks, you may execute:  `ploomber cloud build --force`
 
 
+## Debugging
+
+If any of your notebooks (or scripts) fails, a copy of the partially executed notebook will be uploaded, so you can debug it.
+
+For example, let's say I add the following in my notebook/script:
+
+```python
+raise ValueError('some new error!')
+```
+
+Upon, execution, I can retrieve the logs with:
+
+```
+ploomber cloud logs {runid}
+```
+
+And I'll see the following:
+
+```
+---------------------------------------------------------------------------
+Exception encountered at "In [9]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+/tmp/ipykernel_41/2195319445.py in <cell line: 1>()
+----> 1 raise ValueError('some new error!')
+ValueError: some new error!
+```
+
+And a few lines below:
+
+```
+ploomber.exceptions.TaskBuildError: Error when executing task 'fit'. Partially executed notebook uploaded to remote storage at: products//project/output/nb.ipynb
+```
+
+I can download that partially executed notebook with:
+
+```
+ploomber cloud download '*nb.ipynb'
+```
+
+Then, I can open the notebook and I'll see the code and cells with their corresponding output so I can debug!
+
 ## That's it!
 
 We hope you enjoyed this tutorial and are excited to use Ploomber in your next project. Questions? [Ping us on Slack!](https://ploomber.io/community)
