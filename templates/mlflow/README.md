@@ -1,5 +1,5 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n templates/mlflow`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n templates/mlflow`
 
 To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Ftemplates/mlflow%252FREADME.ipynb%26branch%3Dmaster)
 
@@ -63,7 +63,7 @@ tasks:
   - source: scripts/fit.py
     name: fit-
     # we need to turn this off because parameters depend on the type of model
-    static_analysis: false
+    static_analysis: disable
     product: products/report.ipynb
     grid:
       - model: sklearn.ensemble.RandomForestClassifier
@@ -97,7 +97,7 @@ The first four tasks are simple, they execute Python functions to prepare the da
   - source: scripts/fit.py
     name: fit-
     # we need to turn this off because parameters depend on the type of model
-    static_analysis: false
+    static_analysis: disable
     product: products/report.ipynb
     grid:
       - model: sklearn.ensemble.RandomForestClassifier
@@ -147,6 +147,8 @@ Let's take a look at the portion of `scripts/fit.py` that uses `track` and `mlfl
 <!-- #md -->
 ```python
 # Content of scripts/fit.py
+
+# %%
 if track:
     print('tracking with mlflow...')
     mlflow.set_tracking_uri(mlflow_tracking_uri)
@@ -156,8 +158,6 @@ if track:
         mlflow.end_run()
 else:
     print('tracking skipped...')
-    mlflow = Mock()
-
 ```
 <!-- #endmd -->
 
@@ -175,7 +175,7 @@ Now that we explained what each parameter is doing, let's go back to our task de
   - source: scripts/fit.py
     name: fit-
     # we need to turn this off because parameters depend on the type of model
-    static_analysis: false
+    static_analysis: disable
     product: products/report.ipynb
     grid:
       - model: sklearn.ensemble.RandomForestClassifier
@@ -371,9 +371,9 @@ The final task in our pipeline generates a notebook that prints the best experim
 <!-- #md -->
 ```python
 # Content of scripts/compare.py
-# + tags=["parameters"]
+
+# %% tags=["parameters"]
 upstream = ['fit-*']
-product = None
 ```
 <!-- #endmd -->
 

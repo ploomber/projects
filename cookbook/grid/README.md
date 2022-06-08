@@ -1,5 +1,5 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/install.html) and execute: `ploomber examples -n cookbook/grid`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n cookbook/grid`
 
 To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fcookbook/grid%252FREADME.ipynb%26branch%3Dmaster)
 
@@ -26,7 +26,7 @@ An example showing how to create a grid of tasks to train models with different 
     name: fit-
     # disabling static_analysis because the notebook does not have
     # a fixed set of parameters (depends on random-forest vs ada-boost)
-    static_analysis: False
+    static_analysis: disable
     product:
       nb: products/report.html
       model: products/model.pickle
@@ -36,7 +36,7 @@ An example showing how to create a grid of tasks to train models with different 
         n_estimators: [1, 3, 5]
         criterion: [gini, entropy]
 
-      # generates 9 tasks (1 * 3 * 2)
+      # generates 6 tasks (1 * 3 * 2)
       - model_type: [ada-boost]
         n_estimators: [1, 3, 5]
         learning_rate: [1, 2]

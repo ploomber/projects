@@ -1,0 +1,8 @@
+# environment:
+
+task_resources:
+  # * is a wildcard, fit-* matches all tasks with the fit- prefix
+  train-*:
+    vcpus: 4
+    memory: 8192
+    gpu: 1

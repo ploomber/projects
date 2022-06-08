@@ -114,4 +114,4 @@ to optional parameters (`another`). To see the same auto-generated API, you can 
 ploomber build --entry-point factory.make --help
 ```
 
-Note that the Python API requires more work than a `pipeline.yaml` file, but it is more flexible. [Click here] to see [examples](https://github.com/ploomber/projects/tree/master/python-api-examples) using the Python API.
+Note that the Python API requires more work than a `pipeline.yaml` file, but it is more flexible. [Click here](https://github.com/ploomber/projects/tree/master/python-api-examples) to see examples using the Python API.

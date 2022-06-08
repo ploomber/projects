@@ -1,0 +1,15 @@
+name: google-cloud
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - ploomber
+    - pandas
+    - matplotlib
+    - google-cloud-storage
+    - google-cloud-bigquery
+    - sqlalchemy-bigquery

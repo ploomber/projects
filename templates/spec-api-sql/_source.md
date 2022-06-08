@@ -44,7 +44,6 @@ The order here doesn't matter, the source code itself declares its upstream depe
 ## Plot
 
 ```bash
-# Note: if plotting locally, install pygrapviz first
 ploomber plot
 ```
 
@@ -53,6 +52,9 @@ If running in Jupyter, load the plot with this code:
 ```python
 from IPython.display import Image
 Image(filename='pipeline.png')
+
+# NOTE: ploomber plot will generate a pipeline.html (not .png) file if
+# pygraphviz is missing. In such case, open the file to view the pipeline plot
 ```
 
 Otherwise, open the `pipeline.png` file directly.

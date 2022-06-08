@@ -19,7 +19,7 @@ tasks:
     name: fit-
     # disabling static_analysis because the notebook does not have
     # a fixed set of parameters (depends on random-forest vs ada-boost)
-    static_analysis: False
+    static_analysis: disable
     product:
       nb: products/report.html
       model: products/model.pickle
