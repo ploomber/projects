@@ -48,7 +48,7 @@ tasks:
   - source: fit.py
     name: fit
     product:
-        nb: output/nb.ipynb
+        nb: output/nb.html
         model: output/model.pickle
 
 ```

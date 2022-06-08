@@ -102,12 +102,12 @@ Let's take a look at our example pipeline declaration:
 tasks:
   - source: load.py
     product:
-      nb: output/raw.ipynb
+      nb: output/raw.html
       train: output/train.csv
       test: output/test.csv
 
   - source: preprocess.py
-    product: output/clean.ipynb
+    product: output/clean.html
 
 ```
 <!-- #endmd -->
@@ -127,7 +127,7 @@ The summary tells us the following
 
 ```
 =============================== Summary (1 task) ===============================
-NotebookRunner: preprocess -> File('output/clean.ipynb')
+NotebookRunner: preprocess -> File('output/clean.html')
 =============================== DAG build failed ===============================
 ```
 
@@ -404,12 +404,12 @@ If we decide dropping `d` is a reasonable choice, we can encode our new data exp
 tasks:
   - source: load.py
     product:
-      nb: output/raw.ipynb
+      nb: output/raw.html
       train: output/train.csv
       test: output/test.csv
 
   - source: preprocess.py
-    product: output/clean.ipynb
+    product: output/clean.html
 
 ```
 <!-- #endmd -->
