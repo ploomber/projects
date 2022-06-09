@@ -1,6 +1,6 @@
 tasks:
   - source: script.py
-    product: output/nb-log.ipynb
+    product: output/nb-log.html
     papermill_params:
       log_output: True
     params:

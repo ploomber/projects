@@ -28,7 +28,7 @@ The pipeline we'll be using for this guide contains two tasks (a script and a fu
 # Content of basic/pipeline.yaml
 tasks:
   - source: script.py
-    product: output/nb-log.ipynb
+    product: output/nb-log.html
     papermill_params:
       log_output: True
 

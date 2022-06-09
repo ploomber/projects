@@ -34,7 +34,7 @@ tasks:
   - source: print.py
     name: print
     product:
-      nb: 'output/{{some_param}}/notebook.ipynb'
+      nb: 'output/{{some_param}}/notebook.html'
     papermill_params:
         log_output: True
     params:
