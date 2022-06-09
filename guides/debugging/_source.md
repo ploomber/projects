@@ -113,7 +113,7 @@ The summary tells us the following
 
 ```
 =============================== Summary (1 task) ===============================
-NotebookRunner: preprocess -> File('output/clean.ipynb')
+NotebookRunner: preprocess -> File('output/clean.html')
 =============================== DAG build failed ===============================
 ```
 
