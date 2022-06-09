@@ -20,7 +20,7 @@ sns.displot(df.death_percents)
 sns.displot(df.cases)
 
 # %%
-sns.displot(df.confirmed_deaths)
+sns.displot(df.deaths)
 
 # %%
 df.head()

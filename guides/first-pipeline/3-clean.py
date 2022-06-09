@@ -24,7 +24,7 @@ len(df.index)
 
 # %%
 # Adding columns
-df['death_percents'] = df.confirmed_deaths / df.confirmed_cases * 100
+df['death_percents'] = df.deaths / df.cases * 100
 
 # %%
 # Save final df
