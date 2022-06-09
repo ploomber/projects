@@ -17,7 +17,7 @@ df = pd.read_parquet(upstream['3-clean']['data'])
 sns.displot(df['state'])
 
 # %%
-sns.relplot(x="confirmed_cases", y="confirmed_deaths", data=df);
+sns.relplot(x="cases", y="deaths", data=df);
 
 # %%
-sns.relplot(x="confirmed_cases", y="date", data=df);
+sns.relplot(x="cases", y="date", data=df);
