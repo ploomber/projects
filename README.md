@@ -24,9 +24,17 @@ This repository contains sample pipelines developed using [Ploomber](https://git
 
 ## Running examples
 
+Use Colab:
+
+<p align="center">
+    <a href="https://colab.research.google.com/github/ploomber/projects/blob/master/guides/first-pipeline/colab.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+</p>
+
 Use Binder (free, hosted JupyterLab):
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252FREADME.ipynb%26branch%3Dmaster)
+<p align="center">
+    <a href="https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252FREADME.ipynb%26branch%3Dmaster"><img src="https://mybinder.org/badge_logo.svg" alt="Open In Binder"/></a>
+</p>
 
 Or run locally:
 
