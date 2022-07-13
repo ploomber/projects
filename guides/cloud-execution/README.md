@@ -159,6 +159,16 @@ ploomber cloud download '*nb.ipynb'
 
 Then, I can open the notebook and I'll see the code and cells with their corresponding output so I can debug!
 
+## Abort an executing job
+
+At the moment we do not support concurrent executions. If you wish to submit a different job while there is one executing in the cloud, you will need to abort the running one using this command:
+
+```
+ploomber cloud abort {runid}
+```
+
+Note: to get the list of runids, execute `ploomber cloud list`
+
 ## That's it!
 
 We hope you enjoyed this tutorial and are excited to use Ploomber in your next project. Questions? [Ping us on Slack!](https://ploomber.io/community)
