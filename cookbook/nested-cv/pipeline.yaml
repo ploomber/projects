@@ -12,13 +12,13 @@ tasks:
       nb: products/fit.html
       model: products/model.pkl
     grid:
-      - model: sklearn.ensemble.RandomForestClassifier
+      - model: [sklearn.ensemble.RandomForestClassifier]
         model_params:
           # optimize over these parameters
           - n_estimators: [2, 5]
             criterion: [gini, entropy]
     
-      - model: sklearn.svm.SVC
+      - model: [sklearn.svm.SVC]
         model_params:
           # optimize over these parameters
           - kernel: [linear, poly]
