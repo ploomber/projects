@@ -1,0 +1,31 @@
+# executor: parallel
+tasks:
+
+- source: tasks/load.py
+  product:
+    data: output/load-data.pkl
+    nb: output/load.ipynb
+
+- source: tasks/clean.py
+  product:
+    data: output/clean-data.pkl
+    nb: output/clean.ipynb
+
+- source: tasks/split.py
+  product:
+    X_test: output/split-X_test.pkl
+    y_test: output/split-y_test.pkl
+    y_train: output/split-y_train.pkl
+    y: output/split-y.pkl
+    X: output/split-X.pkl
+    X_train: output/split-X_train.pkl
+    nb: output/split.ipynb
+
+- source: tasks/linear-regression.py
+  name: linear-regression-
+  product:
+    nb: output/linear-regression.ipynb
+    
+  grid:
+    # generates 2 tasks
+    - fit_intercept: [True, False]

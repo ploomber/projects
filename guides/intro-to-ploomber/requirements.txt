@@ -1,0 +1,7 @@
+# Auto-generated file, may need manual editing
+matplotlib
+numpy
+pandas
+ploomber>=0.14.7
+scikit-learn
+seaborn
