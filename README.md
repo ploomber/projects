@@ -145,3 +145,12 @@ In-depth tutorials for learning.  These are part of the [documentation](https://
 The simplest way to get started with Ploomber is via the Spec API, which allows you to describe pipelines using a `pipeline.yaml` file, most examples on this repository use the Spec API. However, if you want more flexibility, you may write pipelines with Python.
 
 The [`templates/python-api/`](templates/python-api) directory contains a project written using the Python API. And the [`python-api-examples/`](python-api-examples) includes some tutorials and more examples.
+
+
+## About Ploomber
+
+Ploomber is a big community of data enthusiasts pushing the boundaries of Data Science and Machine Learning tooling.
+
+Whatever your skillset is, you can contribute to our mission. So whether you're a beginner or an experienced professional, you're welcome to join us on this journey!
+
+[Click here to know how you can contribute to Ploomber.](https://github.com/ploomber/contributing/blob/main/README.md)
