@@ -1,13 +1,13 @@
 <!-- start header -->
-To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n guides/first-pipeline`
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n guides/intro-to-ploomber`
 
-To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/first-pipeline%252FREADME.ipynb%26branch%3Dmaster)
+To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/intro-to-ploomber%252FREADME.ipynb%26branch%3Dmaster)
 
-Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/first-pipeline%20issue)
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/intro-to-ploomber%20issue)
 
 Have questions? [Ask us anything on Slack.](https://ploomber.io/community/)
 
-For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/guides/first-pipeline/README.ipynb)
+For a notebook version (with outputs) of this file, [click here](https://github.com/ploomber/projects/blob/master/guides/intro-to-ploomber/README.ipynb)
 <!-- end header -->
 
 
@@ -16,135 +16,90 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 # Your first Python pipeline
 
 <!-- start description -->
-Introductory tutorial to learn the basics of Ploomber.
+To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n guides/first-pipeline`
+
+Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/first-pipeline%20issue) Have questions? [Ask us anything on Slack.](https://ploomber.io/community/)
 <!-- end description -->
 
-## Introduction
+# Ploomber Tutorial Intro
 
-Ploomber helps you build modular pipelines. A pipeline (or **DAG**) is a group of tasks with a particular execution order, where subsequent (or **downstream** tasks) use previous (or **upstream**) tasks as inputs.
+- This should showcase the Ploomber value proposition. 
+- We'll do a few ML operations in a notebook, using a sample covid-19 dataset. 
+- We'll forcast the relation between testing and active covid cases.
 
-## Pipeline declaration
+**For a deeper dive**, try the [first-pipeline guide](https://docs.ploomber.io/en/latest/get-started/first-pipeline.html). 
 
-This example pipeline contains five tasks, `1-get.py`, `2-profile-raw.py`, 
-`3-clean.py`, `4-profile-clean.py` and `5-plot.py`; we declare them in a `pipeline.yaml` file:
+If YAML, Jupyter and notebooks sounds like a distant cousin, please check our [basic concepts guide](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
 
-<!-- #md -->
-```yaml
-# Content of pipeline.yaml
-tasks:
-   # source is the code you want to execute (.ipynb also supported)
-  - source: 1-get.py
-    # products are task's outputs
-    product:
-      # scripts generate executed notebooks as outputs
-      nb: output/1-get.ipynb
-      # you can define as many outputs as you want
-      data: output/raw_data.csv
+### We'll see today how you can improve your work:
+- Run 100s of notebooks in parallel 
+- Parameterize your workflows
+- Easily generate HTML/PDF reports
 
-  - source: 2-profile-raw.py
-    product: output/2-profile-raw.ipynb
 
-  - source: 3-clean.py
-    product:
-      nb: output/3-clean.ipynb
-      data: output/clean_data.parquet
+# Parallelization
 
-  - source: 4-profile-clean.py
-    product: output/4-profile-clean.ipynb
+- Ploomber creates a pipeline for you, so you can run independent tasks simultanously. 
 
-  - source: 5-plot.py
-    product: output/5-plot.ipynb
+- It also cache some results so you don't have to wait. You can drop the `force=True` (last line) and rerun this cell.
 
-```
-<!-- #endmd -->
+In here we'll train 4 different models simultanously, and see it in a graph:
 
-**Note:** YAML is a human-readable text format similar to JSON.
+```python
+from ploomber import DAG
+from ploomber.tasks import ShellScript, PythonCallable
+from ploomber.products import File
+from ploomber.executors import Serial
 
-**Note:** Ploomber supports Python scripts, Python functions, Jupyter notebooks, R scripts, and SQL scripts.
-
-## Opening `.py` files as notebooks
-
-Ploomber integrates with Jupyter. Among other things, it **allows you to open `.py` files as notebooks** (via `jupytext`).
-
-![lab-open-with-nb](https://ploomber.io/images/doc/lab-open-with-notebook.png)
-
-### What sets the execution order?
-
-Ploomber infers the pipeline structure from your code. For example, to
-clean the data, we must get it first; hence, we declare the following in `3-clean.py`:
-
-~~~python
-# 3-clean.py
-
-# this tells Ploomber to execute the '1-get' task before '3-clean'
-upstream = ['1-get']
-~~~
-
-## Plotting the pipeline
-
-```bash
-ploomber plot
+from ploomber.spec import DAGSpec
+spec = DAGSpec('./pipeline.yaml')
+dag = spec.to_dag()
+status = dag.status()
+_ = dag.build(force=True)
 ```
 
 ```python
-from IPython.display import Image
-Image(filename='pipeline.png')
+dag.plot()
 ```
 
-You can see that our pipeline has a defined execution order.
-
-**Note:** This is a sample predefined five-task pipeline, Ploomber can manage arbitrarily complex pipelines and dependencies among tasks.
-
-## Running the pipeline
-
-```bash
-# takes a few seconds to finish
-ploomber build
-```
-
-This pipeline saves all the output in the `output/` directory; we have the output notebooks and data files:
-
-```bash
-ls output
-```
-
-## Updating the pipeline
-
-Ploomber automatically caches your pipeline’s previous results and only runs tasks that changed since your last execution.
-
-Execute the following to modify the `3-clean.py` script
+# Parameterize workflows
+- We're using our linear-regression and passing a bool flag to intercept (True/False)
+- We can take the best results by parameterizing our workflow to fit different variations
 
 ```python
-from pathlib import Path
-
-path = Path('3-clean.py')
-clean = path.read_text()
-
-# add a print statement at the end of 3-clean.py
-path.write_text(clean + """
-print("hello")
-""")
-```
-
-Execute the pipeline again:
-
-```bash
-# takes a few seconds to finish
-ploomber build
+from ploomber.spec import DAGSpec
+spec = DAGSpec('./pipeline-parameterization.yaml')
+dag = spec.to_dag()
+status = dag.status()
+_ = dag.build(force=True)
 ```
 
 ```python
-# restore contents
-path.write_text(clean)
+dag.plot()
 ```
 
-You'll see that `1-get.py` & `2-profile-raw.py` didn't run because it was not affected by the change!
+# Automated reports
 
-## Where to go from here
+In case we have a dataset to track or a stakeholder report, we can generate it as part of our workflow.
+Here we'll create a HTML report for our business persona from our previous linear regression task:
 
+```python
+# open each specific html report/data
+from IPython.display import IFrame
+IFrame(src="./output/linear-regression.html", width='100%', height='500px')
+```
+
+# Where to go from here
+
+### Usecases
+Read how you can leverage this tool to [benefit your needs](https://docs.ploomber.io/en/latest/use-cases/index.html)
+
+### Community suport
+Have questions? [Ask us anything on Slack](https://ploomber.io/community/).
+
+### Resources
 **Bring your own code!** Check out the tutorial to [migrate your code to Ploomber](https://docs.ploomber.io/en/latest/user-guide/refactoring.html).
 
-Have questions? [Ask us anything on Slack](https://ploomber.io/community/).
 
 Want to dig deeper into Ploomber's core concepts? Check out [the basic concepts tutorial](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
 

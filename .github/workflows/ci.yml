@@ -100,6 +100,7 @@ jobs:
           # guides
           - guides/parametrized
           - guides/first-pipeline
+          - guides/intro-to-ploomber
     env:
       FOLDER: ${{ matrix.folder }}
       PLOOMBER_STATS_ENABLED: false
