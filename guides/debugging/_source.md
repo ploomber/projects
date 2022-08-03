@@ -239,6 +239,8 @@ dltr {task-name}.dump
 
 *Note: you may delete the `{task-name}.dump` file once you are done debugging*
 
+**Important: Beware that using ``--debuglater`` will serialize all the variables, so ensure you have enough disk space when using it, especially if running with the Parallel executor**
+
 
 Here's the (commented) replay of my post-mortem debugging session:
 

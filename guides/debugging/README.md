@@ -21,42 +21,9 @@ Tutorial showing techniques for debugging pipelines.
 
 *For a quick reference,* [click here](https://docs.ploomber.io/en/latest/cookbook/debugging.html).
 
-## Why debugging pipelines is hard
-
-Debugging data pipelines is hard because there are three factors involved:
-
-1. Our code
-2. Parameters
-3. Input data
-
-In simple cases, pipeline error messages might give us enough information to fix the
-bug, but in other (which happen more often), we have to inspect the
-program while running to understand what's going on: see variable values,
-run a few diagnostic commands, etc.
-
-Inspecting our program requires us to re-execute it under the same conditions
-to replicate the crash. Replicating conditions means having the same code, parameters
-and input data.
-
-Getting the same code is easy if we know the version (i.e., git hash) running
-during the crash. Replicating parameters involves more work; one way to approach
-this is to ensure we always log parameters at the start of every pipeline execution.
-
-
-Input data is more complex than it sounds. When our project is not properly assembled as a
-data pipeline, we might run into issues if we use an incorrect file as input
-(e.g. reading `/data/some-file.csv` instead of `/data/file.csv`). That's why Ploomber
-puts a lot of emphasis on declaring products once and automatically propagating them
-to any downstream consumers, to ensure that there is a single source of truth and we
-always read if the appropriate file or SQL table from the upstream task.
-
-As you can see, replicating error conditions accurately involves some work from your
-end: 1) recording the project version and 2) input parameters (on every run) and 3) know
-which input data led to the crash. Once you have these three pieces of information,
-Ploomber will provide you tools to catch those sneaky bugs.
-
-
 ## Debugger basics
+
+*Skip this if you're already familiar with the Python debugger.*
 
 A debugger is a program that helps inspect another program for debugging. Python
 comes with a debugger called
@@ -92,7 +59,7 @@ code alone is usually not enough to know. Moving between stack frames can
 help you find out where the error is coming from.
 <!-- #endregion -->
 
-## Tales of a buggy pipeline
+## Understanding error messages
 
 Let's take a look at our example pipeline declaration:
 
@@ -114,16 +81,14 @@ tasks:
 
 Very simple, two tasks. One loads the data and the next one preprocess it.
 
-Let's run it (don't be scared by the long error message, scroll until the end to see the explanation):
+Let's run the pipeline and then analyze the output:
 
 ```sh magic_args="--no-raise-error"
 ploomber build --force
 ```
 
 <!-- #region -->
-If you followed the previous tutorial, you are already familiar with Ploomber's structured error messages. So let's see the messages to understand what's going on.
-
-The summary tells us the following
+The summary at the bottom gives a high-level explanation:
 
 ```
 =============================== Summary (1 task) ===============================
@@ -165,17 +130,17 @@ Let's take a look at the failing task's source code:
 <!-- #md -->
 ```python
 # Content of preprocess.py
+# %%
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 
-# + tags=["parameters"]
+# %% tags=["parameters"]
 upstream = ['load']
 product = None
 
-# -
 
 
-# +
+# %%
 def my_preprocessing_function(X_train, X_test):
     encoder = OneHotEncoder()
     X_train_t = encoder.fit_transform(X_train)
@@ -183,11 +148,11 @@ def my_preprocessing_function(X_train, X_test):
     return X_train_t, X_test_t
 
 
-# +
+# %%
 X_train = pd.read_csv(upstream['load']['train'])
 X_test = pd.read_csv(upstream['load']['test'])
 
-# +
+# %%
 my_preprocessing_function(X_train, X_test)
 
 ```
@@ -198,7 +163,17 @@ Our `preprocess.py` script is using scikit-learn's `OneHotEncoder` to transform 
 This is a good use case for Ploomber's debugging capabilities.
 
 
-## Starting line-by-line debugging sessions
+## Starting a debugging session
+
+There are three ways to start a debugger:
+
+1. Jump to the first line and start the debugger
+2. (post-mortem) Let the task run and start the debugger as soon as it fails
+3. (breakpoint) Jump to a specific line and start the debugger
+
+We'll analyze the three of them but feel free to jump to the one that's more applicable to your use case.
+
+## Jump to the first line and start the debugger
 
 To start a debugging session you first have to start an interactive session. To do so, run the following command in the terminal:
 
@@ -265,14 +240,50 @@ Ah-ha! The encoder is fitted with a column with values `a`, `b` and `c` but then
 
 This is an example of how your code could be doing everything right, but your data is incompatible. How you fix this is up to us. The important thing is that we know why things are failing.
 
+<!-- #region -->
+## (post-mortem) Let the task run and start the debugger as soon as it fails
 
-## Post-mortem debugging
+*Note: post-mortem debugging was improved in Ploomber 0.20, ensure have at least that version*
 
-Line-by-line debugging puts us at the beginning of the script and then we move as we want. An alternative approach is to let the program run and start the debugging session as soon as it finds an exception, this is called *post-mortem* debugging. Starting a post-mortem session is similar: start and interactive session but then pass `kind='pm'` (`pm` stands for post-mortem) as argument to the `.debug()` function:
+An alternative approach is to let the program run and start the debugging session as soon as it finds an exception, this is called *post-mortem* debugging.
 
-```pycon
->>> dag['preprocess'].debug(kind='pm')
+To start a debugging session"
+
+
+```sh
+ploomber task {task-name} --debug
 ```
+
+or:
+
+```sh
+ploomber build --debug
+```
+
+This will start the debugger as soon as the code breaks, alternatively, you can serialize the error to start the debugger session whenever you want:
+
+*Added in Ploomber 0.20*
+
+```sh
+ploomber task {task-name} --debuglater
+```
+
+or:
+
+```sh
+ploomber build --debuglater
+```
+
+Then, start the debugging session with:
+
+```sh
+dltr {task-name}.dump
+```
+
+*Note: you may delete the `{task-name}.dump` file once you are done debugging*
+
+**Important: Beware that using ``--debuglater`` will serialize all the variables, so ensure you have enough disk space when using it, especially if running with the Parallel executor**
+
 
 Here's the (commented) replay of my post-mortem debugging session:
 
@@ -318,9 +329,10 @@ ipdb> quit
 ```
 
 As you can see, we can use either of these two approaches.
+<!-- #endregion -->
 
 <!-- #region -->
-## More difficult scenario: no exceptions raised but wrong output
+## (breakpoint) Jump to a specific line and start the debugger
 
 The previous example showed how we could debug a program that raises an exception. A more difficult scenario is when our program runs without errors but we find issues in the output (e.g. charts are not displaying correctly, data file has NAs, etc).
 
