@@ -16,20 +16,12 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 # Your first Python pipeline
 
 <!-- start description -->
-To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n guides/first-pipeline`
-
-Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/first-pipeline%20issue) Have questions? [Ask us anything on Slack.](https://ploomber.io/community/)
+Introductory tutorial to learn the basics of Ploomber.
 <!-- end description -->
 
 # Ploomber Tutorial Intro
 
-- This should showcase the Ploomber value proposition. 
-- We'll do a few ML operations in a notebook, using a sample covid-19 dataset. 
-- We'll forcast the relation between testing and active covid cases.
-
-**For a deeper dive**, try the [first-pipeline guide](https://docs.ploomber.io/en/latest/get-started/first-pipeline.html). 
-
-If YAML, Jupyter and notebooks sounds like a distant cousin, please check our [basic concepts guide](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
+We'll forcast the relation between testing and active covid-19 cases. 
 
 ### We'll see today how you can improve your work:
 - Run 100s of notebooks in parallel 
@@ -37,24 +29,28 @@ If YAML, Jupyter and notebooks sounds like a distant cousin, please check our [b
 - Easily generate HTML/PDF reports
 
 
+**For a deeper dive**, try the [first-pipeline guide](https://docs.ploomber.io/en/latest/get-started/first-pipeline.html) or the [basic concepts overview](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
+If YAML, Jupyter and notebooks sounds like a distant cousin, please check our [basic concepts guide](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
+
+
 # Parallelization
 
-- Ploomber creates a pipeline for you, so you can run independent tasks simultanously. 
+- Ploomber creates a pipeline for you, so you can run independent tasks simultaneously. 
 
-- It also cache some results so you don't have to wait. You can drop the `force=True` (last line) and rerun this cell.
+- It also cache the results so you don't have to wait. You can drop the `force=True` (last line) and rerun this cell.
 
-In here we'll train 4 different models simultanously, and see it in a graph:
+In here we'll train 4 different models simultaneously, and see it in a graph:
 
 ```python
 from ploomber import DAG
 from ploomber.tasks import ShellScript, PythonCallable
 from ploomber.products import File
-from ploomber.executors import Serial
+from ploomber.executors import Parallel
 
 from ploomber.spec import DAGSpec
 spec = DAGSpec('./pipeline.yaml')
 dag = spec.to_dag()
-status = dag.status()
+dag.executor = Parallel()
 _ = dag.build(force=True)
 ```
 
@@ -63,38 +59,49 @@ dag.plot()
 ```
 
 # Parameterize workflows
-- We're using our linear-regression and passing a bool flag to intercept (True/False)
-- We can take the best results by parameterizing our workflow to fit different variations
+- In many cases, you'd run your analysis with different parameters/different data slices
+- Ploomber allows you to parametrize workflows easily
+- Here we're training a linear regression with different parameters, using a notebook as template
 
 ```python
 from ploomber.spec import DAGSpec
 spec = DAGSpec('./pipeline-parameterization.yaml')
 dag = spec.to_dag()
-status = dag.status()
-_ = dag.build(force=True)
+dag.plot()
 ```
 
 ```python
-dag.plot()
+_ = dag.build(force=True)
 ```
 
 # Automated reports
 
-In case we have a dataset to track or a stakeholder report, we can generate it as part of our workflow.
-Here we'll create a HTML report for our business persona from our previous linear regression task:
+In case we have a dataset to track/a stakeholder report, we can generate it as part of our workflow.
+We created the report as part of our first cell pipeline build, so we can consume it immediately.
+Let's load our stakeholder report from our previous linear regression task:
 
 ```python
-# open each specific html report/data
+# open each specific html report/data if exist
 from IPython.display import IFrame
-IFrame(src="./output/linear-regression.html", width='100%', height='500px')
+from pathlib import Path
+
+report = "./output/linear-regression.html"
+if Path(report).is_file():
+    IFrame(src=report, width='100%', height='500px')
+else:
+    print("Report doesn't exist - please run the notebook sequentially")
 ```
 
 # Where to go from here
 
-### Usecases
-Read how you can leverage this tool to [benefit your needs](https://docs.ploomber.io/en/latest/use-cases/index.html)
+### Use cases
 
-### Community suport
+- [Machine Learning](https://docs.ploomber.io/en/latest/use-cases/ml.html)
+- [Research Projects](https://docs.ploomber.io/en/latest/use-cases/research.html)
+- [Analytics](https://docs.ploomber.io/en/latest/use-cases/analytics.html)
+- [SQL Pipelines](https://docs.ploomber.io/en/latest/use-cases/sql.html)
+
+### Community support
 Have questions? [Ask us anything on Slack](https://ploomber.io/community/).
 
 ### Resources

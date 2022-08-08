@@ -52,6 +52,7 @@ y_train = pickle.loads(Path(upstream['split']['y_train']).read_bytes())
 
 # %% [markdown] tags=[]
 # ## Linear regression
+# In here we can see a plot of number of cases and the predictions
 
 # %% tags=[]
 print(fit_intercept)

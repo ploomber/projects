@@ -39,12 +39,6 @@ lin2.fit(X_poly, y)
 pred = lin2.predict(X_poly)
 new_X, new_y = zip(*sorted(zip(X, pred)))
 
-# poly.fit(X_train, y_train) 
-# lin2.fit(X_train, y_train) 
-# y_pred = lin2.predict(X_test)
-# new_X, new_y = zip(*sorted(zip(X_test, y_pred)))
-
-
 plt.figure(figsize=(16, 8))
 plt.scatter(
     X,
@@ -58,5 +52,6 @@ plt.plot(
 plt.xlabel("Tests")
 plt.ylabel("Cases")
 plt.show()
-# RMSE for Linear Regression=> 131.07677569045717
+
+# RMSE - Linear Regression
 print('RMSE for Linear Regression=>',np.sqrt(mean_squared_error(y,lin2.predict(poly.fit_transform(X)))))
