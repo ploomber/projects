@@ -4,3 +4,4 @@ pandas
 ploomber
 pyarrow
 seaborn
+scikit-learn
