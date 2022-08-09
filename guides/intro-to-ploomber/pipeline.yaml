@@ -1,0 +1,60 @@
+# executor: parallel
+executor:
+  dotted_path: ploomber.executors.Parallel
+  processes: 2 # limit to a max of 2 processes
+  
+tasks:
+
+- source: tasks/load.py
+  product:
+    data: output/load-data.pkl
+    nb: output/load.ipynb
+  papermill_params: 
+    allow_nested_loop: True
+
+- source: tasks/clean.py
+  product:
+    data: output/clean-data.pkl
+    nb: output/clean.html
+  papermill_params: 
+    allow_nested_loop: True
+    
+- source: tasks/split.py
+  product:
+    X_test: output/split-X_test.pkl
+    y_test: output/split-y_test.pkl
+    y_train: output/split-y_train.pkl
+    y: output/split-y.pkl
+    X: output/split-X.pkl
+    X_train: output/split-X_train.pkl
+    nb: output/split.ipynb
+  papermill_params: 
+    allow_nested_loop: True
+    
+- source: tasks/linear-regression.py
+  product:
+    nb: output/linear-regression.html
+  papermill_params: 
+    allow_nested_loop: True
+  nbconvert_export_kwargs:
+    # optionally hide the code from the report
+    exclude_input: True
+    
+- source: tasks/polynomial-regression.py
+  product:
+    nb: output/polynomial-regression.ipynb
+  papermill_params: 
+    allow_nested_loop: True
+    
+- source: tasks/random-forest.py
+  product:
+    nb: output/random-forest.ipynb
+  papermill_params: 
+    allow_nested_loop: True
+    
+- source: tasks/lasso-regression.py
+  product:
+    nb: output/lasso-regression.ipynb
+  papermill_params: 
+    allow_nested_loop: True
+    

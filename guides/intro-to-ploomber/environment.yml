@@ -1,0 +1,13 @@
+name: first-pipeline
+
+dependencies:
+  
+  - pip
+  - pip:
+    - ploomber
+    - seaborn
+    - numpy
+    - pandas
+    - matplotlib
+    - pyarrow
+    - scikit-learn
