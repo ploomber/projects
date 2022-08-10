@@ -23,7 +23,7 @@ dependencies:
   - pandas
   - pandas-profiling
   - patool
-  - ploomber
+  - git+https://github.com/ploomber/ploomber
   - plotly
   - pyarrow
   - pyunpack
