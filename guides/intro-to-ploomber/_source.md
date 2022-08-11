@@ -12,14 +12,17 @@ jupyter:
     name: python3
 ---
 
+# Intro to Ploomber
 
-# Ploomber Tutorial Intro
+## Your first Python pipeline
 
 <!-- start description -->
 Introductory tutorial to learn the basics of Ploomber.
 <!-- end description -->
 
-**We'll forcast the relation between testing and active Covid-19 cases.** 
+## Ploomber Tutorial Intro
+
+**We'll forcast the relation between testing and active covid-19 cases.** 
 
 ### We'll see today how you can improve your work:
 - Run 100s of notebooks in parallel 
@@ -31,7 +34,7 @@ Introductory tutorial to learn the basics of Ploomber.
 If YAML, Jupyter and notebooks sounds like a distant cousin, please check our [basic concepts guide](https://docs.ploomber.io/en/latest/get-started/basic-concepts.html).
 
 
-# Parallelization
+## Parallelization
 
 - Ploomber creates a pipeline for you, so you can run independent tasks simultaneously. 
 
@@ -56,7 +59,7 @@ build = dag.build(force=True)
 dag.plot()
 ```
 
-# Parameterize workflows
+## Parameterize workflows
 - In many cases, you'd run your analysis with different parameters/different data slices
 - Ploomber allows you to parametrize workflows easily
 - Here we're training a linear regression with different parameters, using a notebook as template
@@ -83,7 +86,7 @@ build = dag.build()
 build
 ```
 
-# Automated reports
+## Automated reports
 
 In case we have a dataset to track/a stakeholder report, we can generate it as part of our workflow.
 We created the report as part of our first cell pipeline build, so we can consume it immediately.
@@ -120,7 +123,7 @@ list(nbs)
 nbs['plot']
 ```
 
-# Where to go from here
+## Where to go from here
 
 ### Use cases
 
