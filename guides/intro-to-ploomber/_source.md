@@ -103,6 +103,22 @@ else:
     print("Report doesn't exist - please run the notebook sequentially")
 ```
 
+### Interactive reporting
+```python
+from sklearn_evaluation import NotebookCollection
+# ids to identify each experiment
+ids = [
+    'linear-regression'
+]
+
+# output files
+files = [f'output/{i}.ipynb' for i in ids]
+
+nbs = NotebookCollection(paths=files, ids=ids)
+list(nbs)
+nbs['plot']
+```
+
 # Where to go from here
 
 ### Use cases

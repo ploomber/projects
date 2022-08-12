@@ -28,7 +28,7 @@ y = pickle.loads(Path(upstream['split']['y']).read_bytes())
 # %% [markdown]
 # ## Polynomial Regression
 
-# %%
+# %% tags=["plot"]
 ###################### Polynomial Regression #######################################
 poly = PolynomialFeatures(degree =4) 
 X_poly = poly.fit_transform(X) 
@@ -53,5 +53,6 @@ plt.xlabel("Tests")
 plt.ylabel("Cases")
 plt.show()
 
+# %%
 # RMSE - Linear Regression
 print('RMSE for Linear Regression=>',np.sqrt(mean_squared_error(y,lin2.predict(poly.fit_transform(X)))))

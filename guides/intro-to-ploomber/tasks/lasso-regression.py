@@ -31,9 +31,11 @@ y_train = pickle.loads(Path(upstream['split']['y_train']).read_bytes())
 
 # %%
 
-
+# %% tags=["plot"]
 lasso = linear_model.Lasso(alpha=0.1)
 lasso.fit(X_train, y_train)
 y_pred = lasso.predict(X_test)
 sns.scatterplot(x=y_test.flatten(), y=y_pred)
+
+# %%
 print('RMSE for Lasso Regressor=>',np.sqrt(mean_squared_error(y_test, y_pred)))

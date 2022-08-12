@@ -49,9 +49,11 @@ y_train = pickle.loads(Path(upstream['split']['y_train']).read_bytes())
 # %% [markdown] tags=[]
 # ## Random Forest
 
-# %% tags=[]
+# %% tags=["plot"]
 rf = RandomForestRegressor()
 rf.fit(X_train, y_train)
 y_pred = rf.predict(X_test)
 sns.scatterplot(x=y_test.flatten(), y=y_pred)
+
+# %%
 print('RMSE for Random Forest Regressor=>',np.sqrt(mean_squared_error(y_test, y_pred)))

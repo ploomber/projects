@@ -58,8 +58,7 @@ y_train = pickle.loads(Path(upstream['split']['y_train']).read_bytes())
 # **This report was a result of the executed pipeline.**
 
 
-# %% tags=[]
-print(fit_intercept)
+# %% tags=["plot"]
 if fit_intercept:
     reg = LinearRegression(fit_intercept=fit_intercept)
 else:
@@ -86,4 +85,5 @@ plt.xlabel("Tests")
 plt.ylabel("Cases")
 plt.show()
 
+# %%
 print('RMSE for Linear Regression=>',np.sqrt(mean_squared_error(y_test, y_pred)))

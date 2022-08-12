@@ -33,7 +33,7 @@ tasks:
     
 - source: tasks/linear-regression.py
   product:
-    nb: output/linear-regression.html
+    nb: output/linear-regression.ipynb
   papermill_params: 
     allow_nested_loop: True
   nbconvert_export_kwargs:
