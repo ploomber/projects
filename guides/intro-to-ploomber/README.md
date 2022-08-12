@@ -104,11 +104,14 @@ else:
 ```
 
 ### Interactive reporting
+
+Compare your previous experiments interactively
+
 ```python
 from sklearn_evaluation import NotebookCollection
 # ids to identify each experiment
 ids = [
-    'linear-regression'
+      'linear-regression', 'polynomial-regression', 'random-forest', 'lasso-regression'
 ]
 
 # output files
