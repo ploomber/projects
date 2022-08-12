@@ -1,7 +1,7 @@
 # executor: parallel
-executor:
-  dotted_path: ploomber.executors.Parallel
-  processes: 2 # limit to a max of 2 processes
+# executor:
+#   dotted_path: ploomber.executors.Parallel
+#   processes: 2 # limit to a max of 2 processes
   
 tasks:
 
