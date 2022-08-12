@@ -1,0 +1,30 @@
+tasks:
+
+- source: tasks/load.py
+  product:
+    data: output/load-params-data.pkl
+    nb: output/load-params.ipynb
+
+- source: tasks/clean.py
+  product:
+    data: output/clean-params-data.pkl
+    nb: output/clean-params.ipynb
+
+- source: tasks/split.py
+  product:
+    X_test: output/split-params-X_test.pkl
+    y_test: output/split-params-y_test.pkl
+    y_train: output/split-params-y_train.pkl
+    y: output/split-params-y.pkl
+    X: output/split-params-X.pkl
+    X_train: output/split-params-X_train.pkl
+    nb: output/split-params.ipynb
+
+- source: tasks/linear-regression.py
+  name: linear-regression-
+  product:
+    nb: output/linear-regression.ipynb
+    
+  grid:
+    # generates 2 tasks
+    - fit_intercept: [True, False]

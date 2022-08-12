@@ -5,4 +5,3 @@ ploomber
 pyarrow
 scikit-learn
 seaborn
-requests-html

@@ -21,7 +21,7 @@ Introductory tutorial to learn the basics of Ploomber.
 
 # Ploomber Tutorial Intro
 
-We'll forcast the relation between testing and active covid-19 cases. 
+**We'll forcast the relation between testing and active covid-19 cases.** 
 
 ### We'll see today how you can improve your work:
 - Run 100s of notebooks in parallel 
@@ -65,14 +65,11 @@ dag.plot()
 
 ```python
 from ploomber.spec import DAGSpec
-spec = DAGSpec('./pipeline-parameterization.yaml')
+spec = DAGSpec('./pipeline-params.yaml')
 dag = spec.to_dag()
-dag.plot()
-```
-
-```python
 build = dag.build(force=True)
 build
+dag.plot()
 ```
 
 ### Caching optimization
