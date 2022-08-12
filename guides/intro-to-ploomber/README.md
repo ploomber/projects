@@ -50,7 +50,7 @@ from ploomber.executors import Parallel
 from ploomber.spec import DAGSpec
 spec = DAGSpec('./pipeline.yaml')
 dag = spec.to_dag()
-dag.executor = Parallel()
+# dag.executor = Parallel()
 _ = dag.build(force=True)
 ```
 
@@ -71,7 +71,21 @@ dag.plot()
 ```
 
 ```python
-_ = dag.build(force=True)
+build = dag.build(force=True)
+build
+```
+
+### Caching optimization
+
+Note that the previous table has load ran as fail? 
+
+This task ran in a previous pipeline so there's no point of reruning it. (we can force it to run if needed).
+
+**In the next table, all of the pipeline results were cached** so we can focus on code that changed only, saving hours of compute time.
+
+```python
+build = dag.build()
+build
 ```
 
 # Automated reports
@@ -82,12 +96,12 @@ Let's load our stakeholder report from our previous linear regression task:
 
 ```python
 # open each specific html report/data if exist
-from IPython.display import IFrame
+from IPython.display import IFrame, display
 from pathlib import Path
 
 report = "./output/linear-regression.html"
 if Path(report).is_file():
-    IFrame(src=report, width='100%', height='500px')
+    display(IFrame(src=report, width='100%', height='500px'))
 else:
     print("Report doesn't exist - please run the notebook sequentially")
 ```

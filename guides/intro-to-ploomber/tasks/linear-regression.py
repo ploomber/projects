@@ -5,7 +5,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.7
+#       jupytext_version: 1.14.0
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -51,8 +51,11 @@ y_test = pickle.loads(Path(upstream['split']['y_test']).read_bytes())
 y_train = pickle.loads(Path(upstream['split']['y_train']).read_bytes())
 
 # %% [markdown] tags=[]
+# # Sample report
 # ## Linear regression
-# In here we can see a plot of number of cases and the predictions
+# In here we can see a plot of number of cases and the predictions.
+#
+# **This report was a result of the executed pipeline.**
 
 # %% tags=[]
 print(fit_intercept)
