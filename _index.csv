@@ -31,3 +31,4 @@
 "10","guides","guides/sql-templating","Introductory tutorial teaching how to develop modular SQL pipelines."
 "11","guides","guides/testing","Tutorial showing how to use a task's on_finish hook to test data quality."
 "12","guides","guides/versioning","A tutorial showing how to version pipeline products."
+"13","guides","guides/airflow","A tutorial showing how to expose ploomber pipelines to Airflow."
