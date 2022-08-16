@@ -15,10 +15,10 @@ tasks:
     product: products/features/features.csv
 
   - source: scripts/fit.py
-    name: fit-
+    name: fit-[[model]]-[[n_estimators]]-[[criterion]][[learning_rate]]-[[params_names]]-[[track]]-[[mlflow]]-[[mlflow_tracking_uri]]
     # we need to turn this off because parameters depend on the type of model
     static_analysis: disable
-    product: products/report.ipynb
+    product: products/report-[[model]]-[[n_estimators]]-[[criterion]][[learning_rate]]-[[params_names]]-[[track]]-[[mlflow]]-[[mlflow_tracking_uri]].ipynb
     grid:
       - model: sklearn.ensemble.RandomForestClassifier
         n_estimators: [10, 20]
