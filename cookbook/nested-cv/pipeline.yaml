@@ -7,10 +7,10 @@ tasks:
       data: products/data.csv
 
   - source: tasks/fit.py
-    name: fit-
+    name: fit-[[model]]
     product:
-      nb: products/fit.html
-      model: products/model.pkl
+      nb: products/fit-[[model]].html
+      model: products/model-[[model]].pkl
     grid:
       - model: [sklearn.ensemble.RandomForestClassifier]
         model_params:
