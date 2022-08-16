@@ -21,9 +21,9 @@ tasks:
     nb: output/split-params.ipynb
 
 - source: tasks/linear-regression.py
-  name: linear-regression-
+  name: linear-regression-[[fit_intercept]]
   product:
-    nb: output/linear-regression.ipynb
+    nb: output/linear-regression-[[fit_intercept]].ipynb
     
   grid:
     # generates 2 tasks
