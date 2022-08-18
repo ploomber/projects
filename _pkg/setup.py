@@ -19,7 +19,10 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
-    install_requires=['ploomber', 'click', 'jupyblog'],
+    # jupyblog pinned mistune>=2, which is incompatible with nbconvert,
+    # hence, which ploomber. we are only using some convenient methods from
+    # it; we can use 0.0.3
+    install_requires=['ploomber', 'click', 'jupyblog<0.0.4'],
     extras_require={
         'dev': [
             # to validate argo specs
