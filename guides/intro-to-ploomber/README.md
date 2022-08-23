@@ -11,17 +11,13 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 <!-- end header -->
 
 
-
-
-# Your first Python pipeline
+# Ploomber Tutorial Intro
 
 <!-- start description -->
 Introductory tutorial to learn the basics of Ploomber.
 <!-- end description -->
 
-# Ploomber Tutorial Intro
-
-**We'll forcast the relation between testing and active covid-19 cases.** 
+**We'll forcast the relation between testing and active Covid-19 cases.** 
 
 ### We'll see today how you can improve your work:
 - Run 100s of notebooks in parallel 
