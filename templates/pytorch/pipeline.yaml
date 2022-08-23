@@ -10,10 +10,10 @@ tasks:
 
 
   - source: train.py
-    name: train-[[width]]
+    name: train-
     product:
-      nb: products/train-[[width]].html
-      model: products/model-[[width]].pth
+      nb: products/train.html
+      model: products/model.pth
     params:
       test: false
     grid:

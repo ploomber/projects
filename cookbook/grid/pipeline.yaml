@@ -16,13 +16,13 @@ tasks:
 
   - source: scripts/fit.py
     # generates tasks fit-1, fit-2, etc
-    name: fit-[[model_type]]-[[n_estimators]]-[[criterion]][[learning_rate]]
+    name: fit-
     # disabling static_analysis because the notebook does not have
     # a fixed set of parameters (depends on random-forest vs ada-boost)
     static_analysis: disable
     product:
-      nb: products/report-[[model_type]]-[[n_estimators]]-[[criterion]][[learning_rate]].html
-      model: products/model-[[model_type]]-[[n_estimators]]-[[criterion]][[learning_rate]].pickle
+      nb: products/report.html
+      model: products/model.pickle
     grid:
       # generates 6 tasks (1 * 3 * 2)
       - model_type: [random-forest]
