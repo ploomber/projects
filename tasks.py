@@ -21,8 +21,8 @@ def setup(c, create_conda=True):
            ' &&') if create_conda else ''
 
     cmd += (' pip install --editable "_pkg[dev]"'
-            ' && pip install --editable python-api/'
-            ' && pip install --editable ml-advanced/'
+            ' && pip install --editable templates/python-api/'
+            ' && pip install --editable templates/ml-advanced/'
             ' && pip install invoke')
 
     c.run(cmd)

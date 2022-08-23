@@ -24,7 +24,7 @@ header_template = """\
 <!-- start header -->
 To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n {name}`
 
-To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252F{name}%252FREADME.ipynb%26branch%3Dmaster)
+To start a free, hosted JupyterLab: [![binder-logo](https://binder.ploomber.io/badge_logo.svg)](https://binder.ploomber.io/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252F{name}%252FREADME.ipynb%26branch%3Dmaster)
 
 Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title={name}%20issue)
 
@@ -44,7 +44,7 @@ def front_matter_lines(md):
 def add_md_header(path, content):
     # if there is no link to binder, add it. Some readmes (like the root one)
     # customize the description for the buttons so we don't add one there
-    if 'https://mybinder.org/badge_logo.svg' not in content:
+    if 'https://binder.ploomber.io/badge_logo.svg' not in content:
         header = header_template.format(name=str(path.parent))
         _, end = front_matter_lines(content)
         lines = content.splitlines()

@@ -1,7 +1,7 @@
 <!-- start header -->
 To run this example locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n guides/intro-to-ploomber`
 
-To start a free, hosted JupyterLab: [![binder-logo](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/intro-to-ploomber%252FREADME.ipynb%26branch%3Dmaster)
+To start a free, hosted JupyterLab: [![binder-logo](https://binder.ploomber.io/badge_logo.svg)](https://binder.ploomber.io/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252Fguides/intro-to-ploomber%252FREADME.ipynb%26branch%3Dmaster)
 
 Found an issue? [Let us know.](https://github.com/ploomber/projects/issues/new?title=guides/intro-to-ploomber%20issue)
 
@@ -11,17 +11,13 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 <!-- end header -->
 
 
-
-
-# Your first Python pipeline
+# Ploomber Tutorial Intro
 
 <!-- start description -->
 Introductory tutorial to learn the basics of Ploomber.
 <!-- end description -->
 
-# Ploomber Tutorial Intro
-
-**We'll forcast the relation between testing and active covid-19 cases.** 
+**We'll forcast the relation between testing and active Covid-19 cases.** 
 
 ### We'll see today how you can improve your work:
 - Run 100s of notebooks in parallel 
