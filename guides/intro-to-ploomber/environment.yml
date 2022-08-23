@@ -11,3 +11,4 @@ dependencies:
     - matplotlib
     - pyarrow
     - scikit-learn
+    - sklearn-evaluation
