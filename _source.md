@@ -24,6 +24,13 @@ This repository contains sample pipelines developed using [Ploomber](https://git
 
 ## Running examples
 
+
+Use Colab:
+
+<p align="center">
+    <a href="https://colab.research.google.com/github/ploomber/projects/blob/master/guides/first-pipeline/colab.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+</p>
+
 Use Binder (free, hosted JupyterLab):
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252FREADME.ipynb%26branch%3Dmaster)
@@ -79,3 +86,10 @@ In-depth tutorials for learning.  These are part of the [documentation](https://
 The simplest way to get started with Ploomber is via the Spec API, which allows you to describe pipelines using a `pipeline.yaml` file, most examples on this repository use the Spec API. However, if you want more flexibility, you may write pipelines with Python.
 
 The [`templates/python-api/`](templates/python-api) directory contains a project written using the Python API. And the [`python-api-examples/`](python-api-examples) includes some tutorials and more examples.
+
+
+## Micro-pipelines
+
+In Ploomber `0.21`, we introduced a simplified API to write pipelines in a single Jupyter notebook (or `.py`) file. This is a great option for small projects.
+
+You can find the examples in the [`micro-pipelines/`](micro-pipelines) directory.

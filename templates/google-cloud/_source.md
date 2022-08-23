@@ -16,7 +16,9 @@ jupyter:
 
 Note: this tutorial requires Ploomber 0.19.2 or higher.
 
-This tutorial will show how you can use Google Cloud and Ploomber to develop a scalable and production-ready pipeline.
+<!-- start description -->
+Use Google Cloud and Ploomber to develop a scalable and production-ready pipeline.
+<!-- end description -->
 
 We'll use Google BigQuery (data warehouse) and Cloud Storage to show how we can transform big datasets with ease using SQL, plot the results with Python, and store the results in the cloud. Thanks to BigQuery scalability (we'll use a dataset with 5.5M records!) and Ploomber's convenience, **the entire process from importing the data to the summary report is on the cloud takes less than 20 seconds!**
 
