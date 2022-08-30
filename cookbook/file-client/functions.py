@@ -1,6 +1,8 @@
+# %%
 from pathlib import Path
 
 
+# %%
 def create_file(product):
     """This function creates a file
     """

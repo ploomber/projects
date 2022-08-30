@@ -1,7 +1,9 @@
+# %%
 def first():
     return dict(a=1, b=2)
 
 
+# %%
 def second(upstream):
     first = upstream['first']
     another = dict(a=first['b'] + 1, b=first['a'] + 1)

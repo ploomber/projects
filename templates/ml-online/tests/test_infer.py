@@ -1,9 +1,12 @@
+# %%
 import pandas as pd
 from ploomber.spec import DAGSpec
 
+# %%
 from ml_online.infer import InferencePipeline
 
 
+# %%
 def test_predict():
     mapping = {
         'sepal length (cm)': 5.1,
@@ -16,6 +19,7 @@ def test_predict():
     assert pipeline.predict(get=get)['terminal'] is not None
 
 
+# %%
 def test_no_training_serve_skew():
     """
     Test for training-serving skew (feature engineering in training and serving

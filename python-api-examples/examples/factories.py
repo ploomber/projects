@@ -1,3 +1,7 @@
+# %%
+# %matplotlib inline
+
+# %% [markdown]
 """
 Factories
 =========
@@ -6,6 +10,7 @@ Non-trivial pipelines span multiple files to improve code organization and reada
 
 This example shows how to build two pipelines that share the same code, and are customized by passing a different set of parameters. We'll be using the iris dataset, the first pipeline will analyze setosa observations and the second one virginica.
 """
+# %%
 import atexit
 import shutil
 from pathlib import Path
@@ -140,7 +145,8 @@ sns.distplot(df['sepal length (cm)'])
                           })
 
 
-###############################################################################
+
+# %% [markdown]
 # This introduces a subtle but important distinction between Env and Task.params,
 # Env is a read-only object for storing configuration parameters
 # (such as db URIs) where as Task.params are intended to customize a DAG
@@ -148,6 +154,7 @@ sns.distplot(df['sepal length (cm)'])
 # data, you can call the a DAG factory twice (both DAGs with the same Env)
 # but one dag with the 2018 parameter and another one with the 2019 parameter
 
+# %%
 
 @with_env({
     'path': 'products',
@@ -173,40 +180,45 @@ def make_dag(env, kind):
     return dag
 
 
-###############################################################################
+# %% [markdown]
 # Now multiple dag objects can be created easily. Note that although DAGs
 # (and their tasks) are different objects, they still read from the same Env.
 
+# %%
 dags = {kind: make_dag(kind) for kind in ('setosa', 'virginica')}
 
-###############################################################################
+# %% [markdown]
 # Pipeline (setosa) status
 # ------------------------
 
+# %%
 dags['setosa'].status()
 
-###############################################################################
+# %% [markdown]
 # Pipeline (virginica) status
 # ------------------------
 
+# %%
 dags['virginica'].status()
 
-###############################################################################
+# %% [markdown]
 # Pipeline plots
 # --------------
 
+# %%
 dags['setosa'].plot()
 
 dags['virginica'].plot()
 
-###############################################################################
+# %% [markdown]
 # Pipelines build
 # --------------
 
+# %%
 for dag in dags.values():
     dag.build()
 
-###############################################################################
+# %% [markdown]
 # Check out the output reports at:
 #
 # 1. `products/report-setosa.html`

@@ -1,7 +1,9 @@
+# %%
 from ploomber.executors import Serial
 from ploomber.spec import DAGSpec
 
 
+# %%
 def test_train():
     """
     This is a smoke test. It only check that the training pipeline runs

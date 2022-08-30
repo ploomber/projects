@@ -1,16 +1,20 @@
+# %%
 from functools import wraps
 import os
 from pathlib import Path
 import shutil
 import tempfile
 
+# %%
 import pytest
 
 
+# %%
 def _path_to_tests():
     return Path(__file__).absolute().parent
 
 
+# %%
 @pytest.fixture
 def tmp_directory(tmp_path):
     old = os.getcwd()
@@ -19,6 +23,7 @@ def tmp_directory(tmp_path):
     os.chdir(old)
 
 
+# %%
 def fixture_tmp_dir(source):
     def decorator(function):
         @wraps(function)
@@ -39,22 +44,26 @@ def fixture_tmp_dir(source):
     return decorator
 
 
+# %%
 @fixture_tmp_dir(_path_to_tests() / '..' / 'examples' / 'pipeline' /
                  'intermediate')
 def tmp_intermediate_example_directory():
     pass
 
 
+# %%
 @fixture_tmp_dir(_path_to_tests() / '..' / 'examples')
 def tmp_examples_directory():
     pass
 
 
+# %%
 @fixture_tmp_dir(_path_to_tests() / '..' / 'recipes')
 def tmp_recipes_directory():
     pass
 
 
+# %%
 @fixture_tmp_dir(_path_to_tests() / '..' / 'examples' / 'pipeline')
 def tmp_example_pipeline_directory():
     pass

@@ -1,6 +1,8 @@
+# %%
 import pandas as pd
 
 
+# %%
 def sepal(product, upstream):
     """Compute sepal area
     """
@@ -10,6 +12,7 @@ def sepal(product, upstream):
     df.to_csv(product, index=False)
 
 
+# %%
 def petal(product, upstream):
     """Compute petal area
     """
@@ -19,6 +22,7 @@ def petal(product, upstream):
     df.to_csv(product, index=False)
 
 
+# %%
 def features(product, upstream):
     """Join raw data with generated features
     """

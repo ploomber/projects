@@ -1,7 +1,9 @@
+# %%
 from dataclasses import dataclass
 from pathlib import Path
 from glob import glob
 
+# %%
 import jupytext
 from jinja2 import Template
 import papermill as pm
@@ -10,6 +12,7 @@ from ploomber.products import File
 from jupyblog import md
 
 
+# %%
 @dataclass
 class Example:
     path: str
@@ -35,6 +38,7 @@ class Example:
         return ','.join(f'"{e}"' for e in elements)
 
 
+# %%
 def _render(resources_, product):
     """
     Generate README.md from _source.md
@@ -71,6 +75,7 @@ def _render(resources_, product):
     Path(product['index']).write_text('\n'.join(lines))
 
 
+# %%
 def render(dag):
     return PythonCallable(_render, {
         'readme': File('README.md'),
@@ -80,6 +85,7 @@ def render(dag):
                           params=dict(resources_=dict(source='_source.md')))
 
 
+# %%
 def _execute(upstream, product):
     """
     Generate README.ipynb from _source.md
@@ -89,5 +95,6 @@ def _execute(upstream, product):
     pm.execute_notebook(str(product), str(product), kernel_name='python3')
 
 
+# %%
 def execute(dag):
     return PythonCallable(_execute, File('README.ipynb'), dag=dag)

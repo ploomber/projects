@@ -1,7 +1,9 @@
+# %%
 import pandas as pd
 from sklearn import datasets
 
 
+# %%
 def get(sample):
     """Get training data
     """

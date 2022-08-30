@@ -1,14 +1,18 @@
+# %%
 import yaml
 import click
 
+# %%
 from ploomberutils.argo import is_valid_name
 
 
+# %%
 @click.group()
 def cli():
     pass
 
 
+# %%
 @cli.command()
 @click.argument('path')
 def validate_argo(path):
@@ -22,5 +26,6 @@ def validate_argo(path):
         raise ValueError(f'Invalid task names: {invalid!r}')
 
 
+# %%
 if __name__ == '__main__':
     cli()

@@ -1,13 +1,16 @@
+# %%
 """
 Tasks for the serving pipeline
 """
 from pathlib import Path
 import pickle
 
+# %%
 import pandas as pd
 from sklearn import datasets
 
 
+# %%
 def get(product, sample):
     """Get input data to make predictions
     """
@@ -24,6 +27,7 @@ def get(product, sample):
     df.to_parquet(str(product))
 
 
+# %%
 def predict(upstream, product, path_to_model):
     """Make predictions
     """

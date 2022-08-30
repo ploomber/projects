@@ -1,12 +1,15 @@
+# %%
 import csv
 import xml.etree.ElementTree as ET
 
 
+# %%
 def process_child(child, keys):
     d = child.attrib
     return [d.get(k) for k in keys]
 
 
+# %%
 def convert(path_to_xml, path_to_csv):
     tree = ET.parse(path_to_xml)
     root = tree.getroot()

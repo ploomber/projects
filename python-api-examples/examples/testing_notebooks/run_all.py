@@ -1,15 +1,18 @@
+# %%
 """
 Example showing how to run all notebooks in a directory
 """
 from pathlib import Path
 from glob import glob
 
+# %%
 from ploomber.tasks import NotebookRunner
 from ploomber.executors import Parallel
 from ploomber.products import File
 from ploomber import DAG
 
 
+# %%
 def get_dag():
     base_dir = Path(__file__).parent
     # NOTE: recursive needed if there are notebooks in nested directories
@@ -31,6 +34,7 @@ def get_dag():
     return dag
 
 
+# %%
 if __name__ == '__main__':
     dag = get_dag()
     # this will only run notebooks that have changed, to force execution,

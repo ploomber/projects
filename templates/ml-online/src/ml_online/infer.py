@@ -1,11 +1,15 @@
+# %%
 import pickle
 from importlib import resources
 
+# %%
 from ploomber import OnlineDAG
 
+# %%
 import ml_online
 
 
+# %%
 class InferencePipeline(OnlineDAG):
     """Pipeline for online predictions
 

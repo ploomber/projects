@@ -1,3 +1,7 @@
+# %%
+# %matplotlib inline
+
+# %% [markdown]
 """
 Managing static files (SQL scripts, jupyter notebooks)
 ======================================================
@@ -6,12 +10,13 @@ How to manage non-Python source files using SourceLoader, this examples shows
 how to load parametrized SQL scripts and make use of advanced jinja2 features
 """
 
-###############################################################################
+# %% [markdown]
 # Data pipelines code usually includes non-Python files (e.g. SQL scripts),
 # SourceLoader provides a convenient way of loading them to avoid hardcoding
 # paths to files and enables the use of advanced jinja2 features such as
 # macros.
 
+# %%
 from pathlib import Path
 import tempfile
 
@@ -23,24 +28,27 @@ from ploomber.products import SQLiteRelation
 from ploomber.executors import Serial
 from ploomber import DAG, SourceLoader
 
-###############################################################################
+# %% [markdown]
 # We first setup our sample environment, a sqlite database with some data
 
+# %%
 tmp_dir = Path(tempfile.mkdtemp())
 client = SQLAlchemyClient('sqlite:///' + str(tmp_dir / 'my_db.db'))
 df = pd.DataFrame({'x': range(10)})
 df.to_sql('data', client.engine)
 
-###############################################################################
+# %% [markdown]
 # We now simulate our code environment: a folder with SQL scripts, for
 # simplicity, we are saving them in the same location as the data but in a real
 # project we should keep and data separate
 
+# %%
 _ = Path(tmp_dir, 'data_select.sql').write_text('SELECT * FROM data')
 
-###############################################################################
+# %% [markdown]
 # Unde the hood SourceLoader initializes a jinja2.Environment which allows us
 # to use features such as macros
+# %%
 Path(tmp_dir, 'macros.sql').write_text("""
 {% macro my_macro() -%}
     -- This is a macro
@@ -57,9 +65,10 @@ SELECT * FROM
 {{upstream["transfer"]}} WHERE x > 1
 """))
 
-###############################################################################
+# %% [markdown]
 # DAG declaration
 
+# %%
 dag = DAG(executor=Serial(build_in_subprocess=False))
 dag.clients[SQLTransfer] = client
 dag.clients[SQLiteRelation] = client
@@ -81,14 +90,16 @@ transfer >> subset
 
 dag.render()
 
-###############################################################################
+# %% [markdown]
 # Our macro is correctly rendered:
 
+# %%
 print(dag['subset'].source)
 
-###############################################################################
+# %% [markdown]
 # Plot and execute pipeline:
 
+# %%
 dag.plot()
 
 dag.build()

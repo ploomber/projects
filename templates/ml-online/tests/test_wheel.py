@@ -1,8 +1,10 @@
+# %%
 import os
 import zipfile
 import subprocess
 
 
+# %%
 def test_wheel_includes_pipeline_and_model(tmp_path):
     subprocess.run([
         'python',

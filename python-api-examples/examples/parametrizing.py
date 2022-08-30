@@ -1,9 +1,14 @@
+# %%
+# %matplotlib inline
+
+# %% [markdown]
 """
 Parametrized DAGs
 =================
 
 This example shows how to parametrize tasks that use the same source code.
 """
+# %%
 from pathlib import Path
 import tempfile
 
@@ -47,9 +52,10 @@ def concat_data(upstream, product):
     df.to_parquet(str(product))
 
 
-###############################################################################
+# %% [markdown]
 # in both red_task and white_task, we use the same function get_data,
 # but pass different parameters
+# %%
 red_task = PythonCallable(get_data,
                           product=File(tmp_dir / 'red.parquet'),
                           dag=dag,
@@ -72,11 +78,12 @@ upload_task = SQLUpload(tmp_dir / 'all.parquet',
                         dag=dag,
                         name='upload')
 
-###############################################################################
+# %% [markdown]
 # you can use jinja2 to parametrize SQL, {{upstream}} and {{product}}
 # are available for your script. this way you could switch products without
 # changing your source code (e.g. each Data Scientist in your team writes
 # to his/her own db schema to have isolated runs)
+# %%
 sql = """
 CREATE TABLE {{product}} AS
 SELECT *,
@@ -94,13 +101,15 @@ white_task >> concat_task
 
 concat_task >> upload_task >> features
 
-###############################################################################
+# %% [markdown]
 # render will pass all parameters so you can see exactly which SQL code
 # will be executed
+# %%
 dag.render()
 
-###############################################################################
+# %% [markdown]
 # print source code for task "features"
+# %%
 print(dag['features'].source)
 
 # dag.plot()

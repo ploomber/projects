@@ -1,3 +1,7 @@
+# %%
+# %matplotlib inline
+
+# %% [markdown]
 """
 Acceptance tests
 ================
@@ -10,6 +14,7 @@ input data and such assumptions must be tested every time the pipeline runs
 to prevent errors from propagating to downstream tasks. Let's rewrite our
 previous pipeline to implement this defensive programming approach:
 """
+# %%
 from pathlib import Path
 import tempfile
 
@@ -22,18 +27,20 @@ from ploomber.tasks import PythonCallable, SQLDump
 from ploomber.clients import SQLAlchemyClient
 from ploomber.executors import Serial
 
-###############################################################################
+# %% [markdown]
 # Setup
+# %%
 tmp_dir = Path(tempfile.mkdtemp())
 uri = 'sqlite:///' + str(tmp_dir / 'example.db')
 engine = create_engine(uri)
 df = pd.DataFrame({'a': [1, 2, 3, 4, 5]})
 df.to_sql('example', engine)
 
-###############################################################################
+# %% [markdown]
 # Pipeline declaration
 # ---------------------
 
+# %%
 dag = DAG(executor=Serial(build_in_subprocess=False))
 
 # the first task dumps data from the db to the local filesystem
@@ -70,12 +77,14 @@ task_add_one.on_finish = check_a_has_no_nas
 
 task_dump >> task_add_one
 
-###############################################################################
+# %% [markdown]
 # Pipeline plot
 # -------------
+# %%
 dag.plot()
 
-###############################################################################
+# %% [markdown]
 # Pipeline build
 # -------------
+# %%
 dag.build()

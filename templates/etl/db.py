@@ -1,6 +1,8 @@
+# %%
 from ploomber import with_env
 from ploomber.clients import SQLAlchemyClient
 
+# %%
 @with_env
 def get_client(env):
     path = env.path.products_root / 'data.db'

@@ -1,8 +1,10 @@
+# %%
 from pathlib import Path
 import pandas as pd
 from sklearn import datasets
 
 
+# %%
 def fn(product, sample):
     """Get data
     """

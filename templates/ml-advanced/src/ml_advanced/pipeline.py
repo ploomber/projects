@@ -1,3 +1,4 @@
+# %%
 """
 Pipeline declaration using ploomber:
 
@@ -8,9 +9,11 @@ from ploomber.tasks import PythonCallable, NotebookRunner
 from ploomber.products import File
 from ploomber.executors import Parallel
 
+# %%
 from ml_advanced import tasks
 
 
+# %%
 @with_env
 def make(env):
     """
@@ -31,6 +34,7 @@ def make(env):
     return _make(env)
 
 
+# %%
 def _make(env):
     # this is the private function we use to pass the testing environment
     cfg = DAGConfigurator(env.dag_config)

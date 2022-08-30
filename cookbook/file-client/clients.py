@@ -1,12 +1,15 @@
+# %%
 from ploomber.clients import LocalStorageClient, GCloudStorageClient, S3Client
 
 
+# %%
 def get_local():
     """Returns local client
     """
     return LocalStorageClient('backup')
 
 
+# %%
 def get_s3():
     """Returns S3 client
     """
@@ -15,6 +18,7 @@ def get_s3():
     return S3Client(bucket_name='some-bucket', parent='my-project/products')
 
 
+# %%
 def get_gcloud():
     """Returns google cloud storage client
     """

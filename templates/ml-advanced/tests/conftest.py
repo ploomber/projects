@@ -1,6 +1,8 @@
+# %%
 import pytest
 
 
+# %%
 def pytest_addoption(parser):
     parser.addoption(
         "--force",
@@ -10,6 +12,7 @@ def pytest_addoption(parser):
     )
 
 
+# %%
 @pytest.fixture
 def force(request):
     return request.config.getoption("--force")

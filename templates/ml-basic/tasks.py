@@ -1,8 +1,10 @@
+# %%
 from pathlib import Path
 import pandas as pd
 from sklearn import datasets
 
 
+# %%
 def get(product):
     """Get data
     """
@@ -17,6 +19,7 @@ def get(product):
     df.to_parquet(str(product))
 
 
+# %%
 def features(upstream, product):
     """Generate new features from existing columns
     """
@@ -26,6 +29,7 @@ def features(upstream, product):
     df.to_parquet(str(product))
 
 
+# %%
 def join(upstream, product):
     """Join raw data with generated features
     """

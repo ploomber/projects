@@ -1,8 +1,10 @@
+# %%
 import shutil
 from pathlib import Path
 from random import randint
 
 
+# %%
 def _write_variable_number_of_files(parent):
     parent = Path(parent)
 
@@ -22,6 +24,7 @@ def _write_variable_number_of_files(parent):
         (parent / f'{i}.txt').write_text(f'File number {i}')
 
 
+# %%
 def variable(product):
     """A task that generates a random number of text files
     """
@@ -29,6 +32,7 @@ def variable(product):
     _write_variable_number_of_files(product)
 
 
+# %%
 def many_products_one_variable(product):
     """
     A task that generates one file and a directory with a random number of files
@@ -40,6 +44,7 @@ def many_products_one_variable(product):
     _write_variable_number_of_files(product['variable'])
 
 
+# %%
 def variable_downstream(product, upstream):
     """A task that reads the variable number of files from "variable"
     """
@@ -48,6 +53,7 @@ def variable_downstream(product, upstream):
     Path(product).write_text(content)
 
 
+# %%
 def many_products_one_variable_downstream(product, upstream):
     """
     A task that reads the variable number of files

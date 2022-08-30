@@ -1,15 +1,19 @@
+# %%
 import sys
 from pathlib import Path
 import shutil
 from glob import iglob
 
+# %%
 from invoke import task
 
+# %%
 if not Path('LICENSE').exists():
     sys.exit('Error: Run the command from the root folder (the directory '
              'with the LICENSE file).')
 
 
+# %%
 @task
 def setup(c, create_conda=True):
     """
@@ -32,6 +36,7 @@ def setup(c, create_conda=True):
     print('Done! Activate your environment with:\n' 'conda activate projects')
 
 
+# %%
 @task
 def clear(c):
     """Clears output folders
@@ -51,6 +56,7 @@ def clear(c):
         Path(f).unlink()
 
 
+# %%
 @task
 def build(c, name=None, force=False, log=False):
     """See CONTRIBUTING.md for details

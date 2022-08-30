@@ -1,7 +1,9 @@
+# %%
 import pandas as pd
 from ploomber.testing.sql import nulls_in_columns, range_in_column
 
 
+# %%
 def test_sql_clean(client, product):
     """Tests for clean.sql
     """
@@ -10,6 +12,7 @@ def test_sql_clean(client, product):
     assert min_age > 0
 
 
+# %%
 def test_py_transform(product):
     """Tests for transform.py
     """

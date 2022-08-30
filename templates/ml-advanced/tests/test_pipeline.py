@@ -1,10 +1,13 @@
+# %%
 import pytest
 from ploomber import Env
 from ploomber.executors import Serial
 
+# %%
 from ml_advanced import pipeline
 
 
+# %%
 @pytest.fixture()
 def test_env():
     env = Env('env.test.yaml')
@@ -12,6 +15,7 @@ def test_env():
     env.end()
 
 
+# %%
 def test_pipeline(test_env, force):
     # test is executed with a sample of the data
     dag = pipeline._make(test_env)

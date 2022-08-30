@@ -1,6 +1,8 @@
+# %%
 from ploomber.clients import GCloudStorageClient
 
 
+# %%
 def get_storage_client(run_id):
     """Example client to upload artifacts to google cloud storage
 

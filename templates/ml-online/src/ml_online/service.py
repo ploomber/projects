@@ -1,12 +1,16 @@
+# %%
 from flask import Flask, request, jsonify
 import pandas as pd
 
+# %%
 from ml_online.infer import InferencePipeline
 
+# %%
 pipeline = InferencePipeline()
 app = Flask(__name__)
 
 
+# %%
 @app.route('/', methods=['POST'])
 def predict():
     request_data = request.get_json()

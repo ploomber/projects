@@ -1,13 +1,17 @@
+# %%
 import shutil
 from pathlib import Path
 
+# %%
 from ploomber_basic import functions
 
+# %%
 from ploomber import DAGConfigurator, SourceLoader
 from ploomber.tasks import NotebookRunner, PythonCallable
 from ploomber.products import File
 
 
+# %%
 def make(clean_up=True):
     cfg = DAGConfigurator()
     cfg.params.hot_reload = True
@@ -70,6 +74,7 @@ def make(clean_up=True):
     return dag
 
 
+# %%
 if __name__ == '__main__':
     dag = make()
     dag.build()

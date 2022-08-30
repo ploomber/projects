@@ -1,9 +1,10 @@
+# %%
 """
 A pipeline that polls a database for new observations, process them and
 inserts them to a table
 """
 
-# +
+# %%
 import shutil
 from pathlib import Path
 import tempfile
@@ -156,13 +157,13 @@ df = pd.DataFrame({'x': range(10), 'id': range(10, 20)})
 df['x'] = df.x + 10
 df.to_sql('data', engine, if_exists='append')
 
-# +
+# %%
 # should only get new rows
 make(tmp).build(force=True)
 
 df = pd.read_sql('SELECT * FROM plus_one', target)
 assert df.x.max() == 20 and df.shape[0] == 20
 df
-# -
 
+# %%
 shutil.rmtree(tmp)

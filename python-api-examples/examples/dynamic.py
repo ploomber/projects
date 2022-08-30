@@ -1,3 +1,7 @@
+# %%
+# %matplotlib inline
+
+# %% [markdown]
 """
 Dynamic DAGs
 ============
@@ -30,6 +34,7 @@ Why would you do that? Here are some use cases:
     (say daily) observations and process them instead of pulling the complete
     historical data every time
 """
+# %%
 from datetime import date
 from pathlib import Path
 import tempfile
@@ -48,8 +53,9 @@ from ploomber.executors import Serial
 tmp_dir = Path(tempfile.mkdtemp())
 path_to_db = tmp_dir / 'my_db.db'
 
-###############################################################################
+# %% [markdown]
 # first generate some sample data, one daily observation from 2010 to 2020
+# %%
 dates = pd.date_range('2010', '2020', freq='D')
 df = pd.DataFrame({'date': dates, 'x': np.random.rand(len(dates))})
 
@@ -57,9 +63,10 @@ conn = sqlite3.connect(str(path_to_db))
 df.to_sql('data', conn)
 conn.close()
 
-###############################################################################
+# %% [markdown]
 # We now build the DAG
 
+# %%
 dag = DAG(executor=Serial(build_in_subprocess=False))
 
 dag.clients[SQLDump] = SQLAlchemyClient('sqlite:///' + str(path_to_db))
@@ -92,10 +99,12 @@ dates = [(date(2010, 1, 1) + relativedelta(years=i),
 for date_start, date_end in dates:
     make_task(date_start, date_end, tmp_dir, dag)
 
-###############################################################################
+# %% [markdown]
 # plot
+# %%
 dag.plot()
 
-###############################################################################
+# %% [markdown]
 # Execute pipeline
+# %%
 dag.build()

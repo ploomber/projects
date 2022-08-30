@@ -1,8 +1,10 @@
+# %%
 import logging
 from pathlib import Path
 import time
 
 
+# %%
 def function(product, logging_level):
     logging.basicConfig(level=getattr(logging, logging_level.upper()))
     logger = logging.getLogger(__name__)

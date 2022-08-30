@@ -1,6 +1,8 @@
+# %%
 import pandas as pd
 
 
+# %%
 def sepal_area(upstream):
     """Compute sepal area
     """
@@ -10,6 +12,7 @@ def sepal_area(upstream):
     return df
 
 
+# %%
 def petal_area(upstream):
     """Compute petal area
     """
@@ -19,6 +22,7 @@ def petal_area(upstream):
     return df
 
 
+# %%
 def features(upstream):
     """Join raw data with generated features
     """

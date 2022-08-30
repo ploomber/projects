@@ -1,3 +1,7 @@
+# %%
+# %matplotlib inline
+
+# %% [markdown]
 """
 Basic pipeline
 ==============
@@ -7,6 +11,7 @@ scenario: dump data from a database and apply a transformation to it. We use
 sqlite3 for this example but ploomber supports any database supported by
 sqlalchemy without code changes.
 """
+# %%
 from pathlib import Path
 import tempfile
 
@@ -19,21 +24,23 @@ from ploomber.tasks import PythonCallable, SQLDump
 from ploomber.clients import SQLAlchemyClient
 from ploomber.executors import Serial
 
-###############################################################################
+# %% [markdown]
 # This first part just exports some sample data to a database:
+# %%
 tmp_dir = Path(tempfile.mkdtemp())
 uri = 'sqlite:///' + str(tmp_dir / 'example.db')
 engine = create_engine(uri)
 df = pd.DataFrame({'a': [1, 2, 3, 4, 5]})
 df.to_sql('example', engine)
 
-###############################################################################
+# %% [markdown]
 # There are three core concepts in ``ploomber``: :class:`Tasks <ploomber.tasks>`,
 # :class:`Products <ploomber.products>` and :class:`DAGs <ploomber.DAG>`. Tasks
 # are units of work that generate Products (which are persistent changes on
 # disk). Tasks are organized into a DAG which keeps track of declared
 # dependencies among them.
 
+# %%
 dag = DAG(executor=Serial(build_in_subprocess=False))
 
 # the first task dumps data from the db to the local filesystem
@@ -70,13 +77,14 @@ dag.plot()
 # run our sample pipeline
 dag.build()
 
-###############################################################################
+# %% [markdown]
 # Each time the DAG is run it will save the current timestamp and the
 # source code of each task, next time we run it it will only run the
 # necessary tasks to get everything up-to-date, there is a simple rule to
 # that: a task will run if its code (or the code from any dependency) has
 # changed since the last time it ran.
 
+# %%
 # Data processing pipelines consist on many small long-running tasks which
 # depend on each other. During early development phases things are expected to
 # change: new tasks are added, bugs are fixed. Triggering a full end-to-end
@@ -87,7 +95,7 @@ dag.build()
 # the pipeline is up-to-date, no need to run again
 dag.build()
 
-###############################################################################
+# %% [markdown]
 # Inspecting a pipeline
 # *********************
 # A lot of data pipelines start as experimental projects (e.g. developing a
@@ -96,25 +104,27 @@ dag.build()
 # DAG object serves as the primary reference for anyone seeking to understand
 # the pipeline.
 
+# %%
 # Making a pipeline transparent helps others quickly understand it without
 # going through the code details and eases debugging for developers.
 # status returns a summary of each task status
 dag.status()
 
-###############################################################################
+# %% [markdown]
 # Inspecting the `DAG` object
 # ---------------------------
 # A lot of data work is done interactively using Jupyter or similar tools,
 # being able interact with a pipeline in the same way is an effective way of
 # experimenting new methods.
 
+# %%
 # say you are adding a new method to task add_one, you can run your code
 # with all upstream dependencies being taken care of like this
 
 # run your task
 dag['add_one'].build(force=True)
 
-###############################################################################
+# %% [markdown]
 # avoid hardcoding paths to files by loading them directly
 # from the DAG, casting a Task to a str, will cause them
 # to return a valid representation, in this case, our
@@ -123,6 +133,7 @@ dag['add_one'].build(force=True)
 # products makes sure you don't have to hardcode paths to files and that
 # given your pipeline definition, you always read from the right place
 
+# %%
 # explore results - reading the file this way guarantees you are using
 # the right file
 df = pd.read_csv(str(dag['add_one']))

@@ -1,10 +1,14 @@
+# %%
 import json
 
+# %%
 import pytest
 
+# %%
 from ml_online import service
 
 
+# %%
 @pytest.fixture
 def client():
     service.app.config['TESTING'] = True
@@ -13,6 +17,7 @@ def client():
         yield client
 
 
+# %%
 def test_predict(client):
     rv = client.post('/',
                      data=json.dumps({

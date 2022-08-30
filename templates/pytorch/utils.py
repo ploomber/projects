@@ -1,4 +1,4 @@
-# +
+# %%
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -7,8 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-# -
-
+# %%
 def load_data(root, batch_size=4):
     transform = transforms.Compose(
     [transforms.ToTensor(),
@@ -30,6 +29,7 @@ def load_data(root, batch_size=4):
     return trainloader, testloader, classes
 
 
+# %%
 # functions to show an image
 def imshow(img):
     img = img / 2 + 0.5     # unnormalize

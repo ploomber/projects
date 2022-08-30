@@ -1,7 +1,9 @@
+# %%
 from pathlib import Path
 import pandas as pd
 
 
+# %%
 def sepal_area(upstream, product):
     """Compute sepal area
     """
@@ -13,6 +15,7 @@ def sepal_area(upstream, product):
     df.to_parquet(str(product))
 
 
+# %%
 def petal_area(upstream, product):
     """Compute petal area
     """

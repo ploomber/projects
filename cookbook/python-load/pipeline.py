@@ -1,8 +1,10 @@
+# %%
 from ploomber.constants import TaskStatus
 from ploomber.spec import DAGSpec
 from ploomber import with_env
 
 
+# %%
 @with_env('env.yaml')
 # NOTE: you may add extra arguments to the function, they'll show up in the cli
 def make(env):
@@ -18,6 +20,7 @@ def make(env):
     return dag
 
 
+# %%
 @with_env('env.yaml')
 def delete_tasks(env):
     """Factory function that deletes tasks based on an input parameter
@@ -36,6 +39,7 @@ def delete_tasks(env):
     return dag
 
 
+# %%
 @with_env('env.yaml')
 def ignore_task_status(env):
     """Factory function that overwrites a task's status and skips it

@@ -1,3 +1,4 @@
+# %%
 """
 Test notebooks in doc/
 """
@@ -6,17 +7,22 @@ import subprocess
 from pathlib import Path
 import os
 
+# %%
 # we have to use this, nbconvert removes cells that execute shell comands
 import jupytext
 
+# %%
 import pytest
 from conftest import _path_to_tests
 
+# %%
 _base = str(_path_to_tests().parent / 'guide')
 
+# %%
 nbs = [Path(_base, f) for f in os.listdir(_base) if f.endswith('.ipynb')]
 
 
+# %%
 # we cannot use papermill since some notebooks use papermill via NotebookRunner
 # there is an issue when this happens, so we just run it as scripts using
 # ipython directly
@@ -43,6 +49,7 @@ def run_notebook(nb):
     return exit_code
 
 
+# %%
 @pytest.mark.parametrize('nb', nbs, ids=[Path(nb).name for nb in nbs])
 def test_guide(nb, tmp_directory):
     # TODO: add timeout

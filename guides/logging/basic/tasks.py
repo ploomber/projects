@@ -1,8 +1,10 @@
+# %%
 import logging
 from pathlib import Path
 import time
 
 
+# %%
 def function(product):
     # uncomment the next line if using Python >= 3.8 on macOS
     # logging.basicConfig(level=logging.INFO)

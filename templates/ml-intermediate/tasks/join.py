@@ -1,6 +1,8 @@
+# %%
 import pandas as pd
 
 
+# %%
 def fn(upstream, product):
     """Join raw data with generated features
     """

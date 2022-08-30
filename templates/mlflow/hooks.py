@@ -1,8 +1,10 @@
+# %%
 import mlflow
 from nbconvert import HTMLExporter
 from sklearn_evaluation import NotebookIntrospector
 
 
+# %%
 def store_report(product, params):
     if params['track']:
         nb = NotebookIntrospector(product)

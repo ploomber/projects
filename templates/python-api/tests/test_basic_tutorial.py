@@ -1,8 +1,10 @@
-
+# %%
+# %%
 import papermill as pm
 import jupytext
 
 
+# %%
 def test_notebooks(path_to_root):
     source = str(path_to_root / 'notebook.md')
     target = str(path_to_root / 'notebook.ipynb')

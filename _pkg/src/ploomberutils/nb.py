@@ -1,3 +1,4 @@
+# %%
 from copy import copy
 import logging
 from glob import iglob
@@ -6,9 +7,11 @@ from pathlib import Path
 from itertools import chain
 from collections.abc import Mapping
 
+# %%
 import yaml
 from ploomberutils import readme
 
+# %%
 from ploomber import DAG
 from ploomber.tasks import NotebookRunner
 from ploomber.products import File
@@ -20,6 +23,7 @@ import jupytext
 from jupyblog.expand import expand
 from jupyblog.md import find_metadata_lines, delete_metadata
 
+# %%
 header_template = """\
 <!-- start header -->
 To run this locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n {name}`
@@ -32,6 +36,7 @@ Questions? [Ask us on Slack.](https://ploomber.io/community/)
 """
 
 
+# %%
 def front_matter_lines(md):
     try:
         return find_metadata_lines(md)
@@ -39,6 +44,7 @@ def front_matter_lines(md):
         return (0, 0)
 
 
+# %%
 def add_md_header(path, content):
     # if there is no link to binder, add it. Some readmes (like the root one)
     # customize the description for the buttons so we don't add one there
@@ -51,6 +57,7 @@ def add_md_header(path, content):
     return content
 
 
+# %%
 def process_cell(cell):
     # TODO: remove this
     if 'tags' in cell.metadata and 'bash' in cell.metadata.tags:
@@ -60,6 +67,7 @@ def process_cell(cell):
         cell['source'] = cell['source'].replace('%%python', '')
 
 
+# %%
 def make_task(dag, readme):
     content = Path(readme).read_text()
 
@@ -94,6 +102,7 @@ def make_task(dag, readme):
     return path_to_expanded
 
 
+# %%
 def _expand_source(product, resources_):
     path_to_source = resources_['path_to_source']
     print(f'Expanding {str(path_to_source)}...')
@@ -116,6 +125,7 @@ def _expand_source(product, resources_):
     Path(product).write_text(md)
 
 
+# %%
 def expand_source(path_to_source, dag):
     path_to_source = Path(path_to_source)
     return PythonCallable(
@@ -126,6 +136,7 @@ def expand_source(path_to_source, dag):
         params=dict(resources_=dict(path_to_source=str(path_to_source))))
 
 
+# %%
 def _execute(upstream, relative_path, product):
     relative_path = Path(relative_path)
 
@@ -165,6 +176,7 @@ def _execute(upstream, relative_path, product):
                         log_output=True)
 
 
+# %%
 def execute(relative_path, dag):
     product = Path(relative_path, 'README.ipynb')
     return PythonCallable(_execute,
@@ -174,6 +186,7 @@ def execute(relative_path, dag):
                           params=dict(relative_path=str(relative_path)))
 
 
+# %%
 def _create_readme(upstream, relative_path, product):
     """
     Add README.ipynb in the header and delete front matter
@@ -199,6 +212,7 @@ def _create_readme(upstream, relative_path, product):
     Path(product).write_text(content)
 
 
+# %%
 def create_readme(relative_path, dag):
     product = Path(relative_path, 'README.md')
     return PythonCallable(_create_readme,
@@ -208,6 +222,7 @@ def create_readme(relative_path, dag):
                           params=dict(relative_path=str(relative_path)))
 
 
+# %%
 def _make_path(parent_dir, folder):
     if folder == '.':
         return Path(parent_dir, folder, 'README.md')
@@ -215,6 +230,7 @@ def _make_path(parent_dir, folder):
         return Path(parent_dir, folder, '_source.md')
 
 
+# %%
 def check_file(folders, file):
     missing_env_yml = [
         folder for folder in folders if not Path(folder, file).exists()
@@ -224,6 +240,7 @@ def check_file(folders, file):
         raise ValueError(f'Missing {file}: {missing_env_yml}')
 
 
+# %%
 def save_per_folder_requirements_txt(pip_deps_by_folder):
     print('\n')
     for folder, reqs in pip_deps_by_folder.items():
@@ -233,6 +250,7 @@ def save_per_folder_requirements_txt(pip_deps_by_folder):
     print('\n')
 
 
+# %%
 def extract_conda_deps(folder):
     with open(Path(folder, 'environment.yml')) as f:
         d = yaml.safe_load(f)
@@ -240,6 +258,7 @@ def extract_conda_deps(folder):
     return d['dependencies'][:-1]
 
 
+# %%
 def extract_pip_deps(folder):
     with open(Path(folder, 'environment.yml')) as f:
         deps = yaml.safe_load(f)
@@ -253,6 +272,7 @@ def extract_pip_deps(folder):
         return sorted(pip_deps['pip'])
 
 
+# %%
 def write_root_dep_files_and_examples_reqs_txt(folders):
     """
     Write the root environment.yml, root requirements.txt and per example
@@ -294,6 +314,7 @@ def write_root_dep_files_and_examples_reqs_txt(folders):
     return conda
 
 
+# %%
 def make(name=None, parent_dir='.', force=False):
     """
     Process _source.md files from given folders, executes them inline
@@ -350,6 +371,7 @@ def make(name=None, parent_dir='.', force=False):
     return dag
 
 
+# %%
 def build(name=None, parent_dir='.', force=False, log=False):
     if log:
         logging.basicConfig(level=logging.INFO)
