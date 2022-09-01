@@ -1,0 +1,1 @@
+Just run ```main.py``` for converting the all scripts inside the projects.
