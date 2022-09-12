@@ -37,8 +37,6 @@ tasks:
   papermill_params: 
     allow_nested_loop: True
   nbconvert_export_kwargs:
-    # optionally hide the code from the report
-    exclude_input: True
     
 - source: tasks/polynomial-regression.py
   product:
