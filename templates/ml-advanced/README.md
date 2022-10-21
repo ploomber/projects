@@ -16,6 +16,13 @@ For a notebook version (with outputs) of this file, [click here](https://github.
 ML pipeline using the Python API. Shows how to create a Python package, test it with pytest, and train models in parallel.
 <!-- end description -->
 
+## Setup
+
+```sh
+pip install -r requirements.txt
+pip install --editable .
+```
+
 ## Build
 
 ```sh

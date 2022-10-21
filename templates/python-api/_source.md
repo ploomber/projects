@@ -29,6 +29,13 @@ This pipeline has three tasks:
 2. Clean task (Python script):  Jupyter notebook and another CSV file
 3. Plot task (Python scripts): Jupyter notebook
 
+## Setup
+
+```sh
+pip install -r requirements.txt
+pip install --editable .
+```
+
 ## Build
 
 ```bash
