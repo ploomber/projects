@@ -10,6 +10,7 @@ pipeline.png
 output-test/
 **/README-preprocessed.ipynb
 environment.lock.yml
+.DS_Store
 
 # Ignore all in any output/ folder except README.txt - this is just to make
 # sure the folder exists in the repo and "ploomber build" runs without having
