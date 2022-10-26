@@ -1,7 +1,7 @@
 name: debugging
 
 dependencies:
-  
+  - python=3.10
   - pandas
   - scikit-learn
   - pip:

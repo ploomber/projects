@@ -1,7 +1,7 @@
 name: ml-advanced
 
 dependencies:
-  
+  - python=3.10
   - pip
   - pip:
     - ploomber

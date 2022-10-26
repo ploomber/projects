@@ -1,7 +1,7 @@
 name: testing
 
 dependencies:
-  
+  - python=3.10
   - pandas
   - pip
   - pip:

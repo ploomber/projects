@@ -1,6 +1,6 @@
 name: parametrized
 
 dependencies:
-  
+  - python=3.10
   - pip:
     - ploomber
