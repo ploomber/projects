@@ -27,9 +27,10 @@ def setup(c, create_conda=True):
 
     c.run(cmd)
 
-    c.run('cd spec-api-sql/setup && bash setup.sh')
+    c.run('cd templates/spec-api-sql/setup && bash setup.sh')
 
-    print('Done! Activate your environment with:\n' 'conda activate projects')
+    print('Done! Activate your environment with:\n'
+          'conda activate projects')
 
 
 @task

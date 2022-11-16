@@ -1,0 +1,28 @@
+tasks:
+  - source: tasks/load.py
+    product:
+      nb: output/load.ipynb
+      data: output/raw.csv
+    params:
+      index: 
+        dotted_path: params::get_index
+        path_to_index: '{{root}}/index.json'
+
+      path_to_db: '{{root}}/data.db'
+
+    on_finish: hooks.check_if_new_records
+
+  - source: tasks/process.py
+    product:
+      nb: output/process.ipynb
+      data: output/processed.csv
+
+  - source: tasks/upload.py
+    product:
+      nb: output/upload.ipynb
+    params:
+      path_to_db: '{{root}}/data.db'
+
+    on_finish:
+      dotted_path: hooks.store_index
+      path_to_index: '{{root}}/index.json'

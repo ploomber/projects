@@ -21,6 +21,7 @@ jobs:
           - cookbook/file-client
           - cookbook/report-generation
           - cookbook/hooks
+          - cookbook/incremental
           - guides/debugging
           - guides/sql-templating
           - guides/logging

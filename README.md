@@ -95,25 +95,27 @@ Starting points for common use cases. Use them to ramp up a project quickly.
 Short and to-the-point examples showing how to use a specific feature.
 
 
-1. [`cookbook/dynamic-params`](cookbook/dynamic-params/README.ipynb) Pipeline parameters whose values are computed at runtime.
+2. [`cookbook/dynamic-params`](cookbook/dynamic-params/README.ipynb) Pipeline parameters whose values are computed at runtime.
 
-2. [`cookbook/file-client`](cookbook/file-client/README.ipynb) Upload task's products upon execution (local, S3, GCloud storage)
+3. [`cookbook/file-client`](cookbook/file-client/README.ipynb) Upload task's products upon execution (local, S3, GCloud storage)
 
-3. [`cookbook/grid`](cookbook/grid/README.ipynb) An example showing how to create a grid of tasks to train models with different parameters.
+4. [`cookbook/grid`](cookbook/grid/README.ipynb) An example showing how to create a grid of tasks to train models with different parameters.
 
-4. [`cookbook/hooks`](cookbook/hooks/README.ipynb) Task hooks
+5. [`cookbook/hooks`](cookbook/hooks/README.ipynb) Task hooks
 
-5. [`cookbook/nested-cv`](cookbook/nested-cv/README.ipynb) Nested cross-validation for model selection and hyperparameter tuning.
+6. [`cookbook/incremental`](cookbook/incremental/README.ipynb) A pipeline that processes new records from a database and uploads them.
 
-6. [`cookbook/python-load`](cookbook/python-load/README.ipynb) Load pipeline.yaml file in a Python session to customize initialization.
+7. [`cookbook/nested-cv`](cookbook/nested-cv/README.ipynb) Nested cross-validation for model selection and hyperparameter tuning.
 
-7. [`cookbook/report-generation`](cookbook/report-generation/README.ipynb) Generating HTML/PDF reports.
+8. [`cookbook/python-load`](cookbook/python-load/README.ipynb) Load pipeline.yaml file in a Python session to customize initialization.
 
-8. [`cookbook/serialization`](cookbook/serialization/README.ipynb) Shows how to use the serializer and unserializer decorators.
+9. [`cookbook/report-generation`](cookbook/report-generation/README.ipynb) Generating HTML/PDF reports.
 
-9. [`cookbook/sql-dump`](cookbook/sql-dump/README.ipynb) A minimal example showing how to dump a table from a SQL database.
+10. [`cookbook/serialization`](cookbook/serialization/README.ipynb) Shows how to use the serializer and unserializer decorators.
 
-11. [`cookbook/variable-number-of-products`](cookbook/variable-number-of-products/README.ipynb) Shows how to create tasks whose number of products depends on runtime conditions.
+11. [`cookbook/sql-dump`](cookbook/sql-dump/README.ipynb) A minimal example showing how to dump a table from a SQL database.
+
+13. [`cookbook/variable-number-of-products`](cookbook/variable-number-of-products/README.ipynb) Shows how to create tasks whose number of products depends on runtime conditions.
 
 
 ### Guides
@@ -121,29 +123,29 @@ Short and to-the-point examples showing how to use a specific feature.
 In-depth tutorials for learning.  These are part of the [documentation](https://docs.ploomber.io/en/latest/user-guide/index.html).
 
 
-2. [`guides/cron`](guides/cron/README.ipynb) This guide shows how to schedule Ploomber pipelines using cron.
+5. [`guides/cron`](guides/cron/README.ipynb) This guide shows how to schedule Ploomber pipelines using cron.
 
-3. [`guides/debugging`](guides/debugging/README.ipynb) Tutorial showing techniques for debugging pipelines.
+6. [`guides/debugging`](guides/debugging/README.ipynb) Tutorial showing techniques for debugging pipelines.
 
-4. [`guides/first-pipeline`](guides/first-pipeline/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
+7. [`guides/first-pipeline`](guides/first-pipeline/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
 
-5. [`guides/intro-to-ploomber`](guides/intro-to-ploomber/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
+8. [`guides/intro-to-ploomber`](guides/intro-to-ploomber/README.ipynb) Introductory tutorial to learn the basics of Ploomber.
 
-6. [`guides/logging`](guides/logging/README.ipynb) Tutorial showing how to add logging to a pipeline.
+9. [`guides/logging`](guides/logging/README.ipynb) Tutorial showing how to add logging to a pipeline.
 
-7. [`guides/monitoring`](guides/monitoring/README.ipynb) To show the capabilities we'll run our pipeline monitoring through a pre-built Ploomber template: ml-basic.
+10. [`guides/monitoring`](guides/monitoring/README.ipynb) To show the capabilities we'll run our pipeline monitoring through a pre-built Ploomber template: ml-basic.
 
-8. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
+11. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
 
-9. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
+12. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
 
-10. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
+13. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
 
-11. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
+14. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
 
-12. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
+15. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
 
-13. [`guides/versioning`](guides/versioning/README.ipynb) A tutorial showing how to version pipeline products.
+16. [`guides/versioning`](guides/versioning/README.ipynb) A tutorial showing how to version pipeline products.
 
 
 
