@@ -1,0 +1,2 @@
+[tool.pkgmt.check_links]
+extensions = ["md", "rst", "py", "ipynb"]
