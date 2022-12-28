@@ -5,3 +5,4 @@ ploomber
 pyarrow
 scikit-learn
 seaborn
+sklearn-evaluation
