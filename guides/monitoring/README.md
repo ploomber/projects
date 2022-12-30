@@ -59,7 +59,7 @@ tasks:
 
 Go to the cloud and setup your key, add your email address:
 
-https://main.d3mpv0f3dqco4e.amplifyapp.com/register
+https://www.cloud.ploomber.io/register/
 
 ```bash
 ploomber cloud set-key $YOUR_API_KEY

@@ -1,2 +1,4 @@
 [tool.pkgmt.check_links]
 extensions = ["md", "rst", "py", "ipynb"]
+ignore_substrings = ["127.0.0.1"] # optional: ignore links with any of these substrings
+
