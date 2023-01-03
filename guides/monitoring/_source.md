@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.13.0
+      jupytext_version: 1.14.4
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -41,7 +41,7 @@ Let's take a look at the `pipeline.yaml`:
 
 Go to the cloud and setup your key, add your email address:
 
-https://main.d3mpv0f3dqco4e.amplifyapp.com/register
+https://www.cloud.ploomber.io/register/
 
 ```bash
 ploomber cloud set-key $YOUR_API_KEY
@@ -59,8 +59,7 @@ ploomber cloud get-pipelines
 ```
 now let's run the sample ml-basic pipeline and see how it's tracked
 
-```python
-%%sh --no-raise-error
+```sh magic_args="--no-raise-error"
 ploomber build
 ```
 
@@ -83,8 +82,7 @@ raise ValueError("This is a sample error in the model fit")
 """)
 ```
 
-```python
-%%sh --no-raise-error
+```sh magic_args="--no-raise-error"
 ploomber build
 ```
 
@@ -102,8 +100,7 @@ ploomber cloud get-pipelines active
 We can also delete errored pipelines if we'd like to for instance we can run the command below to delete the ml pipeline.
 
 
-```python
-%%sh --no-raise-error
+```sh magic_args="--no-raise-error"
 ploomber cloud delete-pipeline 9448f7ee-cc90-4e8a-8539-98e2ed0b4061
 ```
 
