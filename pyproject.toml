@@ -1,4 +1,8 @@
 [tool.pkgmt.check_links]
 extensions = ["md", "rst", "py", "ipynb"]
-ignore_substrings = ["127.0.0.1"] # optional: ignore links with any of these substrings
-
+ignore_substrings = ["127.0.0.1",
+                     "{x}.mybinder.org",
+                     # no idea why this returns 404
+                     "https://www.cloud.ploomber.io/register/",
+                     # kaggle returns 404 on head requests
+                     "https://www.kaggle.com/code/mnassrib/titanic-logistic-regression-with-python"]

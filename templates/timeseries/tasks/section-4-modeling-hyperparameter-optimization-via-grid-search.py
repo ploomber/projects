@@ -26,7 +26,7 @@ y = pickle.loads(Path(upstream['section-2-preprocess-data']['y']).read_bytes())
 # ## 4 Modeling: Hyperparameter optimization via grid search
 
 # %% [markdown]
-# _The following is from https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-arima-in-python-3._
+# The following is from: https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-arima-in-python-3
 #
 # > There are three distinct integers `p`, `d`, `q` that are used to parametrize ARIMA models. Because of that, ARIMA models are denoted with the notation `ARIMA(p, d, q)`. Together these three parameters account for seasonality, trend, and noise in datasets.
 # > 
