@@ -5,4 +5,6 @@ ignore_substrings = ["127.0.0.1",
                      # no idea why this returns 404
                      "https://www.cloud.ploomber.io/register/",
                      # kaggle returns 404 on head requests
-                     "https://www.kaggle.com/code/mnassrib/titanic-logistic-regression-with-python"]
+                     "https://www.kaggle.com/code/mnassrib/titanic-logistic-regression-with-python",
+                     # no idea why this returns 404
+                     "https://binder.ploomber.io/v2/gh/ploomber/binder-env"]
