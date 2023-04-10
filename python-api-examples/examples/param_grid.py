@@ -18,7 +18,7 @@ def get_data(product, dates):
     """
     dates_series = pd.date_range(start=dates[0],
                                  end=dates[1],
-                                 closed='left',
+                                 inclusive='left',
                                  freq='D')
     values = np.random.rand(dates_series.shape[0])
     df = pd.DataFrame({'dates': dates_series, 'values': values})
