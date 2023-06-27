@@ -1,3 +1,0 @@
-airflow-bash:
-  backend: airflow
-  repository: null
