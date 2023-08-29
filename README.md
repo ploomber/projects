@@ -133,19 +133,17 @@ In-depth tutorials for learning.  These are part of the [documentation](https://
 
 9. [`guides/logging`](guides/logging/README.ipynb) Tutorial showing how to add logging to a pipeline.
 
-10. [`guides/monitoring`](guides/monitoring/README.ipynb) To show the capabilities we'll run our pipeline monitoring through a pre-built Ploomber template: ml-basic.
+10. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
 
-11. [`guides/parametrized`](guides/parametrized/README.ipynb) Tutorial showing how to parametrize pipelines and change parameters from the command-line.
+11. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
 
-12. [`guides/refactor`](guides/refactor/README.ipynb) Using Soorgeon to convert a notebook into a Ploomber pipeline.
+12. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
 
-13. [`guides/serialization`](guides/serialization/README.ipynb) Tutorial explaining how the serializer and unserializer fields in a pipeline.yaml file work.
+13. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
 
-14. [`guides/sql-templating`](guides/sql-templating/README.ipynb) Introductory tutorial teaching how to develop modular SQL pipelines.
+14. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
 
-15. [`guides/testing`](guides/testing/README.ipynb) Tutorial showing how to use a task's on_finish hook to test data quality.
-
-16. [`guides/versioning`](guides/versioning/README.ipynb) A tutorial showing how to version pipeline products.
+15. [`guides/versioning`](guides/versioning/README.ipynb) A tutorial showing how to version pipeline products.
 
 
 
