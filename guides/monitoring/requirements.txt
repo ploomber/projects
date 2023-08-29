@@ -1,7 +1,0 @@
-google-cloud-storage
-jupyter
-pandas
-ploomber
-pyarrow
-scikit-learn
-sklearn-evaluation
