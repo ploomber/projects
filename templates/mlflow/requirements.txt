@@ -1,5 +1,7 @@
 jupyter
 mlflow
+# mlflow incompatibility: https://github.com/mlflow/mlflow/issues/9331
+pydantic<2
 pandas
 ploomber
 scikit-learn
