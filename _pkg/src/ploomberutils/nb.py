@@ -72,6 +72,7 @@ def make_task(dag, readme):
 
     parent = Path(readme).parent
     preprocessed = str(parent / 'README-preprocessed.ipynb')
+    print(f"Writing to : {str(parent / 'README.ipynb')}")
     out = str(parent / 'README.ipynb')
 
     nbformat.write(nb, preprocessed)
