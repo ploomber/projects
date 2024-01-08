@@ -320,10 +320,6 @@ mlflow ui
 
 Upon initialization, go to [http://127.0.0.1:5000](http://127.0.0.1:5000) to open MLflow (`5000` is the default port, but it may change, check out the URL printed in the terminal)
 
-*If you're running this example on Binder:*
-
-The URL in your browser should look like this `https://{x}.mybinder.org/user/ploomber-{y}/lab/tree/projects/mlflow`. Copy the URL, open a new tab and delete everything after the `ploomber-y` portion (in our case, that would be `lab/tree/projects/mlflow`) and append `proxy/5000/` (note the trailing `/`), your URL should look like this: `https://{x}.mybinder.org/user/ploomber-{y}/proxy/5000/`.
-
 
 <!-- #region -->
 ## Visualizing results in MLflow (CLI)
@@ -333,13 +329,7 @@ If you're running this example locally, you may start MLflow with the following 
 ```sh
 mlflow ui
 ```
-
-If you're using Binder, you can use MLflow's CLI to see the results. List experiments:
 <!-- #endregion -->
-
-```bash
-mlflow experiments search
-```
 
 > **Note:** If you are using a Mlflow version prior to 2.0.1, please use the command `mlflow experiments list` to list all experiments.
 
