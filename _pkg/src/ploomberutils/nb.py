@@ -24,8 +24,6 @@ header_template = """\
 <!-- start header -->
 To run this locally, [install Ploomber](https://docs.ploomber.io/en/latest/get-started/quick-start.html) and execute: `ploomber examples -n {name}`
 
-[![binder-logo](https://raw.githubusercontent.com/ploomber/projects/master/_static/open-in-jupyterlab.svg)](https://binder.ploomber.io/v2/gh/ploomber/binder-env/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fploomber%252Fprojects%26urlpath%3Dlab%252Ftree%252Fprojects%252F{name}%252FREADME.ipynb%26branch%3Dmaster)
-
 Questions? [Ask us on Slack.](https://ploomber.io/community/)
 <!-- end header -->
 
@@ -277,9 +275,6 @@ def write_root_dep_files_and_examples_reqs_txt(folders):
     conda_deps.remove('pip')
     conda_deps = sorted(conda_deps)
 
-    # add nbgitpuller for binder links to work
-    conda_deps.append({'pip': sorted(pip_deps + ['nbgitpuller'])})
-
     conda = {
         'name': 'projects',
         'channels': ['conda-forge'],
@@ -321,10 +316,6 @@ def make(name=None, parent_dir='.', force=False):
 
     env_yml = write_root_dep_files_and_examples_reqs_txt(folders_all)
 
-    if not name:
-        # export to binder env repo
-        Path('../binder-env/environment.yml').write_text(env_yml)
-
     dag = DAG(executor=Serial(build_in_subprocess=False))
 
     paths = [
@@ -358,5 +349,4 @@ def build(name=None, parent_dir='.', force=False, log=False):
 
     print(dag.build(force=force))
 
-    print('Done. If the environment.yml needs to be built again, '
-          'push changes from the binder-env repository.')
+    print('Done.')

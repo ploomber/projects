@@ -158,10 +158,9 @@ To select specific lines:
 2. Compile all */_source.md files (to generate */README.md)
 2. Execute all */README.md files (to generate */README.ipynb)
 3. Generate requirements.txt from environment.yml
-4. Generate repository-level requirements.txt and environment.yml for binder
+4. Generate repository-level requirements.txt and environment.yml.
 
-**Note:** The repository-level environment.yml is saved in a different repo to allow
-quick Binder loading.
+**Note:** The repository-level environment.yml is saved in a different repo.
 
 **Note:** If you want to exclude a task from being executed by the build task (and skipped from the index), add a `.skip` file.
 
