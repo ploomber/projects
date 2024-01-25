@@ -18,6 +18,11 @@
   <a href="mailto:contact@ploomber.io">Contact us</a>
 </p>
 
+
+> [!TIP]
+> Deploy AI apps for free on [Ploomber Cloud!](https://ploomber.io/?utm_medium=github&utm_source=projects)
+
+
 This repository contains sample pipelines developed using [Ploomber](https://github.com/ploomber/ploomber).
 
 **Note:** We recommend you to go through the [first tutorial](https://docs.ploomber.io/en/latest/get-started/first-pipeline.html) to learn the basics of Ploomber.
